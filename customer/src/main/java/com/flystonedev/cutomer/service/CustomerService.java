@@ -1,11 +1,17 @@
 package com.flystonedev.cutomer.service;
 
 
+import com.flystonedev.cutomer.mapper.CustomerMapper;
 import com.flystonedev.cutomer.model.Customer;
 import com.flystonedev.cutomer.records.CustomerRegistrationRequest;
+import com.flystonedev.cutomer.records.CustomerResponse;
 import com.flystonedev.cutomer.repository.CustomerRepository;
 import lombok.AllArgsConstructor;
+import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -18,7 +24,7 @@ public class CustomerService {
 //        this.customerRepository = customerRepository;
 //    }
 
-//    private final CustomerMapper customerMapper = Mappers.getMapper(CustomerMapper.class);
+    private final CustomerMapper customerMapper = Mappers.getMapper(CustomerMapper.class);
 
 
     public void registerCustomer(CustomerRegistrationRequest request) {
@@ -33,13 +39,13 @@ public class CustomerService {
         customerRepository.save(customer);
     }
 
-//    public List<CustomerResponse> listOfAllCustomers(){
-//        List<Customer> customersList = customerRepository.findAll();
-//        return customersList.stream().map(customerMapper::map).collect(Collectors.toList());
-//    }
-//    public CustomerResponse get(Integer id){
-//        return customerRepository.findById(id).map(customer -> customerMapper.map(customer)).orElse(null);
-//    }
+    public List<CustomerResponse> listOfAllCustomers(){
+        List<Customer> customersList = customerRepository.findAll();
+        return customersList.stream().map(customerMapper::map).collect(Collectors.toList());
+    }
+    public CustomerResponse get(Integer id){
+        return customerRepository.findById(id).map(customer -> customerMapper.map(customer)).orElse(null);
+    }
 //    public CustomerResponse update(CustomerResponse customerResponse){
 //        CustomerResponse exist = get(customerResponse.id());
 //        if (exist == null) {

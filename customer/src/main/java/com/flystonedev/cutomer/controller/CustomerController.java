@@ -31,15 +31,15 @@ public class CustomerController {
         customerService.registerCustomer(customerRegistrationRequest);
     }
 
-//    @GetMapping
-//    public ResponseEntity<CustomerResponse> get(@RequestParam Integer id){
-//        return ResponseEntity.status(HttpStatus.OK).body(customerService.get(id));
-//    }
-//
-//    @GetMapping("/list")
-//    public ResponseEntity<List<CustomerResponse>> list(){
-//        return ResponseEntity.status(HttpStatus.OK).body(customerService.listOfAllCustomers());
-//    }
+    @GetMapping
+    public ResponseEntity<CustomerResponse> get(@RequestParam Integer id){
+        return ResponseEntity.status(HttpStatus.OK).body(customerService.get(id));
+    }
+
+    @GetMapping("/list")
+    public ResponseEntity<List<CustomerResponse>> list(){
+        return ResponseEntity.status(HttpStatus.OK).body(customerService.listOfAllCustomers());
+    }
 //
 //    @PutMapping
 //    public ResponseEntity<CustomerResponse> update(@RequestBody CustomerResponse customerResponse){
