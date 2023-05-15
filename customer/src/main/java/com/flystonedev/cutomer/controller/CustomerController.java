@@ -40,11 +40,11 @@ public class CustomerController {
     public ResponseEntity<List<CustomerResponse>> list(){
         return ResponseEntity.status(HttpStatus.OK).body(customerService.listOfAllCustomers());
     }
-//
-//    @PutMapping
-//    public ResponseEntity<CustomerResponse> update(@RequestBody CustomerResponse customerResponse){
-//        return ResponseEntity.status(HttpStatus.OK).body(customerService.update(customerResponse));
-//    }
+
+    @PutMapping
+    public ResponseEntity<CustomerResponse> update(@RequestBody CustomerResponse customerResponse){
+        return ResponseEntity.status(HttpStatus.OK).body(customerService.update(customerResponse));
+    }
 
     @DeleteMapping
     public ResponseEntity delete(@RequestParam Integer id){

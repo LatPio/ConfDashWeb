@@ -7,14 +7,14 @@ import org.mapstruct.Mapper;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring")
-public interface CustomerMapper {
+@Mapper(componentModel = "spring") // Aby zadziałało po restarcjie usuń adnotacje zrestrartuj clean build uruchom i wtedy po błedzie usuń tu komentrzra przywaracjąć adnotacjie  wtedy build i powinnien dobrze zrobnić
+public abstract class CustomerMapper {
 
-    CustomerResponse map(Customer customer);
+    public abstract CustomerResponse map(Customer customer);
 
-    Customer map(CustomerResponse customerResponse);
+    public abstract Customer map(CustomerResponse customerResponse);
 
-    List<CustomerResponse> mapToRecord(List<Customer> customerList);
+    public abstract List<CustomerResponse> mapToRecord(List<Customer> customerList);
 
 
 

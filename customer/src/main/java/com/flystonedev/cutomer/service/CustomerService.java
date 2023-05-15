@@ -46,14 +46,14 @@ public class CustomerService {
     public CustomerResponse get(Integer id){
         return customerRepository.findById(id).map(customer -> customerMapper.map(customer)).orElse(null);
     }
-//    public CustomerResponse update(CustomerResponse customerResponse){
-//        CustomerResponse exist = get(customerResponse.id());
-//        if (exist == null) {
-//            return null;
-//        }
-//        Customer updated = customerRepository.save(customerMapper.map(customerResponse));
-//        return customerMapper.map(updated);
-//    }
+    public CustomerResponse update(CustomerResponse customerResponse){
+        CustomerResponse exist = get(customerResponse.id());
+        if (exist == null) {
+            return null;
+        }
+        Customer updated = customerRepository.save(customerMapper.map(customerResponse));
+        return customerMapper.map(updated);
+    }
     public void delete(Integer id){
         customerRepository.deleteById(id);
     }

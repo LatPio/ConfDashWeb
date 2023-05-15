@@ -3,8 +3,10 @@ package com.flystonedev.cutomer.records;
 
 import com.flystonedev.cutomer.model.Department;
 import com.flystonedev.cutomer.model.InformationLinks;
+import lombok.Data;
 
 import java.util.List;
+
 
 public record CustomerResponse(
         Integer id,
