@@ -31,7 +31,7 @@ public class InstitutionService {
         return institutionList.stream().map(institutionMapper::map).collect(Collectors.toList());
     }
     public InstitutionDTO get(Integer id){
-        return institutionRepository.findById(id).map(institution -> institutionMapper.map(institution)).orElse(null);
+        return institutionRepository.findById(id).map(institutionMapper::map).orElse(null);
     }
     public InstitutionDTO update(InstitutionDTO institutionDTO){
         InstitutionDTO exist = get(institutionDTO.getId());

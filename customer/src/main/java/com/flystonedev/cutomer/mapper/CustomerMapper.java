@@ -4,7 +4,7 @@ package com.flystonedev.cutomer.mapper;
 import com.flystonedev.cutomer.DTO.CustomerDTO;
 import com.flystonedev.cutomer.model.Customer;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
+
 
 
 @Mapper(componentModel = "spring")

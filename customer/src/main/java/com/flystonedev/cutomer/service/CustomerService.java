@@ -44,7 +44,7 @@ public class CustomerService {
         return customersList.stream().map(customerMapper::map).collect(Collectors.toList());
     }
     public CustomerDTO get(Integer id){
-        return customerRepository.findById(id).map(customer -> customerMapper.map(customer)).orElse(null);
+        return customerRepository.findById(id).map(customerMapper::map).orElse(null);
     }
     public CustomerDTO update(CustomerDTO customerDTO){
         CustomerDTO exist = get(customerDTO.getId());

@@ -34,7 +34,7 @@ public class InformationLinksService {
     }
 
     public InformationLinksDTO get(Integer id){
-        return informationLinksRepository.findById(id).map(informationLinks -> informationLinksMapper.map(informationLinks)).orElse(null);
+        return informationLinksRepository.findById(id).map(informationLinksMapper::map).orElse(null);
     }
 
     public InformationLinksDTO update(InformationLinksDTO informationLinksDTO){

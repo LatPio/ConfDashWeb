@@ -36,7 +36,7 @@ public class DepartmentService {
     }
 
     public DepartmentDTO get(Integer id){
-        return departmentRepository.findById(id).map(department -> departmentMapper.map(department)).orElse(null);
+        return departmentRepository.findById(id).map(departmentMapper::map).orElse(null);
     }
     public DepartmentDTO update(DepartmentDTO departmentDTO){
         DepartmentDTO exist = get(departmentDTO.getId());

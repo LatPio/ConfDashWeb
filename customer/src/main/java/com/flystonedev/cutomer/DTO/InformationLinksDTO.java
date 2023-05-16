@@ -1,7 +1,6 @@
 package com.flystonedev.cutomer.DTO;
 
 
-import com.flystonedev.cutomer.model.Customer;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

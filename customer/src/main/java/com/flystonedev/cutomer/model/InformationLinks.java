@@ -19,6 +19,6 @@ public class InformationLinks {
     private String name;
     private String urlLink;
     @ManyToOne()
-    @JoinColumn(name = "Customer_id")
+    @JoinColumn(name = "customer_id")
     private Customer customer;
 }
