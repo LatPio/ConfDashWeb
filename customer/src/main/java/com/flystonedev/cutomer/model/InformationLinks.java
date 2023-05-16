@@ -1,13 +1,10 @@
 package com.flystonedev.cutomer.model;
 
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
 
 @Entity
 @Builder
@@ -17,9 +14,11 @@ import jakarta.persistence.ManyToOne;
 public class InformationLinks {
 
     @Id
+    @GeneratedValue
     private Integer id;
     private String name;
     private String urlLink;
     @ManyToOne()
+    @JoinColumn(name = "Customer_id")
     private Customer customer;
 }

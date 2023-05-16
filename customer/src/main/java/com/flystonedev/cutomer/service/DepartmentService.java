@@ -1,8 +1,8 @@
 package com.flystonedev.cutomer.service;
 
+import com.flystonedev.cutomer.DTO.DepartmentDTO;
 import com.flystonedev.cutomer.mapper.DepartmentMapper;
 import com.flystonedev.cutomer.model.Department;
-import com.flystonedev.cutomer.records.DepartmentResponse;
 import com.flystonedev.cutomer.repository.DepartmentRepository;
 import lombok.AllArgsConstructor;
 import org.mapstruct.factory.Mappers;
@@ -19,32 +19,32 @@ public class DepartmentService {
 
     private final DepartmentMapper departmentMapper = Mappers.getMapper(DepartmentMapper.class);
 
-    public void addDepartment(DepartmentResponse departmentResponse){
+    public void addDepartment(DepartmentDTO departmentDTO){
         Department department = Department.builder()
-                .name(departmentResponse.name())
-                .street(departmentResponse.street())
-                .buildingNumber(departmentResponse.buildingNumber())
-                .flatNumber(departmentResponse.flatNumber())
-                .city(departmentResponse.city())
-                .country(departmentResponse.country())
+                .name(departmentDTO.getName())
+                .street(departmentDTO.getStreet())
+                .buildingNumber(departmentDTO.getBuildingNumber())
+                .flatNumber(departmentDTO.getFlatNumber())
+                .city(departmentDTO.getCity())
+                .country(departmentDTO.getCountry())
                 .build();
         departmentRepository.save(department);
     }
-    public List<DepartmentResponse> departmentResponseList(){
+    public List<DepartmentDTO> departmentResponseList(){
         List<Department> departmentList = departmentRepository.findAll();
         return departmentList.stream().map(departmentMapper::map).collect(Collectors.toList());
     }
 
-    public DepartmentResponse get(Integer id){
+    public DepartmentDTO get(Integer id){
         return departmentRepository.findById(id).map(department -> departmentMapper.map(department)).orElse(null);
     }
-    public DepartmentResponse update(DepartmentResponse departmentResponse){
-        DepartmentResponse exist = get(departmentResponse.id());
+    public DepartmentDTO update(DepartmentDTO departmentDTO){
+        DepartmentDTO exist = get(departmentDTO.getId());
         if(exist == null) {
             return null;
         }
 
-        Department updated = departmentRepository.save(departmentMapper.map(departmentResponse));
+        Department updated = departmentRepository.save(departmentMapper.map(departmentDTO));
 
         return departmentMapper.map(updated);
     }

@@ -1,8 +1,8 @@
 package com.flystonedev.cutomer.controller;
 
 
-import com.flystonedev.cutomer.records.CustomerRegistrationRequest;
-import com.flystonedev.cutomer.records.CustomerResponse;
+import com.flystonedev.cutomer.DTO.CustomerDTO;
+import com.flystonedev.cutomer.DTO.CustomerRegistrationRequest;
 import com.flystonedev.cutomer.service.CustomerService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,18 +32,18 @@ public class CustomerController {
     }
 
     @GetMapping
-    public ResponseEntity<CustomerResponse> get(@RequestParam Integer id){
+    public ResponseEntity<CustomerDTO> get(@RequestParam Integer id){
         return ResponseEntity.status(HttpStatus.OK).body(customerService.get(id));
     }
 
     @GetMapping("/list")
-    public ResponseEntity<List<CustomerResponse>> list(){
+    public ResponseEntity<List<CustomerDTO>> list(){
         return ResponseEntity.status(HttpStatus.OK).body(customerService.listOfAllCustomers());
     }
 
     @PutMapping
-    public ResponseEntity<CustomerResponse> update(@RequestBody CustomerResponse customerResponse){
-        return ResponseEntity.status(HttpStatus.OK).body(customerService.update(customerResponse));
+    public ResponseEntity<CustomerDTO> update(@RequestBody CustomerDTO customerDTO){
+        return ResponseEntity.status(HttpStatus.OK).body(customerService.update(customerDTO));
     }
 
     @DeleteMapping

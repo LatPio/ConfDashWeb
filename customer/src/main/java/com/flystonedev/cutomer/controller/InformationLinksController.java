@@ -1,9 +1,6 @@
 package com.flystonedev.cutomer.controller;
 
-import com.flystonedev.cutomer.records.DepartmentResponse;
-import com.flystonedev.cutomer.records.InformationLinksResponse;
-import com.flystonedev.cutomer.repository.InformationLinksRepository;
-import com.flystonedev.cutomer.service.DepartmentService;
+import com.flystonedev.cutomer.DTO.InformationLinksDTO;
 import com.flystonedev.cutomer.service.InformationLinksService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,23 +20,23 @@ public class InformationLinksController {
 
 
     @PostMapping
-    public void addInformationLink(@RequestBody InformationLinksResponse informationLinksResponse){
+    public void addInformationLink(@RequestBody InformationLinksDTO informationLinksResponse){
         log.info("New Department registration to dataBase {}", informationLinksResponse);
         informationLinksService.addLinks(informationLinksResponse);
     }
 
     @GetMapping
-    public ResponseEntity<InformationLinksResponse> get(@RequestParam Integer id){
+    public ResponseEntity<InformationLinksDTO> get(@RequestParam Integer id){
         return ResponseEntity.status(HttpStatus.OK).body(informationLinksService.get(id));
     }
 
     @GetMapping("/list")
-    public ResponseEntity<List<InformationLinksResponse>> list(){
+    public ResponseEntity<List<InformationLinksDTO>> list(){
         return ResponseEntity.status(HttpStatus.OK).body(informationLinksService.informationLinksResponseList());
     }
     @PutMapping
-    public ResponseEntity<InformationLinksResponse> update(@RequestBody InformationLinksResponse informationLinksResponse){
-        return ResponseEntity.status(HttpStatus.OK).body(informationLinksService.update(informationLinksResponse));
+    public ResponseEntity<InformationLinksDTO> update(@RequestBody InformationLinksDTO informationLinksDTO){
+        return ResponseEntity.status(HttpStatus.OK).body(informationLinksService.update(informationLinksDTO));
     }
 
     @DeleteMapping

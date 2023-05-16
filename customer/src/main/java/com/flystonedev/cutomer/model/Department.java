@@ -19,6 +19,7 @@ import java.util.List;
 public class Department {
 
     @Id
+    @GeneratedValue
     private Integer id;
     @Column(name = "Name")
     private String name;
@@ -37,8 +38,8 @@ public class Department {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Institution institution;
-
-    @OneToMany(mappedBy = "department",
+//mappedBy = "department"
+    @OneToMany(
                 cascade = CascadeType.ALL,
                 orphanRemoval = false)
     private List<Customer> customers;

@@ -19,6 +19,7 @@ import java.util.List;
 public class Institution {
 
     @Id
+    @GeneratedValue
     private Integer id;
     private String name;
 

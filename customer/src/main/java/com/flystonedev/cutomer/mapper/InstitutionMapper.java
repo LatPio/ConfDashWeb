@@ -1,13 +1,13 @@
 package com.flystonedev.cutomer.mapper;
 
+import com.flystonedev.cutomer.DTO.InstitutionDTO;
 import com.flystonedev.cutomer.model.Institution;
-import com.flystonedev.cutomer.records.InstitutionRecord;
 import org.mapstruct.Mapper;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = {DepartmentMapper.class})
 public interface InstitutionMapper {
 
-    InstitutionRecord map(Institution institution);
+    InstitutionDTO map(Institution institution);
 
-    Institution map(InstitutionRecord institutionRecord);
+    Institution map(InstitutionDTO institutionDTO);
 }

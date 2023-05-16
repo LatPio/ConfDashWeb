@@ -1,8 +1,6 @@
 package com.flystonedev.cutomer.controller;
 
-import com.flystonedev.cutomer.records.CustomerRegistrationRequest;
-import com.flystonedev.cutomer.records.CustomerResponse;
-import com.flystonedev.cutomer.records.InstitutionRecord;
+import com.flystonedev.cutomer.DTO.InstitutionDTO;
 import com.flystonedev.cutomer.service.InstitutionService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,24 +21,24 @@ public class InstitutionController {
 
 
     @PostMapping
-    public void addInstitution(@RequestBody InstitutionRecord institutionRecord){
+    public void addInstitution(@RequestBody InstitutionDTO institutionRecord){
         log.info("New Customer Registration {}", institutionRecord);
         institutionService.addInstitution(institutionRecord);
     }
 
     @GetMapping
-    public ResponseEntity<InstitutionRecord> get(@RequestParam Integer id){
+    public ResponseEntity<InstitutionDTO> get(@RequestParam Integer id){
         return ResponseEntity.status(HttpStatus.OK).body(institutionService.get(id));
     }
 
     @GetMapping("/list")
-    public ResponseEntity<List<InstitutionRecord>> list(){
+    public ResponseEntity<List<InstitutionDTO>> list(){
         return ResponseEntity.status(HttpStatus.OK).body(institutionService.institutionRecordList());
     }
 
     @PutMapping
-    public ResponseEntity<InstitutionRecord> update(@RequestBody InstitutionRecord institutionRecord){
-        return ResponseEntity.status(HttpStatus.OK).body(institutionService.update(institutionRecord));
+    public ResponseEntity<InstitutionDTO> update(@RequestBody InstitutionDTO institutionDTO){
+        return ResponseEntity.status(HttpStatus.OK).body(institutionService.update(institutionDTO));
     }
 
     @DeleteMapping

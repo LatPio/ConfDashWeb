@@ -1,4 +1,4 @@
-package com.flystonedev.cutomer.records;
+package com.flystonedev.cutomer.DTO;
 
 
 public record CustomerRegistrationRequest(

@@ -1,14 +1,14 @@
 package com.flystonedev.cutomer.mapper;
 
 
+import com.flystonedev.cutomer.DTO.InformationLinksDTO;
 import com.flystonedev.cutomer.model.InformationLinks;
-import com.flystonedev.cutomer.records.InformationLinksResponse;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface InformationLinksMapper {
 
-    InformationLinksResponse map(InformationLinks informationLinks);
+    InformationLinksDTO map(InformationLinks informationLinks);
 
-    InformationLinks map(InformationLinksResponse informationLinksResponse);
+    InformationLinks map(InformationLinksDTO informationLinksDTO);
 }

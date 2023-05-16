@@ -1,10 +1,10 @@
 package com.flystonedev.cutomer.service;
 
 
+import com.flystonedev.cutomer.DTO.CustomerDTO;
 import com.flystonedev.cutomer.mapper.CustomerMapper;
 import com.flystonedev.cutomer.model.Customer;
-import com.flystonedev.cutomer.records.CustomerRegistrationRequest;
-import com.flystonedev.cutomer.records.CustomerResponse;
+import com.flystonedev.cutomer.DTO.CustomerRegistrationRequest;
 import com.flystonedev.cutomer.repository.CustomerRepository;
 import lombok.AllArgsConstructor;
 import org.mapstruct.factory.Mappers;
@@ -39,19 +39,19 @@ public class CustomerService {
         customerRepository.save(customer);
     }
 
-    public List<CustomerResponse> listOfAllCustomers(){
+    public List<CustomerDTO> listOfAllCustomers(){
         List<Customer> customersList = customerRepository.findAll();
         return customersList.stream().map(customerMapper::map).collect(Collectors.toList());
     }
-    public CustomerResponse get(Integer id){
+    public CustomerDTO get(Integer id){
         return customerRepository.findById(id).map(customer -> customerMapper.map(customer)).orElse(null);
     }
-    public CustomerResponse update(CustomerResponse customerResponse){
-        CustomerResponse exist = get(customerResponse.id());
+    public CustomerDTO update(CustomerDTO customerDTO){
+        CustomerDTO exist = get(customerDTO.getId());
         if (exist == null) {
             return null;
         }
-        Customer updated = customerRepository.save(customerMapper.map(customerResponse));
+        Customer updated = customerRepository.save(customerMapper.map(customerDTO));
         return customerMapper.map(updated);
     }
     public void delete(Integer id){

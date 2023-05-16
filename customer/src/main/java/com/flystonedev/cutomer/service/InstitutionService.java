@@ -1,11 +1,10 @@
 package com.flystonedev.cutomer.service;
 
+import com.flystonedev.cutomer.DTO.InstitutionDTO;
 import com.flystonedev.cutomer.mapper.InstitutionMapper;
 import com.flystonedev.cutomer.model.Institution;
-import com.flystonedev.cutomer.records.InstitutionRecord;
 import com.flystonedev.cutomer.repository.InstitutionRepository;
 import lombok.AllArgsConstructor;
-import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
 
@@ -20,26 +19,26 @@ public class InstitutionService {
 
     private final InstitutionMapper institutionMapper = Mappers.getMapper(InstitutionMapper.class);
 
-    public void addInstitution(InstitutionRecord institutionRecord){
+    public void addInstitution(InstitutionDTO institutionDTO){
         Institution institution = Institution.builder()
-                .name(institutionRecord.name())
+                .name(institutionDTO.getName())
                 .build();
         institutionRepository.save(institution);
     }
 
-    public List<InstitutionRecord> institutionRecordList(){
+    public List<InstitutionDTO> institutionRecordList(){
         List<Institution> institutionList = institutionRepository.findAll();
         return institutionList.stream().map(institutionMapper::map).collect(Collectors.toList());
     }
-    public InstitutionRecord get(Integer id){
+    public InstitutionDTO get(Integer id){
         return institutionRepository.findById(id).map(institution -> institutionMapper.map(institution)).orElse(null);
     }
-    public InstitutionRecord update(InstitutionRecord institutionRecord){
-        InstitutionRecord exist = get(institutionRecord.id());
+    public InstitutionDTO update(InstitutionDTO institutionDTO){
+        InstitutionDTO exist = get(institutionDTO.getId());
         if (exist == null) {
             return null;
         }
-        Institution updated = institutionRepository.save(institutionMapper.map(institutionRecord));
+        Institution updated = institutionRepository.save(institutionMapper.map(institutionDTO));
         return institutionMapper.map(updated);
 
     }
