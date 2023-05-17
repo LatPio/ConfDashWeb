@@ -38,8 +38,7 @@ public class Department {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Institution institution;
-//mappedBy = "department"
-    @OneToMany(
+    @OneToMany(mappedBy = "department",
                 cascade = CascadeType.ALL,
                 orphanRemoval = false)
     private List<Customer> customers;

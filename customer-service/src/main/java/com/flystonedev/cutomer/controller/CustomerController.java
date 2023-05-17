@@ -21,10 +21,6 @@ public class CustomerController {
 
     private final CustomerService customerService;
 
-//    public CustomerController(CustomerService customerService) {
-//        this.customerService = customerService;
-//    }
-
     @PostMapping
     public void registerCustomer(@RequestBody CustomerRegistrationRequest customerRegistrationRequest){
         log.info("New Customer Registration {}", customerRegistrationRequest);
@@ -55,4 +51,5 @@ public class CustomerController {
     //todo admin access
     //todo customer access
     //todo keycloak user Storage SPI implementation
+    //todo adding photo
 }

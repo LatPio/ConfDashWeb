@@ -19,11 +19,6 @@ import java.util.stream.Collectors;
 public class CustomerService {
 
     private final CustomerRepository customerRepository;
-
-//    public CustomerService(CustomerRepository customerRepository) {
-//        this.customerRepository = customerRepository;
-//    }
-
     private final CustomerMapper customerMapper = Mappers.getMapper(CustomerMapper.class);
 
 

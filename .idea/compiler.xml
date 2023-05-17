@@ -17,8 +17,13 @@
           <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct-processor/1.5.5.Final/mapstruct-processor-1.5.5.Final.jar" />
           <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct/1.5.5.Final/mapstruct-1.5.5.Final.jar" />
         </processorPath>
-        <module name="customer" />
+        <module name="customer-service" />
+        <module name="abstracts-service" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="abstract-service" target="17" />
+      <module name="customer" target="17" />
+    </bytecodeTargetLevel>
   </component>
 </project>
