@@ -9,6 +9,6 @@ import org.mapstruct.Mapper;
 public interface AbstractMapper {
 
     AbstractDTO map(AbstractsEntity abstracts);
-
     AbstractsEntity map(AbstractDTO abstractDTO);
+
 }

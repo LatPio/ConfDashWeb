@@ -14,6 +14,7 @@
   <modules>
     <module>customer-service</module>
     <module>abstracts-service</module>
+    <module>localization-service</module>
   </modules>
 
   <properties>
