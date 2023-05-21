@@ -25,7 +25,10 @@ public class Localization {
             generator = "localization_id_sequence"
     )
     private Integer id;
+    private String building;
     private String room;
+    private String flor;
+    private String linkToExternalMap;
     private Integer coordinateX;
     private Integer coordinateY;
     private byte[] mapImage;

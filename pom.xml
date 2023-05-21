@@ -15,6 +15,8 @@
     <module>customer-service</module>
     <module>abstracts-service</module>
     <module>localization-service</module>
+    <module>event-service</module>
+    <module>site_management-service</module>
   </modules>
 
   <properties>

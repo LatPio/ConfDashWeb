@@ -1,12 +1,12 @@
-package com.flystonedev.localization;
+package com.flystonedev.event;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class LocalizationApplication {
+public class EventApplication {
     public static void main(String[] args) {
-        SpringApplication.run(LocalizationApplication.class, args);
 
+        SpringApplication.run(EventApplication.class, args);
     }
 }
