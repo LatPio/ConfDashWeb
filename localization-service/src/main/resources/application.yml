@@ -2,11 +2,11 @@ server:
   port: 8083
 spring:
   application:
-    name: abstractsService
+    name: localizationService
   datasource:
     username: confdashweb
     password: password
-    url: jdbc:postgresql://localhost:5432/abstracts
+    url: jdbc:postgresql://localhost:5432/localization
   jpa:
     hibernate:
       ddl-auto: create-drop

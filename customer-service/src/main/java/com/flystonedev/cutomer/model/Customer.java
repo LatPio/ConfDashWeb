@@ -46,8 +46,10 @@ public class Customer {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id")
     private Department department;
-    @Column(name = "Profile_Photo")
-    private byte[] photo;
+
+    @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private ProfilePhoto photo;
     @CreationTimestamp
     @Column(name = "Creation_Date", updatable = false)
     private Instant createdAt;

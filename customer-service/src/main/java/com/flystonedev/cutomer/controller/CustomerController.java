@@ -6,10 +6,14 @@ import com.flystonedev.cutomer.DTO.CustomerRegistrationRequest;
 import com.flystonedev.cutomer.service.CustomerService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 
@@ -39,8 +43,26 @@ public class CustomerController {
 
     @PutMapping
     public ResponseEntity<CustomerDTO> update(@RequestBody CustomerDTO customerDTO){
+
         return ResponseEntity.status(HttpStatus.OK).body(customerService.update(customerDTO));
     }
+//    @PutMapping(consumes = {"multipart/form-data"}, path = "/file")
+//    public ResponseEntity<CustomerDTO> update(@RequestParam("id") Integer id, @RequestParam("file")MultipartFile file){
+//        CustomerDTO customerDTO = get(id).getBody();
+//        try {
+//            customerDTO.setPhoto(file.getBytes());
+//        } catch (IOException e) {
+//            log.info("tes");
+//            throw new RuntimeException(e);
+//        }
+//        return ResponseEntity.status(HttpStatus.OK).body(customerService.update(customerDTO));
+//    }
+//    @GetMapping(path = "/file")
+//    public ResponseEntity<byte[]> update(@RequestParam("id") Integer id){
+//        CustomerDTO customerDTO = get(id).getBody();
+//
+//        return ResponseEntity.status(HttpStatus.OK).header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + customerDTO.getFirstName() +".png" +"\"").body(customerDTO.getPhoto());
+//    }
 
     @DeleteMapping
     public ResponseEntity delete(@RequestParam Integer id){

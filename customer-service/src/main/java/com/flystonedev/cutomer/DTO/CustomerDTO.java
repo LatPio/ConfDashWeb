@@ -22,5 +22,5 @@ public class CustomerDTO {
     private String phoneNumber;
     private List<InformationLinks> links;
     private DepartmentDTO department;
-    private  byte[] photo;
+    private ProfilePhotoDTO photo;
 }
