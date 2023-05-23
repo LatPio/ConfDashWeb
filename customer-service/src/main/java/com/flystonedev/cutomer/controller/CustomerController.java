@@ -46,23 +46,7 @@ public class CustomerController {
 
         return ResponseEntity.status(HttpStatus.OK).body(customerService.update(customerDTO));
     }
-//    @PutMapping(consumes = {"multipart/form-data"}, path = "/file")
-//    public ResponseEntity<CustomerDTO> update(@RequestParam("id") Integer id, @RequestParam("file")MultipartFile file){
-//        CustomerDTO customerDTO = get(id).getBody();
-//        try {
-//            customerDTO.setPhoto(file.getBytes());
-//        } catch (IOException e) {
-//            log.info("tes");
-//            throw new RuntimeException(e);
-//        }
-//        return ResponseEntity.status(HttpStatus.OK).body(customerService.update(customerDTO));
-//    }
-//    @GetMapping(path = "/file")
-//    public ResponseEntity<byte[]> update(@RequestParam("id") Integer id){
-//        CustomerDTO customerDTO = get(id).getBody();
-//
-//        return ResponseEntity.status(HttpStatus.OK).header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + customerDTO.getFirstName() +".png" +"\"").body(customerDTO.getPhoto());
-//    }
+
 
     @DeleteMapping
     public ResponseEntity delete(@RequestParam Integer id){

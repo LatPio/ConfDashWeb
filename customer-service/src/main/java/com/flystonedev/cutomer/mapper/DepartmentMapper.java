@@ -4,7 +4,7 @@ import com.flystonedev.cutomer.DTO.DepartmentDTO;
 import com.flystonedev.cutomer.model.Department;
 import org.mapstruct.Mapper;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = {InstitutionMapper.class})
 public interface DepartmentMapper {
 
   DepartmentDTO map(Department department);

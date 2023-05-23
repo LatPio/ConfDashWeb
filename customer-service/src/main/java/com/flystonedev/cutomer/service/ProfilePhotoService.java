@@ -1,8 +1,11 @@
 package com.flystonedev.cutomer.service;
 
+import com.flystonedev.cutomer.DTO.CustomerDTO;
 import com.flystonedev.cutomer.DTO.ProfilePhotoDTO;
 import com.flystonedev.cutomer.mapper.ProfilePhotoMapper;
+import com.flystonedev.cutomer.model.Customer;
 import com.flystonedev.cutomer.model.ProfilePhoto;
+import com.flystonedev.cutomer.repository.CustomerRepository;
 import com.flystonedev.cutomer.repository.ProfilePhotoRepository;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 import lombok.AllArgsConstructor;
@@ -22,11 +25,13 @@ public class ProfilePhotoService {
     private final ProfilePhotoRepository profilePhotoRepository;
     private final ProfilePhotoMapper profilePhotoMapper = Mappers.getMapper(ProfilePhotoMapper.class);
 
+    private final CustomerRepository customerRepository;
+
 
     public void savePhoto(MultipartFile file, Integer id) throws IOException{
         String filename = StringUtils.cleanPath(file.getOriginalFilename());
         ProfilePhoto profilePhoto = ProfilePhoto.builder()
-                .id(id)
+                .customer(customerRepository.findById(id).orElse(null))
                 .name(filename)
                 .type(file.getContentType())
                 .data(file.getBytes())

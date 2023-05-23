@@ -15,7 +15,6 @@ import org.hibernate.annotations.GenericGenerator;
 @Table(name = "ProfilePhoto")
 public class ProfilePhoto {
     @Id
-    @Column(name = "customer_id")
     private Integer id;
     private String name;
     private String type;
@@ -24,7 +23,7 @@ public class ProfilePhoto {
 
     @OneToOne
     @MapsId
-    @JoinColumn(name = "customer_id")
+    @JoinColumn
     private Customer customer;
 
 
