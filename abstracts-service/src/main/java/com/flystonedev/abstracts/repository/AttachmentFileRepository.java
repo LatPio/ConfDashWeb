@@ -1,13 +1,13 @@
 package com.flystonedev.abstracts.repository;
 
-import com.flystonedev.abstracts.model.AbstractsEntity;
+import com.flystonedev.abstracts.model.AttachmentFile;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
-public interface AbstractRepository extends JpaRepository<AbstractsEntity, Integer> {
+public interface AttachmentFileRepository extends JpaRepository<AttachmentFile, Integer> {
 
+    @Transactional
+    void deleteById(Integer integer);
 }

@@ -5,7 +5,7 @@ import com.flystonedev.abstracts.DTO.AbstractDTO;
 import com.flystonedev.abstracts.model.AbstractsEntity;
 import org.mapstruct.Mapper;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface AbstractMapper {
 
     AbstractDTO map(AbstractsEntity abstracts);

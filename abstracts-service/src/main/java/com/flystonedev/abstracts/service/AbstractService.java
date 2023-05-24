@@ -5,6 +5,7 @@ import com.flystonedev.abstracts.DTO.AbstractDTO;
 import com.flystonedev.abstracts.mapper.AbstractMapper;
 import com.flystonedev.abstracts.model.AbstractsEntity;
 import com.flystonedev.abstracts.repository.AbstractRepository;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
@@ -27,11 +28,12 @@ public class AbstractService {
                 .build();
         abstractRepository.save(abstracts);
     }
-
+    @Transactional
     public List<AbstractDTO> abstractDTOList(){
         List<AbstractsEntity> abstractsEntityList = abstractRepository.findAll();
         return abstractsEntityList.stream().map(abstractMapper::map).collect(Collectors.toList());
     }
+    @Transactional
     public AbstractDTO get(Integer id){
         return abstractRepository.findById(id).map(abstractMapper::map).orElse(null);
     }

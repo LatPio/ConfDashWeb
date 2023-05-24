@@ -9,6 +9,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.Instant;
+import java.util.List;
 
 @Table(name = "Abstracts")
 @Entity
@@ -31,14 +32,17 @@ public class AbstractsEntity {
     private Integer id;
     private String abstractTitle;
     private String body;
-    private byte[] graphicalAbstract ;
+//    private byte[] graphicalAbstract ;
     private String authors;
     private String affiliation;
-    private byte[] figure;
+//    private byte[] figure;
     private Integer presenterId;
     private Integer ownerId;
     private boolean accepted;
-    private byte[] abstractFile;
+//    private byte[] abstractFile;
+
+    @OneToMany(mappedBy = "abstractsEntity")
+    private List<AttachmentFile> files;
 
     @CreationTimestamp
     @Column(name = "Creation_Date", updatable = false)
