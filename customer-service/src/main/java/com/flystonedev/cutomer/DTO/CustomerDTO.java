@@ -20,7 +20,7 @@ public class CustomerDTO {
     private String email;
     private String degree;
     private String phoneNumber;
-    private List<InformationLinks> links;
+    private List<InformationLinksDTO> links;
     private DepartmentDTO department;
     private ProfilePhotoDTO photo;
 }

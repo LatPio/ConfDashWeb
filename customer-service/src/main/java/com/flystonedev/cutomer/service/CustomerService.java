@@ -8,12 +8,7 @@ import com.flystonedev.cutomer.DTO.CustomerRegistrationRequest;
 import com.flystonedev.cutomer.repository.CustomerRepository;
 import lombok.AllArgsConstructor;
 import org.mapstruct.factory.Mappers;
-import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 

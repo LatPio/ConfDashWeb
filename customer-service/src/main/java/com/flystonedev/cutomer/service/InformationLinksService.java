@@ -1,7 +1,9 @@
 package com.flystonedev.cutomer.service;
 
 import com.flystonedev.cutomer.DTO.InformationLinksDTO;
+import com.flystonedev.cutomer.DTO.InformationLinksRequest;
 import com.flystonedev.cutomer.mapper.InformationLinksMapper;
+import com.flystonedev.cutomer.model.Customer;
 import com.flystonedev.cutomer.model.InformationLinks;
 import com.flystonedev.cutomer.repository.InformationLinksRepository;
 import lombok.AllArgsConstructor;
@@ -19,11 +21,11 @@ public class InformationLinksService {
 
     private final InformationLinksMapper informationLinksMapper = Mappers.getMapper(InformationLinksMapper.class);
 
-    public void addLinks(InformationLinksDTO informationLinksDTO){
+    public void addLinks(InformationLinksRequest informationLinksRequest){
         InformationLinks informationLinks = InformationLinks.builder()
-                .name(informationLinksDTO.getName())
-                .urlLink(informationLinksDTO.getUrlLink())
-//                .customer(informationLinksDTO.)
+                .name(informationLinksRequest.name())
+                .urlLink(informationLinksRequest.urlLink())
+                .customer(Customer.builder().id(informationLinksRequest.customer().getId()).build())
                 .build();
     informationLinksRepository.save(informationLinks);
     }

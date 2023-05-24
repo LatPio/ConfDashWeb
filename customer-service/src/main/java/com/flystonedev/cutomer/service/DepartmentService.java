@@ -1,8 +1,10 @@
 package com.flystonedev.cutomer.service;
 
 import com.flystonedev.cutomer.DTO.DepartmentDTO;
+import com.flystonedev.cutomer.DTO.InstitutionDTO;
 import com.flystonedev.cutomer.mapper.DepartmentMapper;
 import com.flystonedev.cutomer.model.Department;
+import com.flystonedev.cutomer.model.Institution;
 import com.flystonedev.cutomer.repository.DepartmentRepository;
 import lombok.AllArgsConstructor;
 import org.mapstruct.factory.Mappers;
@@ -26,7 +28,9 @@ public class DepartmentService {
                 .buildingNumber(departmentDTO.getBuildingNumber())
                 .flatNumber(departmentDTO.getFlatNumber())
                 .city(departmentDTO.getCity())
+                .postalCode(departmentDTO.getPostalCode())
                 .country(departmentDTO.getCountry())
+                .institution(Institution.builder().id(departmentDTO.getInstitution().getId()).build())
                 .build();
         departmentRepository.save(department);
     }

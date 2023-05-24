@@ -1,6 +1,7 @@
 package com.flystonedev.cutomer.controller;
 
 import com.flystonedev.cutomer.DTO.InformationLinksDTO;
+import com.flystonedev.cutomer.DTO.InformationLinksRequest;
 import com.flystonedev.cutomer.service.InformationLinksService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +21,7 @@ public class InformationLinksController {
 
 
     @PostMapping
-    public void addInformationLink(@RequestBody InformationLinksDTO informationLinksResponse){
+    public void addInformationLink(@RequestBody InformationLinksRequest informationLinksResponse){
         log.info("New Department registration to dataBase {}", informationLinksResponse);
         informationLinksService.addLinks(informationLinksResponse);
     }

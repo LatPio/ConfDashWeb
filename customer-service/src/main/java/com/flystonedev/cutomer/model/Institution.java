@@ -24,8 +24,7 @@ public class Institution {
     private String name;
 
     @OneToMany(mappedBy = "institution",
-                cascade = CascadeType.ALL,
-                orphanRemoval = true)
+                cascade = CascadeType.ALL)
     private List<Department> department;
 
 
