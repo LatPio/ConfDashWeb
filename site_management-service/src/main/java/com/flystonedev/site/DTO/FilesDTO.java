@@ -10,8 +10,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class PhotosAndFilesDTO {
+public class FilesDTO {
     private Integer id;
     private String name;
-    private byte[] file;
+    private String type;
+    private byte[] data;
 }

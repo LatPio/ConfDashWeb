@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Builder
-public class PhotosAndFiles {
+public class Files {
     @Id
     @Column(name = "ID")
     @SequenceGenerator(
@@ -24,7 +24,7 @@ public class PhotosAndFiles {
     )
     private Integer id;
     private String name;
-    @Column(name = "Photo")
-    private byte[] file;
+    private String type;
+    private byte[] data;
 
 }

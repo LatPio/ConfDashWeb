@@ -38,6 +38,7 @@ public class AbstractService {
         return abstractRepository.findById(id).map(abstractMapper::map).orElse(null);
     }
 
+    @Transactional
     public AbstractDTO update(AbstractDTO abstractDTO){
         AbstractDTO exist = get(abstractDTO.getId());
         if (exist == null) {

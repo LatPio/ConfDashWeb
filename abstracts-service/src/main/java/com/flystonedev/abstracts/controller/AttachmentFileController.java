@@ -26,7 +26,6 @@ import java.util.stream.Collectors;
 public class AttachmentFileController {
 
     private final AttachmentFileService attachmentFileService;
-//    private final AbstractService abstractService;
 
     @PostMapping
     public void saveFile(@RequestPart("file")MultipartFile file, @RequestPart("data") AttachmentFileRequest attachmentFileRequest){
@@ -93,9 +92,7 @@ public class AttachmentFileController {
     }
     @DeleteMapping
     public ResponseEntity delete(@RequestParam Integer id){
-//        CustomerDTO customerDTO = customerService.get(id);
-//        customerDTO.setPhoto(null);
-//        customerService.update(customerDTO);
+
         attachmentFileService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
