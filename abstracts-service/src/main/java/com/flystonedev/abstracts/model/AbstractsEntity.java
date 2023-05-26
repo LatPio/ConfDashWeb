@@ -20,7 +20,7 @@ import java.util.List;
 public class AbstractsEntity {
 
     @Id
-    @Column(name = "ID")
+    @Column
     @SequenceGenerator(
             name = "abstract_id_sequence",
             sequenceName = "abstract_id_sequence"
