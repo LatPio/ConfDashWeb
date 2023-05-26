@@ -5,7 +5,7 @@ import com.flystonedev.event.model.EventEntity;
 import com.flystonedev.event.model.EventType;
 import org.mapstruct.Mapper;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface EventEntityMapper {
 
     EventEntityDTO map(EventEntity eventEntity);

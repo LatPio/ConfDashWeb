@@ -32,14 +32,11 @@ public class AbstractsEntity {
     private Integer id;
     private String abstractTitle;
     private String body;
-//    private byte[] graphicalAbstract ;
     private String authors;
     private String affiliation;
-//    private byte[] figure;
     private Integer presenterId;
     private Integer ownerId;
     private boolean accepted;
-//    private byte[] abstractFile;
 
     @OneToMany(mappedBy = "abstractsEntity")
     private List<AttachmentFile> files;
