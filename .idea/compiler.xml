@@ -17,8 +17,11 @@
           <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct-processor/1.5.5.Final/mapstruct-processor-1.5.5.Final.jar" />
           <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct/1.5.5.Final/mapstruct-1.5.5.Final.jar" />
         </processorPath>
-        <module name="customer-service" />
         <module name="abstracts-service" />
+        <module name="localization-service" />
+        <module name="customer-service" />
+        <module name="event-service" />
+        <module name="site_management-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

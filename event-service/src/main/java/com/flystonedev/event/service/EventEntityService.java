@@ -4,13 +4,11 @@ import com.flystonedev.event.DTO.EventEntityDTO;
 import com.flystonedev.event.mapper.EventEntityMapper;
 import com.flystonedev.event.mapper.EventTypeMapper;
 import com.flystonedev.event.model.EventEntity;
-import com.flystonedev.event.model.EventType;
 import com.flystonedev.event.repository.EventEntityRepository;
 import lombok.AllArgsConstructor;
 import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
 
-import java.lang.invoke.CallSite;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,6 +22,9 @@ public class EventEntityService {
     private final EventTypeMapper eventTypeMapper = Mappers.getMapper(EventTypeMapper.class);
 
     public void createEventEntity(EventEntityDTO eventEntityDTO){
+
+
+
         EventEntity eventEntity = EventEntity.builder()
                 .name(eventEntityDTO.getName())
                 .abstractId(eventEntityDTO.getAbstractId())
