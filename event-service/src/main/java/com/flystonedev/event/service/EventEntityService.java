@@ -1,5 +1,6 @@
 package com.flystonedev.event.service;
 
+import com.flystonedev.abstracts.DTO.AbstractOutResponse;
 import com.flystonedev.event.DTO.EventEntityDTO;
 import com.flystonedev.event.mapper.EventEntityMapper;
 import com.flystonedev.event.mapper.EventTypeMapper;
@@ -8,6 +9,7 @@ import com.flystonedev.event.repository.EventEntityRepository;
 import lombok.AllArgsConstructor;
 import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,12 +23,19 @@ public class EventEntityService {
 
     private final EventTypeMapper eventTypeMapper = Mappers.getMapper(EventTypeMapper.class);
 
+    private final WebClient webClient;
+
     public void createEventEntity(EventEntityDTO eventEntityDTO){
 
-
+        AbstractOutResponse response = webClient.get()
+                .uri("http://localhost:8082/api/v1/abstracts/simple",
+                        uriBuilder -> uriBuilder.queryParam("id", eventEntityDTO.getAbstractId()).build())
+                .retrieve()
+                .bodyToMono(AbstractOutResponse.class)
+                .block();
 
         EventEntity eventEntity = EventEntity.builder()
-                .name(eventEntityDTO.getName())
+                .name(response.getAbstractTitle())
                 .abstractId(eventEntityDTO.getAbstractId())
                 .localizationId(eventEntityDTO.getLocalizationId())
                 .eventType(eventTypeMapper.map(eventEntityDTO.getEventType()))

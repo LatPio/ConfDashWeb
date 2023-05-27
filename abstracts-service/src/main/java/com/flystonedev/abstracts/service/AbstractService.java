@@ -2,7 +2,9 @@ package com.flystonedev.abstracts.service;
 
 
 import com.flystonedev.abstracts.DTO.AbstractDTO;
+import com.flystonedev.abstracts.DTO.AbstractOutResponse;
 import com.flystonedev.abstracts.mapper.AbstractMapper;
+import com.flystonedev.abstracts.mapper.AbstractSimpleMapper;
 import com.flystonedev.abstracts.model.AbstractsEntity;
 import com.flystonedev.abstracts.repository.AbstractRepository;
 import jakarta.transaction.Transactional;
@@ -20,6 +22,8 @@ public class AbstractService {
     private final AbstractRepository abstractRepository;
 
     private final AbstractMapper abstractMapper = Mappers.getMapper(AbstractMapper.class);
+    private final AbstractSimpleMapper abstractSimpleMapper = Mappers.getMapper(AbstractSimpleMapper.class);
+
 
     public void createAbstract(AbstractDTO abstractDTO){
         AbstractsEntity abstracts = AbstractsEntity.builder()
@@ -36,6 +40,11 @@ public class AbstractService {
     @Transactional
     public AbstractDTO get(Integer id){
         return abstractRepository.findById(id).map(abstractMapper::map).orElse(null);
+    }
+
+    @Transactional
+    public AbstractOutResponse getSimple(Integer id){
+        return abstractRepository.findById(id).map(abstractSimpleMapper::map).orElse(null);
     }
 
     @Transactional

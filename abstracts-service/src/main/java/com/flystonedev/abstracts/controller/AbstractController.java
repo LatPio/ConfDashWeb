@@ -1,6 +1,7 @@
 package com.flystonedev.abstracts.controller;
 
 import com.flystonedev.abstracts.DTO.AbstractDTO;
+import com.flystonedev.abstracts.DTO.AbstractOutResponse;
 import com.flystonedev.abstracts.service.AbstractService;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -27,6 +28,11 @@ public class AbstractController {
     @GetMapping
     public ResponseEntity<AbstractDTO> get(@RequestParam Integer id){
         return ResponseEntity.status(HttpStatus.OK).body(abstractService.get(id));
+    }
+
+    @GetMapping("/simple")
+    public ResponseEntity<AbstractOutResponse> getSimple(@RequestParam Integer id){
+        return ResponseEntity.status(HttpStatus.OK).body(abstractService.getSimple(id));
     }
 
     @GetMapping("/list")
