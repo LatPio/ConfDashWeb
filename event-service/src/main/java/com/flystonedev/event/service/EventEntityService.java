@@ -23,26 +23,31 @@ public class EventEntityService {
 
     private final EventTypeMapper eventTypeMapper = Mappers.getMapper(EventTypeMapper.class);
 
-    private final WebClient webClient;
+    private final WebClient.Builder webClientBuilder;
 
     public void createEventEntity(EventEntityDTO eventEntityDTO){
 
-        AbstractOutResponse response = webClient.get()
-                .uri("http://localhost:8082/api/v1/abstracts/simple",
+        AbstractOutResponse response = webClientBuilder.build().get()
+                .uri("http://abstracts-Service/api/v1/abstracts/simple",
                         uriBuilder -> uriBuilder.queryParam("id", eventEntityDTO.getAbstractId()).build())
                 .retrieve()
                 .bodyToMono(AbstractOutResponse.class)
                 .block();
 
-        EventEntity eventEntity = EventEntity.builder()
-                .name(response.getAbstractTitle())
-                .abstractId(eventEntityDTO.getAbstractId())
-                .localizationId(eventEntityDTO.getLocalizationId())
-                .eventType(eventTypeMapper.map(eventEntityDTO.getEventType()))
-                .dateTimeOfEvent(eventEntityDTO.getDateTimeOfEvent())
-                .build();
+        if(response != null){
+            EventEntity eventEntity = EventEntity.builder()
+                    .name(response.getAbstractTitle())
+                    .abstractId(eventEntityDTO.getAbstractId())
+                    .localizationId(eventEntityDTO.getLocalizationId())
+                    .eventType(eventTypeMapper.map(eventEntityDTO.getEventType()))
+                    .dateTimeOfEvent(eventEntityDTO.getDateTimeOfEvent())
+                    .build();
 
-        eventEntityRepository.save(eventEntity);
+            eventEntityRepository.save(eventEntity);
+        } else {
+            throw new IllegalArgumentException("Provided Abstract Id dont exist");
+        }
+
     }
 
     public List<EventEntityDTO> eventEntityDTOList() {

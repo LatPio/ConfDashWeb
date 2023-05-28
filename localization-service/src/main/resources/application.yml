@@ -2,7 +2,7 @@ server:
   port: 8083
 spring:
   application:
-    name: localizationService
+    name: localization-Service
   datasource:
     username: confdashweb
     password: password

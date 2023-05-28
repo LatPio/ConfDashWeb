@@ -1,9 +1,8 @@
 server:
   port: 8081
-
 spring:
   application:
-    name: customer
+    name: customer-Service
   datasource:
     url: jdbc:postgresql://localhost:5432/customer
     password: password
@@ -22,3 +21,7 @@ spring:
       max-file-size: 2MB
       max-request-size: 2MB
 
+#eureka:
+#  client:
+#    service-url:
+#      {http://localhost:8761/eureka}

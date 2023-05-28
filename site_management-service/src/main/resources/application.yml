@@ -2,7 +2,7 @@ server:
   port: 8085
 spring:
   application:
-    name: siteManagementService
+    name: site-Management-Service
   datasource:
     username: confdashweb
     password: password

@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: eventService
+    name: event-Service
   datasource:
     url: jdbc:postgresql://localhost:5432/events
     password: password
