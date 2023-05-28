@@ -18,6 +18,7 @@
     <module>event-service</module>
     <module>site_management-service</module>
     <module>discovery-server</module>
+      <module>api-gateway</module>
   </modules>
 
   <properties>

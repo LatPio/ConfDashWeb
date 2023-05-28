@@ -1,0 +1,39 @@
+
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: abstracts-service
+          uri: lb://abstracts-service
+          predicates:
+            - Path=/api/v1/abstracts, /api/v1/abstracts/**, /api/v1/attachment_file, api/v1/attachment_file/**
+
+        - id: event-service
+          uri: lb://event-service
+          predicates:
+            - Path=/api/v1/event, /api/v1/event/**, /api/v1/event-type, /api/v1/event-type/**
+
+        - id: customer-service
+          uri: lb://customer-service
+          predicates:
+            - Path=/api/v1/customer, /api/v1/customer/**, /api/v1/department, /api/v1/department/**, /api/v1/info_links, /api/v1/info_links/**, /api/v1/institution, /api/v1/institution/**, /api/v1/profile_photo, /api/v1/profile_photo/**
+
+        - id: localization-service
+          uri: lb://localization-service
+          predicates:
+            - Path=/api/v1/localization, /api/v1/localization/**
+
+        - id: site-management-service
+          uri: lb://site-management-service
+          predicates:
+            - Path=/api/v1/files, /api/v1/files/**, /api/v1/site, /api/v1/site/**
+logging:
+  level:
+    root: info
+    org:
+      springframework:
+        cloud:
+          gateway: trace

@@ -23,6 +23,7 @@
         <module name="customer-service" />
         <module name="event-service" />
         <module name="site_management-service" />
+        <module name="api-gateway" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
