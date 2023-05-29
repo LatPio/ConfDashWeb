@@ -9,7 +9,7 @@ spring:
         - id: abstracts-service
           uri: lb://abstracts-service
           predicates:
-            - Path=/api/v1/abstracts, /api/v1/abstracts/**, /api/v1/attachment_file, api/v1/attachment_file/**
+            - Path=/api/v1/abstracts, /api/v1/abstracts/**, /api/v1/attachment_file, /api/v1/attachment_file/**
 
         - id: event-service
           uri: lb://event-service

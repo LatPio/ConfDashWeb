@@ -17,6 +17,7 @@ public class EventEntityDTO {
     private String name;
     private String abstractId;
     private String localizationId;
+    private String localizationName;
     private EventTypeDTO eventType;
     private LocalDateTime dateTimeOfEvent;
 }

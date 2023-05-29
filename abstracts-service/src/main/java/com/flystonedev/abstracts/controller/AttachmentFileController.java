@@ -3,9 +3,11 @@ package com.flystonedev.abstracts.controller;
 import com.flystonedev.abstracts.DTO.AttachmentFileDTO;
 import com.flystonedev.abstracts.DTO.AttachmentFileRequest;
 import com.flystonedev.abstracts.DTO.AttachmentFileResponse;
+import com.flystonedev.abstracts.model.FileRole;
 import com.flystonedev.abstracts.service.AbstractService;
 import com.flystonedev.abstracts.service.AttachmentFileService;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -16,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -95,5 +98,10 @@ public class AttachmentFileController {
 
         attachmentFileService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/roles")
+    public ResponseEntity<List<FileRole>> roleList(){
+        return ResponseEntity.status(HttpStatus.OK).body(Arrays.stream(FileRole.values()).toList());
     }
 }

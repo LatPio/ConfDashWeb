@@ -1,7 +1,9 @@
 package com.flystonedev.localization.service;
 
 import com.flystonedev.localization.DTO.LocalizationDTO;
+import com.flystonedev.localization.DTO.LocalizationOutResponse;
 import com.flystonedev.localization.mapper.LocalizationMapper;
+import com.flystonedev.localization.mapper.LocalizationOutResponseMapper;
 import com.flystonedev.localization.model.Localization;
 import com.flystonedev.localization.repository.LocalizationRepository;
 import lombok.AllArgsConstructor;
@@ -17,6 +19,8 @@ public class LocalizationService {
 
     private final LocalizationRepository localizationRepository;
     private final LocalizationMapper localizationMapper = Mappers.getMapper(LocalizationMapper.class);
+    private final LocalizationOutResponseMapper localizationOutResponseMapper = Mappers.getMapper(LocalizationOutResponseMapper.class);
+
 
     public void createLocalization(LocalizationDTO localizationDTO){
         Localization localization = Localization.builder()
@@ -52,4 +56,7 @@ public class LocalizationService {
         ;
     }
 
+    public LocalizationOutResponse getSimple(Integer id) {
+        return localizationRepository.findById(id).map(localizationOutResponseMapper::map).orElse(null);
+    }
 }

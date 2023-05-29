@@ -33,6 +33,7 @@ public class EventEntity {
     private String name;
     private String abstractId;
     private String localizationId;
+    private String localizationName;
     @ManyToOne
     @JoinColumn(name = "event_Type_ID")
     private EventType eventType;
