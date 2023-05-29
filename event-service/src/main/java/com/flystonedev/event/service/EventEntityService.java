@@ -28,20 +28,9 @@ public class EventEntityService {
 
     public void createEventEntity(EventEntityDTO eventEntityDTO){
 
-        AbstractOutResponse abstractOutResponse = webClientBuilder.build().get()
-                .uri("http://abstracts-Service/api/v1/abstracts/simple",
-                        uriBuilder -> uriBuilder.queryParam("id", eventEntityDTO.getAbstractId()).build())
-                .retrieve()
-                .bodyToMono(AbstractOutResponse.class)
-                .block();
+        AbstractOutResponse abstractOutResponse = abstractOutResponse(Integer.valueOf(eventEntityDTO.getAbstractId()));
+        LocalizationOutResponse localizationOutResponse = localizationOutResponse(Integer.valueOf(eventEntityDTO.getLocalizationId()));
 
-        LocalizationOutResponse localizationOutResponse = webClientBuilder.build()
-                .get()
-                .uri("http://localization-Service/api/v1/localization/simple",
-                        uriBuilder -> uriBuilder.queryParam("id" ,eventEntityDTO.getLocalizationId()).build())
-                .retrieve()
-                .bodyToMono(LocalizationOutResponse.class)
-                .block();
 
         if(abstractOutResponse != null && localizationOutResponse != null){
             EventEntity eventEntity = EventEntity.builder()
@@ -82,4 +71,24 @@ public class EventEntityService {
         eventEntityRepository.deleteById(id);
     }
 
+    public AbstractOutResponse abstractOutResponse(Integer id){
+        AbstractOutResponse abstractOutResponse = webClientBuilder.build().get()
+                .uri("http://abstracts-Service/api/v1/abstracts/simple",
+                        uriBuilder -> uriBuilder.queryParam("id", id.intValue()).build())
+                .retrieve()
+                .bodyToMono(AbstractOutResponse.class)
+                .block();
+        return abstractOutResponse;
+    }
+
+    public LocalizationOutResponse localizationOutResponse (Integer id){
+        LocalizationOutResponse localizationOutResponse = webClientBuilder.build()
+                .get()
+                .uri("http://localization-Service/api/v1/localization/simple",
+                        uriBuilder -> uriBuilder.queryParam("id" ,id).build())
+                .retrieve()
+                .bodyToMono(LocalizationOutResponse.class)
+                .block();
+        return localizationOutResponse;
+    }
 }
