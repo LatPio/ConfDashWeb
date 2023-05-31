@@ -19,6 +19,7 @@
     <module>site_management-service</module>
     <module>discovery-server</module>
       <module>api-gateway</module>
+      <module>basket-service</module>
   </modules>
 
   <properties>

@@ -1,5 +1,6 @@
 package com.flystonedev.event.model;
 
+import com.flystonedev.localization.model.Bookings;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -34,6 +35,7 @@ public class EventEntity {
     private String abstractId;
     private String localizationId;
     private String localizationName;
+    private String bookingId;
     @ManyToOne
     @JoinColumn(name = "event_Type_ID")
     private EventType eventType;

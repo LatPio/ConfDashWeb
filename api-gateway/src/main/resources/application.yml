@@ -24,7 +24,7 @@ spring:
         - id: localization-service
           uri: lb://localization-service
           predicates:
-            - Path=/api/v1/localization, /api/v1/localization/**
+            - Path=/api/v1/localization, /api/v1/localization/**, /api/v1/booking, /api/v1/booking/**
 
         - id: site-management-service
           uri: lb://site-management-service

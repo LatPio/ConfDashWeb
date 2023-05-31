@@ -14,4 +14,5 @@ public class SiteDTO {
     private String name;
     private String body;
     private Integer orderNumber;
+    private boolean visible;
 }

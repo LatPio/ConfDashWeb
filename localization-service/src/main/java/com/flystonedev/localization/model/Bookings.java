@@ -1,4 +1,4 @@
-package com.flystonedev.site.model;
+package com.flystonedev.localization.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -9,31 +9,34 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 
+@Entity
+@Table(name = "Bookings")
 @Data
 @Builder
-@Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "Site")
-public class Site {
-
+public class Bookings {
     @Id
     @Column(name = "ID")
     @SequenceGenerator(
-            name = "site_id_sequence",
-            sequenceName = "customer_id_sequence"
+            name = "bookings_id_sequence",
+            sequenceName = "bookings_id_sequence"
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "site_id_sequence"
+            generator = "bookings_id_sequence"
     )
     private Integer id;
-    private String name;
-    private String body;
-    private Integer orderNumber;
-    private boolean visible;
-
+    private Integer eventIDData;
+    private boolean locationConflict;
+    private boolean timeConflict;
+    private LocalDateTime dateStart;
+    private LocalDateTime dateEnd;
+    @ManyToOne()
+    @JoinColumn()
+    private Localization localization;
 
     @CreationTimestamp
     @Column(name = "Creation_Date", updatable = false)
@@ -41,8 +44,4 @@ public class Site {
     @UpdateTimestamp
     @Column(name = "Update_Date")
     private Instant updatedAt;
-
-
-
-
 }

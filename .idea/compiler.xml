@@ -24,6 +24,7 @@
         <module name="event-service" />
         <module name="site_management-service" />
         <module name="api-gateway" />
+        <module name="basket-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
