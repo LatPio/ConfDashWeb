@@ -2,6 +2,9 @@ package com.flystonedev.event.controller;
 
 import com.flystonedev.event.DTO.EventEntityDTO;
 import com.flystonedev.event.service.EventEntityService;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
+import io.github.resilience4j.timelimiter.annotation.TimeLimiter;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 @Slf4j
 @RestController
@@ -19,9 +23,18 @@ public class EventEntityController {
 
     private final EventEntityService eventEntityService;
     @PostMapping
-    public void registerEvent(@RequestBody EventEntityDTO eventEntityDTO){
+    @CircuitBreaker(name = "abstract", fallbackMethod = "fallbackRegisterEvent")
+    @TimeLimiter(name = "abstract")
+    @Retry(name = "abstract")
+    public CompletableFuture<String> registerEvent(@RequestBody EventEntityDTO eventEntityDTO){
         log.info("New Event registration {}", eventEntityDTO);
         eventEntityService.createEventEntity(eventEntityDTO);
+        return CompletableFuture.supplyAsync(()->"Event created successfully");
+    }
+//    @PostMapping
+    public CompletableFuture<String> fallbackRegisterEvent(@RequestBody EventEntityDTO eventEntityDTO, Throwable e){
+        log.info("Error {}", e);
+        return CompletableFuture.supplyAsync(()->"Something gone wrong");
     }
 
     @GetMapping("/list")

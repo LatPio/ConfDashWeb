@@ -7,6 +7,7 @@ import com.flystonedev.localization.mapper.LocalizationOutResponseMapper;
 import com.flystonedev.localization.model.Localization;
 import com.flystonedev.localization.repository.LocalizationRepository;
 import lombok.AllArgsConstructor;
+import lombok.SneakyThrows;
 import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
 
@@ -56,7 +57,9 @@ public class LocalizationService {
         ;
     }
 
+    @SneakyThrows
     public LocalizationOutResponse getSimple(Integer id) {
+        Thread.sleep(2000);
         return localizationRepository.findById(id).map(localizationOutResponseMapper::map).orElse(null);
     }
 }
