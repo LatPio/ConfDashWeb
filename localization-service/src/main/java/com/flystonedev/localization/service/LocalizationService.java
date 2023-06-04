@@ -59,7 +59,6 @@ public class LocalizationService {
 
     @SneakyThrows
     public LocalizationOutResponse getSimple(Integer id) {
-        Thread.sleep(2000);
-        return localizationRepository.findById(id).map(localizationOutResponseMapper::map).orElse(null);
+       return localizationRepository.findById(id).map(localizationOutResponseMapper::map).orElse(null);
     }
 }

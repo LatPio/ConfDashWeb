@@ -15,11 +15,13 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
     show-sql: true
+
+
+
 management:
   health:
     circuitbreakers:
       enabled: true
-
   endpoints:
     web:
       exposure:
@@ -27,30 +29,35 @@ management:
   endpoint:
     health:
       show-details: always
-
+  tracing:
+    sampling:
+      probability: 1.0
 #Resiliance4j Proprieties
 resilience4j:
   circuitbreaker:
     instances:
-      abstract:
+      event-cals:
         register-health-indicator: true
         event-consumer-buffer-size: 10
         sliding-window-type: count_based
         sliding-window-size: 5
         failure-rate-threshold: 50
         wait-duration-in-open-state: 5s
-
         permitted-number-of-calls-in-half-open-state: 3
         automatic-transition-from-open-to-half-open-enabled: true
+        ignore-exceptions:
+          - java.lang.IllegalArgumentException
   timelimiter:
     instances:
-      abstract:
+      event-cals:
         timeout-duration: 5s
   retry:
     instances:
-      abstract:
+      event-cals:
         max-attempts: 3
         wait-duration: 5s
-
+logging:
+  pattern:
+    level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
 
 

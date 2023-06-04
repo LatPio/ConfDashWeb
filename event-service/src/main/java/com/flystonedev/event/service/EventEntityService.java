@@ -41,20 +41,19 @@ public class EventEntityService {
     public void createEventEntity(EventEntityDTO eventEntityDTO){
 
         AbstractOutResponse abstractOutResponse = abstractOutResponse(Integer.valueOf(eventEntityDTO.getAbstractId()));
-        Mono<LocalizationOutResponse> localizationOutResponse = localizationOutResponse(Integer.valueOf(eventEntityDTO.getLocalizationId()));
-        if(abstractOutResponse == null){
+        LocalizationOutResponse localizationOutResponse = localizationOutResponse(Integer.valueOf(eventEntityDTO.getLocalizationId()));
+        if(abstractOutResponse == null && localizationOutResponse == null){
+            throw new IllegalArgumentException("Provided Abstract Id and Localization Id don't exist");
+        } else if(abstractOutResponse == null){
             throw new IllegalArgumentException("Provided Abstract Id don't exist");
-        }
-        if(abstractOutResponse == null){
+        } else if(localizationOutResponse == null){
             throw new IllegalArgumentException("Provided Localization Id don't exist");
-        }
-
-        if(abstractOutResponse != null && localizationOutResponse != null){
+        } else if(abstractOutResponse != null && localizationOutResponse != null){
             EventEntity eventEntity = EventEntity.builder()
                     .name(abstractOutResponse.getAbstractTitle())
                     .abstractId(eventEntityDTO.getAbstractId())
                     .localizationId(eventEntityDTO.getLocalizationId())
-                    .localizationName(localizationOutResponse.block().getRoom())
+                    .localizationName(localizationOutResponse.getRoom())
                     .eventType(eventTypeRepository.getReferenceById(eventEntityDTO.getEventType().getId()))
                     .dateTimeOfEvent(eventEntityDTO.getDateTimeOfEvent())
                     .build();
@@ -70,8 +69,6 @@ public class EventEntityService {
                     .locationConflict(saved.getEventType().isLocationConflict())
                     .build();
             createBookingsDTO(bookingRequest);
-        } else {
-            throw new IllegalArgumentException("Provided Abstract and Localization Id don't exist");
         }
 
     }
@@ -110,17 +107,14 @@ public class EventEntityService {
         return abstractOutResponse;
     }
 
-    public String fallback(RuntimeException runtimeException){
-        return "oops something gone wrong try later";
-    }
-//    @CircuitBreaker(name = "abstract")
-    public Mono<LocalizationOutResponse> localizationOutResponse (Integer id) {
-        Mono<LocalizationOutResponse> localizationOutResponse = webClientBuilder.build()
+    public LocalizationOutResponse localizationOutResponse (Integer id) {
+        LocalizationOutResponse localizationOutResponse = webClientBuilder.build()
                 .get()
                 .uri("http://localization-Service/api/v1/localization/simple",
                         uriBuilder -> uriBuilder.queryParam("id" ,id).build())
                 .retrieve()
-                .bodyToMono(LocalizationOutResponse.class);
+                .bodyToMono(LocalizationOutResponse.class)
+                .block();
         return localizationOutResponse;
     }
 

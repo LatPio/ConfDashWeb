@@ -23,18 +23,18 @@ public class EventEntityController {
 
     private final EventEntityService eventEntityService;
     @PostMapping
-    @CircuitBreaker(name = "abstract", fallbackMethod = "fallbackRegisterEvent")
-    @TimeLimiter(name = "abstract")
+    @CircuitBreaker(name = "event-cals", fallbackMethod = "fallbackRegisterEvent")
+    @TimeLimiter(name = "event-cals")
     @Retry(name = "abstract")
     public CompletableFuture<String> registerEvent(@RequestBody EventEntityDTO eventEntityDTO){
         log.info("New Event registration {}", eventEntityDTO);
         eventEntityService.createEventEntity(eventEntityDTO);
         return CompletableFuture.supplyAsync(()->"Event created successfully");
     }
-//    @PostMapping
     public CompletableFuture<String> fallbackRegisterEvent(@RequestBody EventEntityDTO eventEntityDTO, Throwable e){
-        log.info("Error {}", e);
-        return CompletableFuture.supplyAsync(()->"Something gone wrong");
+
+        log.info("Error cause: {"+ e.getMessage().split(":")[1] +"}", e.getMessage().split(":")[1]);
+        return CompletableFuture.supplyAsync(()->"Something gone wrong, probably: "+ e.getMessage().split(":")[1]+", or some features may be off-line try later.");
     }
 
     @GetMapping("/list")
