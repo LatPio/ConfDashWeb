@@ -16,13 +16,10 @@ public class AbstractDTO {
     private Integer id;
     private String abstractTitle;
     private String body;
-//    private byte[] graphicalAbstract ;
     private String authors;
     private String affiliation;
-//    private byte[] figure;
     private Integer presenterId;
     private Integer ownerId;
     private boolean accepted;
-//    private byte[] abstractFile;
     private List<AttachmentFileDTO> files;
 }

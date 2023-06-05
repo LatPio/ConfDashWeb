@@ -1,5 +1,6 @@
 package com.flystonedev.abstracts.controller;
 
+import com.flystonedev.abstracts.DTO.AbstractBlockDTO;
 import com.flystonedev.abstracts.DTO.AbstractDTO;
 import com.flystonedev.abstracts.DTO.AbstractOutResponse;
 import com.flystonedev.abstracts.service.AbstractService;
@@ -44,6 +45,10 @@ public class AbstractController {
         return ResponseEntity.status(HttpStatus.OK).body(abstractService.update(abstractDTO));
     }
 
+    @PutMapping("/block")
+    public ResponseEntity<AbstractBlockDTO> updateBlockEdit(@RequestBody AbstractBlockDTO abstractBlockDTO){
+        return ResponseEntity.status(HttpStatus.OK).body(abstractService.updateBlockEdit(abstractBlockDTO));
+    }
     @DeleteMapping
     public ResponseEntity delete(@RequestParam Integer id){
         abstractService.delete(id);

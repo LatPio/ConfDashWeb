@@ -1,8 +1,10 @@
 package com.flystonedev.abstracts.service;
 
 
+import com.flystonedev.abstracts.DTO.AbstractBlockDTO;
 import com.flystonedev.abstracts.DTO.AbstractDTO;
 import com.flystonedev.abstracts.DTO.AbstractOutResponse;
+import com.flystonedev.abstracts.mapper.AbstractBlockMapper;
 import com.flystonedev.abstracts.mapper.AbstractMapper;
 import com.flystonedev.abstracts.mapper.AbstractSimpleMapper;
 import com.flystonedev.abstracts.model.AbstractsEntity;
@@ -22,6 +24,7 @@ public class AbstractService {
     private final AbstractRepository abstractRepository;
 
     private final AbstractMapper abstractMapper = Mappers.getMapper(AbstractMapper.class);
+    private final AbstractBlockMapper abstractBlockMapper = Mappers.getMapper(AbstractBlockMapper.class);
     private final AbstractSimpleMapper abstractSimpleMapper = Mappers.getMapper(AbstractSimpleMapper.class);
 
 
@@ -55,6 +58,17 @@ public class AbstractService {
         }
         AbstractsEntity updated = abstractRepository.save(abstractMapper.map(abstractDTO));
         return abstractMapper.map(updated);
+    }
+
+    @Transactional
+    public AbstractBlockDTO updateBlockEdit(AbstractBlockDTO abstractBlockDTO){
+        AbstractDTO exist = get(abstractBlockDTO.getId());
+        if (exist == null) {
+            return null;
+        }
+        exist.setAccepted(abstractBlockDTO.isAccepted());
+        AbstractsEntity updated = abstractRepository.save(abstractMapper.map(exist));
+        return abstractBlockMapper.map(updated);
     }
 
     public void delete(Integer id) {
