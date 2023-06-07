@@ -1,5 +1,3 @@
-
-
 spring:
   application:
     name: api-gateway
@@ -49,6 +47,20 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: http://localhost:8181/realms/confdashweb
+
+      client:
+        provider:
+          keycloak-provider:
+            issuer-uri: http://localhost:8181/realms/confdashweb
+        registration:
+          keycloak-spring-gateway-client:
+            provider: keycloak-provider
+            scope: openid
+            client-id: spring-cloud-client
+            client-secret: eIEAsftRLNv8hk9FX1L9OR3jtaSqkIqe
+            authorization-grant-type: authorization_code
+            redirect-uri: http://localhost:8080/login/oauth2/code/keycloak
+
 logging:
   level:
     root: info
