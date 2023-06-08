@@ -18,6 +18,8 @@ import lombok.RequiredArgsConstructor;
 import org.mapstruct.factory.Mappers;
 import org.springframework.cloud.client.circuitbreaker.ReactiveCircuitBreaker;
 import org.springframework.cloud.client.circuitbreaker.ReactiveCircuitBreakerFactory;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
@@ -97,9 +99,12 @@ public class EventEntityService {
 
 
     public AbstractOutResponse abstractOutResponse(Integer id){
+        Jwt jwt = (Jwt) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         AbstractOutResponse abstractOutResponse = webClientBuilder.build().get()
                 .uri("http://abstracts-Service/api/v1/abstracts/simple",
-                        uriBuilder -> uriBuilder.queryParam("id", id.intValue()).build())
+        uriBuilder -> uriBuilder.queryParam("id", id.intValue()).build())
+
+                .headers(httpHeaders -> httpHeaders.setBearerAuth(jwt.getTokenValue()))
                 .retrieve()
                 .bodyToMono(AbstractOutResponse.class)
                 .block();
@@ -108,10 +113,13 @@ public class EventEntityService {
     }
 
     public LocalizationOutResponse localizationOutResponse (Integer id) {
+        Jwt jwt = (Jwt) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
         LocalizationOutResponse localizationOutResponse = webClientBuilder.build()
                 .get()
                 .uri("http://localization-Service/api/v1/localization/simple",
                         uriBuilder -> uriBuilder.queryParam("id" ,id).build())
+                .headers(httpHeaders -> httpHeaders.setBearerAuth(jwt.getTokenValue()))
                 .retrieve()
                 .bodyToMono(LocalizationOutResponse.class)
                 .block();
@@ -119,11 +127,13 @@ public class EventEntityService {
     }
 
     public BookingsDTO createBookingsDTO (BookingRequest bookingRequest){
+        Jwt jwt = (Jwt) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         BookingsDTO bookingsDTO = webClientBuilder.build()
                 .post()
                 .uri("Http://localization-Service/api/v1/booking")
                 .body(Mono.just(bookingRequest), BookingRequest.class)
+                .headers(httpHeaders -> httpHeaders.setBearerAuth(jwt.getTokenValue()))
                 .retrieve()
                 .bodyToMono(BookingsDTO.class)
                 .block();

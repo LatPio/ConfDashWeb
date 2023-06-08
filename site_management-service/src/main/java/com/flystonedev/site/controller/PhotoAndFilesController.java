@@ -4,6 +4,7 @@ import com.flystonedev.site.DTO.FileResponse;
 import com.flystonedev.site.DTO.FilesDTO;
 import com.flystonedev.site.model.Files;
 import com.flystonedev.site.service.FilesService;
+import jakarta.annotation.security.RolesAllowed;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
@@ -26,6 +27,7 @@ public class PhotoAndFilesController {
 
     private final FilesService filesService;
 
+    @RolesAllowed({"ADMIN"})
     @PostMapping
     public void saveFile(@RequestParam("file")MultipartFile multipartFile){
 
@@ -38,10 +40,12 @@ public class PhotoAndFilesController {
         }
     }
 
+    @RolesAllowed({"USER", "ADMIN"})
     @GetMapping
     public ResponseEntity<FilesDTO> get(@RequestParam Integer id){
         return ResponseEntity.status(HttpStatus.OK).body(filesService.get(id));
     }
+    @RolesAllowed({"ADMIN"})
     @GetMapping("/download/{id}")
     public ResponseEntity<byte[]> download (@PathVariable Integer id){
         FilesDTO filesDTO = get(id).getBody();
@@ -49,12 +53,12 @@ public class PhotoAndFilesController {
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + filesDTO.getName() + "\"")
                 .body(filesDTO.getData());
     }
-
+    @RolesAllowed({"ADMIN"})
     @GetMapping("/list")
     public ResponseEntity<List<FilesDTO>> list(){
         return ResponseEntity.status(HttpStatus.OK).body(filesService.filesDTOList());
     }
-
+    @RolesAllowed({"ADMIN"})
     @GetMapping("/downloadList")
     public ResponseEntity<List<FileResponse>> getDownloadList(){
         List<FileResponse> files = filesService.filesDTOList().stream().map(
@@ -75,7 +79,7 @@ public class PhotoAndFilesController {
         return ResponseEntity.status(HttpStatus.OK).body(files);
 
     }
-
+    @RolesAllowed({"ADMIN"})
     @PutMapping
     public ResponseEntity<FilesDTO> update(@RequestParam("file")MultipartFile file,
     @RequestParam Integer id) throws IOException{
@@ -90,7 +94,7 @@ public class PhotoAndFilesController {
         }
         return ResponseEntity.status(HttpStatus.OK).body(filesService.update(filesDTO));
     }
-
+    @RolesAllowed({"ADMIN"})
     @DeleteMapping
     public ResponseEntity delete(@RequestParam Integer id){
         filesService.delete(id);

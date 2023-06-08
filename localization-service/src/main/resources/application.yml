@@ -1,5 +1,5 @@
 server:
-  port: 8083
+  port: 0
 spring:
   application:
     name: localization-Service
@@ -15,6 +15,11 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
     show-sql: true
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:8181/realms/confdashweb/protocol/openid-connect/certs
 management:
   tracing:
     sampling:

@@ -15,7 +15,11 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
     show-sql: true
-
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:8181/realms/confdashweb/protocol/openid-connect/certs
 management:
   tracing:
     sampling:

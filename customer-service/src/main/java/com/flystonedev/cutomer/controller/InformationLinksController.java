@@ -3,6 +3,7 @@ package com.flystonedev.cutomer.controller;
 import com.flystonedev.cutomer.DTO.InformationLinksDTO;
 import com.flystonedev.cutomer.DTO.InformationLinksRequest;
 import com.flystonedev.cutomer.service.InformationLinksService;
+import jakarta.annotation.security.RolesAllowed;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -19,27 +20,29 @@ public class InformationLinksController {
 
     private final InformationLinksService informationLinksService;
 
-
+    @RolesAllowed({"USER", "ADMIN"})
     @PostMapping
     public void addInformationLink(@RequestBody InformationLinksRequest informationLinksResponse){
         log.info("New Department registration to dataBase {}", informationLinksResponse);
         informationLinksService.addLinks(informationLinksResponse);
     }
-
+    @RolesAllowed({"USER", "ADMIN"})
     @GetMapping
     public ResponseEntity<InformationLinksDTO> get(@RequestParam Integer id){
         return ResponseEntity.status(HttpStatus.OK).body(informationLinksService.get(id));
     }
-
+    @RolesAllowed({"USER", "ADMIN"})
     @GetMapping("/list")
     public ResponseEntity<List<InformationLinksDTO>> list(){
         return ResponseEntity.status(HttpStatus.OK).body(informationLinksService.informationLinksResponseList());
     }
+    @RolesAllowed({"USER", "ADMIN"})
     @PutMapping
     public ResponseEntity<InformationLinksDTO> update(@RequestBody InformationLinksDTO informationLinksDTO){
         return ResponseEntity.status(HttpStatus.OK).body(informationLinksService.update(informationLinksDTO));
     }
 
+    @RolesAllowed({"USER", "ADMIN"})
     @DeleteMapping
     public ResponseEntity delete(@RequestParam Integer id){
         informationLinksService.delete(id);

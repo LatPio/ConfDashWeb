@@ -5,6 +5,7 @@ import com.flystonedev.event.service.EventEntityService;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.github.resilience4j.retry.annotation.Retry;
 import io.github.resilience4j.timelimiter.annotation.TimeLimiter;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +23,8 @@ import java.util.concurrent.CompletableFuture;
 public class EventEntityController {
 
     private final EventEntityService eventEntityService;
+
+    @RolesAllowed({"ADMIN"})
     @PostMapping
     @CircuitBreaker(name = "event-cals", fallbackMethod = "fallbackRegisterEvent")
     @TimeLimiter(name = "event-cals")
@@ -36,22 +39,22 @@ public class EventEntityController {
         log.info("Error cause: {"+ e.getMessage().split(":")[1] +"}", e.getMessage().split(":")[1]);
         return CompletableFuture.supplyAsync(()->"Something gone wrong, probably: "+ e.getMessage().split(":")[1]+", or some features may be off-line try later.");
     }
-
+    @RolesAllowed({"USER", "ADMIN"})
     @GetMapping("/list")
     public ResponseEntity<List<EventEntityDTO>> list(){
         return ResponseEntity.status(HttpStatus.OK).body(eventEntityService.eventEntityDTOList());
     }
-
+    @RolesAllowed({"USER", "ADMIN"})
     @GetMapping
     public ResponseEntity<EventEntityDTO> get(@RequestParam Integer id){
         return ResponseEntity.status(HttpStatus.OK).body(eventEntityService.get(id));
     }
-
+    @RolesAllowed({"ADMIN"})
     @PutMapping
     public ResponseEntity<EventEntityDTO> update(@RequestBody EventEntityDTO eventEntityDTO){
         return  ResponseEntity.status(HttpStatus.OK).body(eventEntityService.update(eventEntityDTO));
     }
-
+    @RolesAllowed({"ADMIN"})
     @DeleteMapping
     public ResponseEntity delete(@RequestParam Integer id){
         eventEntityService.delete(id);

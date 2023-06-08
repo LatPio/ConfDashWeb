@@ -6,6 +6,7 @@ import com.flystonedev.cutomer.DTO.ProfilePhotoDTO;
 import com.flystonedev.cutomer.DTO.ProfilePhotoResponse;
 import com.flystonedev.cutomer.service.CustomerService;
 import com.flystonedev.cutomer.service.ProfilePhotoService;
+import jakarta.annotation.security.RolesAllowed;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
@@ -28,6 +29,7 @@ public class ProfilePhotoController {
     private final ProfilePhotoService profilePhotoService;
     private final CustomerService customerService;
 
+    @RolesAllowed({"USER", "ADMIN"})
     @PostMapping
     public void savePhoto(@RequestParam("file")MultipartFile file, @RequestParam("id") Integer id){
         try {
@@ -39,10 +41,12 @@ public class ProfilePhotoController {
         }
     }
 
+    @RolesAllowed({"USER", "ADMIN"})
     @GetMapping
     public ResponseEntity<ProfilePhotoDTO> get(@RequestParam Integer id){
         return ResponseEntity.status(HttpStatus.OK).body(profilePhotoService.get(id));
     }
+    @RolesAllowed({"ADMIN"})
     @GetMapping("/file/{id}")
     public ResponseEntity<byte[]> download(@PathVariable Integer id){
 
@@ -53,6 +57,7 @@ public class ProfilePhotoController {
                 .body(profilePhotoDTO.getData());
     }
 
+    @RolesAllowed({"ADMIN"})
     @GetMapping("/list")
     public ResponseEntity<List<ProfilePhotoResponse>> getListFiles(){
         List<ProfilePhotoResponse> files = profilePhotoService.profilePhotoDTOList().stream().map(
@@ -72,6 +77,7 @@ public class ProfilePhotoController {
     }
 
 
+    @RolesAllowed({"USER", "ADMIN"})
     @PutMapping
     public ResponseEntity<ProfilePhotoDTO> update(@RequestParam("file")MultipartFile file,
                                                   @RequestParam Integer id )
@@ -86,6 +92,7 @@ public class ProfilePhotoController {
         }
         return ResponseEntity.status(HttpStatus.OK).body(profilePhotoService.update(profilePhotoDTO));
     }
+    @RolesAllowed({"USER", "ADMIN"})
     @DeleteMapping
     public ResponseEntity delete(@RequestParam Integer id){
         CustomerDTO customerDTO = customerService.get(id);
@@ -94,4 +101,5 @@ public class ProfilePhotoController {
         profilePhotoService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+    //todo modifiable only by user owner
 }
