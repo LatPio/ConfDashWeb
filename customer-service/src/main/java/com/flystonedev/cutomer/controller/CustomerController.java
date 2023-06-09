@@ -26,11 +26,11 @@ public class CustomerController {
 
     private final CustomerService customerService;
 
-    @RolesAllowed({"USER", "ADMIN"})
-    @PostMapping
-    public void registerCustomer(@RequestBody CustomerRegistrationRequest customerRegistrationRequest){
+    @PostMapping("/new")
+    public ResponseEntity registerCustomer(@RequestBody CustomerRegistrationRequest customerRegistrationRequest) throws Exception {
         log.info("New Customer Registration {}", customerRegistrationRequest);
         customerService.registerCustomer(customerRegistrationRequest);
+        return ResponseEntity.status(HttpStatus.OK).body("User Created Successfully");
     }
 
     @RolesAllowed({"USER", "ADMIN"})
@@ -50,11 +50,11 @@ public class CustomerController {
         return ResponseEntity.status(HttpStatus.OK).body(customerService.update(customerDTO));
     }
 
-    @RolesAllowed({"USER", "ADMIN"})
+    @RolesAllowed({"ADMIN"})
     @DeleteMapping
     public ResponseEntity delete(@RequestParam Integer id){
         customerService.delete(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK).body("Deleted Successfully");
     }
 
 

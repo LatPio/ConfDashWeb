@@ -22,6 +22,7 @@ public class SecurityConfig {
                         authorizeExchangeSpec -> authorizeExchangeSpec
                                 .pathMatchers("/eureka/**")
                                 .permitAll()
+                                .pathMatchers("/api/v1/customer/new").permitAll()
                                 .anyExchange()
                                 .authenticated()
                 )
