@@ -1,6 +1,7 @@
 package com.flystonedev.site.service;
 
 import com.flystonedev.site.DTO.FilesDTO;
+import com.flystonedev.site.exeption.EntityNotFoundException;
 import com.flystonedev.site.mapper.FilesMapper;
 import com.flystonedev.site.model.Files;
 import com.flystonedev.site.repository.FilesRepository;
@@ -38,7 +39,7 @@ public class FilesService {
         return filesList.stream().map(filesMapper::map).collect(Collectors.toList());
     }
     public FilesDTO get(Integer id){
-        return filesRepository.findById(id).map(filesMapper::map).orElse(null);
+        return filesRepository.findById(id).map(filesMapper::map).orElseThrow(EntityNotFoundException::new);
     }
 
     public FilesDTO update(FilesDTO filesDTO){

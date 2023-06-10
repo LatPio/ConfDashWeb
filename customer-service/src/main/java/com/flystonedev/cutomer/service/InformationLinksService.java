@@ -2,6 +2,7 @@ package com.flystonedev.cutomer.service;
 
 import com.flystonedev.cutomer.DTO.InformationLinksDTO;
 import com.flystonedev.cutomer.DTO.InformationLinksRequest;
+import com.flystonedev.cutomer.exeption.EntityNotFoundException;
 import com.flystonedev.cutomer.mapper.InformationLinksMapper;
 import com.flystonedev.cutomer.model.Customer;
 import com.flystonedev.cutomer.model.InformationLinks;
@@ -36,7 +37,7 @@ public class InformationLinksService {
     }
 
     public InformationLinksDTO get(Integer id){
-        return informationLinksRepository.findById(id).map(informationLinksMapper::map).orElse(null);
+        return informationLinksRepository.findById(id).map(informationLinksMapper::map).orElseThrow(EntityNotFoundException::new);
     }
 
     public InformationLinksDTO update(InformationLinksDTO informationLinksDTO){

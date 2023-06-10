@@ -2,6 +2,7 @@ package com.flystonedev.cutomer.service;
 
 import com.flystonedev.cutomer.DTO.CustomerDTO;
 import com.flystonedev.cutomer.DTO.ProfilePhotoDTO;
+import com.flystonedev.cutomer.exeption.EntityNotFoundException;
 import com.flystonedev.cutomer.mapper.ProfilePhotoMapper;
 import com.flystonedev.cutomer.model.Customer;
 import com.flystonedev.cutomer.model.ProfilePhoto;
@@ -45,7 +46,7 @@ public class ProfilePhotoService {
     }
 
     public ProfilePhotoDTO get(Integer id){
-        return profilePhotoRepository.findById(id).map(profilePhotoMapper::map).orElse(null);
+        return profilePhotoRepository.findById(id).map(profilePhotoMapper::map).orElseThrow(EntityNotFoundException::new);
     }
 
     public ProfilePhotoDTO update(ProfilePhotoDTO profilePhotoDTO){

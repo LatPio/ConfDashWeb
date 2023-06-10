@@ -54,7 +54,7 @@ public class CustomerController {
     @DeleteMapping
     public ResponseEntity delete(@RequestParam Integer id){
         customerService.delete(id);
-        return ResponseEntity.status(HttpStatus.OK).body("Deleted Successfully");
+        return ResponseEntity.status(HttpStatus.OK).body("Deleted Successfullyoon the flo");
     }
 
 

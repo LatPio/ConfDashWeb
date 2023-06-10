@@ -1,6 +1,7 @@
 package com.flystonedev.site.service;
 
 import com.flystonedev.site.DTO.SiteDTO;
+import com.flystonedev.site.exeption.EntityNotFoundException;
 import com.flystonedev.site.mapper.SiteMapper;
 import com.flystonedev.site.model.Site;
 import com.flystonedev.site.repository.SiteRepository;
@@ -29,7 +30,7 @@ public class SiteService {
         return sitesList.stream().map(siteMapper::map).collect(Collectors.toList());
     }
     public SiteDTO get(Integer id){
-        return siteRepository.findById(id).map(siteMapper::map).orElse(null);
+        return siteRepository.findById(id).map(siteMapper::map).orElseThrow(EntityNotFoundException::new);
     }
 
     public SiteDTO update(SiteDTO siteDTO){

@@ -4,6 +4,7 @@ package com.flystonedev.abstracts.service;
 import com.flystonedev.abstracts.DTO.AbstractBlockDTO;
 import com.flystonedev.abstracts.DTO.AbstractDTO;
 import com.flystonedev.abstracts.DTO.AbstractOutResponse;
+import com.flystonedev.abstracts.exeption.EntityNotFoundException;
 import com.flystonedev.abstracts.mapper.AbstractBlockMapper;
 import com.flystonedev.abstracts.mapper.AbstractMapper;
 import com.flystonedev.abstracts.mapper.AbstractSimpleMapper;
@@ -42,12 +43,12 @@ public class AbstractService {
     }
     @Transactional
     public AbstractDTO get(Integer id){
-        return abstractRepository.findById(id).map(abstractMapper::map).orElse(null);
+        return abstractRepository.findById(id).map(abstractMapper::map).orElseThrow(EntityNotFoundException::new);
     }
 
     @Transactional
     public AbstractOutResponse getSimple(Integer id){
-        return abstractRepository.findById(id).map(abstractSimpleMapper::map).orElse(null);
+        return abstractRepository.findById(id).map(abstractSimpleMapper::map).orElseThrow(EntityNotFoundException::new);
     }
 
     @Transactional

@@ -1,6 +1,6 @@
-package com.flystonedev.cutomer.exeption.config;
+package com.flystonedev.abstracts.exeption.config;
 
-import com.flystonedev.cutomer.exeption.ErrorWrapper;
+import com.flystonedev.abstracts.exeption.ErrorWrapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

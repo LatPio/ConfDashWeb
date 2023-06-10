@@ -2,6 +2,7 @@ package com.flystonedev.cutomer.service;
 
 import com.flystonedev.cutomer.DTO.DepartmentDTO;
 import com.flystonedev.cutomer.DTO.InstitutionDTO;
+import com.flystonedev.cutomer.exeption.EntityNotFoundException;
 import com.flystonedev.cutomer.mapper.DepartmentMapper;
 import com.flystonedev.cutomer.model.Department;
 import com.flystonedev.cutomer.model.Institution;
@@ -40,7 +41,7 @@ public class DepartmentService {
     }
 
     public DepartmentDTO get(Integer id){
-        return departmentRepository.findById(id).map(departmentMapper::map).orElse(null);
+        return departmentRepository.findById(id).map(departmentMapper::map).orElseThrow(EntityNotFoundException::new);
     }
     public DepartmentDTO update(DepartmentDTO departmentDTO){
         DepartmentDTO exist = get(departmentDTO.getId());

@@ -2,10 +2,12 @@ package com.flystonedev.abstracts.service;
 
 import com.flystonedev.abstracts.DTO.AttachmentFileDTO;
 import com.flystonedev.abstracts.DTO.AttachmentFileRequest;
+import com.flystonedev.abstracts.exeption.EntityNotFoundException;
 import com.flystonedev.abstracts.mapper.AttachmentFileMapper;
 import com.flystonedev.abstracts.model.AttachmentFile;
 import com.flystonedev.abstracts.repository.AbstractRepository;
 import com.flystonedev.abstracts.repository.AttachmentFileRepository;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
@@ -24,6 +26,8 @@ public class AttachmentFileService {
     private final AttachmentFileMapper attachmentFileMapper = Mappers.getMapper(AttachmentFileMapper.class);
 
     private final AbstractRepository abstractRepository;
+
+    @Transactional
     public void saveFile(MultipartFile file, AttachmentFileRequest attachmentFileRequest) throws IOException{
         String filename = StringUtils.cleanPath(file.getOriginalFilename());
         AttachmentFile attachmentFile = AttachmentFile.builder()
@@ -31,7 +35,7 @@ public class AttachmentFileService {
                 .type(file.getContentType())
                 .fileRole(attachmentFileRequest.fileRole())
                 .data(file.getBytes())
-                .abstractsEntity(abstractRepository.findById(attachmentFileRequest.abstractsEntity().getId()).orElse(null))
+                .abstractsEntity(abstractRepository.findById(attachmentFileRequest.abstractsEntity().getId()).orElseThrow(EntityNotFoundException::new))
                 .build();
         attachmentFileRepository.save(attachmentFile);
     }
@@ -42,7 +46,7 @@ public class AttachmentFileService {
     }
 
     public AttachmentFileDTO get(Integer id){
-        return attachmentFileRepository.findById(id).map(attachmentFileMapper::map).orElse(null);
+        return attachmentFileRepository.findById(id).map(attachmentFileMapper::map).orElseThrow(EntityNotFoundException::new);
     }
 
     public AttachmentFileDTO update(AttachmentFileDTO attachmentFileDTO){

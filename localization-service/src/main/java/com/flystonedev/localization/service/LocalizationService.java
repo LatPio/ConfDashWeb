@@ -2,6 +2,7 @@ package com.flystonedev.localization.service;
 
 import com.flystonedev.localization.DTO.LocalizationDTO;
 import com.flystonedev.localization.DTO.LocalizationOutResponse;
+import com.flystonedev.localization.exeption.EntityNotFoundException;
 import com.flystonedev.localization.mapper.LocalizationMapper;
 import com.flystonedev.localization.mapper.LocalizationOutResponseMapper;
 import com.flystonedev.localization.model.Localization;
@@ -39,7 +40,7 @@ public class LocalizationService {
     }
 
     public LocalizationDTO get(Integer id){
-        return localizationRepository.findById(id).map(localizationMapper::map).orElse(null);
+        return localizationRepository.findById(id).map(localizationMapper::map).orElseThrow(EntityNotFoundException::new);
     }
 
     public LocalizationDTO update(LocalizationDTO localizationDTO){
@@ -57,8 +58,7 @@ public class LocalizationService {
         ;
     }
 
-    @SneakyThrows
     public LocalizationOutResponse getSimple(Integer id) {
-       return localizationRepository.findById(id).map(localizationOutResponseMapper::map).orElse(null);
+       return localizationRepository.findById(id).map(localizationOutResponseMapper::map).orElseThrow(EntityNotFoundException::new);
     }
 }

@@ -2,6 +2,7 @@ package com.flystonedev.localization.service;
 
 import com.flystonedev.localization.DTO.BookingRequest;
 import com.flystonedev.localization.DTO.BookingsDTO;
+import com.flystonedev.localization.exeption.EntityNotFoundException;
 import com.flystonedev.localization.mapper.BookingMapper;
 import com.flystonedev.localization.model.Bookings;
 import com.flystonedev.localization.model.Localization;
@@ -39,7 +40,7 @@ public class BookingsService {
     }
 
     public BookingsDTO get(Integer id){
-        return bookingsRepository.findById(id).map(bookingMapper::map).orElse(null);
+        return bookingsRepository.findById(id).map(bookingMapper::map).orElseThrow(EntityNotFoundException::new);
     }
 
     public BookingsDTO update(BookingsDTO bookingsDTO){

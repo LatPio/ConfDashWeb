@@ -1,7 +1,7 @@
 package com.flystonedev.event.service;
 
-import com.flystonedev.event.DTO.EventEntityDTO;
 import com.flystonedev.event.DTO.EventTypeDTO;
+import com.flystonedev.event.exeption.EntityNotFoundException;
 import com.flystonedev.event.mapper.EventTypeMapper;
 import com.flystonedev.event.model.EventType;
 import com.flystonedev.event.repository.EventTypeRepository;
@@ -36,7 +36,7 @@ public class EventTypeService {
     }
 
     public EventTypeDTO get(Integer id){
-        return eventTypeRepository.findById(id).map(eventTypeMapper::map).orElse(null);
+        return eventTypeRepository.findById(id).map(eventTypeMapper::map).orElseThrow(EntityNotFoundException::new);
     }
 
     public EventTypeDTO update(EventTypeDTO eventTypeDTO){

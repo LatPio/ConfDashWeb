@@ -2,6 +2,10 @@ package com.flystonedev.event.service;
 
 import com.flystonedev.abstracts.DTO.AbstractOutResponse;
 import com.flystonedev.event.DTO.EventEntityDTO;
+import com.flystonedev.event.exeption.ClientCallException;
+import com.flystonedev.event.exeption.EntityNotFoundException;
+import com.flystonedev.event.exeption.config.GlobalErrorCode;
+import com.flystonedev.event.exeption.config.GlobalExceptionHandler;
 import com.flystonedev.event.mapper.EventEntityMapper;
 import com.flystonedev.event.mapper.EventTypeMapper;
 import com.flystonedev.event.model.EventEntity;
@@ -11,13 +15,11 @@ import com.flystonedev.localization.DTO.BookingRequest;
 import com.flystonedev.localization.DTO.BookingsDTO;
 import com.flystonedev.localization.DTO.LocalizationDTO;
 import com.flystonedev.localization.DTO.LocalizationOutResponse;
-import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.mapstruct.factory.Mappers;
-import org.springframework.cloud.client.circuitbreaker.ReactiveCircuitBreaker;
-import org.springframework.cloud.client.circuitbreaker.ReactiveCircuitBreakerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
@@ -44,13 +46,7 @@ public class EventEntityService {
 
         AbstractOutResponse abstractOutResponse = abstractOutResponse(Integer.valueOf(eventEntityDTO.getAbstractId()));
         LocalizationOutResponse localizationOutResponse = localizationOutResponse(Integer.valueOf(eventEntityDTO.getLocalizationId()));
-        if(abstractOutResponse == null && localizationOutResponse == null){
-            throw new IllegalArgumentException("Provided Abstract Id and Localization Id don't exist");
-        } else if(abstractOutResponse == null){
-            throw new IllegalArgumentException("Provided Abstract Id don't exist");
-        } else if(localizationOutResponse == null){
-            throw new IllegalArgumentException("Provided Localization Id don't exist");
-        } else if(abstractOutResponse != null && localizationOutResponse != null){
+
             EventEntity eventEntity = EventEntity.builder()
                     .name(abstractOutResponse.getAbstractTitle())
                     .abstractId(eventEntityDTO.getAbstractId())
@@ -71,7 +67,7 @@ public class EventEntityService {
                     .locationConflict(saved.getEventType().isLocationConflict())
                     .build();
             createBookingsDTO(bookingRequest);
-        }
+
 
     }
 
@@ -81,7 +77,7 @@ public class EventEntityService {
     }
 
     public EventEntityDTO get(Integer id){
-        return eventEntityRepository.findById(id).map(eventEntityMapper::map).orElse(null);
+        return eventEntityRepository.findById(id).map(eventEntityMapper::map).orElseThrow(EntityNotFoundException::new);
     }
 
     public EventEntityDTO update(EventEntityDTO eventEntityDTO){
@@ -106,6 +102,12 @@ public class EventEntityService {
 
                 .headers(httpHeaders -> httpHeaders.setBearerAuth(jwt.getTokenValue()))
                 .retrieve()
+                .onStatus(  httpStatusCode-> httpStatusCode.value() == 400,
+                        clientResponse -> {throw new ClientCallException("Provided Abstract Id don't exist", GlobalErrorCode.ERROR_EVENT_SERVICE_ENTITY_NOT_FOUND);})
+                .onStatus(  httpStatusCode-> httpStatusCode.value() == 401,
+                        clientResponse -> {throw new ClientCallException("Access to Abstract service Denied", GlobalErrorCode.ERROR_EVENT_SERVICE_ACCESS_DENIED);})
+                .onStatus(  httpStatusCode-> httpStatusCode.value() == 404,
+                        clientResponse -> {throw new ClientCallException("Endpoint to Abstract Service not found", GlobalErrorCode.ERROR_EVENT_SERVICE_ENTITY_NOT_FOUND);})
                 .bodyToMono(AbstractOutResponse.class)
                 .block();
 
@@ -121,6 +123,12 @@ public class EventEntityService {
                         uriBuilder -> uriBuilder.queryParam("id" ,id).build())
                 .headers(httpHeaders -> httpHeaders.setBearerAuth(jwt.getTokenValue()))
                 .retrieve()
+                .onStatus(  httpStatusCode-> httpStatusCode.value() == 400,
+                            clientResponse -> {throw new ClientCallException("Provided Localization Id don't exist", GlobalErrorCode.ERROR_EVENT_SERVICE_ENTITY_NOT_FOUND);})
+                .onStatus(  httpStatusCode-> httpStatusCode.value() == 401,
+                        clientResponse -> {throw new ClientCallException("Access to Localization service Denied", GlobalErrorCode.ERROR_EVENT_SERVICE_ACCESS_DENIED);})
+                .onStatus(  httpStatusCode-> httpStatusCode.value() == 404,
+                        clientResponse -> {throw new ClientCallException("Endpoint to Localization Service not found", GlobalErrorCode.ERROR_EVENT_SERVICE_ENTITY_NOT_FOUND);})
                 .bodyToMono(LocalizationOutResponse.class)
                 .block();
         return localizationOutResponse;
@@ -135,6 +143,10 @@ public class EventEntityService {
                 .body(Mono.just(bookingRequest), BookingRequest.class)
                 .headers(httpHeaders -> httpHeaders.setBearerAuth(jwt.getTokenValue()))
                 .retrieve()
+                .onStatus(  httpStatusCode-> httpStatusCode.value() == 401,
+                        clientResponse -> {throw new ClientCallException("Access to Localization service Denied", GlobalErrorCode.ERROR_EVENT_SERVICE_ACCESS_DENIED);})
+                .onStatus(  httpStatusCode-> httpStatusCode.value() == 404,
+                        clientResponse -> {throw new ClientCallException("Endpoint to Localization Service not found", GlobalErrorCode.ERROR_EVENT_SERVICE_ENTITY_NOT_FOUND);})
                 .bodyToMono(BookingsDTO.class)
                 .block();
         return bookingsDTO;
