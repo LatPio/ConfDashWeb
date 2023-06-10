@@ -61,15 +61,11 @@ public class CustomerService {
                         .firstName(request.firstName())
                         .lastName(request.lastName())
                         .email(request.email())
+                        .authID(userRepresentation.getId())
                         .build();
                 customerRepository.save(customer);
-
             }
-
-
         }
-
-
     }
 
     public List<CustomerDTO> listOfAllCustomers(){
@@ -80,10 +76,16 @@ public class CustomerService {
         return customerRepository.findById(id).map(customerMapper::map).orElseThrow(EntityNotFoundException::new);
     }
     public CustomerDTO update(CustomerDTO customerDTO){
-        CustomerDTO exist = get(customerDTO.getId());
+        Customer exist = customerMapper.map(get(customerDTO.getId()));
         if (exist == null) {
             return null;
         }
+
+        UserRepresentation userRepresentation = keycloakUserManagementService.readUser(exist.getAuthID());
+        userRepresentation.setLastName(customerDTO.getLastName());
+        userRepresentation.setFirstName(customerDTO.getFirstName());
+        keycloakUserManagementService.updateUser(userRepresentation);
+
         Customer updated = customerRepository.save(customerMapper.map(customerDTO));
         return customerMapper.map(updated);
     }

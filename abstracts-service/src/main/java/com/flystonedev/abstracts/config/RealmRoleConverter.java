@@ -1,7 +1,9 @@
 package com.flystonedev.abstracts.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
@@ -21,4 +23,8 @@ public class RealmRoleConverter implements Converter<Jwt, Collection<GrantedAuth
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
     }
+
+
+
+
 }

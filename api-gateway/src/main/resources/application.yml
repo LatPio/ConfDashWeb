@@ -55,6 +55,7 @@ spring:
         provider:
           keycloak-provider:
             issuer-uri: http://localhost:8181/realms/confdashweb
+            user-name-attribute: email
         registration:
           keycloak-spring-gateway-client:
             provider: keycloak-provider

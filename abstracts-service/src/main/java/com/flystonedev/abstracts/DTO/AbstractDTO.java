@@ -20,6 +20,7 @@ public class AbstractDTO {
     private String affiliation;
     private Integer presenterId;
     private Integer ownerId;
+    private String authId;
     private boolean accepted;
     private List<AttachmentFileDTO> files;
 }

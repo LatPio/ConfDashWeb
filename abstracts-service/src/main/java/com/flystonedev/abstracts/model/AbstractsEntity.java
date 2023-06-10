@@ -1,5 +1,6 @@
 package com.flystonedev.abstracts.model;
 
+import jakarta.annotation.Nonnull;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -36,6 +37,8 @@ public class AbstractsEntity {
     private String affiliation;
     private Integer presenterId;
     private Integer ownerId;
+    @Column(nullable = false, name = "AuthId")
+    private String authId;
     private boolean accepted;
 
     @OneToMany(mappedBy = "abstractsEntity")

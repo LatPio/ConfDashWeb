@@ -40,6 +40,8 @@ public class Customer {
     private String lastName;
     @Column(name = "PhoneNumber")
     private String phoneNumber;
+    @Column(name = "KeycloackId")
+    private String authID;
 
     @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<InformationLinks> links;
