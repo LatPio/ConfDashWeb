@@ -40,12 +40,10 @@ public class PhotoAndFilesController {
         }
     }
 
-    @RolesAllowed({"USER", "ADMIN"})
     @GetMapping
     public ResponseEntity<FilesDTO> get(@RequestParam Integer id){
         return ResponseEntity.status(HttpStatus.OK).body(filesService.get(id));
     }
-    @RolesAllowed({"ADMIN"})
     @GetMapping("/download/{id}")
     public ResponseEntity<byte[]> download (@PathVariable Integer id){
         FilesDTO filesDTO = get(id).getBody();

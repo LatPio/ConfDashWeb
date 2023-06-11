@@ -27,6 +27,8 @@ public class AttachmentFile {
     private Integer id;
     private String name;
     private String type;
+    private String authId;
+    private Boolean accepted;
     private FileRole fileRole;
     @Lob
     private byte[] data;

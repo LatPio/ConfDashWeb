@@ -17,6 +17,7 @@ public class ProfilePhoto {
     private Integer id;
     private String name;
     private String type;
+    private String authId;
     @Lob
     private byte[] data;
 

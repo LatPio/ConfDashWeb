@@ -1,14 +1,13 @@
 package com.flystonedev.cutomer.service;
 
-import com.flystonedev.cutomer.DTO.CustomerDTO;
 import com.flystonedev.cutomer.DTO.ProfilePhotoDTO;
+import com.flystonedev.cutomer.config.JwtConverter;
+import com.flystonedev.cutomer.exeption.CustomerUpdateException;
 import com.flystonedev.cutomer.exeption.EntityNotFoundException;
 import com.flystonedev.cutomer.mapper.ProfilePhotoMapper;
-import com.flystonedev.cutomer.model.Customer;
 import com.flystonedev.cutomer.model.ProfilePhoto;
 import com.flystonedev.cutomer.repository.CustomerRepository;
 import com.flystonedev.cutomer.repository.ProfilePhotoRepository;
-import jakarta.persistence.PrimaryKeyJoinColumn;
 import lombok.AllArgsConstructor;
 import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
@@ -32,8 +31,9 @@ public class ProfilePhotoService {
     public void savePhoto(MultipartFile file, Integer id) throws IOException{
         String filename = StringUtils.cleanPath(file.getOriginalFilename());
         ProfilePhoto profilePhoto = ProfilePhoto.builder()
-                .customer(customerRepository.findById(id).orElse(null))
+                .customer(customerRepository.findById(id).orElseThrow(EntityNotFoundException::new))
                 .name(filename)
+                .authId(JwtConverter.getKeycloakUserID())
                 .type(file.getContentType())
                 .data(file.getBytes())
                 .build();
@@ -45,23 +45,61 @@ public class ProfilePhotoService {
         return profilePhotoList.stream().map(profilePhotoMapper::map).collect(Collectors.toList());
     }
 
+    /*
+     *
+     * !!!!!!!!! USER SERVICE METHODS !!!!!!!!
+     *
+     * */
     public ProfilePhotoDTO get(Integer id){
+        return profilePhotoRepository.findProfilePhotoByIdAndAndId(id, JwtConverter.getKeycloakUserID()).map(profilePhotoMapper::map).orElseThrow(EntityNotFoundException::new);
+    }
+
+    public ProfilePhotoDTO updateUser(ProfilePhotoDTO profilePhotoDTO){
+        ProfilePhotoDTO exist = get(profilePhotoDTO.getId());
+        if (exist == null) {
+            throw new EntityNotFoundException();
+        } else if (exist.getAuthId() != JwtConverter.getKeycloakUserID()){
+            throw new CustomerUpdateException();
+        } else {
+            ProfilePhoto updated = profilePhotoRepository.save(profilePhotoMapper.map(profilePhotoDTO));
+            return profilePhotoMapper.map(updated);
+        }
+    }
+
+
+    public void deleteUser (Integer id) {
+        ProfilePhotoDTO exist = get(id);
+        if (exist == null) {
+            throw new EntityNotFoundException();
+        } else if (exist.getAuthId() != JwtConverter.getKeycloakUserID()) {
+            throw new CustomerUpdateException();
+        } else {
+            profilePhotoRepository.deleteById(id);
+
+        }
+    }
+
+    /*
+     *
+     * !!!!!!!!! ADMIN SERVICE METHODS !!!!!!!!
+     *
+     * */
+    public ProfilePhotoDTO getAdmin(Integer id){
         return profilePhotoRepository.findById(id).map(profilePhotoMapper::map).orElseThrow(EntityNotFoundException::new);
     }
 
-    public ProfilePhotoDTO update(ProfilePhotoDTO profilePhotoDTO){
+    public ProfilePhotoDTO updateAdmin(ProfilePhotoDTO profilePhotoDTO){
         ProfilePhotoDTO exist = get(profilePhotoDTO.getId());
         if (exist == null) {
-            return null;
+            throw new EntityNotFoundException();
         }
         ProfilePhoto updated = profilePhotoRepository.save(profilePhotoMapper.map(profilePhotoDTO));
         return profilePhotoMapper.map(updated);
     }
 
-    public void delete (Integer id) {
+    public void deleteAdmin (Integer id) {
         profilePhotoRepository.deleteById(id);
     }
-
 
 
 }

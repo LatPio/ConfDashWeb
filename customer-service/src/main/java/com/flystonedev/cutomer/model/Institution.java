@@ -21,6 +21,7 @@ public class Institution {
     @Id
     @GeneratedValue
     private Integer id;
+    @Column(name = "Name", unique = true)
     private String name;
 
     @OneToMany(mappedBy = "institution",

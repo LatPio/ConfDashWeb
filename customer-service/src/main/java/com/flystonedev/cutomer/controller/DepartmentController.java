@@ -35,7 +35,7 @@ public class DepartmentController {
     public ResponseEntity<List<DepartmentDTO>> list(){
         return ResponseEntity.status(HttpStatus.OK).body(departmentService.departmentResponseList());
     }
-    @RolesAllowed({"USER", "ADMIN"})
+    @RolesAllowed({"ADMIN"})
     @PutMapping
     public ResponseEntity<DepartmentDTO> update(@RequestBody DepartmentDTO departmentDTO){
         return ResponseEntity.status(HttpStatus.OK).body(departmentService.update(departmentDTO));

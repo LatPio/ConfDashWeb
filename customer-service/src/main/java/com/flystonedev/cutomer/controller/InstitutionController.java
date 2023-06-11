@@ -40,7 +40,7 @@ public class InstitutionController {
         return ResponseEntity.status(HttpStatus.OK).body(institutionService.institutionRecordList());
     }
 
-    @RolesAllowed({"USER", "ADMIN"})
+    @RolesAllowed({"ADMIN"})
     @PutMapping
     public ResponseEntity<InstitutionDTO> update(@RequestBody InstitutionDTO institutionDTO){
         return ResponseEntity.status(HttpStatus.OK).body(institutionService.update(institutionDTO));

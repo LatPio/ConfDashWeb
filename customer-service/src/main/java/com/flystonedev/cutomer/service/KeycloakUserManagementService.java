@@ -37,7 +37,9 @@ public class KeycloakUserManagementService {
             throw new EntityNotFoundException("User not found by provided ID");
         }
     }
-
+    public void deleteUser(String authId){
+        keycloakManager.getKeyCloakInstanceWithRealm().users().delete(authId);
+    }
 
 
 

@@ -18,6 +18,7 @@ public class InformationLinks {
     private Integer id;
     private String name;
     private String urlLink;
+    private String authId;
     @ManyToOne()
     @JoinColumn(name = "customer")
     private Customer customer;

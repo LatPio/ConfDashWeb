@@ -21,7 +21,7 @@ public class Department {
     @Id
     @GeneratedValue
     private Integer id;
-    @Column(name = "Name")
+    @Column(name = "Name", unique = true)
     private String name;
     @Column(name = "Street")
     private String street;

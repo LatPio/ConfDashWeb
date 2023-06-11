@@ -1,14 +1,21 @@
 package com.flystonedev.cutomer.service;
 
 
+import com.flystonedev.cutomer.DTO.CustomerAdminDTO;
+import com.flystonedev.cutomer.DTO.CustomerCardDTO;
 import com.flystonedev.cutomer.DTO.CustomerDTO;
+import com.flystonedev.cutomer.config.JwtConverter;
+import com.flystonedev.cutomer.exeption.CustomerUpdateException;
 import com.flystonedev.cutomer.exeption.EntityNotFoundException;
 import com.flystonedev.cutomer.exeption.UserAlreadyRegisteredException;
 import com.flystonedev.cutomer.exeption.config.GlobalErrorCode;
+import com.flystonedev.cutomer.mapper.CustomerAdminMapper;
+import com.flystonedev.cutomer.mapper.CustomerCardMapper;
 import com.flystonedev.cutomer.mapper.CustomerMapper;
 import com.flystonedev.cutomer.model.Customer;
 import com.flystonedev.cutomer.DTO.CustomerRegistrationRequest;
 import com.flystonedev.cutomer.repository.CustomerRepository;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.keycloak.representations.idm.CredentialRepresentation;
@@ -27,11 +34,13 @@ public class CustomerService {
 
     private final CustomerRepository customerRepository;
     private final CustomerMapper customerMapper = Mappers.getMapper(CustomerMapper.class);
+    private final CustomerCardMapper customerCardMapper = Mappers.getMapper(CustomerCardMapper.class);
+    private final CustomerAdminMapper customerAdminMapper = Mappers.getMapper(CustomerAdminMapper.class);
 
     private final KeycloakUserManagementService keycloakUserManagementService;
 
 
-    public void registerCustomer(CustomerRegistrationRequest request) throws Exception  {
+    public void registerCustomer(CustomerRegistrationRequest request) {
 
         List<UserRepresentation> userRepresentationList = keycloakUserManagementService.readUserByEmail(request.email());
 
@@ -68,29 +77,68 @@ public class CustomerService {
         }
     }
 
-    public List<CustomerDTO> listOfAllCustomers(){
-        List<Customer> customersList = customerRepository.findAll();
-        return customersList.stream().map(customerMapper::map).collect(Collectors.toList());
+    /*
+     *
+     * !!!!!!!!! USER SERVICE METHODS !!!!!!!!
+     *
+     * */
+    public CustomerCardDTO getUserSimple(Integer id){
+        return customerRepository.findById(id).map(customerCardMapper::map).orElseThrow(EntityNotFoundException::new);
     }
-    public CustomerDTO get(Integer id){
-        return customerRepository.findById(id).map(customerMapper::map).orElseThrow(EntityNotFoundException::new);
+    public CustomerDTO getUser(Integer id){
+        return customerRepository.findCustomerByIdAndAuthID(id, JwtConverter.getKeycloakUserID()).map(customerMapper::map).orElseThrow(EntityNotFoundException::new);
     }
-    public CustomerDTO update(CustomerDTO customerDTO){
-        Customer exist = customerMapper.map(get(customerDTO.getId()));
+    public CustomerDTO updateUser(CustomerDTO customerDTO){
+        Customer exist = customerMapper.map(getUser(customerDTO.getId()));
         if (exist == null) {
-            return null;
+            throw new EntityNotFoundException("User not found", GlobalErrorCode.ERROR_CUSTOMER_SERVICE_ENTITY_NOT_FOUND);
+        } else if(exist.getAuthID() != JwtConverter.getKeycloakUserID()){
+            throw new CustomerUpdateException("You can edit only yours Abstract!", GlobalErrorCode.ERROR_CUSTOMER_SERVICE_UPDATE_BLOCKED);
+        } else {
+            UserRepresentation userRepresentation = keycloakUserManagementService.readUser(exist.getAuthID());
+            userRepresentation.setLastName(customerDTO.getLastName());
+            userRepresentation.setFirstName(customerDTO.getFirstName());
+            keycloakUserManagementService.updateUser(userRepresentation);
+
+            Customer updated = customerRepository.save(customerMapper.map(customerDTO));
+            return customerMapper.map(updated);
+        }
+    }
+    public List<CustomerCardDTO> listOfAllCustomersCards(){
+        List<Customer> customersList = customerRepository.findAll();
+        return customersList.stream().map(customerCardMapper::map).collect(Collectors.toList());
+    }
+
+    /*
+     *
+     * !!!!!!!!! ADMIN SERVICE METHODS !!!!!!!!
+     *
+     * */
+
+    public List<CustomerAdminDTO> listOfAllCustomersForAdmin(){
+        List<Customer> customersList = customerRepository.findAll();
+        return customersList.stream().map(customerAdminMapper::map).collect(Collectors.toList());
+    }
+    public CustomerAdminDTO getAdmin(Integer id){
+        return customerRepository.findById(id).map(customerAdminMapper::map).orElseThrow(EntityNotFoundException::new);
+    }
+    public CustomerAdminDTO updateAdmin(CustomerAdminDTO customerAdminDTO){
+        Customer exist = customerAdminMapper.map(getAdmin(customerAdminDTO.getId()));
+        if (exist == null) {
+            throw new EntityNotFoundException("User not found", GlobalErrorCode.ERROR_CUSTOMER_SERVICE_ENTITY_NOT_FOUND);
         }
 
         UserRepresentation userRepresentation = keycloakUserManagementService.readUser(exist.getAuthID());
-        userRepresentation.setLastName(customerDTO.getLastName());
-        userRepresentation.setFirstName(customerDTO.getFirstName());
+        userRepresentation.setLastName(customerAdminDTO.getLastName());
+        userRepresentation.setFirstName(customerAdminDTO.getFirstName());
         keycloakUserManagementService.updateUser(userRepresentation);
 
-        Customer updated = customerRepository.save(customerMapper.map(customerDTO));
-        return customerMapper.map(updated);
+        Customer updated = customerRepository.save(customerAdminMapper.map(customerAdminDTO));
+        return customerAdminMapper.map(updated);
     }
+    @Transactional
     public void delete(Integer id){
+        keycloakUserManagementService.deleteUser(customerRepository.getReferenceById(id).getAuthID().toString());
         customerRepository.deleteById(id);
     }
-
 }

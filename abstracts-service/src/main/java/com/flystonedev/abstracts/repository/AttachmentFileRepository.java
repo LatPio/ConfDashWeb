@@ -5,9 +5,17 @@ import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+import java.util.Optional;
+
 @Repository
 public interface AttachmentFileRepository extends JpaRepository<AttachmentFile, Integer> {
 
     @Transactional
     void deleteById(Integer integer);
+
+    List<AttachmentFile> findAttachmentFileByAuthId (String authId);
+    Optional<AttachmentFile> findAttachmentFileByIdAndAuthId (Integer id, String authId);
+
+    Optional<Void> deleteAttachmentFileByIdAndAuthId (Integer id, String authID);
 }

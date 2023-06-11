@@ -30,7 +30,7 @@ public class Customer {
             generator = "customer_id_sequence"
     )
     private Integer id;
-    @Column(name = "Email", unique = true)
+    @Column(name = "Email", unique = true, updatable = false)
     private String email;
     @Column(name = "Degree")
     private String degree;
@@ -40,7 +40,7 @@ public class Customer {
     private String lastName;
     @Column(name = "PhoneNumber")
     private String phoneNumber;
-    @Column(name = "KeycloackId")
+    @Column(name = "KeycloackId", updatable = false)
     private String authID;
 
     @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

@@ -4,11 +4,9 @@ import com.flystonedev.abstracts.DTO.AttachmentFileDTO;
 import com.flystonedev.abstracts.DTO.AttachmentFileRequest;
 import com.flystonedev.abstracts.DTO.AttachmentFileResponse;
 import com.flystonedev.abstracts.model.FileRole;
-import com.flystonedev.abstracts.service.AbstractService;
 import com.flystonedev.abstracts.service.AttachmentFileService;
 import jakarta.annotation.security.RolesAllowed;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -25,17 +23,17 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @RestController
-@RequestMapping("api/v1/attachment_file")
+@RequestMapping("api/v1/user/attachment_file")
 @AllArgsConstructor
-public class AttachmentFileController {
+public class AttachmentFileUserController {
 
     private final AttachmentFileService attachmentFileService;
 
-    @RolesAllowed({"USER", "ADMIN"})
+    @RolesAllowed({"USER"})
     @PostMapping
     public void saveFile(@RequestPart("file")MultipartFile file, @RequestPart("data") AttachmentFileRequest attachmentFileRequest){
         try{
-            attachmentFileService.saveFile(file,attachmentFileRequest);
+            attachmentFileService.saveUsersFile(file,attachmentFileRequest);
             log.info("File saved!");
         } catch (IOException e) {
             log.error("Error occurred while saving to database! ");
@@ -43,14 +41,14 @@ public class AttachmentFileController {
         }
     }
 
-    @RolesAllowed({"USER", "ADMIN"})
+    @RolesAllowed({"USER"})
     @GetMapping
     public ResponseEntity<AttachmentFileDTO> get(@RequestParam Integer id){
         //todo modifiable/accessible only by user owner
-        return ResponseEntity.status(HttpStatus.OK).body(attachmentFileService.get(id));
+        return ResponseEntity.status(HttpStatus.OK).body(attachmentFileService.getUserFile(id));
     }
 
-    @RolesAllowed({"USER", "ADMIN"})
+    @RolesAllowed({"USER"})
     @GetMapping("/file/{id}")
     public ResponseEntity<byte[]> download(@PathVariable Integer id){
 //todo modifiable/accessible only by user owner
@@ -61,11 +59,11 @@ public class AttachmentFileController {
                 .body(attachmentFileDTO.getData());
     }
 
-    @RolesAllowed({"USER", "ADMIN"})
+    @RolesAllowed({"USER"})
     @GetMapping("/list")
     public ResponseEntity<List<AttachmentFileResponse>> getListFiles(){
         //todo modifiable/accessible only by user owner
-        List<AttachmentFileResponse> files = attachmentFileService.attachmentFileDTOS().stream().map(
+        List<AttachmentFileResponse> files = attachmentFileService.attachmentUsersFileDTOS().stream().map(
                 attachmentFileDTO -> {
                     String fileDownloadUri = ServletUriComponentsBuilder
                             .fromCurrentContextPath()
@@ -81,12 +79,12 @@ public class AttachmentFileController {
                     );
                 }
         ).collect(Collectors.toList());
-
+//todo modifi for simple view
         return ResponseEntity.status(HttpStatus.OK).body(files);
     }
 
 
-    @RolesAllowed({"USER", "ADMIN"})
+    @RolesAllowed({"USER"})
     @PutMapping
     public ResponseEntity<AttachmentFileDTO> update(@RequestParam("file")MultipartFile file,
                                                   @RequestParam Integer id )
@@ -97,19 +95,19 @@ public class AttachmentFileController {
             attachmentFileDTO.setName(StringUtils.cleanPath(file.getOriginalFilename()));
             attachmentFileDTO.setType(file.getContentType());
         } else {
-            attachmentFileDTO.setData(attachmentFileService.get(attachmentFileDTO.getId()).getData());
+            attachmentFileDTO.setData(attachmentFileService.getUserFile(attachmentFileDTO.getId()).getData());
         }
-        return ResponseEntity.status(HttpStatus.OK).body(attachmentFileService.update(attachmentFileDTO));
+        return ResponseEntity.status(HttpStatus.OK).body(attachmentFileService.updateUsersFile(attachmentFileDTO));
     }
-    @RolesAllowed({"USER", "ADMIN"})
+    @RolesAllowed({"USER"})
     @DeleteMapping
     public ResponseEntity delete(@RequestParam Integer id){
 
-        attachmentFileService.delete(id);
+        attachmentFileService.deleteUsersFile(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @RolesAllowed({"USER", "ADMIN"})
+    @RolesAllowed({"USER"})
     @GetMapping("/roles")
     public ResponseEntity<List<FileRole>> roleList(){
         return ResponseEntity.status(HttpStatus.OK).body(Arrays.stream(FileRole.values()).toList());

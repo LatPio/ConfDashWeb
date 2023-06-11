@@ -16,5 +16,6 @@ public class ProfilePhotoDTO {
     private String name;
     private String type;
     private byte[] data;
+    private String authId;
 
 }

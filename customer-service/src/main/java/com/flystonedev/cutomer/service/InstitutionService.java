@@ -2,6 +2,7 @@ package com.flystonedev.cutomer.service;
 
 import com.flystonedev.cutomer.DTO.InstitutionDTO;
 import com.flystonedev.cutomer.exeption.EntityNotFoundException;
+import com.flystonedev.cutomer.exeption.config.EntityAlreadyInDatabaseException;
 import com.flystonedev.cutomer.mapper.InstitutionMapper;
 import com.flystonedev.cutomer.model.Institution;
 import com.flystonedev.cutomer.repository.InstitutionRepository;
@@ -21,10 +22,16 @@ public class InstitutionService {
     private final InstitutionMapper institutionMapper = Mappers.getMapper(InstitutionMapper.class);
 
     public void addInstitution(InstitutionDTO institutionDTO){
-        Institution institution = Institution.builder()
-                .name(institutionDTO.getName())
-                .build();
-        institutionRepository.save(institution);
+
+        InstitutionDTO nameExist = institutionMapper.map(institutionRepository.findInstitutionByName(institutionDTO.getName()));
+        if (nameExist != null) {
+            throw new EntityAlreadyInDatabaseException();
+        } else {
+            Institution institution = Institution.builder()
+                    .name(institutionDTO.getName())
+                    .build();
+            institutionRepository.save(institution);
+        }
     }
 
     public List<InstitutionDTO> institutionRecordList(){
@@ -37,7 +44,7 @@ public class InstitutionService {
     public InstitutionDTO update(InstitutionDTO institutionDTO){
         InstitutionDTO exist = get(institutionDTO.getId());
         if (exist == null) {
-            return null;
+            throw new EntityNotFoundException();
         }
         Institution updated = institutionRepository.save(institutionMapper.map(institutionDTO));
         return institutionMapper.map(updated);

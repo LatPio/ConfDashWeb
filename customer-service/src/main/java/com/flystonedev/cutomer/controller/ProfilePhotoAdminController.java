@@ -7,7 +7,6 @@ import com.flystonedev.cutomer.DTO.ProfilePhotoResponse;
 import com.flystonedev.cutomer.service.CustomerService;
 import com.flystonedev.cutomer.service.ProfilePhotoService;
 import jakarta.annotation.security.RolesAllowed;
-import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
@@ -24,13 +23,13 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @RestController
-@RequestMapping("api/v1/user/profile_photo")
+@RequestMapping("api/v1/admin/profile_photo")
 @AllArgsConstructor
-public class ProfilePhotoController {
+public class ProfilePhotoAdminController {
     private final ProfilePhotoService profilePhotoService;
     private final CustomerService customerService;
 
-    @RolesAllowed({"USER", "ADMIN"})
+    @RolesAllowed({"ADMIN"})
     @PostMapping
     public void savePhoto(@RequestParam("file")MultipartFile file, @RequestParam("id") Integer id){
         try {
@@ -42,19 +41,48 @@ public class ProfilePhotoController {
         }
     }
 
-    @RolesAllowed({"USER"})
-    @GetMapping
-    public ResponseEntity<ProfilePhotoDTO> get(@RequestParam Integer id){
-        return ResponseEntity.status(HttpStatus.OK).body(profilePhotoService.get(id));
+    @RolesAllowed({"ADMIN"})
+    @GetMapping()
+    public ResponseEntity<ProfilePhotoDTO> getAdmin (@RequestParam Integer id){
+        return ResponseEntity.status(HttpStatus.OK).body(profilePhotoService.getAdmin(id));
+    }
+    @RolesAllowed({"ADMIN"})
+    @GetMapping("/file/{id}")
+    public ResponseEntity<byte[]> download(@PathVariable Integer id){
+
+        ProfilePhotoDTO profilePhotoDTO = getAdmin(id).getBody();
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + profilePhotoDTO.getName() + "\"")
+                .body(profilePhotoDTO.getData());
+    }
+
+    @RolesAllowed({"ADMIN"})
+    @GetMapping("/list")
+    public ResponseEntity<List<ProfilePhotoResponse>> getListFiles(){
+        List<ProfilePhotoResponse> files = profilePhotoService.profilePhotoDTOList().stream().map(
+                profilePhotoDTO -> {
+                    String fileDownloadUri = ServletUriComponentsBuilder
+                            .fromCurrentContextPath()
+                            .path("/api/v1/profile_photo/file/")
+                            .path(String.valueOf(profilePhotoDTO.getId()))
+                            .toUriString();
+                    return new ProfilePhotoResponse(
+                            profilePhotoDTO.getId(), profilePhotoDTO.getName(), profilePhotoDTO.getType(), fileDownloadUri
+                            );
+                }
+        ).collect(Collectors.toList());
+
+        return ResponseEntity.status(HttpStatus.OK).body(files);
     }
 
 
-    @RolesAllowed({"USER"})
+    @RolesAllowed({"ADMIN"})
     @PutMapping
     public ResponseEntity<ProfilePhotoDTO> update(@RequestParam("file")MultipartFile file,
                                                   @RequestParam Integer id )
             throws IOException {
-        ProfilePhotoDTO profilePhotoDTO = get(id).getBody();
+        ProfilePhotoDTO profilePhotoDTO = getAdmin(id).getBody();
         if(file.getBytes().length !=0){
             profilePhotoDTO.setData(file.getBytes());
             profilePhotoDTO.setName(StringUtils.cleanPath(file.getOriginalFilename()));
@@ -62,16 +90,15 @@ public class ProfilePhotoController {
         } else {
             profilePhotoDTO.setData(profilePhotoService.get(profilePhotoDTO.getId()).getData());
         }
-        return ResponseEntity.status(HttpStatus.OK).body(profilePhotoService.updateUser(profilePhotoDTO));
+        return ResponseEntity.status(HttpStatus.OK).body(profilePhotoService.updateAdmin(profilePhotoDTO));
     }
-    @RolesAllowed({"USER"})
+    @RolesAllowed({"ADMIN"})
     @DeleteMapping
-    @Transactional
     public ResponseEntity delete(@RequestParam Integer id){
         CustomerDTO customerDTO = customerService.getUser(id);
         customerDTO.setPhoto(null);
         customerService.updateUser(customerDTO);
-        profilePhotoService.deleteUser(id);
+        profilePhotoService.deleteAdmin(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
     //todo modifiable only by user owner
