@@ -2,8 +2,6 @@ package com.flystonedev.cutomer.controller;
 
 
 import com.flystonedev.cutomer.DTO.CustomerAdminDTO;
-import com.flystonedev.cutomer.DTO.CustomerDTO;
-import com.flystonedev.cutomer.DTO.CustomerRegistrationRequest;
 import com.flystonedev.cutomer.service.CustomerService;
 import jakarta.annotation.security.RolesAllowed;
 import lombok.AllArgsConstructor;

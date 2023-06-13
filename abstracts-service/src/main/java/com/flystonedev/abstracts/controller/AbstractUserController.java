@@ -1,8 +1,6 @@
 package com.flystonedev.abstracts.controller;
 
-import com.flystonedev.abstracts.DTO.AbstractBlockDTO;
 import com.flystonedev.abstracts.DTO.AbstractDTO;
-import com.flystonedev.abstracts.DTO.AbstractOutResponse;
 import com.flystonedev.abstracts.service.AbstractService;
 import jakarta.annotation.security.RolesAllowed;
 import lombok.AllArgsConstructor;
@@ -52,7 +50,7 @@ public class AbstractUserController {
 
     @RolesAllowed({"USER"})
     @DeleteMapping
-    public ResponseEntity delete(@RequestParam Integer id){
+    public ResponseEntity<Void> delete(@RequestParam Integer id){
         abstractService.deleteUsers(id);
         return new ResponseEntity<>(HttpStatus.OK);
         //todo block delete for user after abstract is market as accept: true

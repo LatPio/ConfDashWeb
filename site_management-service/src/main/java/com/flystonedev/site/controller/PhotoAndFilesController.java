@@ -2,7 +2,6 @@ package com.flystonedev.site.controller;
 
 import com.flystonedev.site.DTO.FileResponse;
 import com.flystonedev.site.DTO.FilesDTO;
-import com.flystonedev.site.model.Files;
 import com.flystonedev.site.service.FilesService;
 import jakarta.annotation.security.RolesAllowed;
 import lombok.AllArgsConstructor;

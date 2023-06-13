@@ -1,7 +1,6 @@
 package com.flystonedev.cutomer.service;
 
 import com.flystonedev.cutomer.DTO.DepartmentDTO;
-import com.flystonedev.cutomer.DTO.InstitutionDTO;
 import com.flystonedev.cutomer.exeption.EntityNotFoundException;
 import com.flystonedev.cutomer.exeption.config.EntityAlreadyInDatabaseException;
 import com.flystonedev.cutomer.mapper.DepartmentMapper;

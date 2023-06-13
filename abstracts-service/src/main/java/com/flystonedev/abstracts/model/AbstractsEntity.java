@@ -31,6 +31,7 @@ public class AbstractsEntity {
             generator = "abstract_id_sequence"
     )
     private Integer id;
+    @Column(name = "Abstract_Titile")
     private String abstractTitle;
     private String body;
     private String authors;

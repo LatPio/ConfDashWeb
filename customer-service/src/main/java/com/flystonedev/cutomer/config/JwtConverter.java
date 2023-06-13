@@ -9,7 +9,7 @@ public class JwtConverter {
 
     public static String getKeycloakUserID(){
         Jwt jwt = (Jwt) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return jwt.getSubject().toString();
+        return jwt.getSubject();
     }
 
 }

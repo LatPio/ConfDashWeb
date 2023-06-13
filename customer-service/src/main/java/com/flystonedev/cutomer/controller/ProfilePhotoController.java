@@ -3,24 +3,19 @@ package com.flystonedev.cutomer.controller;
 
 import com.flystonedev.cutomer.DTO.CustomerDTO;
 import com.flystonedev.cutomer.DTO.ProfilePhotoDTO;
-import com.flystonedev.cutomer.DTO.ProfilePhotoResponse;
 import com.flystonedev.cutomer.service.CustomerService;
 import com.flystonedev.cutomer.service.ProfilePhotoService;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Slf4j
 @RestController

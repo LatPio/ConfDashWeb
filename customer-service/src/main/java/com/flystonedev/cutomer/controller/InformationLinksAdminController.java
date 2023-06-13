@@ -2,7 +2,6 @@ package com.flystonedev.cutomer.controller;
 
 import com.flystonedev.cutomer.DTO.InformationLinksAdminRequest;
 import com.flystonedev.cutomer.DTO.InformationLinksDTO;
-import com.flystonedev.cutomer.DTO.InformationLinksRequest;
 import com.flystonedev.cutomer.service.InformationLinksService;
 import jakarta.annotation.security.RolesAllowed;
 import lombok.AllArgsConstructor;
@@ -45,7 +44,7 @@ public class InformationLinksAdminController {
 
     @RolesAllowed({"ADMIN"})
     @DeleteMapping
-    public ResponseEntity delete(@RequestParam Integer id){
+    public ResponseEntity<Void> delete(@RequestParam Integer id){
         informationLinksService.deleteAdminLink(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }

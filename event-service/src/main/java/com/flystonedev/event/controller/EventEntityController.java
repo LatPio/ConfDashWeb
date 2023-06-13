@@ -60,6 +60,6 @@ public class EventEntityController {
         eventEntityService.delete(id);
         return new ResponseEntity(HttpStatus.OK);
     }
-
+//todo: show event field for repository to filter events for user to get, endpoint for activation these events single as well from list
 
 }

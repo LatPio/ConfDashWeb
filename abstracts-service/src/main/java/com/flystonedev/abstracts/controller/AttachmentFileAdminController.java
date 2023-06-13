@@ -2,7 +2,6 @@ package com.flystonedev.abstracts.controller;
 
 import com.flystonedev.abstracts.DTO.AttachmentFileAdminRequest;
 import com.flystonedev.abstracts.DTO.AttachmentFileDTO;
-import com.flystonedev.abstracts.DTO.AttachmentFileRequest;
 import com.flystonedev.abstracts.DTO.AttachmentFileResponse;
 import com.flystonedev.abstracts.model.FileRole;
 import com.flystonedev.abstracts.service.AttachmentFileService;
