@@ -48,15 +48,15 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-@ExtendWith(MockitoExtension.class)
-class AbstractServiceTest extends KeycloakTestContainers implements SampleData {
+//@ExtendWith(MockitoExtension.class)
+class AbstractServiceTest  extends KeycloakTestContainers implements SampleData {
 
     @InjectMocks
     private AbstractService underTest;
     @Mock
     private  AbstractRepository abstractRepository;
 
-    @Autowired
+    @Mock
     private JwtConverter jwtConverter;
 
     private final AbstractMapper abstractMapper = Mappers.getMapper(AbstractMapper.class);
@@ -68,11 +68,11 @@ class AbstractServiceTest extends KeycloakTestContainers implements SampleData {
 
 
 
-
-        Authentication authentication = Mockito.mock(Authentication.class);
-        SecurityContext securityContext = Mockito.mock(SecurityContext.class);
-        Mockito.when(securityContext.getAuthentication()).thenReturn(authentication);
-        SecurityContextHolder.setContext(securityContext);
+//
+//        Authentication authentication = Mockito.mock(Authentication.class);
+//        SecurityContext securityContext = Mockito.mock(SecurityContext.class);
+//        Mockito.when(securityContext.getAuthentication()).thenReturn(authentication);
+//        SecurityContextHolder.setContext(securityContext);
 
         }
 
