@@ -9,6 +9,7 @@ import com.flystonedev.abstracts.model.AbstractsEntity;
 import com.flystonedev.abstracts.repository.AbstractRepository;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.joda.time.field.BaseDurationField;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,6 +20,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.TestingAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -72,11 +76,11 @@ class AbstractServiceTest implements SampleData {
 //
 ////        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(, null );
 
-        Authentication authentication = Mockito.mock(Authentication.class);
-
-        SecurityContext securityContext = Mockito.mock(SecurityContext.class);
-        Mockito.when(securityContext.getAuthentication()).thenReturn(authentication);
-        SecurityContextHolder.setContext(securityContext);
+//        Authentication authentication = Mockito.mock(Authentication.class);
+//
+//        SecurityContext securityContext = Mockito.mock(SecurityContext.class);
+//        Mockito.when(securityContext.getAuthentication()).thenReturn(authentication);
+//        SecurityContextHolder.setContext(securityContext);
 
         }
 
@@ -110,7 +114,6 @@ class AbstractServiceTest implements SampleData {
     @Test
     @WithMockUser(username="admin",authorities ={"USER","ADMIN"})
     void userCanGetYourselfAbstract() {
-
 
         final var expected = getSampleOfOneAbstractEntity();
         when(abstractRepository.findByIdAndAuthId(expected.getId(), expected.getAuthId())).thenReturn(Optional.ofNullable(expected));

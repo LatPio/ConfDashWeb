@@ -33,8 +33,8 @@ services:
   keycloak:
     container_name: keycloak
     image: quay.io/keycloak/keycloak:21.1.1
-#    command: [ "start-dev", "--import-realm" ]
-    command: [ "start-dev" ]
+    command: [ "start-dev", "--import-realm" ]
+#    command: [ "start-dev" ]
     environment:
       DB_VENDOR: POSTGRES
       DB_ADDR: postgres
@@ -46,8 +46,8 @@ services:
     ports:
       - "8181:8080"
     restart: unless-stopped
-#    volumes:
-#      - ./realms/:/opt/keycloak/data/import/
+    volumes:
+      - ./realms/:/opt/keycloak/data/import/
     depends_on:
       - postgres
     networks:

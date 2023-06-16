@@ -12,4 +12,9 @@ public class JwtConverter {
         return jwt.getSubject().toString();
     }
 
+    public static Jwt getKeycloakJWT(){
+        Jwt jwt = (Jwt) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return jwt;
+    }
+
 }
