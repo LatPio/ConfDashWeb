@@ -3,6 +3,7 @@ package com.flystonedev.abstracts.service;
 import com.flystonedev.abstracts.DTO.AbstractDTO;
 import com.flystonedev.abstracts.SampleData;
 import com.flystonedev.abstracts.config.JwtConverter;
+import com.flystonedev.abstracts.config.KeycloakTestContainers;
 import com.flystonedev.abstracts.mapper.AbstractMapper;
 import com.flystonedev.abstracts.mapper.AbstractSimpleMapper;
 import com.flystonedev.abstracts.model.AbstractsEntity;
@@ -48,14 +49,14 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class AbstractServiceTest implements SampleData {
+class AbstractServiceTest extends KeycloakTestContainers implements SampleData {
 
     @InjectMocks
     private AbstractService underTest;
     @Mock
     private  AbstractRepository abstractRepository;
 
-    @Mock
+    @Autowired
     private JwtConverter jwtConverter;
 
     private final AbstractMapper abstractMapper = Mappers.getMapper(AbstractMapper.class);
@@ -65,22 +66,13 @@ class AbstractServiceTest implements SampleData {
     @BeforeEach
     void setUp() {
 
-//        String jwtString = Jwts.builder()
-//                .setId(UUID.randomUUID().toString())
-//                .setSubject("test")
-//                .signWith(SignatureAlgorithm.HS256, "OzCo1xWOkNs2+kdCZOmeB2aPHSP7sQ9C/Yt7oH/VNDY=")
-//                .claim("USER", "id goes here")
-//                .compact();
-//        Jwt jwt = Jwt.withTokenValue(jwtString).build();
-//
-//
-////        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(, null );
 
-//        Authentication authentication = Mockito.mock(Authentication.class);
-//
-//        SecurityContext securityContext = Mockito.mock(SecurityContext.class);
-//        Mockito.when(securityContext.getAuthentication()).thenReturn(authentication);
-//        SecurityContextHolder.setContext(securityContext);
+
+
+        Authentication authentication = Mockito.mock(Authentication.class);
+        SecurityContext securityContext = Mockito.mock(SecurityContext.class);
+        Mockito.when(securityContext.getAuthentication()).thenReturn(authentication);
+        SecurityContextHolder.setContext(securityContext);
 
         }
 
@@ -112,12 +104,12 @@ class AbstractServiceTest implements SampleData {
     }
 
     @Test
-    @WithMockUser(username="admin",authorities ={"USER","ADMIN"})
+//    @WithMockUser(username="admin",authorities ={"USER","ADMIN"})
     void userCanGetYourselfAbstract() {
 
         final var expected = getSampleOfOneAbstractEntity();
         when(abstractRepository.findByIdAndAuthId(expected.getId(), expected.getAuthId())).thenReturn(Optional.ofNullable(expected));
-        when(jwtConverter.getKeycloakUserID()).thenReturn(expected.getAuthId().toString());
+        when(jwtConverter.getKeycloakUserID()).thenReturn(getJaneDoeBearer());
         //when
 
         final var actual = underTest.getUsersAbstract(expected.getId());
