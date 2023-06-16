@@ -29,7 +29,7 @@ public class AbstractAdminController {
     @RolesAllowed({"ADMIN"})
     @GetMapping
     public ResponseEntity<AbstractDTO> get(@RequestParam Integer id){
-        return ResponseEntity.status(HttpStatus.OK).body(abstractService.getAdmin(id));
+        return ResponseEntity.status(HttpStatus.OK).body(abstractService.getAbstractByAdmin(id));
     }
 
     @RolesAllowed({"ADMIN"})
@@ -45,17 +45,17 @@ public class AbstractAdminController {
     @RolesAllowed({"ADMIN"})
     @PutMapping
     public ResponseEntity<AbstractDTO> updateAdmin(@RequestBody AbstractDTO abstractDTO){
-        return ResponseEntity.status(HttpStatus.OK).body(abstractService.updateAdmin(abstractDTO));
+        return ResponseEntity.status(HttpStatus.OK).body(abstractService.updateAbstractByAdmin(abstractDTO));
     }
     @RolesAllowed({"ADMIN"})
     @PutMapping("/block")
     public ResponseEntity<AbstractBlockDTO> updateBlockEdit(@RequestBody AbstractBlockDTO abstractBlockDTO){
-        return ResponseEntity.status(HttpStatus.OK).body(abstractService.updateAdminBlockEdit(abstractBlockDTO));
+        return ResponseEntity.status(HttpStatus.OK).body(abstractService.updateAbstractAdminBlockEdit(abstractBlockDTO));
     }
     @RolesAllowed({"ADMIN"})
     @DeleteMapping
     public ResponseEntity delete(@RequestParam Integer id){
-        abstractService.deleteAdmin(id);
+        abstractService.deleteAdminAbstract(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

@@ -35,17 +35,17 @@ class AbstractRepositoryTest implements SampleData{
     void tearDown(){
         underTest.deleteAll();
     }
-    @Test
-    void shouldCheckIfAbstractPresentByIdAndAuthId() {
-        Integer id = 1;
-        String authId = "aaaa-bbbb";
-        //when
-        Optional<AbstractsEntity> byIdAndAuthId;
-        byIdAndAuthId = underTest.findByIdAndAuthId(id, authId);
-        //then
-        System.out.println(byIdAndAuthId);
-    }
 
+    @Test
+    void findAbstractByIdAndAuthId(){
+        String authId = "aaaa-bbbb";
+        Integer id = 1;
+
+        var testValue = underTest.findByIdAndAuthId(id, authId);
+
+        assertThat(testValue.get().getId(), is(id));
+        assertThat(testValue.get().getAuthId(), is(authId));
+    }
 
     @Test
     void idShouldReturnAbstractsEntitiesByAuthId() {
@@ -81,9 +81,7 @@ class AbstractRepositoryTest implements SampleData{
         //when
         underTest.deleteByIdAndAuthId(id, authID);
         Optional<AbstractsEntity> shouldByEmpty = underTest.findByIdAndAuthId(id, authID);
-
         //then
-
         assertThat(shouldByEmpty, is(Optional.empty()));
     }
 }

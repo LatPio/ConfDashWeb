@@ -39,19 +39,19 @@ public class AbstractUserController {
     @RolesAllowed({"USER"})
     @GetMapping("/listAccepted")
     public ResponseEntity<List<AbstractDTO>> listAccepted(){
-        return ResponseEntity.status(HttpStatus.OK).body(abstractService.abstractUserAceptedDTOList());
+        return ResponseEntity.status(HttpStatus.OK).body(abstractService.abstractUserAcceptedDTOList());
     }
     @RolesAllowed({"USER"})
     @PutMapping
     public ResponseEntity<AbstractDTO> update(@RequestBody AbstractDTO abstractDTO){
         //todo modifiable/accessible only by user owner
-        return ResponseEntity.status(HttpStatus.OK).body(abstractService.updateUsers(abstractDTO));
+        return ResponseEntity.status(HttpStatus.OK).body(abstractService.updateUsersAbstract(abstractDTO));
     }
 
     @RolesAllowed({"USER"})
     @DeleteMapping
     public ResponseEntity<Void> delete(@RequestParam Integer id){
-        abstractService.deleteUsers(id);
+        abstractService.deleteUsersAbstract(id);
         return new ResponseEntity<>(HttpStatus.OK);
         //todo block delete for user after abstract is market as accept: true
     }

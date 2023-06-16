@@ -16,6 +16,5 @@ public interface AbstractRepository extends JpaRepository<AbstractsEntity, Integ
 
 
     Optional<AbstractsEntity> findByIdAndAuthId(Integer Id, String authId);
-
     Optional<Void> deleteByIdAndAuthId (Integer id, String authId);
 }

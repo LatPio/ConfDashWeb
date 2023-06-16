@@ -53,12 +53,12 @@ public class AbstractService {
     }
     @Transactional
     public List<AbstractDTO> abstractUsersDTOList(){
-        List<AbstractsEntity> abstractsEntityList = abstractRepository.findAbstractsEntitiesByAuthId(jwtConverter.getKeycloakUserID().toString());
+        List<AbstractsEntity> abstractsEntityList = abstractRepository.findAbstractsEntitiesByAuthId(JwtConverter.getKeycloakUserID().toString());
         return abstractsEntityList.stream().map(abstractMapper::map).collect(Collectors.toList());
     }
 
     @Transactional
-    public List<AbstractDTO> abstractUserAceptedDTOList(){
+    public List<AbstractDTO> abstractUserAcceptedDTOList(){
         List<AbstractsEntity> abstractsEntityList = abstractRepository.findAbstractsEntitiesByAccepted(true);
         return abstractsEntityList.stream().map(abstractMapper::map).collect(Collectors.toList());
     }
@@ -69,7 +69,7 @@ public class AbstractService {
     }
 
     @Transactional
-    public AbstractDTO updateUsers(AbstractDTO abstractDTO){
+    public AbstractDTO updateUsersAbstract(AbstractDTO abstractDTO){
         AbstractDTO exist = getUsersAbstract(abstractDTO.getId());
         if (exist == null) {
             throw new EntityNotFoundException();
@@ -86,7 +86,7 @@ public class AbstractService {
         }
     }
 
-    public void deleteUsers(Integer id) {
+    public void deleteUsersAbstract(Integer id) {
         AbstractDTO exist = getUsersAbstract(id);
         if (exist == null) {
             throw new EntityNotFoundException();
@@ -110,8 +110,10 @@ public class AbstractService {
         AbstractsEntity abstracts = AbstractsEntity.builder()
                 .abstractTitle(abstractDTO.getAbstractTitle())
                 .body(abstractDTO.getBody())
+                .affiliation(abstractDTO.getAffiliation())
                 .authors(abstractDTO.getAuthors())
                 .ownerId(abstractDTO.getOwnerId())
+                .presenterId(abstractDTO.getPresenterId())
                 .authId(abstractDTO.getAuthId())
                 .build();
         abstractRepository.save(abstracts);
@@ -122,7 +124,7 @@ public class AbstractService {
         return abstractsEntityList.stream().map(abstractMapper::map).collect(Collectors.toList());
     }
     @Transactional
-    public AbstractDTO getAdmin(Integer id){
+    public AbstractDTO getAbstractByAdmin(Integer id){
         return abstractRepository.findById(id).map(abstractMapper::map).orElseThrow(EntityNotFoundException::new);
     }
 
@@ -132,8 +134,8 @@ public class AbstractService {
     }
 
     @Transactional
-    public AbstractDTO updateAdmin(AbstractDTO abstractDTO){
-        AbstractDTO exist = getAdmin(abstractDTO.getId());
+    public AbstractDTO updateAbstractByAdmin(AbstractDTO abstractDTO){
+        AbstractDTO exist = getAbstractByAdmin(abstractDTO.getId());
         if (exist == null) {
             throw new EntityNotFoundException();
         }
@@ -143,8 +145,8 @@ public class AbstractService {
     }
 
     @Transactional
-    public AbstractBlockDTO updateAdminBlockEdit(AbstractBlockDTO abstractBlockDTO){
-        AbstractDTO exist = getAdmin(abstractBlockDTO.getId());
+    public AbstractBlockDTO updateAbstractAdminBlockEdit(AbstractBlockDTO abstractBlockDTO){
+        AbstractDTO exist = getAbstractByAdmin(abstractBlockDTO.getId());
         if (exist == null) {
             throw new EntityNotFoundException();
         }
@@ -153,7 +155,7 @@ public class AbstractService {
         return abstractBlockMapper.map(updated);
     }
 
-    public void deleteAdmin(Integer id) {
+    public void deleteAdminAbstract(Integer id) {
         abstractRepository.deleteById(id);
     }
 
