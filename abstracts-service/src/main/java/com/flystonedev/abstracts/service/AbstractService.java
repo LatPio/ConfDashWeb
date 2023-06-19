@@ -44,6 +44,8 @@ public class AbstractService {
         AbstractsEntity abstracts = AbstractsEntity.builder()
                 .abstractTitle(abstractDTO.getAbstractTitle())
                 .body(abstractDTO.getBody())
+                .affiliation(abstractDTO.getAffiliation())
+                .presenterId(abstractDTO.getPresenterId())
                 .authors(abstractDTO.getAuthors())
                 .ownerId(abstractDTO.getOwnerId()) //todo from customer get user id
                 .authId(jwtConverter.getKeycloakUserID())
@@ -53,7 +55,7 @@ public class AbstractService {
     }
     @Transactional
     public List<AbstractDTO> abstractUsersDTOList(){
-        List<AbstractsEntity> abstractsEntityList = abstractRepository.findAbstractsEntitiesByAuthId(JwtConverter.getKeycloakUserID().toString());
+        List<AbstractsEntity> abstractsEntityList = abstractRepository.findAbstractsEntitiesByAuthId(jwtConverter.getKeycloakUserID().toString());
         return abstractsEntityList.stream().map(abstractMapper::map).collect(Collectors.toList());
     }
 
@@ -65,7 +67,7 @@ public class AbstractService {
 
     @Transactional
     public AbstractDTO getUsersAbstract(Integer id){
-        return abstractRepository.findByIdAndAuthId(id, jwtConverter.getKeycloakUserID().toString()).map(abstractMapper::map).orElseThrow(EntityNotFoundException::new);
+        return abstractRepository.findByIdAndAuthId(id, jwtConverter.getKeycloakUserID()).map(abstractMapper::map).orElseThrow(EntityNotFoundException::new);
     }
 
     @Transactional
@@ -77,7 +79,7 @@ public class AbstractService {
         if (exist.isAccepted()) {
             throw new AbstractEditionBlockedException();
         } else
-        if (exist.getAuthId() != JwtConverter.getKeycloakUserID()){
+        if (exist.getAuthId() != jwtConverter.getKeycloakUserID()){
             throw new AbstractEditionBlockedException("You can edit only yours Abstract!", GlobalErrorCode.ERROR_ABSTRACT_ACCESS_BLOCKED);
         }
         else {

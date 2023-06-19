@@ -35,21 +35,19 @@ import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
+import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.security.test.context.support.WithMockUser;
 
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 import static com.flystonedev.abstracts.config.JwtConverter.*;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-//@ExtendWith(MockitoExtension.class)
-class AbstractServiceTest  extends KeycloakTestContainers implements SampleData {
+@ExtendWith(MockitoExtension.class)
+class AbstractServiceTest   implements SampleData {   //extends KeycloakTestContainers
 
     @InjectMocks
     private AbstractService underTest;
@@ -66,50 +64,60 @@ class AbstractServiceTest  extends KeycloakTestContainers implements SampleData 
     @BeforeEach
     void setUp() {
 
-
-
-//
-//        Authentication authentication = Mockito.mock(Authentication.class);
-//        SecurityContext securityContext = Mockito.mock(SecurityContext.class);
-//        Mockito.when(securityContext.getAuthentication()).thenReturn(authentication);
-//        SecurityContextHolder.setContext(securityContext);
-
         }
 
     @AfterEach
     void tearDown() {
-//        abstractRepository.deleteAll();
+
     }
 
     @Test
     void canCreateNewAbstractCreatedByUser() {
         //given
-        //when
-        //then
+        AbstractDTO expected = getSampleOfOneAbstractDTO();
+        expected.setId(null);
+        when(jwtConverter.getKeycloakUserID()).thenReturn(expected.getAuthId());
 
+        underTest.createUserAbstract(expected);
+        //then
+        ArgumentCaptor<AbstractsEntity> abstractsEntityArgumentCaptor = ArgumentCaptor.forClass(AbstractsEntity.class);
+        verify(abstractRepository).save(abstractsEntityArgumentCaptor.capture());
+
+        AbstractsEntity abstractsEntityArgumentCaptorValue = abstractsEntityArgumentCaptor.getValue();
+        assertThat(abstractsEntityArgumentCaptorValue).isEqualTo(abstractMapper.map(expected));
     }
 
     @Test
     void userCanGetAllAbstractsCreatedByYourself() {
         //given
+        String authId = "vava-dddd";
+        when(jwtConverter.getKeycloakUserID()).thenReturn(authId);
+
         //when
+        underTest.abstractUsersDTOList();
         //then
+        verify(abstractRepository, times(1)).findAbstractsEntitiesByAuthId(authId);
+        verifyNoMoreInteractions(abstractRepository);
     }
 
     @Test
     void userCanGetAllAcceptedAbstractToList() {
         //given
+
         //when
+        underTest.abstractUserAcceptedDTOList();
         //then
+        verify(abstractRepository, times(1)).findAbstractsEntitiesByAccepted(true);
+        verifyNoMoreInteractions(abstractRepository);
     }
 
     @Test
-//    @WithMockUser(username="admin",authorities ={"USER","ADMIN"})
+    @WithAnonymousUser
     void userCanGetYourselfAbstract() {
 
         final var expected = getSampleOfOneAbstractEntity();
         when(abstractRepository.findByIdAndAuthId(expected.getId(), expected.getAuthId())).thenReturn(Optional.ofNullable(expected));
-        when(jwtConverter.getKeycloakUserID()).thenReturn(getJaneDoeBearer());
+        when(jwtConverter.getKeycloakUserID()).thenReturn(expected.getAuthId());
         //when
 
         final var actual = underTest.getUsersAbstract(expected.getId());
@@ -122,15 +130,31 @@ class AbstractServiceTest  extends KeycloakTestContainers implements SampleData 
     @Test
     void userCanUpdateOwnAbstract() {
         //given
+        final var toSave = getSampleOfOneAbstractDTO();
+        when(jwtConverter.getKeycloakUserID()).thenReturn(toSave.getAuthId());
+        when(abstractRepository.save(any(AbstractsEntity.class))).thenReturn(abstractMapper.map(toSave));
+        when(abstractRepository.findByIdAndAuthId(toSave.getId(), toSave.getAuthId())).thenReturn(Optional.ofNullable(abstractMapper.map(toSave)));
         //when
+        final var actual = underTest.updateUsersAbstract(toSave);
         //then
+        assertThat(actual).usingRecursiveComparison().isEqualTo(toSave);
+        verify(abstractRepository, times(1)).save(any(AbstractsEntity.class));
+        verifyNoMoreInteractions(abstractRepository);
     }
 
     @Test
     void userCanDeleteOwnAbstract() {
         //given
+        var abstractDTO = getSampleOfOneAbstractDTO();
+        when(jwtConverter.getKeycloakUserID()).thenReturn(abstractDTO.getAuthId());
+        when(abstractRepository.findByIdAndAuthId(abstractDTO.getId(), abstractDTO.getAuthId())).thenReturn(Optional.ofNullable(abstractMapper.map(abstractDTO)));//        when(abstractRepository.deleteByIdAndAuthId(anyInt(),anyString())).then(invocationOnMock -> doNothing());
+//        doNothing().when(abstractRepository).deleteByIdAndAuthId(anyInt(),anyString());
         //when
         //then
+        underTest.deleteUsersAbstract(1);
+        verify(abstractRepository, times(1)).deleteByIdAndAuthId(anyInt(),anyString());
+        verifyNoMoreInteractions(abstractRepository);
+
     }
 
     @Test

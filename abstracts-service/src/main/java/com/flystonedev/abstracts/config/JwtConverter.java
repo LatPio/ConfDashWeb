@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class JwtConverter {
 
-    public static String getKeycloakUserID(){
+    public String getKeycloakUserID(){
         Jwt jwt = (Jwt) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return jwt.getSubject().toString();
     }
