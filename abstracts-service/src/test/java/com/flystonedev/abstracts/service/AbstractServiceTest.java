@@ -3,73 +3,39 @@ package com.flystonedev.abstracts.service;
 import com.flystonedev.abstracts.DTO.AbstractDTO;
 import com.flystonedev.abstracts.SampleData;
 import com.flystonedev.abstracts.config.JwtConverter;
-import com.flystonedev.abstracts.config.KeycloakTestContainers;
+import com.flystonedev.abstracts.exeption.AbstractEditionBlockedException;
+import com.flystonedev.abstracts.exeption.EntityNotFoundException;
 import com.flystonedev.abstracts.mapper.AbstractMapper;
 import com.flystonedev.abstracts.mapper.AbstractSimpleMapper;
 import com.flystonedev.abstracts.model.AbstractsEntity;
 import com.flystonedev.abstracts.repository.AbstractRepository;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import org.joda.time.field.BaseDurationField;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mapstruct.factory.Mappers;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.TestingAuthenticationToken;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.oauth2.jwt.Jwt;
-import org.springframework.security.oauth2.jwt.JwtDecoder;
-import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
-import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
-import org.springframework.security.test.context.support.WithAnonymousUser;
-import org.springframework.security.test.context.support.WithMockUser;
 
-import java.security.Principal;
+
 import java.util.*;
 
-import static com.flystonedev.abstracts.config.JwtConverter.*;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class AbstractServiceTest   implements SampleData {   //extends KeycloakTestContainers
+class AbstractServiceTest   implements SampleData {
 
     @InjectMocks
     private AbstractService underTest;
     @Mock
     private  AbstractRepository abstractRepository;
-
     @Mock
     private JwtConverter jwtConverter;
-
     private final AbstractMapper abstractMapper = Mappers.getMapper(AbstractMapper.class);
     private final AbstractSimpleMapper abstractSimpleMapper = Mappers.getMapper(AbstractSimpleMapper.class);
-
-
-    @BeforeEach
-    void setUp() {
-
-        }
-
-    @AfterEach
-    void tearDown() {
-
-    }
 
     @Test
     void canCreateNewAbstractCreatedByUser() {
@@ -112,7 +78,6 @@ class AbstractServiceTest   implements SampleData {   //extends KeycloakTestCont
     }
 
     @Test
-    @WithAnonymousUser
     void userCanGetYourselfAbstract() {
 
         final var expected = getSampleOfOneAbstractEntity();
@@ -125,6 +90,17 @@ class AbstractServiceTest   implements SampleData {   //extends KeycloakTestCont
         assertThat(actual).usingRecursiveComparison().isEqualTo(expected);
         verify(abstractRepository, times(1)).findByIdAndAuthId(expected.getId(), expected.getAuthId());
         verifyNoMoreInteractions(abstractRepository);
+    }
+
+    @Test
+    void willThrowErrorWhenUserGetYourselfAbstract() {
+        //given
+        final var expected = getSampleOfOneAbstractEntity();
+        //when
+        //then
+        assertThatThrownBy(() -> underTest.getUsersAbstract(expected.getId()))
+                .isInstanceOf(EntityNotFoundException.class)
+                .hasMessageContaining("Exception Entity not found");
     }
 
     @Test
@@ -143,18 +119,70 @@ class AbstractServiceTest   implements SampleData {   //extends KeycloakTestCont
     }
 
     @Test
+    void willThrowErrorWhenUserUserUpdateOwnAbstractAndProvideWrongId() {
+        //given
+        final var toSave = getSampleOfOneAbstractDTO();
+        when(jwtConverter.getKeycloakUserID()).thenReturn(toSave.getAuthId());
+        when(abstractRepository.findByIdAndAuthId(toSave.getId(), toSave.getAuthId())).thenReturn(Optional.ofNullable(null));
+        //when
+        //then
+        assertThatThrownBy(() -> underTest.updateUsersAbstract(toSave))
+                .isInstanceOf(EntityNotFoundException.class)
+                .hasMessageContaining("Exception Entity not found");
+    }
+    @Test
+    void willThrowErrorWhenUserUserUpdateOwnAbstractAndAbstractIsBlocked() {
+        //given
+        final var toSave = getSampleOfOneAbstractDTO();
+        toSave.setAccepted(true);
+        when(jwtConverter.getKeycloakUserID()).thenReturn(toSave.getAuthId());
+        when(abstractRepository.findByIdAndAuthId(toSave.getId(), toSave.getAuthId())).thenReturn(Optional.ofNullable(abstractMapper.map(toSave)));
+        //when
+        //then
+        assertThatThrownBy(() -> underTest.updateUsersAbstract(toSave))
+                .isInstanceOf(AbstractEditionBlockedException.class)
+                .hasMessageContaining("Abstract edition blocked");
+    }
+
+    @Test
     void userCanDeleteOwnAbstract() {
         //given
         var abstractDTO = getSampleOfOneAbstractDTO();
         when(jwtConverter.getKeycloakUserID()).thenReturn(abstractDTO.getAuthId());
         when(abstractRepository.findByIdAndAuthId(abstractDTO.getId(), abstractDTO.getAuthId())).thenReturn(Optional.ofNullable(abstractMapper.map(abstractDTO)));//        when(abstractRepository.deleteByIdAndAuthId(anyInt(),anyString())).then(invocationOnMock -> doNothing());
-//        doNothing().when(abstractRepository).deleteByIdAndAuthId(anyInt(),anyString());
         //when
         //then
         underTest.deleteUsersAbstract(1);
         verify(abstractRepository, times(1)).deleteByIdAndAuthId(anyInt(),anyString());
         verifyNoMoreInteractions(abstractRepository);
 
+    }
+
+    @Test
+    void willThrowErrorWhenUserDeleteOwnAbstractAndProvidedWrongId() {
+        //given
+        var abstractDTO = getSampleOfOneAbstractDTO();
+        when(jwtConverter.getKeycloakUserID()).thenReturn(abstractDTO.getAuthId());
+        when(abstractRepository.findByIdAndAuthId(abstractDTO.getId(), abstractDTO.getAuthId())).thenReturn(Optional.ofNullable(null));//        when(abstractRepository.deleteByIdAndAuthId(anyInt(),anyString())).then(invocationOnMock -> doNothing());
+        //when
+        //then
+        assertThatThrownBy(() -> underTest.deleteUsersAbstract(abstractDTO.getId()))
+                .isInstanceOf(EntityNotFoundException.class)
+                .hasMessageContaining("Exception Entity not found");
+    }
+
+    @Test
+    void willThrowErrorWhenUserDeleteOwnAbstractAndAbstractIsBlocked() {
+        //given
+        var abstractDTO = getSampleOfOneAbstractDTO();
+        abstractDTO.setAccepted(true);
+        when(jwtConverter.getKeycloakUserID()).thenReturn(abstractDTO.getAuthId());
+        when(abstractRepository.findByIdAndAuthId(abstractDTO.getId(), abstractDTO.getAuthId())).thenReturn(Optional.ofNullable(abstractMapper.map(abstractDTO)));//        when(abstractRepository.deleteByIdAndAuthId(anyInt(),anyString())).then(invocationOnMock -> doNothing());
+        //when
+        //then
+        assertThatThrownBy(() -> underTest.deleteUsersAbstract(abstractDTO.getId()))
+                .isInstanceOf(AbstractEditionBlockedException.class)
+                .hasMessageContaining("Abstract edition blocked");
     }
 
     @Test
@@ -192,6 +220,17 @@ class AbstractServiceTest   implements SampleData {   //extends KeycloakTestCont
         verify(abstractRepository, times(1)).findById(expected.getId());
         verifyNoMoreInteractions(abstractRepository);
     }
+    @Test
+    void willThrowErrorWhenAdminGetAbstract(){
+        //given
+        final var expected = getSampleOfOneAbstractEntity();
+        //when
+
+        //then
+        assertThatThrownBy(() -> underTest.getAbstractByAdmin(expected.getId()))
+                .isInstanceOf(EntityNotFoundException.class)
+                .hasMessageContaining("Exception Entity not found");
+    }
 
     @Test
     void getSimple() {
@@ -206,6 +245,16 @@ class AbstractServiceTest   implements SampleData {   //extends KeycloakTestCont
         verify(abstractRepository, times(1)).findById(expected.getId());
         verifyNoMoreInteractions(abstractRepository);
     }
+    @Test
+    void willThrowErrorWhenAdminGetSimple() {
+        //given
+        final var expected = getSampleOfOneAbstractOutResponse();
+        //when
+        //then
+        assertThatThrownBy(() -> underTest.getSimple(expected.getId()))
+                .isInstanceOf(EntityNotFoundException.class)
+                .hasMessageContaining("Exception Entity not found");
+    }
 
     @Test
     void adminCanUpdateAbstract() {
@@ -219,6 +268,17 @@ class AbstractServiceTest   implements SampleData {   //extends KeycloakTestCont
         assertThat(actual).usingRecursiveComparison().isEqualTo(toSave);
         verify(abstractRepository, times(1)).save(any(AbstractsEntity.class));
         verifyNoMoreInteractions(abstractRepository);
+    }
+    @Test
+    void willThrowErrorWhenAdminUpdateAbstract() {
+        //given
+        final var toSave = getSampleOfOneAbstractDTO();
+        //when
+        //then
+        assertThatThrownBy(() -> underTest.updateAbstractByAdmin(toSave))
+                .isInstanceOf(EntityNotFoundException.class)
+                .hasMessageContaining("Exception Entity not found");
+
     }
 
     @Test
@@ -235,6 +295,18 @@ class AbstractServiceTest   implements SampleData {   //extends KeycloakTestCont
         assertThat(actual.isAccepted()).isEqualTo(toSave.isAccepted());
         verify(abstractRepository, times(1)).save(any(AbstractsEntity.class));
         verifyNoMoreInteractions(abstractRepository);
+    }
+
+    @Test
+    void willThrowErrorWhenAdminUpdateAbstractByBlockEdit() {
+        //given
+        final var toSave = getSampleOfOneAbstractBlockDTO();
+        //when
+        //then
+        assertThatThrownBy(()-> underTest.updateAbstractAdminBlockEdit(toSave))
+                .isInstanceOf(EntityNotFoundException.class)
+                .hasMessageContaining("Exception Entity not found");
+        verify(abstractRepository, never()).save(any());
     }
 
     @Test

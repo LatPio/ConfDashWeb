@@ -470,8 +470,8 @@
   "otpPolicyPeriod": 30,
   "otpPolicyCodeReusable": false,
   "otpSupportedApplications": [
-    "totpAppMicrosoftAuthenticatorName",
     "totpAppGoogleName",
+    "totpAppMicrosoftAuthenticatorName",
     "totpAppFreeOTPName"
   ],
   "webAuthnPolicyRpEntityName": "keycloak",
@@ -505,7 +505,7 @@
       "username": "service-account-spring-cloud-client",
       "enabled": true,
       "totp": false,
-      "emailVerified": false,
+      "emailVerified": true,
       "serviceAccountClientId": "spring-cloud-client",
       "disableableCredentialTypes": [],
       "requiredActions": [],
@@ -524,36 +524,21 @@
       "groups": []
     },
     {
-      "username": "janedoe",
-      "email": "jane.doe@email.com",
-      "firstName": "Jane",
-      "lastName": "Doe",
+      "username": "admin",
+      "email": "admin@email.com",
+      "firstName": "Admin",
+      "lastName": "Master",
       "enabled": true,
+      "emailVerified": true,
       "credentials": [
         {
           "type": "password",
           "value": "password"
         }
       ],
-      "clientRoles": {
-        "account": [
-          "view-profile",
-          "manage-account",
-          "USER"
-        ]
-      }
-    },
-    {
-      "username": "wizard",
-      "email": "gandald.white@email.com",
-      "firstName": "Gandalf",
-      "lastName": "White",
-      "enabled": true,
-      "credentials": [
-        {
-          "type": "password",
-          "value": "password"
-        }
+      "realmRoles": [
+        "ADMIN",
+        "USER"
       ],
       "clientRoles": {
         "account": [
@@ -561,6 +546,30 @@
           "manage-account",
           "USER",
           "ADMIN"
+        ]
+      }
+    },
+    {
+      "username": "user",
+      "email": "user@email.com",
+      "firstName": "User",
+      "lastName": "Typical",
+      "enabled": true,
+      "emailVerified": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "password"
+        }
+      ],
+      "realmRoles": [
+        "USER"
+      ],
+      "clientRoles": {
+        "account": [
+          "view-profile",
+          "manage-account",
+          "USER"
         ]
       }
     }
@@ -604,7 +613,7 @@
       "consentRequired": false,
       "standardFlowEnabled": true,
       "implicitFlowEnabled": false,
-      "directAccessGrantsEnabled": false,
+      "directAccessGrantsEnabled": true,
       "serviceAccountsEnabled": false,
       "publicClient": true,
       "frontchannelLogout": false,
@@ -874,7 +883,7 @@
       "enabled": true,
       "alwaysDisplayInConsole": false,
       "clientAuthenticatorType": "client-secret",
-      "secret": "**********",
+      "secret": "secret",
       "redirectUris": [
         "http://localhost:8080/login/oauth2/code/keycloak"
       ],
@@ -884,9 +893,9 @@
       "notBefore": 0,
       "bearerOnly": false,
       "consentRequired": false,
-      "standardFlowEnabled": true,
+      "standardFlowEnabled": false,
       "implicitFlowEnabled": false,
-      "directAccessGrantsEnabled": false,
+      "directAccessGrantsEnabled": true,
       "serviceAccountsEnabled": true,
       "publicClient": false,
       "frontchannelLogout": true,
@@ -958,6 +967,7 @@
         "acr",
         "roles",
         "profile",
+        "ADMIN",
         "email"
       ],
       "optionalClientScopes": [
@@ -969,6 +979,18 @@
     }
   ],
   "clientScopes": [
+    {
+      "id": "d1837725-78ae-43ee-b151-aa2f120c17f4",
+      "name": "ADMIN",
+      "description": "",
+      "protocol": "openid-connect",
+      "attributes": {
+        "include.in.token.scope": "true",
+        "display.on.consent.screen": "true",
+        "gui.order": "",
+        "consent.screen.text": ""
+      }
+    },
     {
       "id": "dbbca068-f66a-453b-a6f4-96251fb54ef6",
       "name": "address",

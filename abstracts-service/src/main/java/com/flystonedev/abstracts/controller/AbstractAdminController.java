@@ -62,7 +62,7 @@ public class AbstractAdminController {
     @RolesAllowed({"ADMIN"})
     @GetMapping("/principal")
     public ResponseEntity<String> getPrincipal(){
-        System.out.println(JwtConverter.getKeycloakJWT().getId().toString());;
+        System.out.println(JwtConverter.getKeycloakJWT().getId().toString());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

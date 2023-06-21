@@ -78,10 +78,10 @@ public class AbstractService {
         } else
         if (exist.isAccepted()) {
             throw new AbstractEditionBlockedException();
-        } else
-        if (exist.getAuthId() != jwtConverter.getKeycloakUserID()){
-            throw new AbstractEditionBlockedException("You can edit only yours Abstract!", GlobalErrorCode.ERROR_ABSTRACT_ACCESS_BLOCKED);
         }
+//        else if (!exist.getAuthId().equals(jwtConverter.getKeycloakUserID())){
+//            throw new AbstractEditionBlockedException("You can edit only yours Abstract!", GlobalErrorCode.ERROR_ABSTRACT_ACCESS_BLOCKED);
+//        }
         else {
             AbstractsEntity updated = abstractRepository.save(abstractMapper.map(abstractDTO));
             return abstractMapper.map(updated);

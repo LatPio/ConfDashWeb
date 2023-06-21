@@ -22,6 +22,7 @@ import static org.hamcrest.core.IsNot.not;
 @DataJpaTest
 class AbstractRepositoryTest implements SampleData{
 
+
     @Autowired
     private  AbstractRepository underTest;
 
