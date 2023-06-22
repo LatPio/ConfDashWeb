@@ -23,9 +23,10 @@ public class AbstractAdminController {
 
     @RolesAllowed({"ADMIN"})
     @PostMapping
-    public void addAbstract(@RequestBody AbstractDTO abstractDTO){
+    public ResponseEntity<AbstractDTO> addAbstract(@RequestBody AbstractDTO abstractDTO){
         log.info("New Abstract added {}", abstractDTO);
-        abstractService.createAdminAbstract(abstractDTO);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(abstractService.createAdminAbstract(abstractDTO));
     }
     @RolesAllowed({"ADMIN"})
     @GetMapping

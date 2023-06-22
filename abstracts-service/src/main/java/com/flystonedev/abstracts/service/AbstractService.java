@@ -40,7 +40,7 @@ public class AbstractService {
     *
     * */
 
-    public void createUserAbstract(AbstractDTO abstractDTO){
+    public AbstractDTO createUserAbstract(AbstractDTO abstractDTO){
         AbstractsEntity abstracts = AbstractsEntity.builder()
                 .abstractTitle(abstractDTO.getAbstractTitle())
                 .body(abstractDTO.getBody())
@@ -52,6 +52,7 @@ public class AbstractService {
                 .build();
         abstractRepository.save(abstracts);
         //todo files?
+        return abstractMapper.map(abstracts);
     }
     @Transactional
     public List<AbstractDTO> abstractUsersDTOList(){
@@ -79,9 +80,9 @@ public class AbstractService {
         if (exist.isAccepted()) {
             throw new AbstractEditionBlockedException();
         }
-//        else if (!exist.getAuthId().equals(jwtConverter.getKeycloakUserID())){
-//            throw new AbstractEditionBlockedException("You can edit only yours Abstract!", GlobalErrorCode.ERROR_ABSTRACT_ACCESS_BLOCKED);
-//        }
+        else if (!exist.getAuthId().equals(jwtConverter.getKeycloakUserID())){
+            throw new AbstractEditionBlockedException("You can edit only yours Abstract!", GlobalErrorCode.ERROR_ABSTRACT_ACCESS_BLOCKED);
+        }
         else {
             AbstractsEntity updated = abstractRepository.save(abstractMapper.map(abstractDTO));
             return abstractMapper.map(updated);
@@ -108,7 +109,7 @@ public class AbstractService {
      * */
 
 
-    public void createAdminAbstract(AbstractDTO abstractDTO){
+    public AbstractDTO createAdminAbstract(AbstractDTO abstractDTO){
         AbstractsEntity abstracts = AbstractsEntity.builder()
                 .abstractTitle(abstractDTO.getAbstractTitle())
                 .body(abstractDTO.getBody())
@@ -119,6 +120,7 @@ public class AbstractService {
                 .authId(abstractDTO.getAuthId())
                 .build();
         abstractRepository.save(abstracts);
+        return abstractMapper.map(abstracts);
     }
     @Transactional
     public List<AbstractDTO> abstractAdminDTOList(){
