@@ -73,7 +73,7 @@ public class AbstractService {
 
     @Transactional
     public AbstractDTO updateUsersAbstract(AbstractDTO abstractDTO){
-        AbstractDTO exist = getUsersAbstract(abstractDTO.getId());
+        AbstractsEntity exist = abstractMapper.map(getUsersAbstract(abstractDTO.getId()));
         if (exist == null) {
             throw new EntityNotFoundException();
         } else
@@ -84,11 +84,14 @@ public class AbstractService {
             throw new AbstractEditionBlockedException("You can edit only yours Abstract!", GlobalErrorCode.ERROR_ABSTRACT_ACCESS_BLOCKED);
         }
         else {
-            AbstractsEntity updated = abstractRepository.save(abstractMapper.map(abstractDTO));
+            AbstractsEntity toSave = abstractMapper.map(abstractDTO);
+            toSave.setAuthId(exist.getAuthId());
+            toSave.setAccepted(exist.isAccepted());
+            AbstractsEntity updated = abstractRepository.save(toSave);
             return abstractMapper.map(updated);
         }
     }
-
+    @Transactional
     public void deleteUsersAbstract(Integer id) {
         AbstractDTO exist = getUsersAbstract(id);
         if (exist == null) {

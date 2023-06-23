@@ -15,6 +15,7 @@ public class AttachmentFileDTO {
     private Integer id;
     private String name;
     private String type;
+    private String authId;
     private FileRole fileRole;
     private Boolean accepted;
     private byte[] data;

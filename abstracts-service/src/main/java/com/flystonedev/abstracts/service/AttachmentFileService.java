@@ -5,7 +5,9 @@ import com.flystonedev.abstracts.DTO.AttachmentFileDTO;
 import com.flystonedev.abstracts.DTO.AttachmentFileRequest;
 import com.flystonedev.abstracts.config.JwtConverter;
 import com.flystonedev.abstracts.exeption.AbstractEditionBlockedException;
+import com.flystonedev.abstracts.exeption.AttachmentFileEditionBlockedException;
 import com.flystonedev.abstracts.exeption.EntityNotFoundException;
+import com.flystonedev.abstracts.exeption.config.GlobalErrorCode;
 import com.flystonedev.abstracts.mapper.AttachmentFileMapper;
 import com.flystonedev.abstracts.model.AttachmentFile;
 import com.flystonedev.abstracts.repository.AbstractRepository;
@@ -66,14 +68,17 @@ public class AttachmentFileService {
     }
 
     public AttachmentFileDTO updateUsersFile(AttachmentFileDTO attachmentFileDTO){
-        AttachmentFileDTO exist = getUserFile(attachmentFileDTO.getId());
+        AttachmentFile exist = attachmentFileMapper.map(getUserFile(attachmentFileDTO.getId()));
         if(exist == null){
             throw new EntityNotFoundException();
         } else
         if (exist.getAccepted()) {
-            throw new AbstractEditionBlockedException();
+            throw new AttachmentFileEditionBlockedException();
         } else {
-            AttachmentFile updated = attachmentFileRepository.save(attachmentFileMapper.map(attachmentFileDTO));
+            AttachmentFile toSave = attachmentFileMapper.map(attachmentFileDTO);
+            toSave.setAbstractsEntity(exist.getAbstractsEntity());
+
+            AttachmentFile updated = attachmentFileRepository.save(toSave);
             return attachmentFileMapper.map(updated);
         }
     }
@@ -84,7 +89,7 @@ public class AttachmentFileService {
             throw new EntityNotFoundException();
         } else
         if (exist.getAccepted()) {
-            throw new AbstractEditionBlockedException();
+            throw new AttachmentFileEditionBlockedException();
         } else {
             attachmentFileRepository
                     .deleteAttachmentFileByIdAndAuthId(id, jwtConverter.getKeycloakUserID());
@@ -117,14 +122,14 @@ public class AttachmentFileService {
         return attachmentFiles.stream().map(attachmentFileMapper::map).collect(Collectors.toList());
     }
 
-    public AttachmentFileDTO getAdmin(Integer id){
+    public AttachmentFileDTO getAdminFile(Integer id){
         return attachmentFileRepository.findById(id).map(attachmentFileMapper::map).orElseThrow(EntityNotFoundException::new);
     }
 
     public AttachmentFileDTO updateAdmin(AttachmentFileDTO attachmentFileDTO){
-        AttachmentFileDTO exist = getAdmin(attachmentFileDTO.getId());
+        AttachmentFileDTO exist = getAdminFile(attachmentFileDTO.getId());
         if(exist == null){
-            return null;
+            throw new EntityNotFoundException();
         }
         AttachmentFile updated = attachmentFileRepository.save(attachmentFileMapper.map(attachmentFileDTO));
         return attachmentFileMapper.map(updated);

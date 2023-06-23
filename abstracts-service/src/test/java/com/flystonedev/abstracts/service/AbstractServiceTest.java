@@ -131,7 +131,7 @@ class AbstractServiceTest   implements SampleData {
                 .hasMessageContaining("Exception Entity not found");
     }
     @Test
-    void willThrowErrorWhenUserUserUpdateOwnAbstractAndAbstractIsBlocked() {
+    void willThrowErrorWhenUserUpdateOwnAbstractAndAbstractIsBlocked() {
         //given
         final var toSave = getSampleOfOneAbstractDTO();
         toSave.setAccepted(true);
@@ -151,8 +151,8 @@ class AbstractServiceTest   implements SampleData {
         when(jwtConverter.getKeycloakUserID()).thenReturn(abstractDTO.getAuthId());
         when(abstractRepository.findByIdAndAuthId(abstractDTO.getId(), abstractDTO.getAuthId())).thenReturn(Optional.ofNullable(abstractMapper.map(abstractDTO)));//        when(abstractRepository.deleteByIdAndAuthId(anyInt(),anyString())).then(invocationOnMock -> doNothing());
         //when
-        //then
         underTest.deleteUsersAbstract(1);
+        //then
         verify(abstractRepository, times(1)).deleteByIdAndAuthId(anyInt(),anyString());
         verifyNoMoreInteractions(abstractRepository);
 

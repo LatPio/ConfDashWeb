@@ -45,7 +45,6 @@ public class AbstractUserController {
     @RolesAllowed({"USER"})
     @PutMapping
     public ResponseEntity<AbstractDTO> update(@RequestBody AbstractDTO abstractDTO){
-        //todo modifiable/accessible only by user owner
         return ResponseEntity.status(HttpStatus.OK).body(abstractService.updateUsersAbstract(abstractDTO));
     }
 
@@ -54,6 +53,5 @@ public class AbstractUserController {
     public ResponseEntity<Void> delete(@RequestParam Integer id){
         abstractService.deleteUsersAbstract(id);
         return new ResponseEntity<>(HttpStatus.OK);
-        //todo block delete for user after abstract is market as accept: true
     }
 }

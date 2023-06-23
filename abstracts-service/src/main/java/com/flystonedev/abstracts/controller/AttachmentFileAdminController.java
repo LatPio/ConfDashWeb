@@ -45,7 +45,7 @@ public class AttachmentFileAdminController {
     @GetMapping
     public ResponseEntity<AttachmentFileDTO> get(@RequestParam Integer id){
         //todo modifiable/accessible only by user owner
-        return ResponseEntity.status(HttpStatus.OK).body(attachmentFileService.getAdmin(id));
+        return ResponseEntity.status(HttpStatus.OK).body(attachmentFileService.getAdminFile(id));
     }
 
     @RolesAllowed({"ADMIN"})
@@ -95,7 +95,7 @@ public class AttachmentFileAdminController {
             attachmentFileDTO.setName(StringUtils.cleanPath(file.getOriginalFilename()));
             attachmentFileDTO.setType(file.getContentType());
         } else {
-            attachmentFileDTO.setData(attachmentFileService.getAdmin(attachmentFileDTO.getId()).getData());
+            attachmentFileDTO.setData(attachmentFileService.getAdminFile(attachmentFileDTO.getId()).getData());
         }
         return ResponseEntity.status(HttpStatus.OK).body(attachmentFileService.updateAdmin(attachmentFileDTO));
     }
