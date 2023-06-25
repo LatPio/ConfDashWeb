@@ -145,9 +145,15 @@ public interface SampleData {
                 .build();
         return attachmentFile1;
     }
-    default AttachmentFileAdminUpdateRequest getSampleOfAttachmentFileUpdateRequest(){
+    default AttachmentFileAdminUpdateRequest getSampleOfAttachmentFileAdminUpdateRequest(){
         AttachmentFileAdminUpdateRequest attachmentFile1 =
                 new AttachmentFileAdminUpdateRequest(1, FileRole.GRAPHICAL_ABSTRACT, getSampleOfOneAbstractDTO(),false, "vava-dddd" );
+        return attachmentFile1;
+    }
+
+    default AttachmentFileUserUpdateRequest getSampleOfAttachmentFileUserUpdateRequest(){
+        AttachmentFileUserUpdateRequest attachmentFile1 =
+                new AttachmentFileUserUpdateRequest(1, FileRole.GRAPHICAL_ABSTRACT, getSampleOfOneAbstractDTO());
         return attachmentFile1;
     }
 
@@ -171,6 +177,7 @@ public interface SampleData {
     default AttachmentFileAdminRequest getSampleOfOneAttachmentFileAdminRequest(){
         return  new AttachmentFileAdminRequest(FileRole.GRAPHICAL_ABSTRACT, AbstractDTO.builder().id(1).build(), false,"vava-dddd"  );
     }
+
 
     default MultipartFile getSampleMultipart(){
         return new MockMultipartFile(

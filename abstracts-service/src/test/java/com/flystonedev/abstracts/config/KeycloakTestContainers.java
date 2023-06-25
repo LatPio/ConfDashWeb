@@ -1,5 +1,6 @@
 package com.flystonedev.abstracts.config;
 
+import com.flystonedev.abstracts.controller.AbstractAdminControllerTest;
 import dasniko.testcontainers.keycloak.KeycloakContainer;
 import io.restassured.RestAssured;
 import org.apache.http.client.utils.URIBuilder;
@@ -11,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.json.JacksonJsonParser;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
@@ -42,9 +44,15 @@ public abstract class KeycloakTestContainers {
     @LocalServerPort
     private int port;
     String authServer = keycloak.getAuthServerUrl();
+//
+////    @Container
+////    static KeycloakContainer keycloak = new KeycloakContainer().withRealmImportFile("realmsTest/realm-tests.json");
+    static final KeycloakContainer keycloak;
 
-    @Container
-    static KeycloakContainer keycloak = new KeycloakContainer().withRealmImportFile("realmsTest/realm-tests.json");
+    static {
+        keycloak = new KeycloakContainer().withRealmImportFile("realmsTest/realm-tests.json");
+        keycloak.start();
+    }
 
     @PostConstruct
     public void init() {
@@ -91,6 +99,7 @@ public abstract class KeycloakTestContainers {
                         "client_secret", "secret"
                 ))
                 .post(authServer + "realms/confdashweb/protocol/openid-connect/token")
+//                .post(authServer + "realms/confdashweb/protocol/openid-connect/token")
                 .then().assertThat().statusCode(200)
                 .extract().path("access_token");
         return "Bearer " + token;
@@ -150,5 +159,8 @@ public abstract class KeycloakTestContainers {
 
         return null;
     }
+
+
+
 
 }

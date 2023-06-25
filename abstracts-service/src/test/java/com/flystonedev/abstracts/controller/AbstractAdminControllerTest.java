@@ -6,11 +6,14 @@ import com.flystonedev.abstracts.repository.AbstractRepository;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
 import static io.restassured.RestAssured.given;
 
+@Testcontainers
+public class AbstractAdminControllerTest extends KeycloakTestContainers implements SampleData {
 
-class AbstractAdminControllerTest extends KeycloakTestContainers implements SampleData {
 
     @Autowired
     private AbstractRepository abstractRepository;
@@ -21,6 +24,8 @@ class AbstractAdminControllerTest extends KeycloakTestContainers implements Samp
 
     }
 
+    public AbstractAdminControllerTest() {
+    }
 
     @Test
     void addAbstract() {

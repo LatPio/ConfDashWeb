@@ -20,7 +20,7 @@ class AbstractUserControllerTest extends KeycloakTestContainers implements Sampl
         abstractRepository.saveAll(getSampleAbstract());
 
     }
-
+    Integer startId = null;
     @Test
     @Order(1)
     void addAbstract() {
@@ -32,6 +32,7 @@ class AbstractUserControllerTest extends KeycloakTestContainers implements Sampl
         Response response = given()
                 .header("Content-type", "application/json")
                 .header("Authorization", getAccessToken("admin@email.com", "password"))
+//                .header("Authorization", getTokenAdminByWebclient())
                 .and()
                 .body(requestBody)
                 .when()
@@ -41,7 +42,7 @@ class AbstractUserControllerTest extends KeycloakTestContainers implements Sampl
                 .extract().response();
         Assertions.assertEquals(201, response.statusCode());
         Assertions.assertEquals("Abstract Title", response.jsonPath().getString("abstractTitle"));
-
+        startId = response.jsonPath().getInt("id");
     }
 
     @Test
@@ -49,7 +50,7 @@ class AbstractUserControllerTest extends KeycloakTestContainers implements Sampl
     void get() {
         Response response = given()
                 .header("Authorization", getAccessToken("admin@email.com", "password"))
-                .param("id", "4")
+                .param("id", "12")
                 .when()
                 .get("api/v1/user/abstracts")
                 .peek()
@@ -94,7 +95,7 @@ class AbstractUserControllerTest extends KeycloakTestContainers implements Sampl
     @Order(5)
     void update() {
         String requestBody = "{\n" +
-                "  \"id\": \"4\",\n" +
+                "  \"id\": \"12\",\n" +
                 "  \"abstractTitle\": \"Abstract New Title\",\n" +
                 "  \"body\": \"Body of Abstract\" \n" +
                 " \n}";
@@ -120,7 +121,7 @@ class AbstractUserControllerTest extends KeycloakTestContainers implements Sampl
     void delete() {
         Response response = given()
                 .header("Authorization", getAccessToken("admin@email.com", "password"))
-                .param("id", "4")
+                .param("id", "12")
                 .when()
                 .delete("api/v1/user/abstracts")
                 .peek()

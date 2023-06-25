@@ -86,7 +86,7 @@ class AttachmentFileAdminControllerTest extends KeycloakTestContainers implement
     @Test
     @Order(5)
     void canAdminUpdateAttachmentFile() {
-        String body = "{\"id\":\"1\", \"fileRole\":\"FIGURE\", \"accepted\":\"false\"}";
+        String body = "{\"id\":\"1\", \"fileRole\":\"FIGURE\", \"accepted\":\"false\", \"abstractsEntity\":{\"id\":1} }";
         Response response = given()
                 .header("Authorization", getAccessToken("admin@email.com", "password"))
                 .multiPart("file", new File("./src/test/resources/test.txt"),"multipart/form-data")

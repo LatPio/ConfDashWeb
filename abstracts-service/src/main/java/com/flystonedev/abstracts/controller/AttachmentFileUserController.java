@@ -3,6 +3,7 @@ package com.flystonedev.abstracts.controller;
 import com.flystonedev.abstracts.DTO.AttachmentFileDTO;
 import com.flystonedev.abstracts.DTO.AttachmentFileRequest;
 import com.flystonedev.abstracts.DTO.AttachmentFileResponse;
+import com.flystonedev.abstracts.DTO.AttachmentFileUserUpdateRequest;
 import com.flystonedev.abstracts.model.FileRole;
 import com.flystonedev.abstracts.service.AttachmentFileService;
 import jakarta.annotation.security.RolesAllowed;
@@ -31,10 +32,10 @@ public class AttachmentFileUserController {
 
     @RolesAllowed({"USER"})
     @PostMapping
-    public void saveFile(@RequestPart("file")MultipartFile file, @RequestPart("data") AttachmentFileRequest attachmentFileRequest){
+    public ResponseEntity<AttachmentFileDTO> saveFile(@RequestPart("file")MultipartFile file, @RequestPart("data") AttachmentFileRequest attachmentFileRequest){
         try{
-            attachmentFileService.saveUsersFile(file,attachmentFileRequest);
             log.info("File saved!");
+            return ResponseEntity.status(HttpStatus.OK).body(attachmentFileService.saveUsersFile(file,attachmentFileRequest));
         } catch (IOException e) {
             log.error("Error occurred while saving to database! ");
             throw new RuntimeException(e);
@@ -86,18 +87,26 @@ public class AttachmentFileUserController {
 
     @RolesAllowed({"USER"})
     @PutMapping
-    public ResponseEntity<AttachmentFileDTO> update(@RequestParam("file")MultipartFile file,
-                                                  @RequestParam Integer id )
+    public ResponseEntity<AttachmentFileDTO> update(@RequestPart("file")MultipartFile file, @RequestPart("data") AttachmentFileUserUpdateRequest attachmentFileRequest )
             throws IOException {
-        AttachmentFileDTO attachmentFileDTO = get(id).getBody();
-        if(file.getBytes().length !=0){
-            attachmentFileDTO.setData(file.getBytes());
-            attachmentFileDTO.setName(StringUtils.cleanPath(file.getOriginalFilename()));
-            attachmentFileDTO.setType(file.getContentType());
-        } else {
-            attachmentFileDTO.setData(attachmentFileService.getUserFile(attachmentFileDTO.getId()).getData());
+//        AttachmentFileDTO attachmentFileDTO = get(id).getBody();
+//        if(file.getBytes().length !=0){
+//            attachmentFileDTO.setData(file.getBytes());
+//            attachmentFileDTO.setName(StringUtils.cleanPath(file.getOriginalFilename()));
+//            attachmentFileDTO.setType(file.getContentType());
+//        } else {
+//            attachmentFileDTO.setData(attachmentFileService.getUserFile(attachmentFileDTO.getId()).getData());
+//        }
+//        return ResponseEntity.status(HttpStatus.OK).body(attachmentFileService.updateUsersFile(attachmentFileDTO));
+
+
+        try{
+            log.info("File updated!");
+            return ResponseEntity.status(HttpStatus.OK).body(attachmentFileService.updateUsersFile(file, attachmentFileRequest));
+        } catch (IOException e) {
+            log.error("Error occurred while saving to database! ");
+            throw new RuntimeException(e);
         }
-        return ResponseEntity.status(HttpStatus.OK).body(attachmentFileService.updateUsersFile(attachmentFileDTO));
     }
     @RolesAllowed({"USER"})
     @DeleteMapping

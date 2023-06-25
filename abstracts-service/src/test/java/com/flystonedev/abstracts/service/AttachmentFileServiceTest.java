@@ -106,14 +106,16 @@ class AttachmentFileServiceTest implements SampleData {
     }
 
     @Test
-    void canUserUpdateOwnUsersFile() {
+    void canUserUpdateOwnUsersFile() throws Exception{
         //given
         final var expected = getSampleOfOneAttachmentFile();
         when(jwtConverter.getKeycloakUserID()).thenReturn(expected.getAuthId());
         when(attachmentFileRepository.save(any(AttachmentFile.class))).thenReturn(expected);
         when(attachmentFileRepository.findAttachmentFileByIdAndAuthId(expected.getId(), expected.getAuthId())).thenReturn(Optional.ofNullable(expected));
+        Optional<AbstractsEntity> abstractsEntity = Optional.of(getSampleOfOneAbstractEntity());
+        when(abstractRepository.findById(anyInt())).thenReturn(abstractsEntity);
         //when
-        final var actual = attachmentFileService.updateUsersFile(getSampleOfOneAttachmentFileDTO());
+        final var actual = attachmentFileService.updateUsersFile(getSampleMultipart(), getSampleOfAttachmentFileUserUpdateRequest());
         //then
         assertThat(actual).usingRecursiveComparison().isEqualTo(expected);
         verify(attachmentFileRepository, times(1)).save(any(AttachmentFile.class));
@@ -127,7 +129,7 @@ class AttachmentFileServiceTest implements SampleData {
         when(jwtConverter.getKeycloakUserID()).thenReturn(expected.getAuthId());
         when(attachmentFileRepository.findAttachmentFileByIdAndAuthId(expected.getId(), expected.getAuthId())).thenReturn(Optional.ofNullable(null));
         //when
-        assertThatThrownBy(() -> attachmentFileService.updateUsersFile(getSampleOfOneAttachmentFileDTO()))
+        assertThatThrownBy(() -> attachmentFileService.updateUsersFile(getSampleMultipart(), getSampleOfAttachmentFileUserUpdateRequest()))
                 .isInstanceOf(EntityNotFoundException.class)
                 .hasMessageContaining("Exception Entity not found");
 
@@ -140,7 +142,7 @@ class AttachmentFileServiceTest implements SampleData {
         when(jwtConverter.getKeycloakUserID()).thenReturn(expected.getAuthId());
         when(attachmentFileRepository.findAttachmentFileByIdAndAuthId(expected.getId(), expected.getAuthId())).thenReturn(Optional.ofNullable(expected));
         //when
-        assertThatThrownBy(() -> attachmentFileService.updateUsersFile(getSampleOfOneAttachmentFileDTO()))
+        assertThatThrownBy(() -> attachmentFileService.updateUsersFile(getSampleMultipart(), getSampleOfAttachmentFileUserUpdateRequest()))
                 .isInstanceOf(AttachmentFileEditionBlockedException.class)
                 .hasMessageContaining("File edition blocked");
     }
@@ -244,8 +246,10 @@ class AttachmentFileServiceTest implements SampleData {
         final var expected = getSampleOfOneAttachmentFile();
         when(attachmentFileRepository.save(any(AttachmentFile.class))).thenReturn(expected);
         when(attachmentFileRepository.findById(expected.getId())).thenReturn(Optional.ofNullable(expected));
+        Optional<AbstractsEntity> abstractsEntity = Optional.of(getSampleOfOneAbstractEntity());
+        when(abstractRepository.findById(anyInt())).thenReturn(abstractsEntity);
         //when
-        final var actual = attachmentFileService.updateAdmin(getSampleMultipart(), getSampleOfAttachmentFileUpdateRequest());
+        final var actual = attachmentFileService.updateAdmin(getSampleMultipart(), getSampleOfAttachmentFileAdminUpdateRequest());
         //then
         assertThat(actual).usingRecursiveComparison().isEqualTo(expected);
         verify(attachmentFileRepository, times(1)).save(any(AttachmentFile.class));
@@ -265,7 +269,7 @@ class AttachmentFileServiceTest implements SampleData {
         final var toSave = getSampleOfOneAttachmentFileDTO();
         //when
         //then
-        assertThatThrownBy(() -> attachmentFileService.updateAdmin(getSampleMultipart(),getSampleOfAttachmentFileUpdateRequest() ))
+        assertThatThrownBy(() -> attachmentFileService.updateAdmin(getSampleMultipart(), getSampleOfAttachmentFileAdminUpdateRequest() ))
                 .isInstanceOf(EntityNotFoundException.class)
                 .hasMessageContaining("Exception Entity not found");
 

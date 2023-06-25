@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ContextConfiguration;
 
 
@@ -24,7 +25,7 @@ class AbstractRepositoryTest implements SampleData{
 
 
     @Autowired
-    private  AbstractRepository underTest;
+    private AbstractRepository underTest;
 
     @BeforeEach
     void setUp(){
@@ -40,8 +41,8 @@ class AbstractRepositoryTest implements SampleData{
     @Test
     void findAbstractByIdAndAuthId(){
         String authId = "aaaa-bbbb";
-        Integer id = 2;
-
+        Integer id = 13;
+        System.out.println(underTest.findAll());
         var testValue = underTest.findByIdAndAuthId(id, authId);
 
         assertThat(testValue.get().getId(), is(id));
@@ -51,7 +52,7 @@ class AbstractRepositoryTest implements SampleData{
     @Test
     void idShouldReturnAbstractsEntitiesByAuthId() {
         //given
-        String authId = "aaaa-bbbb";
+        String authId = "vava-dddd";
         //when
         var byAuthId = underTest.findAbstractsEntitiesByAuthId(authId);
         //then
