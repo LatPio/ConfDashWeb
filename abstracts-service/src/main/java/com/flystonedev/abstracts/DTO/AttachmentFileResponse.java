@@ -7,6 +7,7 @@ public record AttachmentFileResponse(
         String name,
         String type,
         String url,
+        Boolean accepted,
         FileRole role
 ) {
 }

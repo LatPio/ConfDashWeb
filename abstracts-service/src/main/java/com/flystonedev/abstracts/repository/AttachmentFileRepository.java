@@ -15,6 +15,8 @@ public interface AttachmentFileRepository extends JpaRepository<AttachmentFile, 
     void deleteById(Integer integer);
 
     List<AttachmentFile> findAttachmentFileByAuthId (String authId);
+
+    List<AttachmentFile> findAttachmentFileByAbstractsEntity_Id(Integer id);
     Optional<AttachmentFile> findAttachmentFileByIdAndAuthId (Integer id, String authId);
 
     Optional<Void> deleteAttachmentFileByIdAndAuthId (Integer id, String authID);

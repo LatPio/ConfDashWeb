@@ -44,9 +44,7 @@ public abstract class KeycloakTestContainers {
     @LocalServerPort
     private int port;
     String authServer = keycloak.getAuthServerUrl();
-//
-////    @Container
-////    static KeycloakContainer keycloak = new KeycloakContainer().withRealmImportFile("realmsTest/realm-tests.json");
+
     static final KeycloakContainer keycloak;
 
     static {

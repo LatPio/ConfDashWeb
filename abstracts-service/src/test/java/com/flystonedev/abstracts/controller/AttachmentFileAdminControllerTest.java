@@ -3,7 +3,6 @@ package com.flystonedev.abstracts.controller;
 import com.flystonedev.abstracts.SampleData;
 import com.flystonedev.abstracts.config.KeycloakTestContainers;
 import com.flystonedev.abstracts.repository.AbstractRepository;
-import com.flystonedev.abstracts.repository.AttachmentFileRepository;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -12,7 +12,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -74,6 +73,7 @@ public class AttachmentFileAdminController {
                             attachmentFileDTO.getName(),
                             attachmentFileDTO.getType(),
                             fileDownloadUri,
+                            attachmentFileDTO.getAccepted(),
                             attachmentFileDTO.getFileRole()
                     );
                 }
@@ -85,21 +85,10 @@ public class AttachmentFileAdminController {
 
     @RolesAllowed({"ADMIN"})
     @PutMapping
-    public ResponseEntity<AttachmentFileDTO> update(@RequestPart("file")MultipartFile file, @RequestPart("data") AttachmentFileAdminUpdateRequest attachmentFileAdminUpdateRequest)
-            throws IOException {
-//        AttachmentFileDTO toUpdate = get(attachmentFileAdminUpdateRequest.id()).getBody();
-//        if(file.getBytes().length !=0){
-//            toUpdate.setData(file.getBytes());
-//            toUpdate.setName(StringUtils.cleanPath(file.getOriginalFilename()));
-//            toUpdate.setType(file.getContentType());
-//
-//        } else {
-//            toUpdate.setData(attachmentFileService.getAdminFile(toUpdate.getId()).getData());
-//        }
-//        toUpdate.setAccepted(attachmentFileAdminUpdateRequest.accepted());
-//        toUpdate.setAuthId(attachmentFileAdminUpdateRequest.authId());
-//        toUpdate.setFileRole(attachmentFileAdminUpdateRequest.fileRole());
-//        return ResponseEntity.status(HttpStatus.OK).body(attachmentFileService.updateAdmin(toUpdate));
+    public ResponseEntity<AttachmentFileDTO> update(
+            @RequestPart(value = "file",required = false)MultipartFile file,
+            @RequestPart("data") AttachmentFileAdminUpdateRequest attachmentFileAdminUpdateRequest) {
+
         try{
             log.info("File updated!");
             return ResponseEntity.status(HttpStatus.OK).body(attachmentFileService.updateAdmin(file, attachmentFileAdminUpdateRequest));

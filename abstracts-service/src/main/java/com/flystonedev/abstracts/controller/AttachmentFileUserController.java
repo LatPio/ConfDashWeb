@@ -12,7 +12,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -76,6 +75,7 @@ public class AttachmentFileUserController {
                             attachmentFileDTO.getName(),
                             attachmentFileDTO.getType(),
                             fileDownloadUri,
+                            attachmentFileDTO.getAccepted(),
                             attachmentFileDTO.getFileRole()
                     );
                 }
@@ -87,19 +87,9 @@ public class AttachmentFileUserController {
 
     @RolesAllowed({"USER"})
     @PutMapping
-    public ResponseEntity<AttachmentFileDTO> update(@RequestPart("file")MultipartFile file, @RequestPart("data") AttachmentFileUserUpdateRequest attachmentFileRequest )
-            throws IOException {
-//        AttachmentFileDTO attachmentFileDTO = get(id).getBody();
-//        if(file.getBytes().length !=0){
-//            attachmentFileDTO.setData(file.getBytes());
-//            attachmentFileDTO.setName(StringUtils.cleanPath(file.getOriginalFilename()));
-//            attachmentFileDTO.setType(file.getContentType());
-//        } else {
-//            attachmentFileDTO.setData(attachmentFileService.getUserFile(attachmentFileDTO.getId()).getData());
-//        }
-//        return ResponseEntity.status(HttpStatus.OK).body(attachmentFileService.updateUsersFile(attachmentFileDTO));
-
-
+    public ResponseEntity<AttachmentFileDTO> update(
+            @RequestPart(value = "file", required = false)MultipartFile file,
+            @RequestPart("data") AttachmentFileUserUpdateRequest attachmentFileRequest ) {
         try{
             log.info("File updated!");
             return ResponseEntity.status(HttpStatus.OK).body(attachmentFileService.updateUsersFile(file, attachmentFileRequest));

@@ -254,14 +254,6 @@ class AttachmentFileServiceTest implements SampleData {
         assertThat(actual).usingRecursiveComparison().isEqualTo(expected);
         verify(attachmentFileRepository, times(1)).save(any(AttachmentFile.class));
         verifyNoMoreInteractions(attachmentFileRepository);
-
-
-        //then
-//        ArgumentCaptor<AttachmentFile> attachmentFileArgumentCaptor = ArgumentCaptor.forClass(AttachmentFile.class);
-//        verify(attachmentFileRepository).save(attachmentFileArgumentCaptor.capture());
-//
-//        AttachmentFile attachmentFileArgumentCaptorValue = attachmentFileArgumentCaptor.getValue();
-//        assertThat(attachmentFileArgumentCaptorValue).isEqualTo(expected);
     }
     @Test
     void willThrowErrorWhenAdminUpdateAttachmentFile(){

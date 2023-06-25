@@ -12,7 +12,9 @@ import com.flystonedev.abstracts.mapper.AbstractBlockMapper;
 import com.flystonedev.abstracts.mapper.AbstractMapper;
 import com.flystonedev.abstracts.mapper.AbstractSimpleMapper;
 import com.flystonedev.abstracts.model.AbstractsEntity;
+import com.flystonedev.abstracts.model.AttachmentFile;
 import com.flystonedev.abstracts.repository.AbstractRepository;
+import com.flystonedev.abstracts.repository.AttachmentFileRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,6 +30,8 @@ import java.util.stream.Collectors;
 public class AbstractService {
 
     private final AbstractRepository abstractRepository;
+
+    private final AttachmentFileService attachmentFileService;
 
     private final JwtConverter jwtConverter;
     private final AbstractMapper abstractMapper = Mappers.getMapper(AbstractMapper.class);
@@ -157,6 +161,8 @@ public class AbstractService {
         if (exist == null) {
             throw new EntityNotFoundException();
         }
+        attachmentFileService.updateAdnBlockAttachmentFilesByAdmin(abstractBlockDTO.getId(), abstractBlockDTO.isAccepted());
+
         exist.setAccepted(abstractBlockDTO.isAccepted());
         AbstractsEntity updated = abstractRepository.save(abstractMapper.map(exist));
         return abstractBlockMapper.map(updated);

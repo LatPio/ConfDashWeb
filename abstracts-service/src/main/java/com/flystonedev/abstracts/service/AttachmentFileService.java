@@ -2,12 +2,9 @@ package com.flystonedev.abstracts.service;
 
 import com.flystonedev.abstracts.DTO.*;
 import com.flystonedev.abstracts.config.JwtConverter;
-import com.flystonedev.abstracts.exeption.AbstractEditionBlockedException;
 import com.flystonedev.abstracts.exeption.AttachmentFileEditionBlockedException;
 import com.flystonedev.abstracts.exeption.EntityNotFoundException;
-import com.flystonedev.abstracts.exeption.config.GlobalErrorCode;
 import com.flystonedev.abstracts.mapper.AttachmentFileMapper;
-import com.flystonedev.abstracts.model.AbstractsEntity;
 import com.flystonedev.abstracts.model.AttachmentFile;
 import com.flystonedev.abstracts.repository.AbstractRepository;
 import com.flystonedev.abstracts.repository.AttachmentFileRepository;
@@ -97,28 +94,6 @@ public class AttachmentFileService {
             return attachmentFileMapper.map(updated);
 
         }
-
-
-
-//         else if (file.getBytes().length !=0){
-//            exist.setData(file.getBytes());
-//            exist.setName(StringUtils.cleanPath(file.getOriginalFilename()));
-//            exist.setType(file.getContentType());
-//
-//            exist.setAccepted(attachmentFileAdminUpdateRequest.accepted());
-//            exist.setAuthId(attachmentFileAdminUpdateRequest.authId());
-//            exist.setFileRole(attachmentFileAdminUpdateRequest.fileRole());
-//
-//            AttachmentFile updated = attachmentFileRepository.save(attachmentFileMapper.map(exist));
-//            return attachmentFileMapper.map(updated);
-//        } else {
-//
-//            exist.setAccepted(attachmentFileAdminUpdateRequest.accepted());
-//            exist.setAuthId(attachmentFileAdminUpdateRequest.authId());
-//            exist.setFileRole(attachmentFileAdminUpdateRequest.fileRole());
-//
-//            AttachmentFile updated = attachmentFileRepository.save(attachmentFileMapper.map(exist));
-//            return attachmentFileMapper.map(updated);
     }
 
     @Transactional
@@ -169,19 +144,7 @@ public class AttachmentFileService {
     public AttachmentFileDTO updateAdmin(MultipartFile file, AttachmentFileAdminUpdateRequest attachmentFileAdminUpdateRequest) throws IOException {
         AttachmentFile exist = attachmentFileMapper.map(getAdminFile(attachmentFileAdminUpdateRequest.id()));
 
-        //        AttachmentFileDTO toUpdate = get(attachmentFileAdminUpdateRequest.id()).getBody();
-//        if(file.getBytes().length !=0){
-//            toUpdate.setData(file.getBytes());
-//            toUpdate.setName(StringUtils.cleanPath(file.getOriginalFilename()));
-//            toUpdate.setType(file.getContentType());
-//
-//        } else {
-//            toUpdate.setData(attachmentFileService.getAdminFile(toUpdate.getId()).getData());
-//        }
-//        toUpdate.setAccepted(attachmentFileAdminUpdateRequest.accepted());
-//        toUpdate.setAuthId(attachmentFileAdminUpdateRequest.authId());
-//        toUpdate.setFileRole(attachmentFileAdminUpdateRequest.fileRole());
-//        return ResponseEntity.status(HttpStatus.OK).body(attachmentFileService.updateAdmin(toUpdate));
+
         if(exist == null){
             throw new EntityNotFoundException();
         } else if (file.getBytes().length !=0){
@@ -213,14 +176,15 @@ public class AttachmentFileService {
 
     }
 
-//    public AttachmentFileDTO updateAdmin(AttachmentFileDTO attachmentFileDTO){
-//        AttachmentFileDTO exist = getAdminFile(attachmentFileDTO.getId());
-//        if(exist == null){
-//            throw new EntityNotFoundException();
-//        }
-//        AttachmentFile updated = attachmentFileRepository.save(attachmentFileMapper.map(attachmentFileDTO));
-//        return attachmentFileMapper.map(updated);
-//    }
+    public void updateAdnBlockAttachmentFilesByAdmin(Integer id, Boolean accepted){
+        List<AttachmentFile> attachmentFileByAbstractsEntityId = attachmentFileRepository.findAttachmentFileByAbstractsEntity_Id(id);
+        //todo block these files for modification
+        attachmentFileByAbstractsEntityId.stream().forEach(attachmentFile -> {
+            attachmentFile.setAccepted(accepted);
+            attachmentFileRepository.save(attachmentFile);
+
+        });
+    }
 
     public void deleteAdmin(Integer id){ attachmentFileRepository.deleteById(id);}
 
