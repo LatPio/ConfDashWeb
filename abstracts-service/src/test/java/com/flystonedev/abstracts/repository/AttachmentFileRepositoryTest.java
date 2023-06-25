@@ -1,10 +1,9 @@
 package com.flystonedev.abstracts.repository;
 
 import com.flystonedev.abstracts.SampleData;
+import com.flystonedev.abstracts.model.AbstractsEntity;
 import com.flystonedev.abstracts.model.AttachmentFile;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
@@ -16,6 +15,7 @@ import static org.hamcrest.core.Is.is;
 
 
 @DataJpaTest
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class AttachmentFileRepositoryTest implements SampleData {
 
     @Autowired
@@ -39,9 +39,9 @@ class AttachmentFileRepositoryTest implements SampleData {
 
 
     @Test
+    @Order(1)
     void findAttachmentFileByAuthId() {
         //given
-        Integer id = 1;
         String authId = "aaaa-bbbb";
         //when
         List<AttachmentFile> attachmentFileByAuthId = underTest.findAttachmentFileByAuthId(authId);
@@ -51,9 +51,10 @@ class AttachmentFileRepositoryTest implements SampleData {
     }
 
     @Test
+    @Order(2)
     void findAttachmentFileByIdAndAuthId() {
         //given
-        Integer id =1;
+        Integer id = 3;
         String authId = "aaaa-bbbb";
         //when
         Optional<AttachmentFile> fileByIdAndAuthId = underTest.findAttachmentFileByIdAndAuthId(id, authId);
@@ -62,6 +63,7 @@ class AttachmentFileRepositoryTest implements SampleData {
     }
 
     @Test
+    @Order(3)
     void deleteAttachmentFileByIdAndAuthId() {
         //given
         Integer id = 1;
@@ -74,6 +76,7 @@ class AttachmentFileRepositoryTest implements SampleData {
     }
 
     @Test
+    @Order(4)
     void deleteById() {
         //given
         Integer id = 1;
@@ -83,4 +86,14 @@ class AttachmentFileRepositoryTest implements SampleData {
         //then
         assertThat(fileByIdAndAuthId, is(Optional.empty()));
     }
+//    @Test
+//    @Order(5)
+//    void blockAttachmentFileForEdition(){
+//        //given
+//        Integer idOfAbstract= 1;
+//        //when
+//        List<AttachmentFile> attachmentFileByAbstractsEntityId = underTest.findAttachmentFileByAbstractsEntity_Id(idOfAbstract);
+//        //then
+//        assertThat(attachmentFileByAbstractsEntityId.stream().findFirst().get().getAbstractsEntity().getId(), is(idOfAbstract));
+//    }
 }

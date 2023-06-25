@@ -60,7 +60,7 @@ public class AbstractAdminControllerTest extends KeycloakTestContainers implemen
                 .extract().response();
 
         Assertions.assertEquals(200, response.statusCode());
-        Assertions.assertEquals("Title 1", response.jsonPath().getString("abstractTitle"));
+        Assertions.assertEquals("Title: Sample Abstract", response.jsonPath().getString("abstractTitle"));
 
     }
 
@@ -77,7 +77,7 @@ public class AbstractAdminControllerTest extends KeycloakTestContainers implemen
                 .extract().response();
 
         Assertions.assertEquals(200, response.statusCode());
-        Assertions.assertEquals("Title 1", response.jsonPath().getString("abstractTitle"));
+        Assertions.assertEquals("Title: Sample Abstract", response.jsonPath().getString("abstractTitle"));
 
     }
 

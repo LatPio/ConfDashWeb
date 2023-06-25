@@ -51,7 +51,7 @@ public class ProfilePhotoService {
      *
      * */
     public ProfilePhotoDTO get(Integer id){
-        return profilePhotoRepository.findProfilePhotoByIdAndAndId(id, JwtConverter.getKeycloakUserID()).map(profilePhotoMapper::map).orElseThrow(EntityNotFoundException::new);
+        return profilePhotoRepository.findProfilePhotoByIdAndAuthId(id, JwtConverter.getKeycloakUserID()).map(profilePhotoMapper::map).orElseThrow(EntityNotFoundException::new);
     }
 
     public ProfilePhotoDTO updateUser(ProfilePhotoDTO profilePhotoDTO){

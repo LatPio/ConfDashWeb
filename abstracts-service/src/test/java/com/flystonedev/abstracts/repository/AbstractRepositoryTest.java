@@ -2,14 +2,9 @@ package com.flystonedev.abstracts.repository;
 
 import com.flystonedev.abstracts.SampleData;
 import com.flystonedev.abstracts.model.AbstractsEntity;
-import lombok.AllArgsConstructor;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.ContextConfiguration;
 
 
 import java.util.List;
@@ -40,7 +35,7 @@ class AbstractRepositoryTest implements SampleData{
 
     @Test
     void findAbstractByIdAndAuthId(){
-        String authId = "aaaa-bbbb";
+        String authId = "vava-dddd";
         Integer id = 13;
         System.out.println(underTest.findAll());
         var testValue = underTest.findByIdAndAuthId(id, authId);

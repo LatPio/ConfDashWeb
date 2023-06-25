@@ -182,7 +182,6 @@ public class AttachmentFileService {
         attachmentFileByAbstractsEntityId.stream().forEach(attachmentFile -> {
             attachmentFile.setAccepted(accepted);
             attachmentFileRepository.save(attachmentFile);
-
         });
     }
 

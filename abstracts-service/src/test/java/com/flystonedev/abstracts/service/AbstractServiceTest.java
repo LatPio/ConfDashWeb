@@ -9,6 +9,7 @@ import com.flystonedev.abstracts.mapper.AbstractMapper;
 import com.flystonedev.abstracts.mapper.AbstractSimpleMapper;
 import com.flystonedev.abstracts.model.AbstractsEntity;
 import com.flystonedev.abstracts.repository.AbstractRepository;
+import com.flystonedev.abstracts.repository.AttachmentFileRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mapstruct.factory.Mappers;
@@ -32,6 +33,11 @@ class AbstractServiceTest   implements SampleData {
     private AbstractService underTest;
     @Mock
     private  AbstractRepository abstractRepository;
+
+    @Mock
+    private AttachmentFileService attachmentFileService;
+    @Mock
+    private AttachmentFileRepository attachmentFileRepository;
     @Mock
     private JwtConverter jwtConverter;
     private final AbstractMapper abstractMapper = Mappers.getMapper(AbstractMapper.class);
