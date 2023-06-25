@@ -1,6 +1,7 @@
 package com.flystonedev.abstracts.controller;
 
 import com.flystonedev.abstracts.DTO.AttachmentFileAdminRequest;
+import com.flystonedev.abstracts.DTO.AttachmentFileAdminUpdateRequest;
 import com.flystonedev.abstracts.DTO.AttachmentFileDTO;
 import com.flystonedev.abstracts.DTO.AttachmentFileResponse;
 import com.flystonedev.abstracts.model.FileRole;
@@ -31,10 +32,10 @@ public class AttachmentFileAdminController {
 
     @RolesAllowed({"ADMIN"})
     @PostMapping
-    public void saveFile(@RequestPart("file")MultipartFile file, @RequestPart("data") AttachmentFileAdminRequest attachmentFileAdminRequest){
+    public ResponseEntity<AttachmentFileDTO> saveFile(@RequestPart("file")MultipartFile file, @RequestPart("data") AttachmentFileAdminRequest attachmentFileAdminRequest){
         try{
-            attachmentFileService.saveAdminFile(file,attachmentFileAdminRequest);
             log.info("File saved!");
+            return ResponseEntity.status(HttpStatus.OK).body(attachmentFileService.saveAdminFile(file,attachmentFileAdminRequest));
         } catch (IOException e) {
             log.error("Error occurred while saving to database! ");
             throw new RuntimeException(e);
@@ -51,7 +52,6 @@ public class AttachmentFileAdminController {
     @RolesAllowed({"ADMIN"})
     @GetMapping("/file/{id}")
     public ResponseEntity<byte[]> download(@PathVariable Integer id){
-//todo modifiable/accessible only by user owner
         AttachmentFileDTO attachmentFileDTO = get(id).getBody();
 
         return ResponseEntity.status(HttpStatus.OK)
@@ -59,10 +59,9 @@ public class AttachmentFileAdminController {
                 .body(attachmentFileDTO.getData());
     }
 
-    @RolesAllowed({"USER", "ADMIN"})
+    @RolesAllowed({"ADMIN"})
     @GetMapping("/list")
     public ResponseEntity<List<AttachmentFileResponse>> getListFiles(){
-        //todo modifiable/accessible only by user owner
         List<AttachmentFileResponse> files = attachmentFileService.attachmentAdminFileDTOS().stream().map(
                 attachmentFileDTO -> {
                     String fileDownloadUri = ServletUriComponentsBuilder
@@ -84,22 +83,32 @@ public class AttachmentFileAdminController {
     }
 
 
-    @RolesAllowed({"USER", "ADMIN"})
+    @RolesAllowed({"ADMIN"})
     @PutMapping
-    public ResponseEntity<AttachmentFileDTO> update(@RequestParam("file")MultipartFile file,
-                                                  @RequestParam Integer id )
+    public ResponseEntity<AttachmentFileDTO> update(@RequestPart("file")MultipartFile file, @RequestPart("data") AttachmentFileAdminUpdateRequest attachmentFileAdminUpdateRequest)
             throws IOException {
-        AttachmentFileDTO attachmentFileDTO = get(id).getBody();
-        if(file.getBytes().length !=0){
-            attachmentFileDTO.setData(file.getBytes());
-            attachmentFileDTO.setName(StringUtils.cleanPath(file.getOriginalFilename()));
-            attachmentFileDTO.setType(file.getContentType());
-        } else {
-            attachmentFileDTO.setData(attachmentFileService.getAdminFile(attachmentFileDTO.getId()).getData());
+//        AttachmentFileDTO toUpdate = get(attachmentFileAdminUpdateRequest.id()).getBody();
+//        if(file.getBytes().length !=0){
+//            toUpdate.setData(file.getBytes());
+//            toUpdate.setName(StringUtils.cleanPath(file.getOriginalFilename()));
+//            toUpdate.setType(file.getContentType());
+//
+//        } else {
+//            toUpdate.setData(attachmentFileService.getAdminFile(toUpdate.getId()).getData());
+//        }
+//        toUpdate.setAccepted(attachmentFileAdminUpdateRequest.accepted());
+//        toUpdate.setAuthId(attachmentFileAdminUpdateRequest.authId());
+//        toUpdate.setFileRole(attachmentFileAdminUpdateRequest.fileRole());
+//        return ResponseEntity.status(HttpStatus.OK).body(attachmentFileService.updateAdmin(toUpdate));
+        try{
+            log.info("File updated!");
+            return ResponseEntity.status(HttpStatus.OK).body(attachmentFileService.updateAdmin(file, attachmentFileAdminUpdateRequest));
+        } catch (IOException e) {
+            log.error("Error occurred while saving to database! ");
+            throw new RuntimeException(e);
         }
-        return ResponseEntity.status(HttpStatus.OK).body(attachmentFileService.updateAdmin(attachmentFileDTO));
     }
-    @RolesAllowed({"USER", "ADMIN"})
+    @RolesAllowed({"ADMIN"})
     @DeleteMapping
     public ResponseEntity delete(@RequestParam Integer id){
 
@@ -107,12 +116,11 @@ public class AttachmentFileAdminController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @RolesAllowed({"USER", "ADMIN"})
+    @RolesAllowed({"ADMIN"})
     @GetMapping("/roles")
     public ResponseEntity<List<FileRole>> roleList(){
         return ResponseEntity.status(HttpStatus.OK).body(Arrays.stream(FileRole.values()).toList());
     }
 
-    //todo modifiable/accessible only by user owner
-    //todo block delete after  accepted value true
+    //todo block endpoint
 }

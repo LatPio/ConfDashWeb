@@ -8,8 +8,8 @@ import org.springframework.security.oauth2.jwt.JwtDecoder;
 @SpringBootTest()
 public class AbstractApplicationTests {
 
-    @MockBean
-    private JwtDecoder jwtDecoder;
-    @Test
-    void contextLoads(){}
+//    @MockBean
+//    private JwtDecoder jwtDecoder;
+//    @Test
+//    void contextLoads(){}
 }

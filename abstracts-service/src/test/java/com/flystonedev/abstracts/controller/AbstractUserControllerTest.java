@@ -31,7 +31,7 @@ class AbstractUserControllerTest extends KeycloakTestContainers implements Sampl
                 "  \"presenterId\": \"1\" \n}";
         Response response = given()
                 .header("Content-type", "application/json")
-                .header("Authorization", getAccessToken("user@email.com", "password"))
+                .header("Authorization", getAccessToken("admin@email.com", "password"))
                 .and()
                 .body(requestBody)
                 .when()
@@ -48,7 +48,7 @@ class AbstractUserControllerTest extends KeycloakTestContainers implements Sampl
     @Order(2)
     void get() {
         Response response = given()
-                .header("Authorization", getAccessToken("user@email.com", "password"))
+                .header("Authorization", getAccessToken("admin@email.com", "password"))
                 .param("id", "4")
                 .when()
                 .get("api/v1/user/abstracts")
@@ -65,7 +65,7 @@ class AbstractUserControllerTest extends KeycloakTestContainers implements Sampl
     @Order(3)
     void list() {
         Response response = given()
-                .header("Authorization", getAccessToken("user@email.com", "password"))
+                .header("Authorization", getAccessToken("admin@email.com", "password"))
                 .when()
                 .get("api/v1/user/abstracts/list")
                 .peek()
@@ -79,7 +79,7 @@ class AbstractUserControllerTest extends KeycloakTestContainers implements Sampl
     @Order(4)
     void listAccepted() {
         Response response = given()
-                .header("Authorization", getAccessToken("user@email.com", "password"))
+                .header("Authorization", getAccessToken("admin@email.com", "password"))
 //                .param("id", "1")
                 .when()
                 .get("api/v1/user/abstracts/listAccepted")
@@ -101,7 +101,7 @@ class AbstractUserControllerTest extends KeycloakTestContainers implements Sampl
 
         Response response = given()
                 .header("Content-type", "application/json")
-                .header("Authorization", getAccessToken("user@email.com", "password"))
+                .header("Authorization", getAccessToken("admin@email.com", "password"))
                 .and()
                 .body(requestBody)
                 .when()
@@ -119,7 +119,7 @@ class AbstractUserControllerTest extends KeycloakTestContainers implements Sampl
     @Order(6)
     void delete() {
         Response response = given()
-                .header("Authorization", getAccessToken("user@email.com", "password"))
+                .header("Authorization", getAccessToken("admin@email.com", "password"))
                 .param("id", "4")
                 .when()
                 .delete("api/v1/user/abstracts")

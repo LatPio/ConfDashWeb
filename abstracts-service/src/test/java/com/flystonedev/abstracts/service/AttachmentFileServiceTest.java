@@ -239,17 +239,25 @@ class AttachmentFileServiceTest implements SampleData {
     }
 
     @Test
-    void canAdminUpdateFile() {
+    void canAdminUpdateFile() throws Exception{
         //given
         final var expected = getSampleOfOneAttachmentFile();
         when(attachmentFileRepository.save(any(AttachmentFile.class))).thenReturn(expected);
         when(attachmentFileRepository.findById(expected.getId())).thenReturn(Optional.ofNullable(expected));
         //when
-        final var actual = attachmentFileService.updateAdmin(getSampleOfOneAttachmentFileDTO());
+        final var actual = attachmentFileService.updateAdmin(getSampleMultipart(), getSampleOfAttachmentFileUpdateRequest());
         //then
         assertThat(actual).usingRecursiveComparison().isEqualTo(expected);
         verify(attachmentFileRepository, times(1)).save(any(AttachmentFile.class));
         verifyNoMoreInteractions(attachmentFileRepository);
+
+
+        //then
+//        ArgumentCaptor<AttachmentFile> attachmentFileArgumentCaptor = ArgumentCaptor.forClass(AttachmentFile.class);
+//        verify(attachmentFileRepository).save(attachmentFileArgumentCaptor.capture());
+//
+//        AttachmentFile attachmentFileArgumentCaptorValue = attachmentFileArgumentCaptor.getValue();
+//        assertThat(attachmentFileArgumentCaptorValue).isEqualTo(expected);
     }
     @Test
     void willThrowErrorWhenAdminUpdateAttachmentFile(){
@@ -257,7 +265,7 @@ class AttachmentFileServiceTest implements SampleData {
         final var toSave = getSampleOfOneAttachmentFileDTO();
         //when
         //then
-        assertThatThrownBy(() -> attachmentFileService.updateAdmin(toSave))
+        assertThatThrownBy(() -> attachmentFileService.updateAdmin(getSampleMultipart(),getSampleOfAttachmentFileUpdateRequest() ))
                 .isInstanceOf(EntityNotFoundException.class)
                 .hasMessageContaining("Exception Entity not found");
 

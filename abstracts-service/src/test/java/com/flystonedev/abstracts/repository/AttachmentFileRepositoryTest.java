@@ -25,7 +25,7 @@ class AttachmentFileRepositoryTest implements SampleData {
 
     @BeforeEach
     void setUp(){
-        var parentData = getCombinatorDataAbstractAndFile();
+        var parentData = getSampleAbstract();
         var data = getSampleOfFiles();
         underTestParent.saveAll(parentData);
         underTest.saveAll(data);
@@ -34,6 +34,7 @@ class AttachmentFileRepositoryTest implements SampleData {
     @AfterEach
     void tearDown(){
         underTest.deleteAll();
+        underTestParent.deleteAll();
     }
 
 

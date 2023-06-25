@@ -40,7 +40,7 @@ class AbstractRepositoryTest implements SampleData{
     @Test
     void findAbstractByIdAndAuthId(){
         String authId = "aaaa-bbbb";
-        Integer id = 1;
+        Integer id = 2;
 
         var testValue = underTest.findByIdAndAuthId(id, authId);
 

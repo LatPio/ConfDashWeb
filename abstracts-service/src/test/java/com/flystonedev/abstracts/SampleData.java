@@ -105,16 +105,6 @@ public interface SampleData {
     }
 
 
-
-
-
-
-
-
-
-
-
-
     default List<AttachmentFile> getSampleOfFiles(){
         AttachmentFile attachmentFile1= AttachmentFile.builder()
                 .id(1)
@@ -124,7 +114,7 @@ public interface SampleData {
                 .accepted(false)
                 .fileRole(FileRole.FIGURE)
                 .data("1234567".getBytes())
-                .abstractsEntity(AbstractsEntity.builder().id(1).build())
+                .abstractsEntity(null)
                 .build();
 
         AttachmentFile attachmentFile2= AttachmentFile.builder()
@@ -135,7 +125,7 @@ public interface SampleData {
                 .accepted(true)
                 .fileRole(FileRole.GRAPHICAL_ABSTRACT)
                 .data("1234567".getBytes())
-                .abstractsEntity(AbstractsEntity.builder().id(2).build())
+                .abstractsEntity(null)
                 .build();
 
         return Arrays.asList(attachmentFile1, attachmentFile2);
@@ -153,6 +143,11 @@ public interface SampleData {
                 .data("Hello, World!".getBytes())
                 .abstractsEntity(getSampleOfOneAbstractEntity())
                 .build();
+        return attachmentFile1;
+    }
+    default AttachmentFileAdminUpdateRequest getSampleOfAttachmentFileUpdateRequest(){
+        AttachmentFileAdminUpdateRequest attachmentFile1 =
+                new AttachmentFileAdminUpdateRequest(1, FileRole.GRAPHICAL_ABSTRACT, getSampleOfOneAbstractDTO(),false, "vava-dddd" );
         return attachmentFile1;
     }
 
