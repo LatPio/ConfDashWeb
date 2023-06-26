@@ -36,6 +36,7 @@ public class CustomerService {
     private final CustomerMapper customerMapper = Mappers.getMapper(CustomerMapper.class);
     private final CustomerCardMapper customerCardMapper = Mappers.getMapper(CustomerCardMapper.class);
     private final CustomerAdminMapper customerAdminMapper = Mappers.getMapper(CustomerAdminMapper.class);
+    private final JwtConverter jwtConverter;
 
     private final KeycloakUserManagementService keycloakUserManagementService;
 
@@ -65,7 +66,7 @@ public class CustomerService {
             Integer userCreationResponse = keycloakUserManagementService.createUser(userRepresentation);
 
             if (userCreationResponse == 201){
-                log.info("User created in keycloak {} ", request.email());
+                log.info("User successfully created in keycloak, provided with email: {} ", request.email());
                 Customer customer = Customer.builder()
                         .firstName(request.firstName())
                         .lastName(request.lastName())
@@ -86,13 +87,14 @@ public class CustomerService {
         return customerRepository.findById(id).map(customerCardMapper::map).orElseThrow(EntityNotFoundException::new);
     }
     public CustomerDTO getUser(Integer id){
-        return customerRepository.findCustomerByIdAndAuthID(id, JwtConverter.getKeycloakUserID()).map(customerMapper::map).orElseThrow(EntityNotFoundException::new);
+        return customerRepository.findCustomerByIdAndAuthID(id, jwtConverter.getKeycloakUserID()).map(customerMapper::map).orElseThrow(EntityNotFoundException::new);
     }
     public CustomerDTO updateUser(CustomerDTO customerDTO){
         Customer exist = customerMapper.map(getUser(customerDTO.getId()));
         if (exist == null) {
             throw new EntityNotFoundException("User not found", GlobalErrorCode.ERROR_CUSTOMER_SERVICE_ENTITY_NOT_FOUND);
-        } else if(exist.getAuthID() != JwtConverter.getKeycloakUserID()){
+        } else
+            if(exist.getAuthID() != jwtConverter.getKeycloakUserID()){
             throw new CustomerUpdateException("You can edit only yours Abstract!", GlobalErrorCode.ERROR_CUSTOMER_SERVICE_UPDATE_BLOCKED);
         } else {
             UserRepresentation userRepresentation = keycloakUserManagementService.readUser(exist.getAuthID());
@@ -138,7 +140,8 @@ public class CustomerService {
     }
     @Transactional
     public void delete(Integer id){
-        keycloakUserManagementService.deleteUser(customerRepository.getReferenceById(id).getAuthID().toString());
+        String authID = customerRepository.getReferenceById(id).getAuthID();
+        keycloakUserManagementService.deleteUser(authID);
         customerRepository.deleteById(id);
     }
 }

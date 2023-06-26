@@ -32,7 +32,7 @@ class ProfilePhotoRepositoryTest implements SampleData {
     @AfterEach
     void tearDown(){
         customerRepository.deleteAll();
-//        profilePhotoRepository.deleteAll();
+        profilePhotoRepository.deleteAll();
 
     }
 

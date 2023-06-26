@@ -24,6 +24,7 @@ public class InformationLinksService {
     private final InformationLinksRepository informationLinksRepository;
 
     private final InformationLinksMapper informationLinksMapper = Mappers.getMapper(InformationLinksMapper.class);
+    private final JwtConverter jwtConverter;
 
     /*
      *
@@ -35,18 +36,18 @@ public class InformationLinksService {
         InformationLinks informationLinks = InformationLinks.builder()
                 .name(informationLinksRequest.name())
                 .urlLink(informationLinksRequest.urlLink())
-                .authId(JwtConverter.getKeycloakUserID())
+                .authId(jwtConverter.getKeycloakUserID())
                 .customer(Customer.builder().id(informationLinksRequest.customer().getId()).build())
                 .build();
         informationLinksRepository.save(informationLinks);
     }
 
     public InformationLinksDTO getUserLink(Integer id){
-        return informationLinksRepository.findInformationLinksByIdAndAuthId(id, JwtConverter.getKeycloakUserID()).map(informationLinksMapper::map).orElseThrow(EntityNotFoundException::new);
+        return informationLinksRepository.findInformationLinksByIdAndAuthId(id, jwtConverter.getKeycloakUserID()).map(informationLinksMapper::map).orElseThrow(EntityNotFoundException::new);
     }
 
     public List<InformationLinksDTO> informationLinksUserResponseList(){
-        List<InformationLinks> linksList = informationLinksRepository.findInformationLinksByAuthId(JwtConverter.getKeycloakUserID());
+        List<InformationLinks> linksList = informationLinksRepository.findInformationLinksByAuthId(jwtConverter.getKeycloakUserID());
         return linksList.stream().map(informationLinksMapper::map).collect(Collectors.toList());
     }
 
@@ -54,7 +55,7 @@ public class InformationLinksService {
         InformationLinks exist = informationLinksMapper.map(getUserLink(informationLinksDTO.getId()));
         if (exist == null) {
             throw new EntityNotFoundException();
-        } else if (exist.getAuthId() != JwtConverter.getKeycloakUserID()){
+        } else if (exist.getAuthId() != jwtConverter.getKeycloakUserID()){
             throw new CustomerUpdateException();
         } else {
             InformationLinks updated = informationLinksRepository.save(informationLinksMapper.map(informationLinksDTO));
@@ -66,7 +67,7 @@ public class InformationLinksService {
         InformationLinks exist = informationLinksMapper.map(getUserLink(id));
         if (exist == null) {
             throw new EntityNotFoundException();
-        } else if (exist.getAuthId() != JwtConverter.getKeycloakUserID()){
+        } else if (exist.getAuthId() != jwtConverter.getKeycloakUserID()){
             throw new CustomerUpdateException();
         } else {
         informationLinksRepository.deleteById(id);}}

@@ -26,6 +26,7 @@ public class ProfilePhotoService {
     private final ProfilePhotoMapper profilePhotoMapper = Mappers.getMapper(ProfilePhotoMapper.class);
 
     private final CustomerRepository customerRepository;
+    private final JwtConverter jwtConverter;
 
 
     public void savePhoto(MultipartFile file, Integer id) throws IOException{
@@ -33,7 +34,7 @@ public class ProfilePhotoService {
         ProfilePhoto profilePhoto = ProfilePhoto.builder()
                 .customer(customerRepository.findById(id).orElseThrow(EntityNotFoundException::new))
                 .name(filename)
-                .authId(JwtConverter.getKeycloakUserID())
+                .authId(jwtConverter.getKeycloakUserID())
                 .type(file.getContentType())
                 .data(file.getBytes())
                 .build();
@@ -51,14 +52,14 @@ public class ProfilePhotoService {
      *
      * */
     public ProfilePhotoDTO get(Integer id){
-        return profilePhotoRepository.findProfilePhotoByIdAndAuthId(id, JwtConverter.getKeycloakUserID()).map(profilePhotoMapper::map).orElseThrow(EntityNotFoundException::new);
+        return profilePhotoRepository.findProfilePhotoByIdAndAuthId(id, jwtConverter.getKeycloakUserID()).map(profilePhotoMapper::map).orElseThrow(EntityNotFoundException::new);
     }
 
     public ProfilePhotoDTO updateUser(ProfilePhotoDTO profilePhotoDTO){
         ProfilePhotoDTO exist = get(profilePhotoDTO.getId());
         if (exist == null) {
             throw new EntityNotFoundException();
-        } else if (exist.getAuthId() != JwtConverter.getKeycloakUserID()){
+        } else if (exist.getAuthId() != jwtConverter.getKeycloakUserID()){
             throw new CustomerUpdateException();
         } else {
             ProfilePhoto updated = profilePhotoRepository.save(profilePhotoMapper.map(profilePhotoDTO));
@@ -71,7 +72,7 @@ public class ProfilePhotoService {
         ProfilePhotoDTO exist = get(id);
         if (exist == null) {
             throw new EntityNotFoundException();
-        } else if (exist.getAuthId() != JwtConverter.getKeycloakUserID()) {
+        } else if (exist.getAuthId() != jwtConverter.getKeycloakUserID()) {
             throw new CustomerUpdateException();
         } else {
             profilePhotoRepository.deleteById(id);

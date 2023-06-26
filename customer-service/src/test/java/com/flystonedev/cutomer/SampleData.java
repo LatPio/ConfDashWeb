@@ -1,6 +1,9 @@
 package com.flystonedev.cutomer;
 
+import com.flystonedev.cutomer.DTO.*;
 import com.flystonedev.cutomer.model.*;
+import org.keycloak.representations.idm.CredentialRepresentation;
+import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
@@ -9,13 +12,14 @@ import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public interface SampleData {
 
     default List<Customer> getSampleOfCustomers(){
         Customer customer1 = Customer.builder()
-                .id(1)
+                .id(2)
                 .email("admin@email.com")
                 .degree("PhD")
                 .firstName("Admin")
@@ -29,7 +33,7 @@ public interface SampleData {
                 .updatedAt(LocalDate.of(2022,5,1).atTime(10,35,44).atZone(ZoneOffset.UTC).toInstant())
                 .build();
         Customer customer2 = Customer.builder()
-                .id(2)
+                .id(1)
                 .email("user@email.com")
                 .degree("bachelor")
                 .firstName("User")
@@ -44,6 +48,59 @@ public interface SampleData {
                 .build();
 
         return Arrays.asList(customer1,customer2);
+    }
+
+    default Customer getSampleOfCustomerAtRegistration(){
+        Customer customer1 = Customer.builder()
+                .email("user@email.com")
+                .firstName("User")
+                .lastName("Typical")
+                .build();
+        return customer1;
+    }
+
+    default CustomerCardDTO getSampleOfCustomerCardDTO(){
+        CustomerCardDTO customerCardDTO = CustomerCardDTO.builder()
+                .id(1)
+                .firstName("User")
+                .lastName("Typical")
+                .degree("bachelor")
+                .links(new ArrayList<>())
+                .department(null)
+                .photo(null)
+                .build();
+        return customerCardDTO;
+    }
+    default CustomerDTO getSampleOfCustomerDTO(){
+        CustomerDTO customerDTO = CustomerDTO.builder()
+                .id(1)
+                .email("user@email.com")
+                .degree("bachelor")
+                .firstName("User")
+                .lastName("Typical")
+                .authID("bbbb")
+                .phoneNumber("1234567890")
+                .links(new ArrayList<>())
+                .department(null)
+                .photo(null)
+                .build();
+        return customerDTO;
+    }
+
+    default CustomerAdminDTO getSampleOfCustomerAdminDTO(){
+        CustomerAdminDTO customerAdminDTO = CustomerAdminDTO.builder()
+                .id(1)
+                .email("user@email.com")
+                .degree("bachelor")
+                .firstName("User")
+                .lastName("Typical")
+                .authID("bbbb")
+                .phoneNumber("1234567890")
+                .links(new ArrayList<>())
+                .department(null)
+                .photo(null)
+                .build();
+        return customerAdminDTO;
     }
 
     default List<Department> getSampleOfDepartment(){
@@ -146,4 +203,63 @@ public interface SampleData {
                 MediaType.TEXT_PLAIN_VALUE,
                 "Hello, World!".getBytes()
         );}
+
+    default CustomerRegistrationRequest getSampleOfCustomerRegistrationRequest(){
+        return new CustomerRegistrationRequest(
+                "User",
+                "Typical",
+                "user@email.com",
+                "password");
+    }
+
+    default UserRepresentation getSampleOfCustomerRepresentation(CustomerRegistrationRequest request){
+        UserRepresentation userRepresentation = new UserRepresentation();
+        userRepresentation.setEmail(request.email());
+        userRepresentation.setEmailVerified(true);
+        userRepresentation.setEnabled(true);
+        userRepresentation.setUsername(request.email());
+        userRepresentation.setFirstName(request.firstName());
+        userRepresentation.setLastName(request.lastName());
+
+        CredentialRepresentation credentialRepresentation = new CredentialRepresentation();
+        credentialRepresentation.setValue(request.password());
+        credentialRepresentation.setTemporary(false);
+        userRepresentation.setCredentials(Collections.singletonList(credentialRepresentation));
+        return userRepresentation;
+    }
+
+    default DepartmentDTO getSampleOfDepartmentDTO(){
+        DepartmentDTO departmentDTO = DepartmentDTO.builder()
+                .id(1)
+                .name("Name")
+                .street("Street")
+                .buildingNumber("10")
+                .flatNumber("a22")
+                .city("New Your")
+                .postalCode("1234-12")
+                .country("USA")
+                .institution(InstitutionDTO.builder().id(1).build())
+                .build();
+        return departmentDTO;
+    }
+
+default InformationLinksRequest getSampleOFInformationLinksRequest (){
+        InformationLinksRequest informationLinksRequest =
+                new InformationLinksRequest(
+                        "LinkedIn",
+                        "http....",
+                        getSampleOfCustomerDTO());
+        return informationLinksRequest;
+}
+    default InformationLinks getSampleOFInformationLink (){
+        InformationLinks informationLinks = InformationLinks.builder()
+                .id(1)
+                .name("LinkedIn")
+                .urlLink("http....")
+                .authId("bbbb")
+                .customer(getSampleOfCustomers().get(1))
+                .build();
+        return informationLinks;
+    }
+
 }
