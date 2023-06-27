@@ -1,5 +1,6 @@
 package com.flystonedev.cutomer.controller;
 
+import com.flystonedev.cutomer.DTO.InformationLinksAdminDTO;
 import com.flystonedev.cutomer.DTO.InformationLinksAdminRequest;
 import com.flystonedev.cutomer.DTO.InformationLinksDTO;
 import com.flystonedev.cutomer.service.InformationLinksService;
@@ -28,7 +29,7 @@ public class InformationLinksAdminController {
     }
     @RolesAllowed({"ADMIN"})
     @GetMapping
-    public ResponseEntity<InformationLinksDTO> get(@RequestParam Integer id){
+    public ResponseEntity<InformationLinksAdminDTO> get(@RequestParam Integer id){
         return ResponseEntity.status(HttpStatus.OK).body(informationLinksService.getAdminLink(id));
     }
     @RolesAllowed({"ADMIN"})
@@ -38,8 +39,8 @@ public class InformationLinksAdminController {
     }
     @RolesAllowed({"ADMIN"})
     @PutMapping
-    public ResponseEntity<InformationLinksDTO> update(@RequestBody InformationLinksDTO informationLinksDTO){
-        return ResponseEntity.status(HttpStatus.OK).body(informationLinksService.updateLinkAdmin(informationLinksDTO));
+    public ResponseEntity<InformationLinksAdminDTO> update(@RequestBody InformationLinksAdminDTO informationLinksAdminDTO){
+        return ResponseEntity.status(HttpStatus.OK).body(informationLinksService.updateLinkAdmin(informationLinksAdminDTO));
     }
 
     @RolesAllowed({"ADMIN"})

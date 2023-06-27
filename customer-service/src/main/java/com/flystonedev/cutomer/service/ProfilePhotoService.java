@@ -8,6 +8,7 @@ import com.flystonedev.cutomer.mapper.ProfilePhotoMapper;
 import com.flystonedev.cutomer.model.ProfilePhoto;
 import com.flystonedev.cutomer.repository.CustomerRepository;
 import com.flystonedev.cutomer.repository.ProfilePhotoRepository;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,7 @@ public class ProfilePhotoService {
     private final JwtConverter jwtConverter;
 
 
+    @Transactional
     public void savePhoto(MultipartFile file, Integer id) throws IOException{
         String filename = StringUtils.cleanPath(file.getOriginalFilename());
         ProfilePhoto profilePhoto = ProfilePhoto.builder()
@@ -51,12 +53,12 @@ public class ProfilePhotoService {
      * !!!!!!!!! USER SERVICE METHODS !!!!!!!!
      *
      * */
-    public ProfilePhotoDTO get(Integer id){
+    public ProfilePhotoDTO getUserPhoto(Integer id){
         return profilePhotoRepository.findProfilePhotoByIdAndAuthId(id, jwtConverter.getKeycloakUserID()).map(profilePhotoMapper::map).orElseThrow(EntityNotFoundException::new);
     }
 
     public ProfilePhotoDTO updateUser(ProfilePhotoDTO profilePhotoDTO){
-        ProfilePhotoDTO exist = get(profilePhotoDTO.getId());
+        ProfilePhotoDTO exist = getUserPhoto(profilePhotoDTO.getId());
         if (exist == null) {
             throw new EntityNotFoundException();
         } else if (exist.getAuthId() != jwtConverter.getKeycloakUserID()){
@@ -69,7 +71,7 @@ public class ProfilePhotoService {
 
 
     public void deleteUser (Integer id) {
-        ProfilePhotoDTO exist = get(id);
+        ProfilePhotoDTO exist = getUserPhoto(id);
         if (exist == null) {
             throw new EntityNotFoundException();
         } else if (exist.getAuthId() != jwtConverter.getKeycloakUserID()) {
@@ -90,7 +92,7 @@ public class ProfilePhotoService {
     }
 
     public ProfilePhotoDTO updateAdmin(ProfilePhotoDTO profilePhotoDTO){
-        ProfilePhotoDTO exist = get(profilePhotoDTO.getId());
+        ProfilePhotoDTO exist = getAdmin(profilePhotoDTO.getId());
         if (exist == null) {
             throw new EntityNotFoundException();
         }

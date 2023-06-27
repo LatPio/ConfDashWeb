@@ -88,7 +88,7 @@ public class ProfilePhotoAdminController {
             profilePhotoDTO.setName(StringUtils.cleanPath(file.getOriginalFilename()));
             profilePhotoDTO.setType(file.getContentType());
         } else {
-            profilePhotoDTO.setData(profilePhotoService.get(profilePhotoDTO.getId()).getData());
+            profilePhotoDTO.setData(profilePhotoService.getUserPhoto(profilePhotoDTO.getId()).getData());
         }
         return ResponseEntity.status(HttpStatus.OK).body(profilePhotoService.updateAdmin(profilePhotoDTO));
     }

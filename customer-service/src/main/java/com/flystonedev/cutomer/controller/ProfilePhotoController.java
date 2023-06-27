@@ -40,7 +40,7 @@ public class ProfilePhotoController {
     @RolesAllowed({"USER"})
     @GetMapping
     public ResponseEntity<ProfilePhotoDTO> get(@RequestParam Integer id){
-        return ResponseEntity.status(HttpStatus.OK).body(profilePhotoService.get(id));
+        return ResponseEntity.status(HttpStatus.OK).body(profilePhotoService.getUserPhoto(id));
     }
 
 
@@ -55,7 +55,7 @@ public class ProfilePhotoController {
             profilePhotoDTO.setName(StringUtils.cleanPath(file.getOriginalFilename()));
             profilePhotoDTO.setType(file.getContentType());
         } else {
-            profilePhotoDTO.setData(profilePhotoService.get(profilePhotoDTO.getId()).getData());
+            profilePhotoDTO.setData(profilePhotoService.getUserPhoto(profilePhotoDTO.getId()).getData());
         }
         return ResponseEntity.status(HttpStatus.OK).body(profilePhotoService.updateUser(profilePhotoDTO));
     }

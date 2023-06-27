@@ -248,7 +248,7 @@ default InformationLinksRequest getSampleOFInformationLinksRequest (){
                 new InformationLinksRequest(
                         "LinkedIn",
                         "http....",
-                        getSampleOfCustomerDTO());
+                        CustomerDTO.builder().id(1).build());
         return informationLinksRequest;
 }
     default InformationLinks getSampleOFInformationLink (){
@@ -261,5 +261,71 @@ default InformationLinksRequest getSampleOFInformationLinksRequest (){
                 .build();
         return informationLinks;
     }
+    default InformationLinksDTO getSampleOfInformationLinksDTO(){
+        InformationLinksDTO informationLinksDTO = InformationLinksDTO.builder()
+                .id(1)
+                .name("LinkedIn")
+                .urlLink("http....")
+                .build();
+        return informationLinksDTO;
+    }
+    default InformationLinksAdminRequest getSampleOfInformationLinksAdminRequest(){
+        InformationLinksAdminRequest informationLinksAdminRequest =
+                new InformationLinksAdminRequest(
+                        "LinkedIn",
+                        "http....",
+                        getSampleOfCustomerDTO(),
+                        "bbbb");
+        return informationLinksAdminRequest;
+    }
+
+    default InformationLinksAdminDTO getSampleOfInformationLinksAdminDTO(){
+        InformationLinksAdminDTO informationLinksAdminDTO = InformationLinksAdminDTO.builder()
+                .id(1)
+                .name("LinkedIn")
+                .urlLink("http....")
+                .authId("bbbb")
+                .build();
+        return informationLinksAdminDTO;
+    }
+
+    default InstitutionDTO getSampleOfInstitutionDTO(){
+        InstitutionDTO institutionDTO = InstitutionDTO.builder()
+                .id(1)
+                .name("Institution")
+                .build();
+        return institutionDTO;
+    }
+
+    default ProfilePhoto getSampleOfProfilePhoto(){
+        ProfilePhoto profilePhoto = ProfilePhoto.builder()
+                .id(1)
+                .name("name")
+                .type("text/plain")
+                .data("Hello, World!".getBytes())
+                .customer(getSampleOfCustomers().get(1))
+                .build();
+        return profilePhoto;
+    }
+    default MultipartFile getSampleMultipartPhotoProfile(){
+        return new MockMultipartFile(
+                "file",
+                "name",
+                MediaType.TEXT_PLAIN_VALUE,
+                "Hello, World!".getBytes()
+        );
+    }
+
+    default ProfilePhotoDTO getSampleOfProfilePhotoDTO(){
+        ProfilePhotoDTO profilePhotoDTO = ProfilePhotoDTO.builder()
+                .id(1)
+                .name("name")
+                .data("Hello, World!".getBytes())
+                .authId("bbbb")
+                .type("text/plain")
+                .build();
+        return profilePhotoDTO;
+    }
+
 
 }

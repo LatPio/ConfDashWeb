@@ -1,11 +1,13 @@
 package com.flystonedev.cutomer.service;
 
+import com.flystonedev.cutomer.DTO.InformationLinksAdminDTO;
 import com.flystonedev.cutomer.DTO.InformationLinksAdminRequest;
 import com.flystonedev.cutomer.DTO.InformationLinksDTO;
 import com.flystonedev.cutomer.DTO.InformationLinksRequest;
 import com.flystonedev.cutomer.config.JwtConverter;
 import com.flystonedev.cutomer.exeption.CustomerUpdateException;
 import com.flystonedev.cutomer.exeption.EntityNotFoundException;
+import com.flystonedev.cutomer.mapper.InformationLinksAdminMapper;
 import com.flystonedev.cutomer.mapper.InformationLinksMapper;
 import com.flystonedev.cutomer.model.Customer;
 import com.flystonedev.cutomer.model.InformationLinks;
@@ -24,6 +26,8 @@ public class InformationLinksService {
     private final InformationLinksRepository informationLinksRepository;
 
     private final InformationLinksMapper informationLinksMapper = Mappers.getMapper(InformationLinksMapper.class);
+    private final InformationLinksAdminMapper informationLinksAdminMapper = Mappers.getMapper(InformationLinksAdminMapper.class);
+
     private final JwtConverter jwtConverter;
 
     /*
@@ -52,7 +56,7 @@ public class InformationLinksService {
     }
 
     public InformationLinksDTO updateUsersLink(InformationLinksDTO informationLinksDTO){
-        InformationLinks exist = informationLinksMapper.map(getUserLink(informationLinksDTO.getId()));
+        InformationLinks exist = informationLinksAdminMapper.map(getAdminLink(informationLinksDTO.getId()));
         if (exist == null) {
             throw new EntityNotFoundException();
         } else if (exist.getAuthId() != jwtConverter.getKeycloakUserID()){
@@ -64,7 +68,7 @@ public class InformationLinksService {
     }
 
     public void deleteUserLink(Integer id){
-        InformationLinks exist = informationLinksMapper.map(getUserLink(id));
+        InformationLinks exist = informationLinksAdminMapper.map(getAdminLink(id));
         if (exist == null) {
             throw new EntityNotFoundException();
         } else if (exist.getAuthId() != jwtConverter.getKeycloakUserID()){
@@ -88,8 +92,8 @@ public class InformationLinksService {
         informationLinksRepository.save(informationLinks);
     }
 
-    public InformationLinksDTO getAdminLink(Integer id){
-        return informationLinksRepository.findById(id).map(informationLinksMapper::map).orElseThrow(EntityNotFoundException::new);
+    public InformationLinksAdminDTO getAdminLink(Integer id){
+        return informationLinksRepository.findById(id).map(informationLinksAdminMapper::map).orElseThrow(EntityNotFoundException::new);
     }
 
     public List<InformationLinksDTO> informationLinksAdminResponseList(){
@@ -98,13 +102,13 @@ public class InformationLinksService {
     }
 
 
-    public InformationLinksDTO updateLinkAdmin(InformationLinksDTO informationLinksDTO){
-        InformationLinksDTO exist = getAdminLink(informationLinksDTO.getId());
+    public InformationLinksAdminDTO updateLinkAdmin(InformationLinksAdminDTO informationLinksAdminDTO){
+        InformationLinksAdminDTO exist = getAdminLink(informationLinksAdminDTO.getId());
         if (exist == null) {
             throw new EntityNotFoundException();
         }
-        InformationLinks updated = informationLinksRepository.save(informationLinksMapper.map(informationLinksDTO));
-        return informationLinksMapper.map(updated);
+        InformationLinks updated = informationLinksRepository.save(informationLinksAdminMapper.map(informationLinksAdminDTO));
+        return informationLinksAdminMapper.map(updated);
     }
 
     public void deleteAdminLink(Integer id){informationLinksRepository.deleteById(id);}
