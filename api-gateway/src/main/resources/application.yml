@@ -19,7 +19,7 @@ spring:
         - id: customer-service
           uri: lb://customer-service
           predicates:
-            - Path=/api/v1/user/customer, /api/v1/user/customer/**, /api/v1/admin/customer, /api/v1/admin/customer/**, /api/v1/department, /api/v1/department/**, /api/v1/user/info_links, /api/v1/user/info_links/**, /api/v1/admin/info_links, /api/v1/admin/info_links/**, /api/v1/institution, /api/v1/institution/**, /api/v1/admin/profile_photo, /api/v1/admin/profile_photo/**, /api/v1/user/profile_photo, /api/v1/user/profile_photo/**
+            - Path=/api/v1/user/customer, /api/v1/user/customer/**,/api/v1/user/customer/new, /api/v1/admin/customer, /api/v1/admin/customer/**, /api/v1/department, /api/v1/department/**, /api/v1/user/info_links, /api/v1/user/info_links/**, /api/v1/admin/info_links, /api/v1/admin/info_links/**, /api/v1/institution, /api/v1/institution/**, /api/v1/admin/profile_photo, /api/v1/admin/profile_photo/**, /api/v1/user/profile_photo, /api/v1/user/profile_photo/**
 
         - id: localization-service
           uri: lb://localization-service

@@ -22,7 +22,7 @@ public class AbstractUserController {
     @PostMapping
     public ResponseEntity<AbstractDTO> addAbstract(@RequestBody AbstractDTO abstractDTO){
         log.info("New Abstract added {}", abstractDTO);
-        ;
+
         return ResponseEntity.status(HttpStatus.CREATED).body(abstractService.createUserAbstract(abstractDTO));
     }
     @RolesAllowed({"USER"})

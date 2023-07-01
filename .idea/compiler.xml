@@ -20,8 +20,8 @@
         <module name="abstracts-service" />
         <module name="discovery-server" />
         <module name="localization-service" />
-        <module name="event-service" />
         <module name="customer-service" />
+        <module name="event-service" />
         <module name="site_management-service" />
         <module name="api-gateway" />
         <module name="basket-service" />

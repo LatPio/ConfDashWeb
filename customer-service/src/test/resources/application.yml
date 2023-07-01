@@ -13,3 +13,12 @@ spring:
     database-platform: org.hibernate.dialect.H2Dialect
 
 
+app:
+  config:
+    keycloak:
+      server-url: http://localhost:8181
+      realm: confdashweb
+      client-id: spring-cloud-client
+      client-secret: eIEAsftRLNv8hk9FX1L9OR3jtaSqkIqe
+
+
