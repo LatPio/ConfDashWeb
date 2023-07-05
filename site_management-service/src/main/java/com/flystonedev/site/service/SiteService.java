@@ -21,7 +21,9 @@ public class SiteService {
     public void createSite(SiteDTO siteDTO){
         Site site = Site.builder()
                 .name(siteDTO.getName())
+                .orderNumber(siteDTO.getOrderNumber())
                 .body(siteDTO.getBody())
+                .visible(siteDTO.isVisible())
                 .build();
         siteRepository.save(site);
     }

@@ -1,0 +1,24 @@
+spring:
+  datasource:
+    username: test
+    password: test
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: true
+    database-platform: org.hibernate.dialect.H2Dialect
+
+
+app:
+  config:
+    keycloak:
+      server-url: http://localhost:8181
+      realm: confdashweb
+      client-id: spring-cloud-client
+      client-secret: eIEAsftRLNv8hk9FX1L9OR3jtaSqkIqe
+
+
