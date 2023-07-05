@@ -2,6 +2,8 @@ package com.flystonedev.event.service;
 
 import com.flystonedev.abstracts.DTO.AbstractOutResponse;
 import com.flystonedev.event.DTO.EventEntityDTO;
+import com.flystonedev.event.clients.AbstractClient;
+import com.flystonedev.event.clients.LocalizationClient;
 import com.flystonedev.event.exeption.ClientCallException;
 import com.flystonedev.event.exeption.EntityNotFoundException;
 import com.flystonedev.event.exeption.config.GlobalErrorCode;
@@ -28,7 +30,6 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
-
 public class EventEntityService {
 
     private final EventEntityRepository eventEntityRepository;
@@ -38,17 +39,23 @@ public class EventEntityService {
     private final EventTypeMapper eventTypeMapper = Mappers.getMapper(EventTypeMapper.class);
 
     private final WebClient.Builder webClientBuilder;
+
+    private AbstractClient abstractClient;
+    private final LocalizationClient localizationClient;
     @Transactional
     public void createEventEntity(EventEntityDTO eventEntityDTO){
 
-        AbstractOutResponse abstractOutResponse = abstractOutResponse(Integer.valueOf(eventEntityDTO.getAbstractId()));
-        LocalizationOutResponse localizationOutResponse = localizationOutResponse(Integer.valueOf(eventEntityDTO.getLocalizationId()));
+//        AbstractOutResponse abstractOutResponse = abstractOutResponse(Integer.valueOf(eventEntityDTO.getAbstractId()));
+//        LocalizationOutResponse localizationOutResponse = localizationOutResponse(Integer.valueOf(eventEntityDTO.getLocalizationId()));
+
 
             EventEntity eventEntity = EventEntity.builder()
-                    .name(abstractOutResponse.getAbstractTitle())
+//                    .name(abstractClient.abstractOutResponse.getAbstractTitle())
+                    .name(abstractClient.abstractOutResponse(Integer.valueOf(eventEntityDTO.getAbstractId())).getAbstractTitle())
                     .abstractId(eventEntityDTO.getAbstractId())
                     .localizationId(eventEntityDTO.getLocalizationId())
-                    .localizationName(localizationOutResponse.getRoom())
+//                    .localizationName(localizationOutResponse.getRoom())
+                    .localizationName(localizationClient.localizationOutResponse(Integer.valueOf(eventEntityDTO.getLocalizationId())).getRoom())
                     .eventType(eventTypeRepository.getReferenceById(eventEntityDTO.getEventType().getId()))
                     .dateTimeOfEvent(eventEntityDTO.getDateTimeOfEvent())
                     .build();
@@ -63,7 +70,8 @@ public class EventEntityService {
                     .timeConflict(saved.getEventType().isTimeConflict())
                     .locationConflict(saved.getEventType().isLocationConflict())
                     .build();
-            createBookingsDTO(bookingRequest);
+//            createBookingsDTO(bookingRequest);
+            localizationClient.createBookingsDTO(bookingRequest);
 
 
     }
@@ -91,62 +99,63 @@ public class EventEntityService {
     }
 
 
-    public AbstractOutResponse abstractOutResponse(Integer id){
-        Jwt jwt = (Jwt) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        AbstractOutResponse abstractOutResponse = webClientBuilder.build().get()
-                .uri("http://abstracts-Service/api/v1/abstracts/simple",
-        uriBuilder -> uriBuilder.queryParam("id", id.intValue()).build())
+//    public AbstractOutResponse abstractOutResponse(Integer id){
+//        Jwt jwt = (Jwt) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        AbstractOutResponse abstractOutResponse = webClientBuilder.build()
+//                .get()
+//                .uri("http://abstracts-Service/api/v1/admin/abstracts/simple",
+//        uriBuilder -> uriBuilder.queryParam("id", id.intValue()).build())
+//
+//                .headers(httpHeaders -> httpHeaders.setBearerAuth(jwt.getTokenValue()))
+//                .retrieve()
+//                .onStatus(  httpStatusCode-> httpStatusCode.value() == 400,
+//                        clientResponse -> {throw new ClientCallException("Provided Abstract Id don't exist", GlobalErrorCode.ERROR_EVENT_SERVICE_ENTITY_NOT_FOUND);})
+//                .onStatus(  httpStatusCode-> httpStatusCode.value() == 401,
+//                        clientResponse -> {throw new ClientCallException("Access to Abstract service Denied", GlobalErrorCode.ERROR_EVENT_SERVICE_ACCESS_DENIED);})
+//                .onStatus(  httpStatusCode-> httpStatusCode.value() == 404,
+//                        clientResponse -> {throw new ClientCallException("Endpoint to Abstract Service not found", GlobalErrorCode.ERROR_EVENT_SERVICE_ENTITY_NOT_FOUND);})
+//                .bodyToMono(AbstractOutResponse.class)
+//                .block();
+//
+//        return abstractOutResponse;
+//    }
 
-                .headers(httpHeaders -> httpHeaders.setBearerAuth(jwt.getTokenValue()))
-                .retrieve()
-                .onStatus(  httpStatusCode-> httpStatusCode.value() == 400,
-                        clientResponse -> {throw new ClientCallException("Provided Abstract Id don't exist", GlobalErrorCode.ERROR_EVENT_SERVICE_ENTITY_NOT_FOUND);})
-                .onStatus(  httpStatusCode-> httpStatusCode.value() == 401,
-                        clientResponse -> {throw new ClientCallException("Access to Abstract service Denied", GlobalErrorCode.ERROR_EVENT_SERVICE_ACCESS_DENIED);})
-                .onStatus(  httpStatusCode-> httpStatusCode.value() == 404,
-                        clientResponse -> {throw new ClientCallException("Endpoint to Abstract Service not found", GlobalErrorCode.ERROR_EVENT_SERVICE_ENTITY_NOT_FOUND);})
-                .bodyToMono(AbstractOutResponse.class)
-                .block();
-
-        return abstractOutResponse;
-    }
-
-    public LocalizationOutResponse localizationOutResponse (Integer id) {
-        Jwt jwt = (Jwt) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        LocalizationOutResponse localizationOutResponse = webClientBuilder.build()
-                .get()
-                .uri("http://localization-Service/api/v1/localization/simple",
-                        uriBuilder -> uriBuilder.queryParam("id" ,id).build())
-                .headers(httpHeaders -> httpHeaders.setBearerAuth(jwt.getTokenValue()))
-                .retrieve()
-                .onStatus(  httpStatusCode-> httpStatusCode.value() == 400,
-                            clientResponse -> {throw new ClientCallException("Provided Localization Id don't exist", GlobalErrorCode.ERROR_EVENT_SERVICE_ENTITY_NOT_FOUND);})
-                .onStatus(  httpStatusCode-> httpStatusCode.value() == 401,
-                        clientResponse -> {throw new ClientCallException("Access to Localization service Denied", GlobalErrorCode.ERROR_EVENT_SERVICE_ACCESS_DENIED);})
-                .onStatus(  httpStatusCode-> httpStatusCode.value() == 404,
-                        clientResponse -> {throw new ClientCallException("Endpoint to Localization Service not found", GlobalErrorCode.ERROR_EVENT_SERVICE_ENTITY_NOT_FOUND);})
-                .bodyToMono(LocalizationOutResponse.class)
-                .block();
-        return localizationOutResponse;
-    }
-
-    public BookingsDTO createBookingsDTO (BookingRequest bookingRequest){
-        Jwt jwt = (Jwt) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        BookingsDTO bookingsDTO = webClientBuilder.build()
-                .post()
-                .uri("Http://localization-Service/api/v1/booking")
-                .body(Mono.just(bookingRequest), BookingRequest.class)
-                .headers(httpHeaders -> httpHeaders.setBearerAuth(jwt.getTokenValue()))
-                .retrieve()
-                .onStatus(  httpStatusCode-> httpStatusCode.value() == 401,
-                        clientResponse -> {throw new ClientCallException("Access to Localization service Denied", GlobalErrorCode.ERROR_EVENT_SERVICE_ACCESS_DENIED);})
-                .onStatus(  httpStatusCode-> httpStatusCode.value() == 404,
-                        clientResponse -> {throw new ClientCallException("Endpoint to Localization Service not found", GlobalErrorCode.ERROR_EVENT_SERVICE_ENTITY_NOT_FOUND);})
-                .bodyToMono(BookingsDTO.class)
-                .block();
-        return bookingsDTO;
-
-    }
+//    public LocalizationOutResponse localizationOutResponse (Integer id) {
+//        Jwt jwt = (Jwt) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//
+//        LocalizationOutResponse localizationOutResponse = webClientBuilder.build()
+//                .get()
+//                .uri("http://localization-Service/api/v1/localization/simple",
+//                        uriBuilder -> uriBuilder.queryParam("id" ,id).build())
+//                .headers(httpHeaders -> httpHeaders.setBearerAuth(jwt.getTokenValue()))
+//                .retrieve()
+//                .onStatus(  httpStatusCode-> httpStatusCode.value() == 400,
+//                            clientResponse -> {throw new ClientCallException("Provided Localization Id don't exist", GlobalErrorCode.ERROR_EVENT_SERVICE_ENTITY_NOT_FOUND);})
+//                .onStatus(  httpStatusCode-> httpStatusCode.value() == 401,
+//                        clientResponse -> {throw new ClientCallException("Access to Localization service Denied", GlobalErrorCode.ERROR_EVENT_SERVICE_ACCESS_DENIED);})
+//                .onStatus(  httpStatusCode-> httpStatusCode.value() == 404,
+//                        clientResponse -> {throw new ClientCallException("Endpoint to Localization Service not found", GlobalErrorCode.ERROR_EVENT_SERVICE_ENTITY_NOT_FOUND);})
+//                .bodyToMono(LocalizationOutResponse.class)
+//                .block();
+//        return localizationOutResponse;
+//    }
+//
+//    public BookingsDTO createBookingsDTO (BookingRequest bookingRequest){
+//        Jwt jwt = (Jwt) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//
+//        BookingsDTO bookingsDTO = webClientBuilder.build()
+//                .post()
+//                .uri("Http://localization-Service/api/v1/booking")
+//                .body(Mono.just(bookingRequest), BookingRequest.class)
+//                .headers(httpHeaders -> httpHeaders.setBearerAuth(jwt.getTokenValue()))
+//                .retrieve()
+//                .onStatus(  httpStatusCode-> httpStatusCode.value() == 401,
+//                        clientResponse -> {throw new ClientCallException("Access to Localization service Denied", GlobalErrorCode.ERROR_EVENT_SERVICE_ACCESS_DENIED);})
+//                .onStatus(  httpStatusCode-> httpStatusCode.value() == 404,
+//                        clientResponse -> {throw new ClientCallException("Endpoint to Localization Service not found", GlobalErrorCode.ERROR_EVENT_SERVICE_ENTITY_NOT_FOUND);})
+//                .bodyToMono(BookingsDTO.class)
+//                .block();
+//        return bookingsDTO;
+//
+//    }
 }
