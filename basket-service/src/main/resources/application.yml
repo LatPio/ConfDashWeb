@@ -1,3 +1,31 @@
+server:
+  port: 0
+spring:
+  application:
+    name: Basket-Service
+  datasource:
+    username: confdashweb
+    password: password
+    url: jdbc:postgresql://localhost:5432/basket
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: true
+    defer-datasource-initialization: true
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:8181/realms/confdashweb/protocol/openid-connect/certs
+  sql:
+    init:
+      mode: always
 management:
   tracing:
     sampling:

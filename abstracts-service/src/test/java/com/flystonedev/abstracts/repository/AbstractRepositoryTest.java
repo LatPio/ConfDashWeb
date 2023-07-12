@@ -77,8 +77,8 @@ class AbstractRepositoryTest implements SampleData{
         String authID = "vava-dddd";
         //when
         underTest.deleteByIdAndAuthId(id, authID);
-        Optional<AbstractsEntity> shouldByEmpty = underTest.findByIdAndAuthId(id, authID);
+        Optional<AbstractsEntity> shouldBeEmpty = underTest.findByIdAndAuthId(id, authID);
         //then
-        assertThat(shouldByEmpty, is(Optional.empty()));
+        assertThat(shouldBeEmpty, is(Optional.empty()));
     }
 }

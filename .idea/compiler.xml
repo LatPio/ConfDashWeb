@@ -29,6 +29,7 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="abstract-service" target="17" />
+      <module name="basketItem-service" target="17" />
       <module name="customer" target="17" />
     </bytecodeTargetLevel>
   </component>
