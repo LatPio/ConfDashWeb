@@ -47,7 +47,7 @@ Moreover, ConfDasWeb serves as a centralized hub for conference-related informat
 - Springboot (web, security, cloud, netflix-eureka, and few more) <img width="29px" src="https://user-images.githubusercontent.com/33158051/103466606-760a4000-4d14-11eb-9941-2f3d00371471.png"/>
 - Zipkin <img width="23px" src="https://zipkin.io/public/img/logo_png/zipkin_vertical_grey_gb.png"/>
 - Keycloak <img width="23px" src="https://www.keycloak.org/resources/images/keycloak_icon_512px.svg"/>
-- Maven <img width="45px" src="https://maven.apache.org/images/maven-logo-white-on-black.purevec.svg"/>
+- Maven <img width="45px" src="https://maven.apache.org/images/ma-ven-logo-white-on-black.purevec.svg"/>
 - Postgresql <img width="20px" src="https://www.postgresql.org/media/img/about/press/elephant.png"/>
 - H2 <img width="30px" src="https://www.h2database.com/html/images/h2-logo-2.png"/>
 - Lombok <img width="36px" src="https://kodejava.org/wp-content/uploads/2018/12/lombok.png"/>
