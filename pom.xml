@@ -18,8 +18,8 @@
     <module>event-service</module>
     <module>site_management-service</module>
     <module>discovery-server</module>
-      <module>api-gateway</module>
-      <module>basket-service</module>
+    <module>api-gateway</module>
+    <module>basket-service</module>
   </modules>
 
   <properties>

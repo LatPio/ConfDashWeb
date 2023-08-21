@@ -19,15 +19,19 @@ public class SecurityConfig {
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity serverHttpSecurity, ServerLogoutSuccessHandler handler){
 
         serverHttpSecurity
+                .cors()
+                .and()
                 .csrf()
                 .disable()
                 .authorizeExchange(
                         authorizeExchangeSpec -> authorizeExchangeSpec
-                                .pathMatchers("/eureka/**")
+                                .pathMatchers("/**")
                                 .permitAll()
-                                .pathMatchers("/api/v1/user/customer/new").permitAll()
-                                .anyExchange()
-                                .authenticated()
+//                                .pathMatchers("/eureka/**")
+//                                .permitAll()
+//                                .pathMatchers("/api/v1/user/customer/new").permitAll()
+//                                .anyExchange()
+//                                .authenticated()
                 )
                 .oauth2ResourceServer(ServerHttpSecurity.OAuth2ResourceServerSpec::jwt)
                 ;
