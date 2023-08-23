@@ -1,1 +1,19 @@
-<p>admin works!</p>
+<mat-sidenav-container style="height: 100vh">
+  <mat-sidenav #sidenav mode="over" (click)="sidenav.close()">
+    <app-sidenav-admin (click)="sidenav.close()"></app-sidenav-admin>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+
+    <app-navbar
+      [title]="'CONFDASHWEB - Admin Panel'"
+      (sidenavToggle)="sidenav.toggle()"> </app-navbar>
+
+    <main>
+      <div>
+        <router-outlet></router-outlet>
+      </div>
+    </main>
+
+  </mat-sidenav-content>
+</mat-sidenav-container>

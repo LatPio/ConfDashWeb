@@ -1,5 +1,5 @@
 import {CanMatchFn, Router} from '@angular/router';
-import {AuthService} from "../service/auth.service";
+import {AuthService} from "../authentication/auth.service";
 import {inject} from "@angular/core";
 
 export const adminMatchGuard: CanMatchFn = (route, segments) => {

@@ -1,0 +1,11 @@
+<mat-toolbar color="primary">
+  <button mat-icon-button (click)="onToggleSidenav()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>{{title}}</span>
+  <span class="menu-spacer"></span>
+  <span>{{userName}}</span>
+  <button mat-icon-button (click)="logout()">
+   <mat-icon>logout</mat-icon>
+  </button>
+</mat-toolbar>

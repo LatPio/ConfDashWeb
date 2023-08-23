@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {AuthService} from "../../core/service/auth.service";
+import {AuthService} from "../../core/authentication/auth.service";
 import {Router} from "@angular/router";
 import {Observable} from "rxjs";
 
@@ -31,8 +31,8 @@ export class HomeComponent {
   // }
 
   login(){
-    this.authService.login("/admin");
-    this.router.navigateByUrl('/admin').then();
+    this.authService.login();
+    // this.router.navigateByUrl('/admin').then();
   }
 
   admin(){

@@ -1,1 +1,20 @@
-<p>user works!</p>
+<mat-sidenav-container style="height: 100vh">
+  <mat-sidenav #sidenav mode="over" (click)="sidenav.close()">
+    <app-side-nav-user (click)="sidenav.close()"></app-side-nav-user>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+
+    <app-navbar
+      [title]="'CONFDASHWEB'"
+      (sidenavToggle)="sidenav.toggle()"> </app-navbar>
+
+    <main>
+      <div>
+
+        <router-outlet></router-outlet>
+      </div>
+    </main>
+
+  </mat-sidenav-content>
+</mat-sidenav-container>

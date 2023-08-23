@@ -1,0 +1,18 @@
+import {InjectionToken, NgModule} from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+export class AppConfig {
+  apiEndpoint:string;
+}
+export let APP_CONFIG = new InjectionToken<AppConfig>('app.config');
+
+export const APP_DI_CONFIG: AppConfig = {
+  apiEndpoint: 'http://localhost:8080/'
+};
+@NgModule({
+  providers:[{
+    provide:APP_CONFIG,
+    useValue:APP_DI_CONFIG
+  }]
+})
+export class AppConfigModule { }
