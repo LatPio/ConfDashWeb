@@ -50,7 +50,7 @@ export class AbstractsService {
   }
 
   deleteAbstractAdmin(abstract: AbstractDTOModel): Observable<AbstractDTOModel>{
-    return this.httpClient.put<AbstractDTOModel>(`${this.config.apiEndpoint}api/v1/admin/abstracts?id=${abstract.id}`,
+    return this.httpClient.delete<AbstractDTOModel>(`${this.config.apiEndpoint}api/v1/admin/abstracts?id=${abstract.id}`,
       {headers:this.httpHeaders, responseType: "json"})
   }
 
@@ -88,7 +88,7 @@ export class AbstractsService {
   }
 
   deleteAbstractUser(abstract: AbstractDTOModel): Observable<AbstractDTOModel>{
-    return this.httpClient.put<AbstractDTOModel>(`${this.config.apiEndpoint}api/v1/user/abstracts?id=${abstract.id}`,
+    return this.httpClient.delete<AbstractDTOModel>(`${this.config.apiEndpoint}api/v1/user/abstracts?id=${abstract.id}`,
       {headers:this.httpHeaders, responseType: "json"})
   }
 }

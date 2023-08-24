@@ -2,12 +2,19 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {AbstractsAdminComponent} from "./abstracts-admin.component";
 import {AbstractAdminListComponent} from "./abstract-admin-list/abstract-admin-list.component";
+import {AbstractAdminAddComponent} from "./abstract-admin-add/abstract-admin-add.component";
+import {AbstractAdminGetComponent} from "./abstract-admin-get/abstract-admin-get.component";
+import {AbstractAdminUpdateComponent} from "./abstract-admin-update/abstract-admin-update.component";
 
 const routes: Routes = [
   { path:'',
     component: AbstractsAdminComponent,
     children:[
-      {path: 'list', component: AbstractAdminListComponent}
+      {path: 'list', component: AbstractAdminListComponent},
+      {path: 'add', component: AbstractAdminAddComponent},
+      {path: 'get/:abstractID', component: AbstractAdminGetComponent},
+      {path: 'update/:abstractID', component: AbstractAdminUpdateComponent}
+
     ]
   }
 ];

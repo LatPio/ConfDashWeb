@@ -17,7 +17,7 @@ export class AbstractAdminListComponent implements AfterViewInit ,OnInit{
     this.dataSource.sort = this.sort;
   }
 
-  displayedColumns: string[] = ['id', 'abstractTitle', 'body', 'authors','affiliation', 'presenterId', 'ownerId','authId', 'accepted','files'];
+  displayedColumns: string[] = ['id', 'abstractTitle', 'body', 'authors','affiliation', 'presenterId', 'ownerId','authId', 'accepted','files','option'];
   dataSource = new MatTableDataSource<AbstractDTOModel>();
   abstracts: Array<AbstractDTOModel> = [];
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -49,4 +49,10 @@ export class AbstractAdminListComponent implements AfterViewInit ,OnInit{
   }
 
 
+  deleteExpenseConfirmation(abstract: AbstractDTOModel) {
+    this.abstractsService.deleteAbstractAdmin(abstract).subscribe(value => {
+      this.getAbstracts();
+    })
+
+  }
 }
