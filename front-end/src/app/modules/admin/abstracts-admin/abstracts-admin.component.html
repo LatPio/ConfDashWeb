@@ -3,8 +3,11 @@
   <div class="button-row mat-mdc-button-base">
 
     <a mat-raised-button routerLink="." color="primary">Abstract Home</a>
-    <a mat-raised-button routerLink="list" color="primary">Abstract List</a>
     <a mat-raised-button routerLink="add" color="primary">Add Abstract</a>
+    <a mat-raised-button routerLink="list" color="primary">Abstract List</a>
+    <a mat-raised-button routerLink="accepted" color="primary">Accepted Abstract List</a>
+    <a mat-raised-button routerLink="pending" color="primary">Abstracts to process</a>
+
 
 
   </div>
@@ -12,6 +15,9 @@
 <mat-divider></mat-divider>
 
 <div style="margin-right: 5%; margin-left: 5%; margin-top: 30px">
+
+
+<!--  <div [ngxSummernote]="config"></div>-->
 
   <router-outlet></router-outlet>
 </div>

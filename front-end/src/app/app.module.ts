@@ -5,11 +5,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PageNotFoundComponent } from './core/page-not-found/page-not-found.component';
 import {HttpClientModule} from "@angular/common/http";
-import {OAuthModule} from "angular-oauth2-oidc";
 import {CoreModule} from "./core/core.module";
-import {HomeModule} from "./modules/home/home.module";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {AppConfigModule} from "./core/config/app-config/app-config.module";
+import {MatDialogModule} from '@angular/material/dialog';
 
 
 
@@ -24,9 +23,7 @@ import {AppConfigModule} from "./core/config/app-config/app-config.module";
     HttpClientModule,
     CoreModule.forRoot(),
     AppConfigModule,
-
-
-
+    MatDialogModule,
 
     // OAuthModule.forRoot(
     //   {

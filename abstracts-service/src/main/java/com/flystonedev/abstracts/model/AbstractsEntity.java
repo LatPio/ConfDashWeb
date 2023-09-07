@@ -33,6 +33,7 @@ public class AbstractsEntity {
     private Integer id;
     @Column(name = "Abstract_Titile")
     private String abstractTitle;
+    @Lob
     private String body;
     private String authors;
     private String affiliation;

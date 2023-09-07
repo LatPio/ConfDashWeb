@@ -35,18 +35,22 @@
     </mat-error>
   </mat-form-field>
 
-  <mat-form-field class="full-width">
-    <mat-label>Abstract Content</mat-label>
-    <input
-      type="text"
-      matInput
-      [formControlName]="'body'"
-      placeholder="Ex. Research about ....">
-    <mat-error *ngIf="abstractForm.hasError('required')">
-      Name is required
-    </mat-error>
-  </mat-form-field>
+<!--  <mat-form-field class="full-width">-->
+<!--    <mat-label>Abstract Content</mat-label>-->
+<!--    <input-->
+<!--      type="text"-->
+<!--      matInput-->
+<!--      [formControlName]="'body'"-->
+<!--      placeholder="Ex. Research about ....">-->
 
+<!--    <mat-error *ngIf="abstractForm.hasError('required')">-->
+<!--      Name is required-->
+<!--    </mat-error>-->
+<!--  </mat-form-field>-->
+<!--  <div summernote></div>-->
+  <div>Abstract Content:</div>
+  <div [ngxSummernote]="config" [formControlName]="'body'"></div>
+<!--  <div [ngxSummernoteView]="content"></div>-->
 
 
   <mat-form-field class="full-width">

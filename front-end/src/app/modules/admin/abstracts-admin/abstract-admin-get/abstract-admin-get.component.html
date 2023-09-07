@@ -36,8 +36,8 @@
   <mat-grid-tile [colspan]="1" [rowspan]="10" class="info-color">Abstract Content:</mat-grid-tile>
   <mat-grid-tile [colspan]="8" [rowspan]="10">
 
-    <div class="text-inside">
-      {{abstractData.body}}
+    <div class="text-inside" [innerHTML]="abstractData.body">
+<!--      {{abstractData.body}}-->
     </div>
     </mat-grid-tile>
   <mat-grid-tile [colspan]="3" [rowspan]="10" class="analitic-data">Analytical data:</mat-grid-tile>

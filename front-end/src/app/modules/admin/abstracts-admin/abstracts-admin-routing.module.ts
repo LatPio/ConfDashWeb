@@ -5,6 +5,8 @@ import {AbstractAdminListComponent} from "./abstract-admin-list/abstract-admin-l
 import {AbstractAdminAddComponent} from "./abstract-admin-add/abstract-admin-add.component";
 import {AbstractAdminGetComponent} from "./abstract-admin-get/abstract-admin-get.component";
 import {AbstractAdminUpdateComponent} from "./abstract-admin-update/abstract-admin-update.component";
+import {AbstractAdminAcceptedComponent} from "./abstract-admin-accepted/abstract-admin-accepted.component";
+import {AbstractAdminToProcessComponent} from "./abstracts-admin-to-process/abstract-admin-to-process.component";
 
 const routes: Routes = [
   { path:'',
@@ -13,7 +15,11 @@ const routes: Routes = [
       {path: 'list', component: AbstractAdminListComponent},
       {path: 'add', component: AbstractAdminAddComponent},
       {path: 'get/:abstractID', component: AbstractAdminGetComponent},
-      {path: 'update/:abstractID', component: AbstractAdminUpdateComponent}
+      {path: 'update/:abstractID', component: AbstractAdminUpdateComponent},
+      {path: 'accepted', component: AbstractAdminAcceptedComponent},
+      {path: 'pending', component: AbstractAdminToProcessComponent}
+
+
 
     ]
   }

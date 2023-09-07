@@ -133,6 +133,11 @@ public class AbstractService {
         return abstractsEntityList.stream().map(abstractMapper::map).collect(Collectors.toList());
     }
     @Transactional
+    public List<AbstractDTO> abstractAdminDTOListAccepted(Boolean accepted){
+        List<AbstractsEntity> abstractsEntityList = abstractRepository.findAll();
+        return abstractsEntityList.stream().filter(f->f.isAccepted() == accepted).map(abstractMapper::map).collect(Collectors.toList());
+    }
+    @Transactional
     public AbstractDTO getAbstractByAdmin(Integer id){
         return abstractRepository.findById(id).map(abstractMapper::map).orElseThrow(EntityNotFoundException::new);
     }

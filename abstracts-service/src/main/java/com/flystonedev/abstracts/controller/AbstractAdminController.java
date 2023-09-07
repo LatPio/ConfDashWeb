@@ -45,6 +45,11 @@ public class AbstractAdminController {
         return ResponseEntity.status(HttpStatus.OK).body(abstractService.abstractAdminDTOList());
     }
     @RolesAllowed({"ADMIN"})
+    @GetMapping("/approved")
+    public ResponseEntity<List<AbstractDTO>> listAccepted(@RequestParam Boolean accepted){
+        return ResponseEntity.status(HttpStatus.OK).body(abstractService.abstractAdminDTOListAccepted(accepted));
+    }
+    @RolesAllowed({"ADMIN"})
     @PutMapping
     public ResponseEntity<AbstractDTO> updateAdmin(@RequestBody AbstractDTO abstractDTO){
         return ResponseEntity.status(HttpStatus.OK).body(abstractService.updateAbstractByAdmin(abstractDTO));

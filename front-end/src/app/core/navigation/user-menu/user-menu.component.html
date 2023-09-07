@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="row" >
+    <div class="col">
+      <h2 >
+        {{email}}
+      </h2>
+    </div>
+    <div class="col text-end">
+      <button mat-icon-button (click)="onCancelClick()" style="float: right">
+        <mat-icon>cancel</mat-icon>
+      </button>
+    </div>
+
+
+
+  </div>
+  <div style="text-align: center">
+   <mat-icon>person</mat-icon>
+  </div>
+  <div class="row">
+    <h1 style="text-align: center">
+      Hello {{userName}}
+    </h1>
+  </div>
+  <div >
+
+    <button mat-button (click)="logout()" >
+      <mat-icon>logout</mat-icon> Logout
+    </button>
+
+  </div>
+</div>
+
+
+

@@ -18,6 +18,10 @@ import { LocalizationAdminComponent } from './localization-admin/localization-ad
 import { EventAdminComponent } from './event-admin/event-admin.component';
 import { CustomerAdminComponent } from './customer-admin/customer-admin.component';
 import { AbstractsAdminComponent } from './abstracts-admin/abstracts-admin.component';
+import {NgxSummernoteModule} from "ngx-summernote";
+import {MatDialogModule} from '@angular/material/dialog';
+import {SharedModule} from "../shared/shared.module";
+import {AbstractsAdminModule} from "./abstracts-admin/abstracts-admin.module";
 
 
 @NgModule({
@@ -45,6 +49,10 @@ import { AbstractsAdminComponent } from './abstracts-admin/abstracts-admin.compo
     MatToolbarModule,
     RouterLink,
     CoreModule.forRoot(),
+    NgxSummernoteModule,
+    MatDialogModule,
+    SharedModule,
+    AbstractsAdminModule
 
 
 

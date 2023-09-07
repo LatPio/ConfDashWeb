@@ -40,6 +40,11 @@ export class AbstractsService {
     return this.httpClient.get<Array<AbstractDTOModel>>(`${this.config.apiEndpoint}api/v1/admin/abstracts/list`,
       {headers:this.httpHeaders, responseType: "json"})
   }
+  getAbstractListAdminAccepted(accepted: boolean): Observable<Array<AbstractDTOModel>>{
+
+    return this.httpClient.get<Array<AbstractDTOModel>>(`${this.config.apiEndpoint}api/v1/admin/abstracts/approved?accepted=${accepted}`,
+      {headers:this.httpHeaders, responseType: "json"})
+  }
   putAbstractBlockAdmin(abstract: AbstractBlockDTOModel): Observable<AbstractDTOModel>{
     return this.httpClient.put<AbstractDTOModel>(`${this.config.apiEndpoint}api/v1/admin/abstracts/block`, abstract,
       {headers:this.httpHeaders, responseType: "json"})

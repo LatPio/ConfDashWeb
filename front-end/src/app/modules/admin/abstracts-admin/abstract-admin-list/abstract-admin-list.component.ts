@@ -5,6 +5,8 @@ import {MatTableDataSource} from "@angular/material/table";
 import {MatSort} from "@angular/material/sort";
 import {MatPaginator} from "@angular/material/paginator";
 import {AbstractDTOModel} from "../../../../core/service/abstracts/models/AbstractDTO-model";
+import {MatDialog} from "@angular/material/dialog";
+import {DeleteDialogComponent} from "../../../shared/delete-dialog/delete-dialog.component";
 
 @Component({
   selector: 'app-abstract-admin-list',
@@ -24,9 +26,8 @@ export class AbstractAdminListComponent implements AfterViewInit ,OnInit{
   @ViewChild(MatSort) sort: MatSort;
 
 
-
-
-  constructor(private abstractsService: AbstractsService) {
+  constructor(private abstractsService: AbstractsService,
+              public dialog: MatDialog) {
       }
 
   getAbstracts(){
@@ -49,10 +50,30 @@ export class AbstractAdminListComponent implements AfterViewInit ,OnInit{
   }
 
 
-  deleteExpenseConfirmation(abstract: AbstractDTOModel) {
+  deleteExpense(abstract: AbstractDTOModel) {
     this.abstractsService.deleteAbstractAdmin(abstract).subscribe(value => {
       this.getAbstracts();
     })
 
+  }
+
+  openDeleteDialog(abstract: AbstractDTOModel): void {
+    const dialogRef = this.dialog.open(DeleteDialogComponent,
+      {
+      width: '400px',
+      enterAnimationDuration: 0,
+      panelClass: 'customStyle',
+
+      data: { item: abstract.abstractTitle } // Pass the item's name or details
+    }
+    );
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.deleteExpense(abstract)
+        // Perform delete action
+        console.log('Item deleted');
+      }
+    });
   }
 }

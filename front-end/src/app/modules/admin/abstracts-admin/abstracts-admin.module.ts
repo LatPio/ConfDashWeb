@@ -15,14 +15,19 @@ import {MatIconModule} from "@angular/material/icon";
 import { AbstractAdminGetComponent } from './abstract-admin-get/abstract-admin-get.component';
 import { AbstractAdminUpdateComponent } from './abstract-admin-update/abstract-admin-update.component';
 import {MatGridListModule} from "@angular/material/grid-list";
-
+import {MatDialogModule} from '@angular/material/dialog';
+import { AbstractAdminAcceptedComponent } from './abstract-admin-accepted/abstract-admin-accepted.component';
+import { AbstractAdminToProcessComponent } from './abstracts-admin-to-process/abstract-admin-to-process.component';
+import { NgxSummernoteModule } from 'ngx-summernote';
 
 @NgModule({
   declarations: [
     AbstractAdminListComponent,
     AbstractAdminAddComponent,
     AbstractAdminGetComponent,
-    AbstractAdminUpdateComponent
+    AbstractAdminUpdateComponent,
+    AbstractAdminAcceptedComponent,
+    AbstractAdminToProcessComponent
 
   ],
   imports: [
@@ -36,7 +41,10 @@ import {MatGridListModule} from "@angular/material/grid-list";
     ReactiveFormsModule,
     MatButtonModule,
     MatIconModule,
-    MatGridListModule
+    MatGridListModule,
+    MatDialogModule,
+    NgxSummernoteModule
+
 
   ]
 })

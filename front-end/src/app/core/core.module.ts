@@ -3,13 +3,13 @@ import { CommonModule } from '@angular/common';
 import {AuthConfig, OAuthModule, OAuthModuleConfig, OAuthStorage} from "angular-oauth2-oidc";
 import {authConfig} from "./authentication/auth.config";
 import {authModuleConfig} from "./authentication/auth-module-config";
-import {authAppInitializerFactory} from "./authentication/auth-app-initalizer.factory";
-import {AuthService} from "./authentication/auth.service";
 import {HttpClientModule} from "@angular/common/http";
-import { NavbarComponent } from './naviagtion/navbar/navbar.component';
+import { NavbarComponent } from './navigation/navbar/navbar.component';
 import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
 import {MatToolbarModule} from "@angular/material/toolbar";
+import { UserMenuComponent } from './navigation/user-menu/user-menu.component';
+import {MatGridListModule} from "@angular/material/grid-list";
 
 export function storageFactory(): OAuthStorage {
   return localStorage;
@@ -17,7 +17,8 @@ export function storageFactory(): OAuthStorage {
 
 @NgModule({
   declarations: [
-    NavbarComponent
+    NavbarComponent,
+    UserMenuComponent
   ],
   imports: [
     CommonModule,
@@ -25,7 +26,8 @@ export function storageFactory(): OAuthStorage {
     OAuthModule.forRoot(),
     MatButtonModule,
     MatIconModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatGridListModule
   ],
   exports: [
     NavbarComponent
