@@ -1,51 +1,14 @@
-
-<a [routerLink]="['/admin/abstracts/update/', abstractData.id ]" class="btn">
-  <mat-icon>edit_square</mat-icon>
-</a>
-
-<mat-grid-list cols="12" rowHeight="2:1" gutterSize="10">
-  <mat-grid-tile [colspan]="1" [rowspan]="1" class="info-color">Abstract Title:</mat-grid-tile>
-  <mat-grid-tile [colspan]="8" [rowspan]="1">
-    <div class="text-inside">
-      {{abstractData.abstractTitle}}
-    </div>
-
-  </mat-grid-tile>
-
-  <mat-grid-tile [colspan]="3" [rowspan]="1" class="analitic-data">Analytical data:</mat-grid-tile>
-
-  <mat-grid-tile [colspan]="1" [rowspan]="1" class="info-color">Authors:</mat-grid-tile>
-  <mat-grid-tile [colspan]="8" [rowspan]="1" style="text-align: start ">
-
-    <div class="text-inside">
-      {{abstractData.authors}}
-    </div>
-
-    </mat-grid-tile>
-  <mat-grid-tile [colspan]="3" [rowspan]="1" class="analitic-data">Analytical data:</mat-grid-tile>
-
-  <mat-grid-tile [colspan]="1" [rowspan]="1" class="info-color">Affiliation:</mat-grid-tile>
-  <mat-grid-tile [colspan]="8" [rowspan]="1">
-
-    <div class="text-inside">
-      {{abstractData.affiliation}}
-    </div>
-    </mat-grid-tile>
-  <mat-grid-tile [colspan]="3" [rowspan]="1" class="analitic-data">Analytical data:</mat-grid-tile>
-
-  <mat-grid-tile [colspan]="1" [rowspan]="10" class="info-color">Abstract Content:</mat-grid-tile>
-  <mat-grid-tile [colspan]="8" [rowspan]="10">
-
-    <div class="text-inside" [innerHTML]="abstractData.body">
-<!--      {{abstractData.body}}-->
-    </div>
-    </mat-grid-tile>
-  <mat-grid-tile [colspan]="3" [rowspan]="10" class="analitic-data">Analytical data:</mat-grid-tile>
+<div>
+  <a [routerLink]="['/admin/abstracts/update/', abstractData.id ]" class="btn">
+    <mat-icon>edit_square</mat-icon>
+  </a>
 
 
 
-
-
-
-
-</mat-grid-list>
+</div>
+<div>
+  <app-abstract-sheet-view [abstract]="abstractData"></app-abstract-sheet-view>
+</div>
+<div>
+  <app-abstract-attachment-file-add [abstract]="abstractData"></app-abstract-attachment-file-add>
+</div>

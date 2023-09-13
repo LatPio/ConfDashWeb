@@ -31,7 +31,9 @@ public class AttachmentFileAdminController {
 
     @RolesAllowed({"ADMIN"})
     @PostMapping
-    public ResponseEntity<AttachmentFileDTO> saveFile(@RequestPart("file")MultipartFile file, @RequestPart("data") AttachmentFileAdminRequest attachmentFileAdminRequest){
+    public ResponseEntity<AttachmentFileDTO> saveFile(
+            @RequestPart("file")MultipartFile file,
+            @RequestPart("data") AttachmentFileAdminRequest attachmentFileAdminRequest){
         try{
             log.info("File saved!");
             return ResponseEntity.status(HttpStatus.OK).body(attachmentFileService.saveAdminFile(file,attachmentFileAdminRequest));

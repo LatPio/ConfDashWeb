@@ -170,7 +170,7 @@ public class AbstractService {
         AbstractsEntity updated = abstractRepository.save(abstractMapper.map(exist));
         return abstractBlockMapper.map(updated);
     }
-
+    @Transactional
     public void deleteAdminAbstract(Integer id) {
         abstractRepository.deleteById(id);
     }

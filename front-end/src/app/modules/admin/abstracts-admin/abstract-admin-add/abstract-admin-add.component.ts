@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AbstractsService} from "../../../../core/service/abstracts/abstracts.service";
-import {AttachmentFileDTOModel} from "../../../../core/service/abstracts/models/AttachmentFileDTO-model";
 import {Router} from "@angular/router";
 import { Location } from '@angular/common';
 

@@ -19,6 +19,13 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { AbstractAdminAcceptedComponent } from './abstract-admin-accepted/abstract-admin-accepted.component';
 import { AbstractAdminToProcessComponent } from './abstracts-admin-to-process/abstract-admin-to-process.component';
 import { NgxSummernoteModule } from 'ngx-summernote';
+import {MatRadioModule} from "@angular/material/radio";
+import {MatCheckboxModule} from "@angular/material/checkbox";
+import {SharedModule} from "../../shared/shared.module";
+import { AbstractAnalyticalDataComponent } from './abstract-analytical-data/abstract-analytical-data.component';
+import { AbstractToProcessComponent } from './abstract-to-process/abstract-to-process.component';
+import { AbstractAttachmentFileAddComponent } from './abstract-attachment-file-add/abstract-attachment-file-add.component';
+import {MatSelectModule} from "@angular/material/select";
 
 @NgModule({
   declarations: [
@@ -27,25 +34,32 @@ import { NgxSummernoteModule } from 'ngx-summernote';
     AbstractAdminGetComponent,
     AbstractAdminUpdateComponent,
     AbstractAdminAcceptedComponent,
-    AbstractAdminToProcessComponent
+    AbstractAdminToProcessComponent,
+    AbstractAnalyticalDataComponent,
+    AbstractToProcessComponent,
+    AbstractAttachmentFileAddComponent
 
   ],
-  imports: [
-    CommonModule,
-    AbstractsAdminRoutingModule,
-    MatInputModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatSortModule,
-    MatFormFieldModule,
-    ReactiveFormsModule,
-    MatButtonModule,
-    MatIconModule,
-    MatGridListModule,
-    MatDialogModule,
-    NgxSummernoteModule
+    imports: [
+        CommonModule,
+        AbstractsAdminRoutingModule,
+        MatInputModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatSortModule,
+        MatFormFieldModule,
+        ReactiveFormsModule,
+        MatButtonModule,
+        MatIconModule,
+        MatGridListModule,
+        MatDialogModule,
+        NgxSummernoteModule,
+        MatRadioModule,
+        MatCheckboxModule,
+        SharedModule,
+        MatSelectModule
 
 
-  ]
+    ]
 })
 export class AbstractsAdminModule { }

@@ -1,11 +1,11 @@
+import {FileRole} from "./FileRole";
+
 export class AttachmentFileDTOModel{
-  id :number;
+  id: number;
   name: string;
   type: string;
   authId: string;
-  fileRole:string;
   accepted: boolean;
   data: Blob;
+  fileRole: FileRole;
 }
-
-

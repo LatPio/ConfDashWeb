@@ -2,6 +2,7 @@
   <mat-form-field class="full-width">
     <mat-label>ID</mat-label>
     <input
+
       type="number"
       matInput
       [formControlName]="'id'"
@@ -45,18 +46,19 @@
     </mat-error>
   </mat-form-field>
 
-  <mat-form-field class="full-width">
-    <mat-label>Abstract Content</mat-label>
-    <input
-      type="text"
-      matInput
-      [formControlName]="'body'"
-      placeholder="Ex. Research about ....">
-    <mat-error *ngIf="abstractForm.hasError('required')">
-      Name is required
-    </mat-error>
-  </mat-form-field>
-
+<!--  <mat-form-field class="full-width">-->
+<!--    <mat-label>Abstract Content</mat-label>-->
+<!--    <input-->
+<!--      type="text"-->
+<!--      matInput-->
+<!--      [formControlName]="'body'"-->
+<!--      placeholder="Ex. Research about ....">-->
+<!--    <mat-error *ngIf="abstractForm.hasError('required')">-->
+<!--      Name is required-->
+<!--    </mat-error>-->
+<!--  </mat-form-field>-->
+  <div>Abstract Content:</div>
+  <div [ngxSummernote]="config" [formControlName]="'body'"></div>
 
 
   <mat-form-field class="full-width">
@@ -95,17 +97,20 @@
     </mat-error>
   </mat-form-field>
 
-  <mat-form-field class="full-width">
-    <mat-label>Accepted</mat-label>
-    <input
-      type="text"
-      matInput
-      [formControlName]="'accepted'"
-      placeholder="Ex. Research about ....">
-    <mat-error *ngIf="abstractForm.hasError('required')">
-      Name is required
-    </mat-error>
-  </mat-form-field>
+<!--  <mat-form-field class="full-width">-->
+<!--    <mat-label>Accepted</mat-label>-->
+<!--    <mat-radio-button [formControlName]="'accepted'">Accepted</mat-radio-button>-->
+
+<!--&lt;!&ndash;    <input&ndash;&gt;-->
+<!--&lt;!&ndash;      type="text"&ndash;&gt;-->
+<!--&lt;!&ndash;      matInput&ndash;&gt;-->
+<!--&lt;!&ndash;      [formControlName]="'accepted'"&ndash;&gt;-->
+<!--&lt;!&ndash;      placeholder="Ex. Research about ....">&ndash;&gt;-->
+<!--    <mat-error *ngIf="abstractForm.hasError('required')">-->
+<!--      Name is required-->
+<!--    </mat-error>-->
+<!--  </mat-form-field>-->
+  <p><mat-checkbox color="primary" [formControlName]="'accepted'">Accepted</mat-checkbox></p>
 
 
 

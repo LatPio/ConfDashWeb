@@ -1,6 +1,5 @@
 package com.flystonedev.abstracts.model;
 
-import jakarta.annotation.Nonnull;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -43,7 +42,7 @@ public class AbstractsEntity {
     private String authId;
     private boolean accepted;
 
-    @OneToMany(mappedBy = "abstractsEntity")
+    @OneToMany(mappedBy = "abstractsEntity", orphanRemoval = true)
     private List<AttachmentFile> files;
 
     @CreationTimestamp

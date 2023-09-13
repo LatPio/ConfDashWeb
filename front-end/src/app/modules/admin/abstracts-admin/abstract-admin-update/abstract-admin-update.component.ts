@@ -25,7 +25,7 @@ export class AbstractAdminUpdateComponent {
 
     this.abstractForm = this.formBuilder.group(
       {
-        id:[this.abstractID],
+        id:[''],
         abstractTitle: ['', {validators:[Validators.required]}],
         body: ['', {validators:[Validators.required]}],
         authors: ['', {validators:[Validators.required]}],
@@ -47,7 +47,7 @@ export class AbstractAdminUpdateComponent {
     this.abstractService.getAbstractAdmin(this.abstractID).subscribe(value => {
       this.abstractForm = this.formBuilder.group(
         {
-          id:[this.abstractID],
+          id:[{value: this.abstractID, disabled:true}],
           abstractTitle: [value.abstractTitle ],
           body: [value.body],
           authors: [value.authors],
@@ -76,5 +76,21 @@ console.log(this.abstractForm.getRawValue())
       }
     )
 
+  }
+
+  config: any = {
+    placeholder: '',
+    tabsize: 2,
+    height: '200px',
+    uploadImagePath: '/api/upload',
+    toolbar: [
+      ['misc', [ 'undo', 'redo']],
+      ['style', ['bold', 'italic', 'underline', 'clear']],
+      ['font', ['bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'clear']],
+      ['fontsize', ['fontname', 'fontsize', 'color']],
+      ['para', ['style', 'ul', 'ol', 'paragraph', 'height']],
+      ['insert', ['table', 'link', 'hr']]
+    ],
+    fontNames: ['Helvetica', 'Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'Roboto', 'Times']
   }
 }

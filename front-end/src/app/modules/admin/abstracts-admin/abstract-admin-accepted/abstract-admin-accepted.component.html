@@ -1,3 +1,8 @@
+<mat-form-field style="width: 100%">
+  <mat-label>Filter</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Provide filter criteria" #input>
+</mat-form-field>
+
 <div class="mat-elevation-z8">
   <table mat-table
          [dataSource]="dataSource" multiTemplateDataRows
@@ -23,26 +28,9 @@
              [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
           <div class="row">
             <div class="col">
-              <div class="element-description">
-                <div class="abstract-representation">
-                  <div class="abstract-title">
-                    {{element.abstractTitle}}
-                  </div>
-                  <div class="abstract-authors">
-                    {{element.authors}}
-                  </div>
-                  <div class="abstract-affiliation">
-                    {{element.affiliation}}
-                  </div>
-                  <div class="abstract-body" [innerHTML]="element.body">
-<!--                    {{element.body}}-->
-                  </div>
 
 
-                </div>
-
-
-              </div>
+              <app-abstract-sheet-view [abstract]="element"></app-abstract-sheet-view>
             </div>
             <div class="col" style="padding: 30px">
           <!--butons-->
@@ -50,7 +38,7 @@
               <div style="padding: 20px">
                 dane statystyczne ?, kto prexzentuje auitorzy właściciele linki do tego /.... lista plików przypisanych do abstraktu
               </div>
-
+              <app-abstract-analytical-data [abstract]="element"></app-abstract-analytical-data>
             </div>
 
           </div>
