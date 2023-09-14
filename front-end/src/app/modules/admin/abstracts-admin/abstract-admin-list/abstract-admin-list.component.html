@@ -66,10 +66,15 @@
         <a [routerLink]="['/admin/abstracts/update/', row.id]" class="btn">
           <mat-icon>edit_square</mat-icon>
         </a>
-        <a (click)="openDeleteDialog(row)" class="btn">
-          <mat-icon>delete</mat-icon>
-        </a>
-
+        <app-delete-button [name]="row.abstractTitle" (event)="deleteAbstract(row)"></app-delete-button>
+<!--        <a (click)="openDeleteDialog(row)" class="btn">-->
+<!--          <mat-icon>delete</mat-icon>-->
+<!--        </a>-->
+        <app-abstract-attachment-file-add-button [abstract]="row" (event)="getAbstracts()"></app-abstract-attachment-file-add-button>
+<!--        <a (click)="openAddFileDialog(row)" class="btn">-->
+<!--          <mat-icon>attach_file-->
+<!--          </mat-icon>-->
+<!--        </a>-->
       </td>
 
     </ng-container>

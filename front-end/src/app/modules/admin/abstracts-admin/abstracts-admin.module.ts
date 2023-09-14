@@ -26,6 +26,7 @@ import { AbstractAnalyticalDataComponent } from './abstract-analytical-data/abst
 import { AbstractToProcessComponent } from './abstract-to-process/abstract-to-process.component';
 import { AbstractAttachmentFileAddComponent } from './abstract-attachment-file-add/abstract-attachment-file-add.component';
 import {MatSelectModule} from "@angular/material/select";
+import { AbstractAttachmentFileAddButtonComponent } from './abstract-attachment-file-add-button/abstract-attachment-file-add-button.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import {MatSelectModule} from "@angular/material/select";
     AbstractAdminToProcessComponent,
     AbstractAnalyticalDataComponent,
     AbstractToProcessComponent,
-    AbstractAttachmentFileAddComponent
+    AbstractAttachmentFileAddComponent,
+    AbstractAttachmentFileAddButtonComponent
 
   ],
     imports: [

@@ -1,0 +1,42 @@
+<h2 mat-dialog-title>Attach File to Abstract</h2>
+<mat-dialog-content>
+  <form [formGroup]="fileForm" (ngSubmit)="addFile()">
+
+    <mat-form-field class="full-width">
+      <mat-label>File Role</mat-label>
+      <mat-select [formControlName]="'fileRole'">
+        <mat-option *ngFor="let role of fileRole" [value]="role">
+          {{role}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="fileForm.hasError('required')">
+        Name is required
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="full-width">
+      <mat-label>Accepted</mat-label>
+      <input
+        type="text"
+        matInput
+        [formControlName]="'accepted'"
+        placeholder="Ex. Research about ....">
+      <mat-error *ngIf="fileForm.hasError('required')">
+        Name is required
+      </mat-error>
+    </mat-form-field>
+
+    <input class="form-control" type="file"
+           (change)="onChange($event)">
+
+    <div style="padding-top: 20px;">
+      <button
+        mat-raised-button color="primary">Save</button>
+    </div>
+  </form>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancelClick()">Cancel</button>
+<!--  <button mat-button color="warn" (click)="onDeleteClick()">Delete</button>-->
+</mat-dialog-actions>

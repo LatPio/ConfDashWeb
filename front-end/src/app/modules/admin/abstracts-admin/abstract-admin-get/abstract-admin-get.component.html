@@ -2,13 +2,22 @@
   <a [routerLink]="['/admin/abstracts/update/', abstractData.id ]" class="btn">
     <mat-icon>edit_square</mat-icon>
   </a>
-
+  <app-abstract-attachment-file-add-button [abstract]="abstractData" (event)="getAbstract()"></app-abstract-attachment-file-add-button>
 
 
 </div>
-<div>
-  <app-abstract-sheet-view [abstract]="abstractData"></app-abstract-sheet-view>
+<div class="row">
+  <div class="col">
+    <app-abstract-sheet-view [abstract]="abstractData"></app-abstract-sheet-view>
+  </div>
+  <div class="col">
+    <div class="row" *ngFor="let file of abstractData.files">
+      <img src="data:image/jpg;base64,{{file.data}}" >
+    </div>
+  </div>
 </div>
+
 <div>
-  <app-abstract-attachment-file-add [abstract]="abstractData"></app-abstract-attachment-file-add>
+
+
 </div>

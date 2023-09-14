@@ -1,0 +1,35 @@
+<div class="col-12">
+
+  <h2>Title:</h2>
+  <div class="row">
+    <div class="col-4">Characters counts:</div>
+    <div class="col-3">{{abstract.abstractTitle.length}}</div>
+  </div>
+
+  <h2>Authors:</h2>
+  <div class="row">
+    <div class="col-4">Characters counts:</div>
+    <div class="col-3">{{abstract.authors.length}}</div>
+  </div>
+
+  <h2>Content:</h2>
+  <div class="row">
+    <div class="col-4">Characters counts:</div>
+    <div class="col-3">{{abstract.body.length}}</div>
+  </div>
+
+  <h2>Assigned abstract Contributors</h2>
+  <div class="row">
+    <div class="col-4">Assigned Presenter:</div>
+    <div class="col-4">Abstract Owner/Author</div>
+    <div class="col-4">Abstract assigned to Account:   </div>
+    to do create person info card in customer
+  </div>
+
+  <h2>File List:</h2>
+  {{abstract.files}}
+
+  <div class="row" *ngFor="let file of abstract.files">
+    <img src="data:image/jpg;base64,{{file.data}}" >
+  </div>
+</div>

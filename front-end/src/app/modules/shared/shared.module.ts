@@ -5,23 +5,28 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {MatButtonModule} from "@angular/material/button";
 import {RouterLink} from "@angular/router";
 import { AbstractSheetViewComponent } from './abstract-sheet-view/abstract-sheet-view.component';
+import { DeleteButtonComponent } from './delete-button/delete-button.component';
+import {MatIconModule} from "@angular/material/icon";
 
 
 
 @NgModule({
   declarations: [
     DeleteDialogComponent,
-    AbstractSheetViewComponent
+    AbstractSheetViewComponent,
+    DeleteButtonComponent
   ],
   exports: [
-    AbstractSheetViewComponent
+    AbstractSheetViewComponent,
+    DeleteButtonComponent
   ],
-  imports: [
-    CommonModule,
-    MatDialogModule,
-    MatButtonModule,
-    RouterLink,
+    imports: [
+        CommonModule,
+        MatDialogModule,
+        MatButtonModule,
+        RouterLink,
+        MatIconModule,
 
-  ]
+    ]
 })
 export class SharedModule { }
