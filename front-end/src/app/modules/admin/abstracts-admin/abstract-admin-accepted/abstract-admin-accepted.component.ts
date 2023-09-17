@@ -55,4 +55,8 @@ export class AbstractAdminAcceptedComponent implements AfterViewInit, OnInit{
       this.dataSource.paginator.firstPage();
     }
   }
+
+  assignToEvent() {
+
+  }
 }

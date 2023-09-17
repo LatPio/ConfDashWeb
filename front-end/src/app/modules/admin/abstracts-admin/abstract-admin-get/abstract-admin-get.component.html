@@ -12,7 +12,10 @@
   </div>
   <div class="col">
     <div class="row" *ngFor="let file of abstractData.files">
-      <img src="data:image/jpg;base64,{{file.data}}" >
+<!--      <img src="data:image/jpg;base64,{{file.data}}"  alt="{{file.fileRole}}">-->
+      <app-abstract-file-view [figure]="file" (refreshEvent)="getAbstract()"></app-abstract-file-view>
+
+<!--      <app-delete-button [name]="file.name" (event)="deleteFile(file.id)"></app-delete-button>-->
     </div>
   </div>
 </div>

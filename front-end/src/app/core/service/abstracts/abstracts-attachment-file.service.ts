@@ -4,6 +4,7 @@ import {APP_CONFIG, AppConfig} from "../../config/app-config/app-config.module";
 import {Observable} from "rxjs";
 import {AttachmentFileDTOModel} from "./models/AttachmentFileDTO-model";
 import {AttachmentFileAdminRequestModel} from "./models/AttachmentFileAdminRequest-model";
+import {AttachmentFileResponseModel} from "./models/AttachmentFileResponse-model";
 
 @Injectable({
   providedIn: 'root'
@@ -27,5 +28,24 @@ export class AbstractsAttachmentFileService {
     formData.append("data", jsonData);
     return this.httpClient.post<AttachmentFileDTOModel>(`${this.config.apiEndpoint}api/v1/admin/attachment_file`, formData);
   }
+
+
+  getFile(fileId: number) :Observable<AttachmentFileDTOModel>{
+    return this.httpClient.get<AttachmentFileDTOModel>(`${this.config.apiEndpoint}api/v1/admin/attachment_file?id=${fileId}`)
+  }
+
+  getDownloadFile(fileId: number): Observable<Blob>{
+    return this.httpClient.get<Blob>(`${this.config.apiEndpoint}api/v1/admin/attachment_file/file/${fileId}`)
+  }
+
+  getListOfAllFiles():Observable<Array<AttachmentFileResponseModel>>{
+    return this.httpClient.get<Array<AttachmentFileResponseModel>>(`${this.config.apiEndpoint}api/v1/admin/attachment_file/list`)
+  }
+
+  deleteFile(fileId: number){
+    return this.httpClient.delete(`${this.config.apiEndpoint}api/v1/admin/attachment_file?id=${fileId}`)
+  }
+
+
 
 }

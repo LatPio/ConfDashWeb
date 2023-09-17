@@ -7,6 +7,7 @@ import {RouterLink} from "@angular/router";
 import { AbstractSheetViewComponent } from './abstract-sheet-view/abstract-sheet-view.component';
 import { DeleteButtonComponent } from './delete-button/delete-button.component';
 import {MatIconModule} from "@angular/material/icon";
+import { AbstractFileViewComponent } from './abstract-file-view/abstract-file-view.component';
 
 
 
@@ -14,12 +15,14 @@ import {MatIconModule} from "@angular/material/icon";
   declarations: [
     DeleteDialogComponent,
     AbstractSheetViewComponent,
-    DeleteButtonComponent
+    DeleteButtonComponent,
+    AbstractFileViewComponent
   ],
-  exports: [
-    AbstractSheetViewComponent,
-    DeleteButtonComponent
-  ],
+    exports: [
+        AbstractSheetViewComponent,
+        DeleteButtonComponent,
+        AbstractFileViewComponent
+    ],
     imports: [
         CommonModule,
         MatDialogModule,

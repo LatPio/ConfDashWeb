@@ -1,8 +1,4 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {AbstractDTOModel} from "../../../core/service/abstracts/models/AbstractDTO-model";
-import {
-  AbstractAttachmentFileAddComponent
-} from "../../admin/abstracts-admin/abstract-attachment-file-add/abstract-attachment-file-add.component";
 import {MatDialog} from "@angular/material/dialog";
 import {DeleteDialogComponent} from "../delete-dialog/delete-dialog.component";
 

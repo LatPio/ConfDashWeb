@@ -5,10 +5,6 @@ import {MatSort} from "@angular/material/sort";
 import {MatPaginator} from "@angular/material/paginator";
 import {AbstractDTOModel} from "../../../../core/service/abstracts/models/AbstractDTO-model";
 import {MatDialog} from "@angular/material/dialog";
-import {DeleteDialogComponent} from "../../../shared/delete-dialog/delete-dialog.component";
-import {
-  AbstractAttachmentFileAddComponent
-} from "../abstract-attachment-file-add/abstract-attachment-file-add.component";
 
 @Component({
   selector: 'app-abstract-admin-list',
@@ -60,22 +56,5 @@ export class AbstractAdminListComponent implements AfterViewInit ,OnInit{
   }
 
 
-  // openAddFileDialog(abstract: AbstractDTOModel): void {
-  //   const dialogRef = this.dialog.open(AbstractAttachmentFileAddComponent,
-  //     {
-  //       width: '600px',
-  //       enterAnimationDuration: 0,
-  //       panelClass: 'customStyle',
-  //
-  //       data: abstract // Pass the item's name or details
-  //     }
-  //   );
-  //
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     if (result) {
-  //       this.getAbstracts()
-  //     }
-  //   });
-  // }
 
 }

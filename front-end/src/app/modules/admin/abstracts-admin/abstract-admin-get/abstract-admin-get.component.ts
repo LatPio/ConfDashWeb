@@ -2,11 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {AbstractsService} from "../../../../core/service/abstracts/abstracts.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {AbstractDTOModel} from "../../../../core/service/abstracts/models/AbstractDTO-model";
-import {DeleteDialogComponent} from "../../../shared/delete-dialog/delete-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
-import {
-  AbstractAttachmentFileAddComponent
-} from "../abstract-attachment-file-add/abstract-attachment-file-add.component";
+import {AbstractsAttachmentFileService} from "../../../../core/service/abstracts/abstracts-attachment-file.service";
+
 
 @Component({
   selector: 'app-abstract-admin-get',
@@ -15,15 +13,13 @@ import {
 })
 export class AbstractAdminGetComponent implements OnInit{
 
-  // abstractForm!: FormGroup;
   abstractID: number;
   abstractData!: AbstractDTOModel;
 
   constructor(
     private abstractService: AbstractsService,
-    // private formBuilder: FormBuilder,
+    private filesService: AbstractsAttachmentFileService,
     private route: ActivatedRoute,
-    private router: Router,
     public dialog: MatDialog
   ) {
     this.abstractID = this.route.snapshot.params['abstractID'];
@@ -38,6 +34,12 @@ export class AbstractAdminGetComponent implements OnInit{
     this.abstractService.getAbstractAdmin(this.abstractID).subscribe(value => {
       this.abstractData = value;
     });
+  }
+
+  deleteFile(id: number){
+    this.filesService.deleteFile(id).subscribe(value => {
+      this.getAbstract();
+    })
   }
 
   // openAddFileDialog(abstract: AbstractDTOModel): void {

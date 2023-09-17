@@ -34,7 +34,7 @@ export class AbstractAdminUpdateComponent {
         ownerId: ['', {validators:[Validators.required]}],
         authId: ['', {validators:[Validators.required]}],
         accepted: [false, {validators:[Validators.required]}],
-        // files: [''],
+        files: [''],
       }
     );
     this.getAbstract();
@@ -56,6 +56,7 @@ export class AbstractAdminUpdateComponent {
           ownerId: [value.ownerId],
           authId: [value.authId],
           accepted: [value.accepted],
+          files: [value.files]
         }
       )
     })

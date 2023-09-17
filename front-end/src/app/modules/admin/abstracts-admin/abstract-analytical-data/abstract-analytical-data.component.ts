@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {AbstractDTOModel} from "../../../../core/service/abstracts/models/AbstractDTO-model";
 
 @Component({
@@ -9,6 +9,6 @@ import {AbstractDTOModel} from "../../../../core/service/abstracts/models/Abstra
 export class AbstractAnalyticalDataComponent {
 
   @Input() abstract!: AbstractDTOModel;
-
+  // @Output() refreshEvent = new EventEmitter();
 
 }
