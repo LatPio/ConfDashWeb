@@ -23,13 +23,9 @@
 .abstract-text{
   overflow: hidden;
   text-align: justify;
-  //max-height: 375px;
-  //text-overflow: ellipsis;
-  //overflow: clip;
   display: -webkit-box;
   -webkit-line-clamp: 18;
   -webkit-box-orient: vertical;
   white-space: pre-wrap;
-
 }
 
