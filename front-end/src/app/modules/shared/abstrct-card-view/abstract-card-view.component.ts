@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
+import {AfterViewInit, Component, Input} from '@angular/core';
 import {AbstractDTOModel} from "../../../core/service/abstracts/models/AbstractDTO-model";
 import {FileRole} from "../../../core/service/abstracts/models/FileRole";
 import {AttachmentFileDTOModel} from "../../../core/service/abstracts/models/AttachmentFileDTO-model";
@@ -16,8 +16,6 @@ export class AbstractCardViewComponent implements AfterViewInit{
   constructor() {
   }
 
-  ngOnInit(): void {
-  }
 
 
   getFirstGraphicalAbstract(){

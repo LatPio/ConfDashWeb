@@ -1,5 +1,4 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {AbstractDTOModel} from "../../../core/service/abstracts/models/AbstractDTO-model";
 import {AttachmentFileDTOModel} from "../../../core/service/abstracts/models/AttachmentFileDTO-model";
 import {AbstractsAttachmentFileService} from "../../../core/service/abstracts/abstracts-attachment-file.service";
 

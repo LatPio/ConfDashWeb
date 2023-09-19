@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AbstractsService} from "../../../../core/service/abstracts/abstracts.service";
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute} from "@angular/router";
 import {AbstractDTOModel} from "../../../../core/service/abstracts/models/AbstractDTO-model";
 import {MatDialog} from "@angular/material/dialog";
 import {AbstractsAttachmentFileService} from "../../../../core/service/abstracts/abstracts-attachment-file.service";
