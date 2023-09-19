@@ -1,0 +1,36 @@
+.card {
+  width: 700px;
+  max-height: 500px;
+}
+
+.example-header-image {
+  background-size: cover;
+}
+.graphical-abstract{
+  max-height: 350px;
+  max-width: 350px;
+  height:auto;
+  width:auto;
+  float: left;
+  margin: 10px;
+}
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.abstract-text{
+  overflow: hidden;
+  text-align: justify;
+  //max-height: 375px;
+  //text-overflow: ellipsis;
+  //overflow: clip;
+  display: -webkit-box;
+  -webkit-line-clamp: 18;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  white-space: pre-wrap;
+
+}
+

@@ -1,26 +1,54 @@
-<div>
-  <a [routerLink]="['/admin/abstracts/update/', abstractData.id ]" class="btn">
-    <mat-icon>edit_square</mat-icon>
-  </a>
+<div class="box">
+  <button mat-raised-button [routerLink]="['/admin/abstracts/update/', abstractData.id ]">
+    <mat-icon>edit_square</mat-icon> Edit
+  </button>
   <app-abstract-attachment-file-add-button [abstract]="abstractData" (event)="getAbstract()"></app-abstract-attachment-file-add-button>
-
-
 </div>
-<div class="row">
-  <div class="col">
+
+<div class="row box" >
+  <h2 class="col-2">
+    Abstract Representation:
+  </h2>
+  <div class="col-10 center-box">
+    <app-abstract-card-view [abstract]="abstractData"></app-abstract-card-view>
+  </div>
+</div>
+
+<div class="row box" >
+  <h2 class="col-2">
+    Abstract Text Information:
+  </h2>
+  <div class="col-10 center-box">
     <app-abstract-sheet-view [abstract]="abstractData"></app-abstract-sheet-view>
   </div>
-  <div class="col">
-    <div class="row" *ngFor="let file of abstractData.files">
-<!--      <img src="data:image/jpg;base64,{{file.data}}"  alt="{{file.fileRole}}">-->
-      <app-abstract-file-view [figure]="file" (refreshEvent)="getAbstract()"></app-abstract-file-view>
+</div>
+<div class="row box" >
+  <h2 class="col-2">
+    Abstract Attached Files:
+  </h2>
+  <div class="col-10 flex-box " >
+      <div class="box flex-box " *ngFor="let file of abstractData.files">
+        <app-abstract-file-view [figure]="file" (refreshEvent)="getAbstract()"></app-abstract-file-view>
+      </div>
 
-<!--      <app-delete-button [name]="file.name" (event)="deleteFile(file.id)"></app-delete-button>-->
-    </div>
   </div>
 </div>
 
-<div>
+<div class="row box" >
+  <h2 class="col-2">
+    Other Information:
+  </h2>
+  <div class="col-10 ">
+    <h3> <b>ID:</b>   {{abstractData.id}}</h3>
+    <h3> <b>AuthID:</b> {{abstractData.authId}}</h3>
+
+    <h3><b>OwnerId:</b> {{abstractData.ownerId}}</h3>
+
+    <h3><b>PresenterID:</b>  {{abstractData.presenterId}}</h3>
+
+    <h3><b>Accepted:</b>  {{abstractData.accepted}}</h3>
 
 
+
+  </div>
 </div>

@@ -1,0 +1,27 @@
+<mat-card>
+  <mat-card-content>
+
+    <div class="element-border">
+      <div>
+        <h4> ID: {{figure.id}}</h4>
+        <h4>Name: {{figure.name}}</h4>
+        <h4>Role: {{figure.fileRole}}</h4>
+        <h4>Accepted: {{figure.accepted}}</h4>
+        <h4>File Type:{{figure.type}}</h4>
+        <div style="text-align: center">
+          <img src="data:image/jpg;base64,{{figure.data}}"  alt="{{figure.fileRole}}: {{figure.name}}">
+        </div>
+      </div>
+
+    </div>
+
+  </mat-card-content>
+  <mat-card-actions align="end">
+    <div class="col-auto" *ngIf="showOptions">
+      <app-delete-button [name]="figure.name" (event)="deleteFile(figure.id)"></app-delete-button>
+    </div>
+
+  </mat-card-actions>
+</mat-card>
+
+

@@ -36,31 +36,7 @@ export class AbstractAdminGetComponent implements OnInit{
     });
   }
 
-  deleteFile(id: number){
-    this.filesService.deleteFile(id).subscribe(value => {
-      this.getAbstract();
-    })
-  }
 
-  // openAddFileDialog(abstract: AbstractDTOModel): void {
-  //   const dialogRef = this.dialog.open(AbstractAttachmentFileAddComponent,
-  //     {
-  //       width: '600px',
-  //       enterAnimationDuration: 0,
-  //       panelClass: 'customStyle',
-  //
-  //       data: abstract // Pass the item's name or details
-  //     }
-  //   );
-  //
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     if (result) {
-  //       this.getAbstract()
-  //       // this.deleteExpense(abstract)
-  //       // Perform delete action
-  //       // console.log('Item deleted');
-  //     }
-  //   });
-  // }
+
 
 }
