@@ -8,6 +8,7 @@ import com.flystonedev.abstracts.mapper.AttachmentFileMapper;
 import com.flystonedev.abstracts.model.AttachmentFile;
 import com.flystonedev.abstracts.repository.AbstractRepository;
 import com.flystonedev.abstracts.repository.AttachmentFileRepository;
+import com.flystonedev.abstracts.tools.ResizeImage;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.mapstruct.factory.Mappers;
@@ -18,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
+
 
 @Service
 @AllArgsConstructor
@@ -30,6 +32,9 @@ public class AttachmentFileService {
 
     private final JwtConverter jwtConverter;
 
+    private final ResizeImage resizeImage;
+
+
     /*
      *
      * !!!!!!!!! USER SERVICE METHODS !!!!!!!!
@@ -39,6 +44,7 @@ public class AttachmentFileService {
     @Transactional
     public AttachmentFileDTO saveUsersFile(MultipartFile file, AttachmentFileRequest attachmentFileRequest) throws IOException{
         String filename = StringUtils.cleanPath(file.getOriginalFilename());
+
         AttachmentFile attachmentFile = AttachmentFile.builder()
                 .name(filename)
                 .type(file.getContentType())
@@ -46,8 +52,12 @@ public class AttachmentFileService {
                 .data(file.getBytes())
                 .authId(jwtConverter.getKeycloakUserID())
                 .accepted(false)
+                .smallData(ResizeImage.resizeImage(file))
+
                 .abstractsEntity(abstractRepository.findById(attachmentFileRequest.abstractsEntity().getId()).orElseThrow(EntityNotFoundException::new))
                 .build();
+        if(!filename.substring(filename.length() - 3).equals("pdf")){
+        }
         attachmentFileRepository.save(attachmentFile);
         return attachmentFileMapper.map(attachmentFile);
 
@@ -124,6 +134,8 @@ public class AttachmentFileService {
                 .type(file.getContentType())
                 .fileRole(attachmentFileAdminRequest.fileRole())
                 .data(file.getBytes())
+                .smallData(resizeImage.resizeImage(file))
+
                 .authId(attachmentFileAdminRequest.authId())
                 .accepted(attachmentFileAdminRequest.accepted())
                 .abstractsEntity(abstractRepository.findById(attachmentFileAdminRequest.abstractsEntity().getId()).orElseThrow(EntityNotFoundException::new))

@@ -2,7 +2,7 @@
   <button mat-raised-button [routerLink]="['/admin/abstracts/update/', abstractData.id ]">
     <mat-icon>edit_square</mat-icon> Edit
   </button>
-  <app-abstract-attachment-file-add-button [abstract]="abstractData" (event)="getAbstract()"></app-abstract-attachment-file-add-button>
+  <app-abstract-attachment-file-add-button [abstract]="abstractData" (event)="refreshData()"></app-abstract-attachment-file-add-button>
 </div>
 
 <div class="row box" >

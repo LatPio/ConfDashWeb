@@ -5,6 +5,7 @@ import {AbstractDTOModel} from "./models/AbstractDTO-model";
 import {Observable} from "rxjs";
 import {AbstractOutResponseModel} from "./models/AbstractOutResponse-model";
 import {AbstractBlockDTOModel} from "./models/abstractBlockDTO-model";
+import {StatsResponseModel} from "./models/statsResponse-model";
 
 @Injectable({
   providedIn: 'root'
@@ -58,7 +59,10 @@ export class AbstractsService {
     return this.httpClient.delete<AbstractDTOModel>(`${this.config.apiEndpoint}api/v1/admin/abstracts?id=${abstract.id}`,
       {headers:this.httpHeaders, responseType: "json"})
   }
-
+  getStatsAdmin(): Observable<StatsResponseModel>{
+    return this.httpClient.get<StatsResponseModel>(`${this.config.apiEndpoint}api/v1/admin/abstracts/stats`,
+      {headers:this.httpHeaders, responseType: "json"})
+  }
 
 
 

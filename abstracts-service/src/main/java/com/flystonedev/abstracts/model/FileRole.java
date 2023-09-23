@@ -5,5 +5,6 @@ public enum FileRole {
     GRAPHICAL_ABSTRACT,
     FIGURE,
     FILE_ABSTRACT,
+    PDF,
     OTHER
 }

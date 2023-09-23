@@ -4,6 +4,7 @@ import com.flystonedev.abstracts.DTO.AbstractBlockDTO;
 import com.flystonedev.abstracts.DTO.AbstractDTO;
 import com.flystonedev.abstracts.DTO.AbstractOutResponse;
 import com.flystonedev.abstracts.config.JwtConverter;
+import com.flystonedev.abstracts.model.StatsResponse;
 import com.flystonedev.abstracts.service.AbstractService;
 import jakarta.annotation.security.RolesAllowed;
 import lombok.AllArgsConstructor;
@@ -64,6 +65,11 @@ public class AbstractAdminController {
     public ResponseEntity delete(@RequestParam Integer id){
         abstractService.deleteAdminAbstract(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+    @RolesAllowed({"ADMIN"})
+    @GetMapping("/stats")
+    public ResponseEntity<StatsResponse> stats(){
+        return ResponseEntity.status(HttpStatus.OK).body(abstractService.stats());
     }
     @RolesAllowed({"ADMIN"})
     @GetMapping("/principal")

@@ -37,6 +37,11 @@ export class AbstractAdminGetComponent implements OnInit{
   }
 
 
+  refreshData(){
+    this.getAbstract()
+    window.location.reload();
+
+  }
 
 
 }

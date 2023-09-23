@@ -32,6 +32,8 @@ public class AttachmentFile {
     private FileRole fileRole;
     @Lob
     private byte[] data;
+    @Lob
+    private byte[] smallData;
 
     @ManyToOne()
     @JoinColumn()

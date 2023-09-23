@@ -19,5 +19,6 @@ public class AttachmentFileAdminDTO {
     private FileRole fileRole;
     private Boolean accepted;
     private byte[] data;
+    private byte[] smallData;
     private AbstractDTO abstractsEntity;
 }

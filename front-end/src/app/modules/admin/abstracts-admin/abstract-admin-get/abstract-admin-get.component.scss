@@ -1,3 +1,7 @@
+.box{
+  margin: 20px;
+}
+
 .info-color {
   background-color: lightgray;
 }
@@ -16,4 +20,17 @@ img{
   max-width:500px;
   height:auto;
   width:auto;
+}
+
+.center-box{
+  display: flex;
+  justify-content: center;
+}
+
+.flex-box{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+
 }

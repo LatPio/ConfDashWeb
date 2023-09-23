@@ -6,16 +6,22 @@
 .example-header-image {
   background-size: cover;
 }
+
+.image-frame{
+  float: left;
+  margin: 10px;
+}
+
+
 .graphical-abstract{
   max-height: 350px;
   max-width: 350px;
   height:auto;
   width:auto;
-  float: left;
-  margin: 10px;
+
 }
 .center {
-  display: flex;
+  display: block;
   justify-content: center;
   align-items: center;
 }
@@ -24,7 +30,7 @@
   overflow: hidden;
   text-align: justify;
   display: -webkit-box;
-  -webkit-line-clamp: 18;
+  -webkit-line-clamp: 13;
   -webkit-box-orient: vertical;
   white-space: pre-wrap;
 }

@@ -12,6 +12,7 @@ import com.flystonedev.abstracts.mapper.AbstractBlockMapper;
 import com.flystonedev.abstracts.mapper.AbstractMapper;
 import com.flystonedev.abstracts.mapper.AbstractSimpleMapper;
 import com.flystonedev.abstracts.model.AbstractsEntity;
+import com.flystonedev.abstracts.model.StatsResponse;
 import com.flystonedev.abstracts.repository.AbstractRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -173,6 +174,14 @@ public class AbstractService {
     @Transactional
     public void deleteAdminAbstract(Integer id) {
         abstractRepository.deleteById(id);
+    }
+
+    public StatsResponse  stats(){
+        return new StatsResponse(
+                abstractRepository.count(),
+                abstractRepository.countAbstractsEntitiesByAccepted(true),
+                abstractRepository.countAbstractsEntitiesByAccepted(false)
+        );
     }
 
 }

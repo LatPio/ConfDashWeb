@@ -2,6 +2,7 @@ import {AfterViewInit, Component, Input} from '@angular/core';
 import {AbstractDTOModel} from "../../../core/service/abstracts/models/AbstractDTO-model";
 import {FileRole} from "../../../core/service/abstracts/models/FileRole";
 import {AttachmentFileDTOModel} from "../../../core/service/abstracts/models/AttachmentFileDTO-model";
+import {AbstractsAttachmentFileService} from "../../../core/service/abstracts/abstracts-attachment-file.service";
 
 @Component({
   selector: 'app-abstract-card-view',
@@ -12,10 +13,14 @@ export class AbstractCardViewComponent implements AfterViewInit{
   @Input() abstract!: AbstractDTOModel;
   filesEmpty: boolean = false;
   graphicalAbstract: any = null;
+  image: any = null;
 
-  constructor() {
+  constructor(private fileService:AbstractsAttachmentFileService) {
   }
 
+  getBigImg(id: number){
+    this.fileService.getDownloadFile(id).subscribe()
+  }
 
 
   getFirstGraphicalAbstract(){

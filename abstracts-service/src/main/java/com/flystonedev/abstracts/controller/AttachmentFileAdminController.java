@@ -6,11 +6,13 @@ import com.flystonedev.abstracts.DTO.AttachmentFileDTO;
 import com.flystonedev.abstracts.DTO.AttachmentFileResponse;
 import com.flystonedev.abstracts.model.FileRole;
 import com.flystonedev.abstracts.service.AttachmentFileService;
+import com.flystonedev.abstracts.tools.ResizeImage;
 import jakarta.annotation.security.RolesAllowed;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -28,6 +30,7 @@ import java.util.stream.Collectors;
 public class AttachmentFileAdminController {
 
     private final AttachmentFileService attachmentFileService;
+
 
     @RolesAllowed({"ADMIN"})
     @PostMapping
@@ -56,6 +59,7 @@ public class AttachmentFileAdminController {
         AttachmentFileDTO attachmentFileDTO = get(id).getBody();
 
         return ResponseEntity.status(HttpStatus.OK)
+                .contentType(MediaType.MULTIPART_FORM_DATA)
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + attachmentFileDTO.getName() + "\"")
                 .body(attachmentFileDTO.getData());
     }

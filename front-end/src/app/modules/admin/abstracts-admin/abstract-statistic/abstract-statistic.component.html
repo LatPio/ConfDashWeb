@@ -1,0 +1,96 @@
+<div class="card-group-view">
+
+  <br>
+  <mat-card class="card-stats">
+    <mat-card-header>
+      <mat-card-title>Submitted Abstracts</mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="content-box">
+      <div style="text-align: center">
+        <div class="text-size">
+          <mat-icon style="transform: scale(2)">description</mat-icon>
+          {{abstractStats.abstractCount}}
+        </div>
+      </div>
+
+    </mat-card-content>
+    <mat-card-actions align="end">
+          <button mat-button routerLink="../add">Add</button>
+      <button mat-button routerLink="../list">See</button>
+
+    </mat-card-actions>
+  </mat-card>
+  <br>
+  <mat-card class="card-stats">
+    <mat-card-header>
+      <mat-card-title>Accepted Abstracts</mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="content-box">
+      <div style="text-align: center">
+        <div class="text-size">
+          <mat-icon style="transform: scale(2)" class="color-icon-green">task</mat-icon>
+          {{abstractStats.abstractAccepted}}
+        </div>
+      </div>
+
+    </mat-card-content>
+    <mat-card-actions align="end">
+      <button mat-button routerLink="../accepted">See</button>
+
+    </mat-card-actions>
+  </mat-card>
+  <br>
+  <mat-card class="card-stats">
+    <mat-card-header>
+      <mat-card-title>Abstracts To Process</mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="content-box">
+      <div style="text-align: center">
+        <div class="text-size">
+          <mat-icon style="transform: scale(2)" class="color-icon-red">file_open</mat-icon>
+          {{abstractStats.abstractPending}}
+        </div>
+      </div>
+
+    </mat-card-content>
+    <mat-card-actions align="end">
+      <button mat-button routerLink="../pending">See</button>
+
+    </mat-card-actions>
+  </mat-card>
+  <br>
+  <mat-card class="card-stats">
+    <mat-card-header>
+      <mat-card-title>Download</mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="content-box">
+      <div style="text-align: center">
+        <div class="text-size"></div>
+        <mat-icon class="icon-display">picture_as_pdf</mat-icon>
+      </div>
+    </mat-card-content>
+    <mat-card-actions align="end">
+<!--          <button mat-button>SHARE</button>-->
+    </mat-card-actions>
+  </mat-card>
+  <br>
+  <mat-card class="card-stats">
+    <mat-card-header>
+      <mat-card-title>Download</mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="content-box">
+      <div style="text-align: center">
+        <div class="text-size">
+          <mat-icon style="transform: scale(2)" >download</mat-icon>
+          CSV
+        </div>
+
+      </div>
+    </mat-card-content>
+    <mat-card-actions align="end">
+      <!--          <button mat-button>SHARE</button>-->
+    </mat-card-actions>
+  </mat-card>
+  <br>
+</div>
+

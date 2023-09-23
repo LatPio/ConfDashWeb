@@ -25,11 +25,11 @@ export class NavbarComponent {
   public onToggleSidenav = () => this.sidenavToggle.emit();
 
 
-  logout(){
-    this.authService.logout();
-
-
-  }
+  // logout(){
+  //   this.authService.logout();
+  //
+  //
+  // }
 
   openManuDialog() {
     const dialogRef = this.dialog.open(UserMenuComponent, {

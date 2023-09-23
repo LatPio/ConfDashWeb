@@ -7,5 +7,6 @@ export class AttachmentFileDTOModel{
   authId: string;
   accepted: boolean;
   data: Blob;
+  smallData: Blob;
   fileRole: FileRole;
 }

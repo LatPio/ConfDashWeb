@@ -9,12 +9,17 @@
 
   <mat-card-content>
     <div class="center">
-      <img *ngIf="filesEmpty" class="graphical-abstract" src="data:image/jpg;base64,{{graphicalAbstract.data}}"  alt="{{graphicalAbstract.fileRole}}: {{graphicalAbstract.name}}">
-      <p class="abstract-text" [innerHTML]=" abstract.body "></p>
+      <div class="image-frame">
+        <img *ngIf="image" class="graphical-abstract" src="data:image/jpg;base64,{{image}}"  >
+
+        <img *ngIf="filesEmpty" class="graphical-abstract" src="data:image/jpg;base64,{{graphicalAbstract.smallData}}"  alt="{{graphicalAbstract.fileRole}}: {{graphicalAbstract.name}}" >
+      </div>
+
+      <span class="abstract-text" [innerHTML]=" abstract.body "></span>
     </div>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-button>LIKE</button>
+    <button mat-button (click)="getBigImg(graphicalAbstract.id)">LIKE</button>
     <button mat-button>SHARE</button>
   </mat-card-actions>
 </mat-card>

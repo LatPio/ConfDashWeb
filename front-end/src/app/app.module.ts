@@ -9,6 +9,7 @@ import {CoreModule} from "./core/core.module";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {AppConfigModule} from "./core/config/app-config/app-config.module";
 import {MatDialogModule} from '@angular/material/dialog';
+import { MatIconModule } from "@angular/material/icon";
 
 
 
@@ -24,6 +25,7 @@ import {MatDialogModule} from '@angular/material/dialog';
     CoreModule.forRoot(),
     AppConfigModule,
     MatDialogModule,
+    MatIconModule,
 
     // OAuthModule.forRoot(
     //   {
