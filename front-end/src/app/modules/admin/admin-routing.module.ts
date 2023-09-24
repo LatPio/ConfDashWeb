@@ -15,7 +15,9 @@ const routes: Routes = [
       {path: 'abstracts',
         loadChildren: () => import('./abstracts-admin/abstracts-admin.module')
           .then(value => value.AbstractsAdminModule)},
-      {path: 'customer', component: CustomerAdminComponent},
+      {path: 'customer',
+      loadChildren: ()=> import('./customer-admin/customer-admin.module')
+        .then(value => value.CustomerAdminModule)},
       {path: 'event', component: EventAdminComponent},
       {path: 'localization', component: LocalizationAdminComponent},
       {path: 'site', component: SiteManagementAdminComponent},

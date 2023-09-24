@@ -1,1 +1,22 @@
-<p>customer-admin works!</p>
+<section>
+  <div class="label">Navigate</div>
+  <div class="button-row mat-mdc-button-base">
+
+    <a mat-raised-button routerLink="stats" color="primary">User Statistic</a>
+    <a mat-raised-button routerLink="list" color="primary">Users List</a>
+    <a mat-raised-button routerLink="department-list" color="primary">Department List</a>
+    <a mat-raised-button routerLink="department-add" color="primary">Department Add</a>
+    <a mat-raised-button routerLink="affiliation-correction" color="primary">Affiliation Correction</a>
+
+
+
+  </div>
+</section>
+<mat-divider></mat-divider>
+
+<div style="margin-right: 5%; margin-left: 5%; margin-top: 30px">
+
+
+  <router-outlet></router-outlet>
+</div>
+
