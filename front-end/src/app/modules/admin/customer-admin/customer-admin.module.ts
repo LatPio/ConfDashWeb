@@ -13,6 +13,14 @@ import { ProfilePhotoAddButtonComponent } from './profile-photo-add-button/profi
 import { AffiliationCorrectionComponent } from './affiliation-correction/affiliation-correction.component';
 import { CutomerCardComponent } from './cutomer-card/cutomer-card.component';
 import { CustomerStatsComponent } from './customer-stats/customer-stats.component';
+import {MatButtonModule} from "@angular/material/button";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatIconModule} from "@angular/material/icon";
+import {MatInputModule} from "@angular/material/input";
+import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatSortModule} from "@angular/material/sort";
+import {MatTableModule} from "@angular/material/table";
+import {SharedModule} from "../../shared/shared.module";
 
 
 @NgModule({
@@ -31,7 +39,15 @@ import { CustomerStatsComponent } from './customer-stats/customer-stats.componen
   ],
   imports: [
     CommonModule,
-    CustomerAdminRoutingModule
+    CustomerAdminRoutingModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatTableModule,
+    SharedModule
   ]
 })
 export class CustomerAdminModule { }

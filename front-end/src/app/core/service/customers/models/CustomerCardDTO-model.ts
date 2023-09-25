@@ -1,4 +1,4 @@
-import {InformationLinksDTOModel} from "./InformationLinksDTO-model";
+import {InformationLinksUserDTOModel} from "./InformationLinksUserDTOModel";
 import {DepartmentDTOModel} from "./DepartmentDTO-model";
 import {ProfilePhotoDTOModel} from "./ProfilePhotoDTO-model";
 
@@ -8,7 +8,7 @@ export class CustomerCardDTOModel{
   lastName: string;
   degree: string;
   phoneNumber: string;
-  links: InformationLinksDTOModel;
+  links: Array<InformationLinksUserDTOModel>;
   department: DepartmentDTOModel;
   photo: ProfilePhotoDTOModel;
 }

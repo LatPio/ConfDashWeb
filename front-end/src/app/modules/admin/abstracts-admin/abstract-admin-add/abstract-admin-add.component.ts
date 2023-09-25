@@ -44,6 +44,7 @@ export class AbstractAdminAddComponent implements  OnInit{
       this.abstractService.postAbstractAdmin(this.abstractForm.getRawValue()).subscribe(
         {
           next: () => {
+
             // this.toastr.success('Abstract Created Successfully')
             this.location.back();
           },

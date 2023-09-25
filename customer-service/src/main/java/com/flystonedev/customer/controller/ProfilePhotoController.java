@@ -25,7 +25,7 @@ public class ProfilePhotoController {
     private final ProfilePhotoService profilePhotoService;
     private final CustomerService customerService;
 
-    @RolesAllowed({"USER", "ADMIN"})
+    @RolesAllowed({"USER"})
     @PostMapping
     public void savePhoto(@RequestParam("file")MultipartFile file, @RequestParam("id") Integer id){
         try {

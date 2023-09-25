@@ -25,7 +25,7 @@ export class CustomersService {
   }
 
   getCustomersAdminList():Observable<Array<CustomerAdminDTOModel>>{
-    return this.httpClient.get<Array<CustomerAdminDTOModel>>(`${this.config.apiEndpoint}api/v1/admin/customer`,
+    return this.httpClient.get<Array<CustomerAdminDTOModel>>(`${this.config.apiEndpoint}api/v1/admin/customer/list`,
       {headers:this.httpHeaders, responseType: "json"})
   }
 
@@ -43,9 +43,9 @@ export class CustomersService {
 
 //   User
 
-  postCustomerUser(customer: CustomerRegistrationRequestModel): Observable<CustomerRegistrationRequestModel>{
-    return this.httpClient.get<CustomerRegistrationRequestModel>(`${this.config.apiEndpoint}api/v1/user/customer/new`,
-      {headers:this.httpHeaders, responseType: "json"})
+  postCustomerUser(customer: CustomerRegistrationRequestModel): Observable<any>{
+    return this.httpClient.post(`${this.config.apiEndpoint}api/v1/user/customer/new`, customer,
+      {headers:this.httpHeaders, responseType: "text"})
   }
   getCustomersUser(customerId: number):Observable<CustomerAdminDTOModel>{
     return this.httpClient.get<CustomerAdminDTOModel>(`${this.config.apiEndpoint}api/v1/user/customer?id=${customerId}`,
