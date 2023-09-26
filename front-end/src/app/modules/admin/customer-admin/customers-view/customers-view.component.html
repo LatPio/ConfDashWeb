@@ -1,1 +1,45 @@
-<p>customers-view works!</p>
+<div class="box">
+
+  Buttons
+</div>
+<div class="row box" >
+  <h2 class="col-2">
+    Customer:
+  </h2>
+  <div class="col-10 center-box">
+    <mat-card class="card">
+      <mat-card-header>
+        <mat-card-title>{{customerData.degree}} {{customerData.firstName}} {{customerData.lastName}}</mat-card-title>
+        <mat-card-subtitle>{{customerData.email}}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+
+        <div *ngIf="customerData.photo; then thenBlock else elseBlock"></div>
+        <ng-template #thenBlock>
+          <img class="profile-photo" src="data:image/jpg;base64,{{customerData.photo}}"  >
+        </ng-template>
+        <ng-template #elseBlock >
+          <div class="center-box" style="margin: 100px">
+            <mat-icon class="default-face">face</mat-icon>
+          </div>
+        </ng-template>
+
+        <div *ngIf="customerData.department"> Affiliation: {{customerData.department.institution.name}} {{customerData.department.name}}</div>
+        <div>Phone Number: {{customerData.phoneNumber}}</div>
+        <div class="row">
+          <div class="col">
+            Links:
+          </div>
+          <div class="col">
+            <div *ngFor="let link of customerData.links ">
+              <a href="{{link.urlLink}}">{{link.name}}</a>
+            </div>
+          </div>
+
+        </div>
+
+
+      </mat-card-content>
+
+    </mat-card>  </div>
+</div>

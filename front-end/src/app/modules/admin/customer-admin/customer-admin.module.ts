@@ -11,7 +11,7 @@ import { DepartmentAddComponent } from './department-add/department-add.componen
 import { ProfilePhotoAddComponent } from './profile-photo-add/profile-photo-add.component';
 import { ProfilePhotoAddButtonComponent } from './profile-photo-add-button/profile-photo-add-button.component';
 import { AffiliationCorrectionComponent } from './affiliation-correction/affiliation-correction.component';
-import { CutomerCardComponent } from './cutomer-card/cutomer-card.component';
+import { CustomerCardComponent } from './cutomer-card/customer-card.component';
 import { CustomerStatsComponent } from './customer-stats/customer-stats.component';
 import {MatButtonModule} from "@angular/material/button";
 import {MatFormFieldModule} from "@angular/material/form-field";
@@ -21,6 +21,7 @@ import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatSortModule} from "@angular/material/sort";
 import {MatTableModule} from "@angular/material/table";
 import {SharedModule} from "../../shared/shared.module";
+import {MatCardModule} from "@angular/material/card";
 
 
 @NgModule({
@@ -34,7 +35,7 @@ import {SharedModule} from "../../shared/shared.module";
     ProfilePhotoAddComponent,
     ProfilePhotoAddButtonComponent,
     AffiliationCorrectionComponent,
-    CutomerCardComponent,
+    CustomerCardComponent,
     CustomerStatsComponent
   ],
   imports: [
@@ -47,7 +48,8 @@ import {SharedModule} from "../../shared/shared.module";
     MatPaginatorModule,
     MatSortModule,
     MatTableModule,
-    SharedModule
+    SharedModule,
+    MatCardModule
   ]
 })
 export class CustomerAdminModule { }

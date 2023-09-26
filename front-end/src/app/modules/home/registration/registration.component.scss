@@ -1,0 +1,46 @@
+.login-group{
+  max-width: 300px;
+  display: flex;
+  //flex-direction: column;
+  //align-items: center;
+}
+//
+//div{
+//  height: 100%;
+//  justify-content: center;
+//  display: flex;
+//  flex-direction: column;
+//  align-items: center;
+//}
+
+:host {
+  display: flex;
+  justify-content: center;
+  margin: 100px 0px;
+}
+
+.mat-form-field {
+  width: 100%;
+  min-width: 300px;
+}
+
+
+mat-card-title,
+mat-card-content {
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.error {
+  padding: 16px;
+  width: 300px;
+  color: white;
+  background-color: red;
+}
+
+.button {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 20px;
+}

@@ -15,7 +15,7 @@ const routes: Routes = [
     children:[
       {path: 'list', component:CustomersListComponent},
       {path: 'update', component: CustomerUpdateComponent},
-      {path: 'view', component: CustomersViewComponent},
+      {path: 'view/:customerID', component: CustomersViewComponent},
       {path: 'department-list', component: DepartmentListComponent},
       {path: 'department-add', component: DepartmentAddComponent},
       {path: 'affiliation-correction', component: AffiliationCorrectionComponent},
