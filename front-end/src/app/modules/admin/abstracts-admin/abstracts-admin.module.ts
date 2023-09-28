@@ -29,6 +29,7 @@ import {MatSelectModule} from "@angular/material/select";
 import { AbstractAttachmentFileAddButtonComponent } from './abstract-attachment-file-add-button/abstract-attachment-file-add-button.component';
 import { AbstractStatisticComponent } from './abstract-statistic/abstract-statistic.component';
 import {MatCardModule} from "@angular/material/card";
+import {CustomerAdminModule} from "../customer-admin/customer-admin.module";
 
 @NgModule({
   declarations: [
@@ -45,27 +46,28 @@ import {MatCardModule} from "@angular/material/card";
     AbstractStatisticComponent
 
   ],
-  imports: [
-    CommonModule,
-    AbstractsAdminRoutingModule,
-    MatInputModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatSortModule,
-    MatFormFieldModule,
-    ReactiveFormsModule,
-    MatButtonModule,
-    MatIconModule,
-    MatGridListModule,
-    MatDialogModule,
-    NgxSummernoteModule,
-    MatRadioModule,
-    MatCheckboxModule,
-    SharedModule,
-    MatSelectModule,
-    MatCardModule
+    imports: [
+        CommonModule,
+        AbstractsAdminRoutingModule,
+        MatInputModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatSortModule,
+        MatFormFieldModule,
+        ReactiveFormsModule,
+        MatButtonModule,
+        MatIconModule,
+        MatGridListModule,
+        MatDialogModule,
+        NgxSummernoteModule,
+        MatRadioModule,
+        MatCheckboxModule,
+        SharedModule,
+        MatSelectModule,
+        MatCardModule,
+        CustomerAdminModule
 
 
-  ]
+    ]
 })
 export class AbstractsAdminModule { }

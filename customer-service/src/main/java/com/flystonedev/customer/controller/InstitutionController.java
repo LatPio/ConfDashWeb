@@ -24,7 +24,7 @@ public class InstitutionController {
     @RolesAllowed({"USER", "ADMIN"})
     @PostMapping
     public void addInstitution(@RequestBody InstitutionDTO institutionRecord){
-        log.info("New Customer Registration {}", institutionRecord);
+        log.info("New Institution Registered {}", institutionRecord);
         institutionService.addInstitution(institutionRecord);
     }
 

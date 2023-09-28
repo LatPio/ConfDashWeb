@@ -1,4 +1,6 @@
 export class InstitutionDTOModel{
-  id:number;
+
+
+  id: number;
   name: string;
 }

@@ -26,7 +26,7 @@ export class DepartmentService {
   }
 
   getDepartmentList(): Observable<Array<DepartmentDTOModel>>{
-    return this.httpClient.get<Array<DepartmentDTOModel>>(`${this.config.apiEndpoint}api/v1/department`,
+    return this.httpClient.get<Array<DepartmentDTOModel>>(`${this.config.apiEndpoint}api/v1/department/list`,
       {headers:this.httpHeaders, responseType: "json"} )
   }
 

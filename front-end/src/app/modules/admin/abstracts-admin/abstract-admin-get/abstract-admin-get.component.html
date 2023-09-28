@@ -43,6 +43,7 @@
     <h3> <b>AuthID:</b> {{abstractData.authId}}</h3>
 
     <h3><b>OwnerId:</b> {{abstractData.ownerId}}</h3>
+    <app-customer-card [customerId]="abstractData.ownerId"></app-customer-card>
 
     <h3><b>PresenterID:</b>  {{abstractData.presenterId}}</h3>
 

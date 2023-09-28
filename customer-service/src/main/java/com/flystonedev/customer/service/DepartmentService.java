@@ -7,6 +7,7 @@ import com.flystonedev.customer.mapper.DepartmentMapper;
 import com.flystonedev.customer.model.Department;
 import com.flystonedev.customer.model.Institution;
 import com.flystonedev.customer.repository.DepartmentRepository;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,7 @@ public class DepartmentService {
 
     private final DepartmentMapper departmentMapper = Mappers.getMapper(DepartmentMapper.class);
 
+    @Transactional
     public void addDepartment(DepartmentDTO departmentDTO){
         DepartmentDTO nameExist = departmentMapper.map(departmentRepository.findDepartmentByName(departmentDTO.getName()));
         if (nameExist != null) {
@@ -49,6 +51,8 @@ public class DepartmentService {
     public DepartmentDTO get(Integer id){
         return departmentRepository.findById(id).map(departmentMapper::map).orElseThrow(EntityNotFoundException::new);
     }
+    @Transactional
+
     public DepartmentDTO update(DepartmentDTO departmentDTO){
         DepartmentDTO exist = get(departmentDTO.getId());
         if(exist == null) {

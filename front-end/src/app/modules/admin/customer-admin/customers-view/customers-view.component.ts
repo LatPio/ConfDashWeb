@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {CustomerAdminDTOModel} from "../../../../core/service/customers/models/CustomerAdminDTO-model";
 import {CustomersService} from "../../../../core/service/customers/customers.service";
 import {ActivatedRoute} from "@angular/router";
+import {CustomerCardDTOModel} from "../../../../core/service/customers/models/CustomerCardDTO-model";
 
 @Component({
   selector: 'app-customers-view',
@@ -12,6 +13,8 @@ export class CustomersViewComponent implements  OnInit{
 
   customerId: number;
   customerData: CustomerAdminDTOModel;
+  customerCardData: CustomerCardDTOModel;
+
   // image: any = null;
   constructor(
     private customerService: CustomersService,
@@ -29,6 +32,9 @@ export class CustomersViewComponent implements  OnInit{
   getCustomer(){
     this.customerService.getCustomerAdmin(this.customerId).subscribe(value => {
       this.customerData = value;
+    })
+    this.customerService.getCustomersUserCard(this.customerId).subscribe(value => {
+      this.customerCardData = value;
     })
   }
 

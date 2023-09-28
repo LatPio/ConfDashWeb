@@ -1,5 +1,4 @@
 <div class="box">
-
   Buttons
 </div>
 <div class="row box" >
@@ -8,9 +7,9 @@
   </h2>
   <div class="col-10 center-box">
     <mat-card class="card">
-      <mat-card-header>
-        <mat-card-title>{{customerData.degree}} {{customerData.firstName}} {{customerData.lastName}}</mat-card-title>
+      <mat-card-header><mat-card-title>{{customerData.degree}} {{customerData.firstName}} {{customerData.lastName}}</mat-card-title>
         <mat-card-subtitle>{{customerData.email}}</mat-card-subtitle>
+
       </mat-card-header>
       <mat-card-content>
 
@@ -42,4 +41,23 @@
       </mat-card-content>
 
     </mat-card>  </div>
+</div>
+<div class="row box" >
+  <h2 class="col-2">
+    Customer Small Card representation:
+  </h2>
+  <div class="col-10 center-box">
+    <app-customer-card-small [customerData]="customerCardData"></app-customer-card-small>
+  </div>
+
+</div>
+
+<div class="row box" >
+  <h2 class="col-2">
+    Customer Card representation:
+  </h2>
+  <div class="col-10 center-box">
+    <app-customer-card [customerData]="customerCardData"></app-customer-card>
+  </div>
+
 </div>

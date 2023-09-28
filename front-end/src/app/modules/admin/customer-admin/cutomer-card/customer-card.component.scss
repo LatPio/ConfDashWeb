@@ -1,0 +1,21 @@
+.default-face{
+  transform: scale(4);
+
+}
+.card{
+  width: 300px;
+  max-height: 500px;
+}
+.center-box{
+  display: flex;
+  justify-content: center;
+}
+
+.profile-photo{
+  max-height: 200px;
+  max-width: 200px;
+
+  height:auto;
+  width:auto;
+
+}

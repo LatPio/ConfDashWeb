@@ -1,0 +1,12 @@
+<mat-card class="example-card">
+  <mat-card-header>
+    <img *ngIf="customerData.photo == null"  mat-card-avatar src="./assets/face.svg">
+    <img *ngIf="customerData.photo"  mat-card-avatar src="data:image/jpg;base64,{{customerData.photo.data}}">
+
+
+    <mat-card-title>{{customerData.degree}} {{customerData.firstName}} {{customerData.lastName}}</mat-card-title>
+    <mat-card-subtitle>{{customerData.department.institution.name}}</mat-card-subtitle>
+  </mat-card-header>
+
+
+</mat-card>

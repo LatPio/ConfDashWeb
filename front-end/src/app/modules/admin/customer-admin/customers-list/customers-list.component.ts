@@ -13,7 +13,7 @@ import {CustomerAdminDTOModel} from "../../../../core/service/customers/models/C
 })
 export class CustomersListComponent implements AfterViewInit, OnInit{
 
-  displayedColumns: string[] = ['id', 'degree', 'firstName', 'lastName','email', 'authID','phoneNumber', 'department','option'];
+  displayedColumns: string[] = ['id', 'degree', 'firstName', 'lastName','email', 'authID','phoneNumber','option'];
   dataSource = new MatTableDataSource<CustomerAdminDTOModel>();
   customers: Array<CustomerAdminDTOModel> = [];
   @ViewChild(MatPaginator) paginator: MatPaginator;

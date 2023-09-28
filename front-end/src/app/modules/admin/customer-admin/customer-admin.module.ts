@@ -22,6 +22,9 @@ import {MatSortModule} from "@angular/material/sort";
 import {MatTableModule} from "@angular/material/table";
 import {SharedModule} from "../../shared/shared.module";
 import {MatCardModule} from "@angular/material/card";
+import { CustomerCardSmallComponent } from './customer-card-small/customer-card-small.component';
+import {ReactiveFormsModule} from "@angular/forms";
+import { InstitutionListComponent } from './institution-list/institution-list.component';
 
 
 @NgModule({
@@ -36,7 +39,12 @@ import {MatCardModule} from "@angular/material/card";
     ProfilePhotoAddButtonComponent,
     AffiliationCorrectionComponent,
     CustomerCardComponent,
-    CustomerStatsComponent
+    CustomerStatsComponent,
+    CustomerCardSmallComponent,
+    InstitutionListComponent,
+  ],
+  exports: [
+    CustomerCardComponent
   ],
   imports: [
     CommonModule,
@@ -49,7 +57,8 @@ import {MatCardModule} from "@angular/material/card";
     MatSortModule,
     MatTableModule,
     SharedModule,
-    MatCardModule
+    MatCardModule,
+    ReactiveFormsModule
   ]
 })
 export class CustomerAdminModule { }

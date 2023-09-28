@@ -1,1 +1,25 @@
-<p>cutomer-card works!</p>
+<mat-card class="card">
+
+
+  <mat-card-content>
+      <img *ngIf="customerData.photo" class="profile-photo" src="data:image/jpg;base64,{{customerData.photo.data}}"  >
+      <div  *ngIf="customerData.photo == null" class="center-box" style="margin: 50px">
+        <mat-icon class="default-face">face</mat-icon>
+      </div>
+    <h2 class="center-box">
+      {{customerData.degree}} {{customerData.firstName}} {{customerData.lastName}}
+    </h2>
+    <h3 class="center-box">
+      {{customerData.department.institution.name}}  {{customerData.department.city}}, {{customerData.department.name}}
+    </h3>
+
+
+
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button
+            (click)="customerView()"
+    >INFO</button>
+
+  </mat-card-actions>
+</mat-card>
