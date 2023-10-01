@@ -1,5 +1,6 @@
 package com.flystonedev.localization.DTO;
 
+import com.flystonedev.localization.model.MapImage;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,5 +16,5 @@ public class LocalizationDTO {
     private String room;
     private Integer coordinateX;
     private Integer coordinateY;
-    private byte[] mapImage;
+    private MapImageDTO mapImage;
 }

@@ -6,6 +6,7 @@ import {CustomerAdminDTOModel} from "./models/CustomerAdminDTO-model";
 import {CustomerAdminModule} from "../../../modules/admin/customer-admin/customer-admin.module";
 import {CustomerRegistrationRequestModel} from "./models/CustomerRegistrationRequest-model";
 import {CustomerCardDTOModel} from "./models/CustomerCardDTO-model";
+import {CustomerStatsResponseModel} from "./models/CustomerStatsResponseModel";
 
 @Injectable({
   providedIn: 'root'
@@ -36,6 +37,11 @@ export class CustomersService {
 
   deleteCustomersAdmin(customer: CustomerAdminDTOModel):Observable<CustomerAdminModule>{
     return this.httpClient.put<CustomerAdminModule>(`${this.config.apiEndpoint}api/v1/admin/customer?id:${customer.id}`,
+      {headers:this.httpHeaders, responseType: "json"})
+  }
+
+  getCustomersStatsAdmin():Observable<CustomerStatsResponseModel>{
+    return this.httpClient.get<CustomerStatsResponseModel>(`${this.config.apiEndpoint}api/v1/admin/customer/stats`,
       {headers:this.httpHeaders, responseType: "json"})
   }
 

@@ -1,9 +1,7 @@
 package com.flystonedev.customer.service;
 
 
-import com.flystonedev.customer.DTO.CustomerAdminDTO;
-import com.flystonedev.customer.DTO.CustomerCardDTO;
-import com.flystonedev.customer.DTO.CustomerDTO;
+import com.flystonedev.customer.DTO.*;
 import com.flystonedev.customer.config.JwtConverter;
 import com.flystonedev.customer.exeption.CustomerUpdateException;
 import com.flystonedev.customer.exeption.EntityNotFoundException;
@@ -13,8 +11,9 @@ import com.flystonedev.customer.mapper.CustomerAdminMapper;
 import com.flystonedev.customer.mapper.CustomerCardMapper;
 import com.flystonedev.customer.mapper.CustomerMapper;
 import com.flystonedev.customer.model.Customer;
-import com.flystonedev.customer.DTO.CustomerRegistrationRequest;
 import com.flystonedev.customer.repository.CustomerRepository;
+import com.flystonedev.customer.repository.DepartmentRepository;
+import com.flystonedev.customer.repository.InstitutionRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,6 +33,8 @@ import java.util.stream.Collectors;
 public class CustomerService {
 
     private final CustomerRepository customerRepository;
+    private final DepartmentRepository departmentRepository;
+    private final InstitutionRepository institutionRepository;
     private final CustomerMapper customerMapper = Mappers.getMapper(CustomerMapper.class);
     private final CustomerCardMapper customerCardMapper = Mappers.getMapper(CustomerCardMapper.class);
     private final CustomerAdminMapper customerAdminMapper = Mappers.getMapper(CustomerAdminMapper.class);
@@ -146,5 +147,14 @@ public class CustomerService {
         String authID = customerRepository.getReferenceById(id).getAuthID();
         keycloakUserManagementService.deleteUser(authID);
         customerRepository.deleteById(id);
+    }
+
+    public StatsResponse stats() {
+        return new StatsResponse(
+                customerRepository.count(),
+                departmentRepository.count(),
+                institutionRepository.count(),
+                departmentRepository.countDistinctCountries()
+        );
     }
 }

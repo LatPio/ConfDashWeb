@@ -9,4 +9,5 @@ import org.springframework.stereotype.Repository;
 public interface InstitutionRepository extends JpaRepository<Institution, Integer> {
 
     Institution findInstitutionByName (String name);
+    long count();
 }

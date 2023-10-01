@@ -26,7 +26,6 @@ public class LocalizationController {
         localizationService.createLocalization(localizationDTO);
     }
     @RolesAllowed({"USER", "ADMIN"})
-
     @GetMapping
     public ResponseEntity<LocalizationDTO> get(@RequestParam Integer id){
         return ResponseEntity.status(HttpStatus.OK).body(localizationService.get(id));
@@ -42,7 +41,6 @@ public class LocalizationController {
         return ResponseEntity.status(HttpStatus.OK).body(localizationService.localizationDTOList());
     }
     @RolesAllowed({"ADMIN"})
-
     @PutMapping
     public ResponseEntity<LocalizationDTO> update(@RequestBody LocalizationDTO localizationDTO){
         return ResponseEntity.status(HttpStatus.OK).body(localizationService.update(localizationDTO));

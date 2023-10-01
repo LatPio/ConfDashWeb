@@ -2,6 +2,7 @@ package com.flystonedev.customer.controller;
 
 
 import com.flystonedev.customer.DTO.CustomerAdminDTO;
+import com.flystonedev.customer.DTO.StatsResponse;
 import com.flystonedev.customer.service.CustomerService;
 import jakarta.annotation.security.RolesAllowed;
 import lombok.AllArgsConstructor;
@@ -43,6 +44,12 @@ public class CustomerAdminController {
     public ResponseEntity delete(@RequestParam Integer id){
         customerService.delete(id);
         return ResponseEntity.status(HttpStatus.OK).body("Deleted Successfully From Local and Security Database");
+    }
+
+    @RolesAllowed({"ADMIN"})
+    @GetMapping("/stats")
+    public ResponseEntity<StatsResponse> stats(){
+        return ResponseEntity.status(HttpStatus.OK).body(customerService.stats());
     }
 
 

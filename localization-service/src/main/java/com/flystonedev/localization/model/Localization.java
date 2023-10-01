@@ -39,7 +39,10 @@ public class Localization {
     private String linkToExternalMap;
     private Integer coordinateX;
     private Integer coordinateY;
-    private byte[] mapImage;
+    @ManyToOne
+    @JoinColumn
+    private MapImage mapImage;
+//    private byte[] mapImage;
 
     @CreationTimestamp
     @Column(name = "Creation_Date", updatable = false)

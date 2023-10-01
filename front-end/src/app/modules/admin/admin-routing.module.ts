@@ -1,11 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {AdminComponent} from "./admin.component";
-import {AbstractsAdminComponent} from "./abstracts-admin/abstracts-admin.component";
-import {CustomerAdminComponent} from "./customer-admin/customer-admin.component";
-import {EventAdminComponent} from "./event-admin/event-admin.component";
-import {LocalizationAdminComponent} from "./localization-admin/localization-admin.component";
-import {SiteManagementAdminComponent} from "./site-management-admin/site-management-admin.component";
+
 
 const routes: Routes = [
   {
@@ -18,9 +14,15 @@ const routes: Routes = [
       {path: 'customer',
       loadChildren: ()=> import('./customer-admin/customer-admin.module')
         .then(value => value.CustomerAdminModule)},
-      {path: 'event', component: EventAdminComponent},
-      {path: 'localization', component: LocalizationAdminComponent},
-      {path: 'site', component: SiteManagementAdminComponent},
+      {path: 'event',
+      loadChildren: ()=> import('./event-admin/event-admin.module')
+        .then(value => value.EventAdminModule)},
+      {path: 'localization',
+      loadChildren:()=> import('./localization-admin/localization-admin.module')
+        .then(value => value.LocalizationAdminModule)},
+      {path: 'site',
+      loadChildren:()=> import('./site-management-admin/site-management-admin.module')
+        .then(value => value.SiteManagementAdminModule)},
 
     ]
   },
