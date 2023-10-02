@@ -1,6 +1,8 @@
 package com.flystonedev.localization.service;
 
 import com.flystonedev.localization.DTO.MapImageDTO;
+import com.flystonedev.localization.DTO.MapImageRequest;
+import com.flystonedev.localization.DTO.MapImageResponse;
 import com.flystonedev.localization.exeption.EntityNotFoundException;
 import com.flystonedev.localization.mapper.MapImageMapper;
 import com.flystonedev.localization.model.MapImage;
@@ -22,11 +24,12 @@ public class MapImageService {
     private final MapImageRepository mapImageRepository;
     private final MapImageMapper mapImageMapper = Mappers.getMapper(MapImageMapper.class);
 
-    public MapImageDTO saveMapImage(MultipartFile file) throws IOException {
+    public MapImageDTO saveMapImage(MultipartFile file, MapImageRequest mapImageRequest) throws IOException {
         String filename = StringUtils.cleanPath(file.getOriginalFilename());
 
         MapImage mapImage = MapImage.builder()
-                .name(filename)
+                .fileName(filename)
+                .name(mapImageRequest.getName())
                 .data(file.getBytes())
                 .build();
         mapImageRepository.save(mapImage);
@@ -40,6 +43,10 @@ public class MapImageService {
                 .orElseThrow(EntityNotFoundException::new);
     }
 
+    public List<MapImageResponse> mapImageDTOSimpleList(){
+        List<MapImage> mapImageDTOList = mapImageRepository.findAll();
+        return mapImageDTOList.stream().map(mapImageMapper::mapResponse).collect(Collectors.toList());
+    }
     public List<MapImageDTO> mapImageDTOList(){
         List<MapImage> mapImageDTOList = mapImageRepository.findAll();
         return mapImageDTOList.stream().map(mapImageMapper::map).collect(Collectors.toList());

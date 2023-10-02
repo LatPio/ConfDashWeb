@@ -1,1 +1,82 @@
-<p>localization-admin-add works!</p>
+<div class="row">
+  <div class="col-4">
+    <app-map-image-simple-list
+      [mapImageList]="mapImageSimpleList"
+      (selectedMapImage)="selected($event)"
+      (refresh)="getSimpleListMapImage()"
+    >
+
+    </app-map-image-simple-list>
+  </div>
+  <div class="col-8">
+    <div *ngIf="selectedMApImage">
+      {{selectedMApImage.name}}
+
+    </div>
+
+    <form [formGroup]="localizationForm" (ngSubmit)="saveLocalization()">
+
+      <mat-form-field class="full-width">
+        <mat-label>Room Name</mat-label>
+        <input
+          type="text"
+          matInput
+          [formControlName]="'room'"
+        >
+        <mat-error *ngIf="localizationForm.hasError('required')">
+          Name is required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="full-width">
+        <mat-label>Coordinate X todo</mat-label>
+        <input
+          type="text"
+          matInput
+          [formControlName]="'coordinateX'"
+        >
+        <mat-error *ngIf="localizationForm.hasError('required')">
+          Name is required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="full-width">
+        <mat-label>Coordinate Y todo</mat-label>
+        <input
+          type="text"
+          matInput
+          [formControlName]="'coordinateY'"
+        >
+        <mat-error *ngIf="localizationForm.hasError('required')">
+          Name is required
+        </mat-error>
+      </mat-form-field>
+
+
+      <div formGroupName="mapImage">
+        <mat-form-field class="full-width">
+          <mat-label>Selected Map</mat-label>
+          <input
+            [readonly]="true"
+            type="text"
+            matInput
+            [formControlName]="'name'"
+          >
+          <mat-error *ngIf="localizationForm.hasError('required')">
+            Name of Institution is required
+          </mat-error>
+        </mat-form-field>
+
+      </div>
+
+
+
+      <div style="padding-top: 20px;">
+        <button
+          mat-raised-button color="primary">Save</button>
+      </div>
+
+    </form>
+  </div>
+
+</div>

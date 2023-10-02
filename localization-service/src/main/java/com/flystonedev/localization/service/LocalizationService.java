@@ -5,8 +5,10 @@ import com.flystonedev.localization.DTO.LocalizationOutResponse;
 import com.flystonedev.localization.exeption.EntityNotFoundException;
 import com.flystonedev.localization.mapper.LocalizationMapper;
 import com.flystonedev.localization.mapper.LocalizationOutResponseMapper;
+import com.flystonedev.localization.mapper.MapImageMapper;
 import com.flystonedev.localization.model.Localization;
 import com.flystonedev.localization.repository.LocalizationRepository;
+import com.flystonedev.localization.repository.MapImageRepository;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import org.mapstruct.factory.Mappers;
@@ -20,14 +22,17 @@ import java.util.stream.Collectors;
 public class LocalizationService {
 
     private final LocalizationRepository localizationRepository;
+    private final MapImageRepository mapImageRepository;
+
     private final LocalizationMapper localizationMapper = Mappers.getMapper(LocalizationMapper.class);
+    private final MapImageMapper mapImageMapper = Mappers.getMapper(MapImageMapper.class);
     private final LocalizationOutResponseMapper localizationOutResponseMapper = Mappers.getMapper(LocalizationOutResponseMapper.class);
 
 
     public void createLocalization(LocalizationDTO localizationDTO){
         Localization localization = Localization.builder()
                 .room(localizationDTO.getRoom())
-                .mapImage(localizationDTO.getMapImage())
+                .mapImage(mapImageRepository.findById(localizationDTO.getMapImage().getId()).orElseThrow(EntityNotFoundException::new))
                 .coordinateX(localizationDTO.getCoordinateX())
                 .coordinateY(localizationDTO.getCoordinateY())
                 .build();

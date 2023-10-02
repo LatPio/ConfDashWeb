@@ -1,5 +1,4 @@
 import {Inject, Injectable} from '@angular/core';
-import {LocalizationDTOModel} from "./models/LocalizationDTOModel";
 import {Observable} from "rxjs";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {APP_CONFIG, AppConfig} from "../../config/app-config/app-config.module";

@@ -1,0 +1,40 @@
+<div class="row">
+  <div class="col-4">
+    <app-map-image-simple-list
+      [mapImageList]="mapImageSimpleList"
+      (refresh)="getSimpleListMapImage()"
+    >
+
+    </app-map-image-simple-list>
+  </div>
+  <div class="col-8">
+
+
+    <form [formGroup]="mapImageForm" (ngSubmit)="saveLocalization()">
+
+      <mat-form-field class="full-width">
+        <mat-label>Map Name</mat-label>
+        <input
+          type="text"
+          matInput
+          [formControlName]="'name'"
+        >
+        <mat-error *ngIf="mapImageForm.hasError('required')">
+          Name is required
+        </mat-error>
+      </mat-form-field>
+
+
+      <input class="form-control" type="file"
+             (change)="onChange($event)">
+
+
+      <div style="padding-top: 20px;">
+        <button
+          mat-raised-button color="primary">Save</button>
+      </div>
+
+    </form>
+  </div>
+
+</div>

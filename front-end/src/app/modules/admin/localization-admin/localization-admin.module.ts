@@ -10,6 +10,13 @@ import { LocalizationAdminBookingEditComponent } from './localization-admin-book
 import { LocalizationAdminBookingListComponent } from './localization-admin-booking-list/localization-admin-booking-list.component';
 import { LocalizationAdminEditComponent } from './localization-admin-edit/localization-admin-edit.component';
 import { LocalizationAdminViewComponent } from './localization-admin-view/localization-admin-view.component';
+import { MapImageSimpleListComponent } from './map-image-simple-list/map-image-simple-list.component';
+import { MapImageAddComponent } from './map-image-add/map-image-add.component';
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
+import {MatTableModule} from "@angular/material/table";
+import {MatButtonModule} from "@angular/material/button";
+import {ReactiveFormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -21,11 +28,18 @@ import { LocalizationAdminViewComponent } from './localization-admin-view/locali
     LocalizationAdminBookingEditComponent,
     LocalizationAdminBookingListComponent,
     LocalizationAdminEditComponent,
-    LocalizationAdminViewComponent
+    LocalizationAdminViewComponent,
+    MapImageSimpleListComponent,
+    MapImageAddComponent
   ],
   imports: [
     CommonModule,
-    LocalizationAdminRoutingModule
+    LocalizationAdminRoutingModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatTableModule,
+    MatButtonModule,
+    ReactiveFormsModule
   ]
 })
 export class LocalizationAdminModule { }

@@ -1,11 +1,9 @@
 import {Inject, Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {APP_CONFIG, AppConfig} from "../../config/app-config/app-config.module";
-import {AttachmentFileAdminRequestModel} from "../abstracts/models/AttachmentFileAdminRequest-model";
 import {Observable} from "rxjs";
-import {AttachmentFileDTOModel} from "../abstracts/models/AttachmentFileDTO-model";
 import {MapImageDTOModel} from "./models/MapImageDTO-model";
-import {AttachmentFileResponseModel} from "../abstracts/models/AttachmentFileResponse-model";
+import {MapImageResponseModel} from "./models/MapImageResponse-model";
 
 @Injectable({
   providedIn: 'root'
@@ -19,10 +17,14 @@ export class MapImageService {
 
   httpHeaders = new HttpHeaders({'Content-Type':'application/json'});
 
-  postSaveMapImage(fileUpload:File):Observable<MapImageDTOModel>{
+  postSaveMapImage(fileUpload:File, mapImageRequest: MapImageResponseModel):Observable<MapImageDTOModel>{
     const formData: FormData = new FormData();
 
     formData.append("file", fileUpload);
+
+    const jsonData = new Blob([JSON.stringify(mapImageRequest)], {type: "application/json",});
+
+    formData.append("data", jsonData);
 
     return this.httpClient.post<MapImageDTOModel>(`${this.config.apiEndpoint}api/v1/mapImage`, formData);
   }
@@ -31,7 +33,9 @@ export class MapImageService {
     return this.httpClient.get<MapImageDTOModel>(`${this.config.apiEndpoint}api/v1/mapImage?id=${fileId}`)
   }
 
-
+  getSimpleListMapImage():Observable<Array<MapImageResponseModel>>{
+    return this.httpClient.get<Array<MapImageResponseModel>>(`${this.config.apiEndpoint}api/v1/mapImage/simple-list`)
+  }
 
   getListMapImage():Observable<Array<MapImageDTOModel>>{
     return this.httpClient.get<Array<MapImageDTOModel>>(`${this.config.apiEndpoint}api/v1/mapImage/list`)

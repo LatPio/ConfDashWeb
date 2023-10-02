@@ -1,7 +1,8 @@
 package com.flystonedev.localization.controller;
 
 import com.flystonedev.localization.DTO.MapImageDTO;
-import com.flystonedev.localization.model.MapImage;
+import com.flystonedev.localization.DTO.MapImageRequest;
+import com.flystonedev.localization.DTO.MapImageResponse;
 import com.flystonedev.localization.service.MapImageService;
 import jakarta.annotation.security.RolesAllowed;
 import lombok.AllArgsConstructor;
@@ -24,10 +25,11 @@ public class MapImageController {
     @RolesAllowed({"ADMIN"})
     @PostMapping
     public ResponseEntity<MapImageDTO> saveFile(
-            @RequestPart("file") MultipartFile file){
+            @RequestPart("file") MultipartFile file,
+            @RequestPart("data") MapImageRequest mapImageRequest){
         try{
             log.info("File saved!");
-            return ResponseEntity.status(HttpStatus.OK).body(mapImageService.saveMapImage(file));
+            return ResponseEntity.status(HttpStatus.OK).body(mapImageService.saveMapImage(file, mapImageRequest));
         } catch (IOException e) {
             log.error("Error occurred while saving to database! ");
             throw new RuntimeException(e);
@@ -45,6 +47,12 @@ public class MapImageController {
     @GetMapping("/list")
     public ResponseEntity<List<MapImageDTO>> getList(){
         return ResponseEntity.status(HttpStatus.OK).body(mapImageService.mapImageDTOList());
+    }
+
+    @RolesAllowed({"ADMIN"})
+    @GetMapping("/simple-list")
+    public ResponseEntity<List<MapImageResponse>> getSimpleList(){
+        return ResponseEntity.status(HttpStatus.OK).body(mapImageService.mapImageDTOSimpleList());
     }
 
 

@@ -28,6 +28,7 @@ public class MapImage {
     )
     private Integer id;
     private String name;
+    private String fileName;
     @OneToMany(mappedBy = "mapImage")
     private List<Localization> localization;
     @Lob
