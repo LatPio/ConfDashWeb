@@ -34,8 +34,8 @@ export class LocalizationAdminAddComponent implements OnInit {
     this.localizationForm = this.formBuilder.group(
       {
         room:['', {validators:[Validators.required]}],
-        coordinateX:['', {validators:[Validators.required]}],
-        coordinateY:['', {validators:[Validators.required]}],
+        coordinateX:[0, {validators:[Validators.required]}],
+        coordinateY:[0, {validators:[Validators.required]}],
         mapImage: this.formBuilder.group(
           {
             id:[ '', {validators:[Validators.required]}],

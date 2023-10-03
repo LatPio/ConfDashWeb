@@ -21,7 +21,7 @@ const routes: Routes = [
   {path:'',
   component: LocalizationAdminComponent,
   children:[
-    {path:'stats', component:LocalizationAdminStatsComponent},
+    {path: 'stats', component:LocalizationAdminStatsComponent},
     {path: 'list', component: LocalizationAdminListComponent},
     {path: 'add', component: LocalizationAdminAddComponent},
     {path: 'update/:localizationID', component: LocalizationAdminEditComponent},

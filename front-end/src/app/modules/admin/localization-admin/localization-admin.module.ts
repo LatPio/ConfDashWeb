@@ -17,6 +17,10 @@ import {MatInputModule} from "@angular/material/input";
 import {MatTableModule} from "@angular/material/table";
 import {MatButtonModule} from "@angular/material/button";
 import {ReactiveFormsModule} from "@angular/forms";
+import {MatIconModule} from "@angular/material/icon";
+import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatSortModule} from "@angular/material/sort";
+import {SharedModule} from "../../shared/shared.module";
 
 
 @NgModule({
@@ -32,14 +36,18 @@ import {ReactiveFormsModule} from "@angular/forms";
     MapImageSimpleListComponent,
     MapImageAddComponent
   ],
-  imports: [
-    CommonModule,
-    LocalizationAdminRoutingModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatTableModule,
-    MatButtonModule,
-    ReactiveFormsModule
-  ]
+    imports: [
+        CommonModule,
+        LocalizationAdminRoutingModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatTableModule,
+        MatButtonModule,
+        ReactiveFormsModule,
+        MatIconModule,
+        MatPaginatorModule,
+        MatSortModule,
+        SharedModule
+    ]
 })
 export class LocalizationAdminModule { }

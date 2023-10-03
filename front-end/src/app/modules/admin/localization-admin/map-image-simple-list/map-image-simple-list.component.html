@@ -1,3 +1,4 @@
+
 <mat-form-field style="width: 100%">
   <mat-label>Filter</mat-label>
   <input matInput (keyup)="applyFilter($event)" placeholder="Provide filter criteria" #input>
@@ -24,7 +25,7 @@
   ></tr>
   <tr class="mat-row" *matNoDataRow>
     <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
-    <td class="mat-cell" colspan="4"><button  mat-raised-button color="primary" routerLink="../map/add">Add</button> </td>
+<!--    <td class="mat-cell" colspan="4"><button  mat-raised-button color="primary" routerLink="../map/add">Add</button> </td>-->
   </tr>
 </table>
 

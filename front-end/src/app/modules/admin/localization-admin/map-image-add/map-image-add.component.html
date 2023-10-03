@@ -1,5 +1,7 @@
 <div class="row">
   <div class="col-4">
+    <h2>List of Registered Maps:</h2>
+
     <app-map-image-simple-list
       [mapImageList]="mapImageSimpleList"
       (refresh)="getSimpleListMapImage()"
@@ -9,7 +11,7 @@
   </div>
   <div class="col-8">
 
-
+    <h3 style="margin: 10px">Add new Map Image for Place/Room for lecture/exposition.</h3>
     <form [formGroup]="mapImageForm" (ngSubmit)="saveLocalization()">
 
       <mat-form-field class="full-width">
