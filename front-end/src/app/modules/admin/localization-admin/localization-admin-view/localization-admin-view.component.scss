@@ -16,14 +16,12 @@
   display:inline-block;
 }
 .notify-badge{
-  //--variable-xposition: 0%;
-  //--variable-yposition: 0%;
+
   position: absolute;
-  //left: var(--variable-xposition) - 1.5%;
-  //left: 20%;
-  //top: 20%;
-  //top: var(--variable-yposition) - 1.5%;
-  background:red;
-  padding:5px 10px;
-  font-size:20px;
+
+}
+
+.pin-style{
+  color: darkred;
+  transform: scale(3);
 }

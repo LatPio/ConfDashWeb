@@ -21,6 +21,7 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatSortModule} from "@angular/material/sort";
 import {SharedModule} from "../../shared/shared.module";
+import { LocalizationAdminMapListComponent } from './localization-admin-map-list/localization-admin-map-list.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import {SharedModule} from "../../shared/shared.module";
     LocalizationAdminEditComponent,
     LocalizationAdminViewComponent,
     MapImageSimpleListComponent,
-    MapImageAddComponent
+    MapImageAddComponent,
+    LocalizationAdminMapListComponent
   ],
     imports: [
         CommonModule,

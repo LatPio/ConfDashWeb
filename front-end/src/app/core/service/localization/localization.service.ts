@@ -33,7 +33,7 @@ export class LocalizationService {
   }
 
   putLocalization(localizationDTO: LocalizationDTOModel):Observable<LocalizationDTOModel>{
-    return  this.httpClient.post<LocalizationDTOModel>(`${this.config.apiEndpoint}api/v1/localization`, localizationDTO,
+    return  this.httpClient.put<LocalizationDTOModel>(`${this.config.apiEndpoint}api/v1/localization`, localizationDTO,
       {headers:this.httpHeaders, responseType: "json"})
   }
 

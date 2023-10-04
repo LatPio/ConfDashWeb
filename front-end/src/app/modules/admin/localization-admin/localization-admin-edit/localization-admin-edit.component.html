@@ -1,1 +1,118 @@
-<p>localization-admin-edit works!</p>
+<div class="row">
+
+
+<div class="center">
+  <div class="item">
+    <span class="notify-badge"
+          [style.top.%]="Number(inputCoordinateY.value) -4.8"
+          [style.left.%]="Number(inputCoordinateX.value) -1.2"
+    >
+      <mat-icon class="pin-style">pin_drop</mat-icon>
+    </span>
+
+    <img class="map-image" src="data:image/jpg;base64,{{selectedMApImage.data}}"  alt="{{localizationData.mapImage.name}}: {{localizationData.mapImage.fileName}}" >
+  </div>
+</div>
+  <div class="col-4">
+    <h2>List of Provided Maps:</h2>
+    <div style="margin: 10px">Select map and then add position and name for Place/Room for lecture/exposition.</div>
+    <app-map-image-simple-list
+      [mapImageList]="mapImageSimpleList"
+      (selectedMapImage)="selected($event)"
+      (refresh)="getSimpleListMapImage()"
+    >
+
+    </app-map-image-simple-list>
+  </div>
+  <div class="col-8">
+    <div >
+      <h2>Edit Localization Data</h2>
+
+      <form [formGroup]="localizationForm" (ngSubmit)="updateLocalization()">
+
+        <mat-form-field class="full-width">
+          <mat-label>ID</mat-label>
+          <input
+            type="text"
+            matInput
+            [formControlName]="'id'"
+          >
+          <mat-error *ngIf="localizationForm.hasError('required')">
+            Name is required
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <mat-label>Room Name</mat-label>
+          <input
+            type="text"
+            matInput
+            [formControlName]="'room'"
+          >
+          <mat-error *ngIf="localizationForm.hasError('required')">
+            Name is required
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+          <mat-label>Coordinate X in %</mat-label>
+          <input
+            type="number"
+            min="0"
+            max="100"
+            matInput
+            #inputCoordinateX
+            [formControlName]="'coordinateX'"
+
+          >
+          <mat-error *ngIf="localizationForm.hasError('required')">
+            Coordinate is required
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+          <mat-label>Coordinate Y in %</mat-label>
+          <input
+            type="number"
+            min="0"
+            max="100"
+            matInput
+            #inputCoordinateY
+            [formControlName]="'coordinateY'"
+          >
+
+          <mat-error *ngIf="localizationForm.hasError('required')">
+            Coordinate is required
+          </mat-error>
+        </mat-form-field>
+
+        <div formGroupName="mapImage">
+          <mat-form-field class="full-width">
+            <mat-label>Selected Map</mat-label>
+            <input
+              [readonly]="true"
+              type="text"
+              matInput
+              [formControlName]="'name'"
+            >
+            <mat-error *ngIf="localizationForm.hasError('required')">
+              Name of Institution is required
+            </mat-error>
+          </mat-form-field>
+
+        </div>
+
+
+
+        <div style="padding-top: 20px;">
+          <button
+            mat-raised-button color="primary">Save</button>
+        </div>
+
+      </form>
+
+    </div>
+
+
+  </div>
+
+</div>
