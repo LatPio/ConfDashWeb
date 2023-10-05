@@ -4,6 +4,7 @@ import {APP_CONFIG, AppConfig} from "../../config/app-config/app-config.module";
 import {Observable} from "rxjs";
 import {MapImageDTOModel} from "./models/MapImageDTO-model";
 import {MapImageResponseModel} from "./models/MapImageResponse-model";
+import {MapImageWithRoomsDTOModel} from "./models/MapImageWithRoomsDTO-model";
 
 @Injectable({
   providedIn: 'root'
@@ -29,10 +30,13 @@ export class MapImageService {
     return this.httpClient.post<MapImageDTOModel>(`${this.config.apiEndpoint}api/v1/mapImage`, formData);
   }
 
-  getMapImage(fileId: number) :Observable<MapImageDTOModel>{
-    return this.httpClient.get<MapImageDTOModel>(`${this.config.apiEndpoint}api/v1/mapImage?id=${fileId}`)
+  getMapImage(mapId: number) :Observable<MapImageDTOModel>{
+    return this.httpClient.get<MapImageDTOModel>(`${this.config.apiEndpoint}api/v1/mapImage?id=${mapId}`)
   }
 
+  getMapImageWithRooms(mapId: number) :Observable<MapImageWithRoomsDTOModel>{
+    return this.httpClient.get<MapImageWithRoomsDTOModel>(`${this.config.apiEndpoint}api/v1/mapImage/rooms?id=${mapId}`)
+  }
   getSimpleListMapImage():Observable<Array<MapImageResponseModel>>{
     return this.httpClient.get<Array<MapImageResponseModel>>(`${this.config.apiEndpoint}api/v1/mapImage/simple-list`)
   }

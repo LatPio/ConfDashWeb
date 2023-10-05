@@ -3,11 +3,14 @@ package com.flystonedev.localization.service;
 import com.flystonedev.localization.DTO.MapImageDTO;
 import com.flystonedev.localization.DTO.MapImageRequest;
 import com.flystonedev.localization.DTO.MapImageResponse;
+import com.flystonedev.localization.DTO.MapImageWithRoomsDTO;
 import com.flystonedev.localization.exeption.EntityNotFoundException;
 import com.flystonedev.localization.mapper.MapImageMapper;
+import com.flystonedev.localization.mapper.MapImageWithRoomsMapper;
 import com.flystonedev.localization.model.MapImage;
 import com.flystonedev.localization.repository.MapImageRepository;
 import lombok.AllArgsConstructor;
+import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -23,6 +26,8 @@ public class MapImageService {
 
     private final MapImageRepository mapImageRepository;
     private final MapImageMapper mapImageMapper = Mappers.getMapper(MapImageMapper.class);
+
+    private final MapImageWithRoomsMapper mapImageWithRoomsMapper = Mappers.getMapper(MapImageWithRoomsMapper.class);
 
     public MapImageDTO saveMapImage(MultipartFile file, MapImageRequest mapImageRequest) throws IOException {
         String filename = StringUtils.cleanPath(file.getOriginalFilename());
@@ -40,6 +45,13 @@ public class MapImageService {
         return mapImageRepository
                 .findById(id)
                 .map(mapImageMapper::map)
+                .orElseThrow(EntityNotFoundException::new);
+    }
+
+    public MapImageWithRoomsDTO getMapImageWithRoomsDTO(Integer id){
+        return mapImageRepository
+                .findById(id)
+                .map(mapImageWithRoomsMapper::map)
                 .orElseThrow(EntityNotFoundException::new);
     }
 

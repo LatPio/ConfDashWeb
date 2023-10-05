@@ -17,6 +17,8 @@ import {
 import {LocalizationAdminStatsComponent} from "./localization-admin-stats/localization-admin-stats.component";
 import {MapImageAddComponent} from "./map-image-add/map-image-add.component";
 import {LocalizationAdminMapListComponent} from "./localization-admin-map-list/localization-admin-map-list.component";
+import {MapImageViewComponent} from "./map-image-view/map-image-view.component";
+import {MapImageUpdateComponent} from "./map-image-update/map-image-update.component";
 
 const routes: Routes = [
   {path:'',
@@ -31,7 +33,9 @@ const routes: Routes = [
     {path: 'booking/list', component: LocalizationAdminBookingListComponent},
     {path: 'booking/update/:bookingID', component: LocalizationAdminBookingEditComponent},
     {path: 'map/add', component: MapImageAddComponent},
-    {path: 'map/list', component: LocalizationAdminMapListComponent}
+    {path: 'map/list', component: LocalizationAdminMapListComponent},
+    {path: 'map/view/:mapId', component: MapImageViewComponent},
+    {path: 'map/update/:mapId', component: MapImageUpdateComponent}
 
   ]}
 ];

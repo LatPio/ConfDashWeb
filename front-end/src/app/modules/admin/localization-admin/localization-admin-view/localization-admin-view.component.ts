@@ -13,12 +13,7 @@ export class LocalizationAdminViewComponent implements OnInit{
 
   localizationId: number;
   localizationData!: LocalizationDTOModel;
-  // value= "50%"
 
-  // @HostBinding("style.--some-var")
-  // public get valueAsStyle(): any {
-  //   return this.sanitizer.bypassSecurityTrustStyle(`--some-var: ${this.value}`);
-  // }
 
 
   constructor(

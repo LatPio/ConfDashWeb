@@ -1,1 +1,26 @@
-<p>localization-admin-map-list works!</p>
+<div class="list-box">
+  <div *ngFor="let map of mapImageListData">
+    <mat-card class="example-card">
+      <mat-card-header>
+        <mat-card-title>{{map.name}}</mat-card-title>
+      </mat-card-header>
+      <img mat-card-image class="map-image" src="data:image/jpg;base64,{{map.data}}"  alt="{{map.name}}: {{map.fileName}}" >
+
+      <mat-card-content>
+        <p>Id: {{map.id}}</p>
+        <p>Name: {{map.name}}</p>
+        <p>FileName: {{map.fileName}}</p>
+
+        <mat-divider></mat-divider>
+      </mat-card-content>
+      <mat-card-actions>
+        <button class="margin" mat-raised-button routerLink="../view/{{map.id}}">View</button>
+        <button class="margin" mat-raised-button routerLink="../update/{{map.id}}">Edit</button>
+        <app-delete-button class="margin" [name]="map.name" (event)="deleteMApImage(map.id)"></app-delete-button>
+      </mat-card-actions>
+      <mat-card-footer>
+      </mat-card-footer>
+    </mat-card>
+  </div>
+</div>
+

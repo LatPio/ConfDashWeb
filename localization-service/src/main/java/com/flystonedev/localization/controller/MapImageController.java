@@ -3,6 +3,7 @@ package com.flystonedev.localization.controller;
 import com.flystonedev.localization.DTO.MapImageDTO;
 import com.flystonedev.localization.DTO.MapImageRequest;
 import com.flystonedev.localization.DTO.MapImageResponse;
+import com.flystonedev.localization.DTO.MapImageWithRoomsDTO;
 import com.flystonedev.localization.service.MapImageService;
 import jakarta.annotation.security.RolesAllowed;
 import lombok.AllArgsConstructor;
@@ -39,8 +40,13 @@ public class MapImageController {
     @RolesAllowed({"ADMIN", "USER"})
     @GetMapping
     public ResponseEntity<MapImageDTO> get(@RequestParam Integer id){
-        //todo modifiable/accessible only by user owner
         return ResponseEntity.status(HttpStatus.OK).body(mapImageService.getMapImageDTO(id));
+    }
+
+    @RolesAllowed({"ADMIN", "USER"})
+    @GetMapping("/rooms")
+    public ResponseEntity<MapImageWithRoomsDTO> getWithRooms(@RequestParam Integer id){
+        return ResponseEntity.status(HttpStatus.OK).body(mapImageService.getMapImageWithRoomsDTO(id));
     }
 
     @RolesAllowed({"ADMIN"})

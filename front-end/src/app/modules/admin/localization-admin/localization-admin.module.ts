@@ -22,6 +22,10 @@ import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatSortModule} from "@angular/material/sort";
 import {SharedModule} from "../../shared/shared.module";
 import { LocalizationAdminMapListComponent } from './localization-admin-map-list/localization-admin-map-list.component';
+import {MatCardModule} from "@angular/material/card";
+import {MatListModule} from "@angular/material/list";
+import { MapImageViewComponent } from './map-image-view/map-image-view.component';
+import { MapImageUpdateComponent } from './map-image-update/map-image-update.component';
 
 
 @NgModule({
@@ -36,20 +40,24 @@ import { LocalizationAdminMapListComponent } from './localization-admin-map-list
     LocalizationAdminViewComponent,
     MapImageSimpleListComponent,
     MapImageAddComponent,
-    LocalizationAdminMapListComponent
+    LocalizationAdminMapListComponent,
+    MapImageViewComponent,
+    MapImageUpdateComponent
   ],
-    imports: [
-        CommonModule,
-        LocalizationAdminRoutingModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatTableModule,
-        MatButtonModule,
-        ReactiveFormsModule,
-        MatIconModule,
-        MatPaginatorModule,
-        MatSortModule,
-        SharedModule
-    ]
+  imports: [
+    CommonModule,
+    LocalizationAdminRoutingModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatTableModule,
+    MatButtonModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    MatPaginatorModule,
+    MatSortModule,
+    SharedModule,
+    MatCardModule,
+    MatListModule
+  ]
 })
 export class LocalizationAdminModule { }
