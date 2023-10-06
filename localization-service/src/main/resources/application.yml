@@ -20,6 +20,13 @@ spring:
       resourceserver:
         jwt:
           jwk-set-uri: http://localhost:8181/realms/confdashweb/protocol/openid-connect/certs
+  sql:
+    init:
+      mode: always
+  servlet:
+    multipart:
+      max-request-size: 10MB
+      max-file-size: 10MB
 management:
   tracing:
     sampling:

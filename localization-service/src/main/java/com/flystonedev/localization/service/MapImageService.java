@@ -63,13 +63,16 @@ public class MapImageService {
         List<MapImage> mapImageDTOList = mapImageRepository.findAll();
         return mapImageDTOList.stream().map(mapImageMapper::map).collect(Collectors.toList());
     }
+
     public MapImageDTO updateMapImage(MultipartFile file, MapImageDTO mapImageDTO) throws IOException{
-        MapImage exist = mapImageMapper.map(getMapImageDTO(mapImageDTO.getId()));
-        if(exist == null){
-            throw new EntityNotFoundException();
-        } else if (file.getBytes().length !=0){
+        MapImage exist = mapImageRepository.findById(mapImageDTO.getId()).orElseThrow(EntityNotFoundException::new);
+//        if(exist == null){
+//            throw new EntityNotFoundException();
+//        } else
+        if (file.getBytes().length !=0){
             exist.setData(file.getBytes());
-            exist.setName(StringUtils.cleanPath(file.getOriginalFilename()));
+            exist.setFileName(StringUtils.cleanPath(file.getOriginalFilename()));
+            exist.setName(mapImageDTO.getName());
 
             MapImage updated = mapImageRepository.save(exist);
             return mapImageMapper.map(updated);

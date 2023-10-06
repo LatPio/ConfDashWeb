@@ -10,6 +10,9 @@ import {MatIconModule} from "@angular/material/icon";
 import { AbstractFileViewComponent } from './abstract-file-view/abstract-file-view.component';
 import { AbstractCardViewComponent } from './abstrct-card-view/abstract-card-view.component';
 import {MatCardModule} from "@angular/material/card";
+import { SnackbarErrorComponent } from './snackbar-error/snackbar-error.component';
+import {MatSnackBarModule} from "@angular/material/snack-bar";
+import { SnackbarMessageComponent } from './snackbar-message/snackbar-message.component';
 
 
 
@@ -19,7 +22,9 @@ import {MatCardModule} from "@angular/material/card";
     AbstractSheetViewComponent,
     DeleteButtonComponent,
     AbstractFileViewComponent,
-    AbstractCardViewComponent
+    AbstractCardViewComponent,
+    SnackbarErrorComponent,
+    SnackbarMessageComponent
   ],
   exports: [
     AbstractSheetViewComponent,
@@ -27,14 +32,15 @@ import {MatCardModule} from "@angular/material/card";
     AbstractFileViewComponent,
     AbstractCardViewComponent
   ],
-  imports: [
-    CommonModule,
-    MatDialogModule,
-    MatButtonModule,
-    RouterLink,
-    MatIconModule,
-    MatCardModule,
+    imports: [
+        CommonModule,
+        MatDialogModule,
+        MatButtonModule,
+        RouterLink,
+        MatIconModule,
+        MatCardModule,
+        MatSnackBarModule,
 
-  ]
+    ]
 })
 export class SharedModule { }

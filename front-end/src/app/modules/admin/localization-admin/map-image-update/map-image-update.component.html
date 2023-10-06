@@ -1,1 +1,25 @@
-<p>map-image-update works!</p>
+<form [formGroup]="mapImageForm" (ngSubmit)="updateLocalization()">
+
+  <mat-form-field class="full-width">
+    <mat-label>Map Name</mat-label>
+    <input
+      type="text"
+      matInput
+      [formControlName]="'name'"
+    >
+    <mat-error *ngIf="mapImageForm.hasError('required')">
+      Name is required
+    </mat-error>
+  </mat-form-field>
+
+
+  <input class="form-control" type="file"
+         (change)="onChange($event)">
+
+
+  <div style="padding-top: 20px;">
+    <button
+      mat-raised-button color="primary">Save</button>
+  </div>
+
+</form>

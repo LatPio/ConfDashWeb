@@ -1,6 +1,5 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {MatTableDataSource} from "@angular/material/table";
-import {AbstractDTOModel} from "../../../../core/service/abstracts/models/AbstractDTO-model";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 import {LocalizationDTOModel} from "../../../../core/service/localization/models/LocalizationDTOModel";

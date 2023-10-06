@@ -10,6 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {AppConfigModule} from "./core/config/app-config/app-config.module";
 import {MatDialogModule} from '@angular/material/dialog';
 import { MatIconModule } from "@angular/material/icon";
+import {MAT_SNACK_BAR_DEFAULT_OPTIONS} from "@angular/material/snack-bar";
 
 
 
@@ -38,7 +39,9 @@ import { MatIconModule } from "@angular/material/icon";
     // ),
         BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [
+    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 5000}}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
