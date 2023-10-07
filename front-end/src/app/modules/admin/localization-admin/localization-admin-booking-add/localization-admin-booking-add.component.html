@@ -1,1 +1,94 @@
-<p>localization-admin-booking-add works!</p>
+<div class="row">
+
+  <div class="col-4">
+    <h2>List of Registered Speak Hall:</h2>
+    <div style="margin: 10px">Liost of events and list of locaztions todo </div>
+
+  </div>
+  <div class="col-8">
+    <div >
+      <h2>Provide Data for booking</h2>
+
+      <form [formGroup]="bookingForm" (ngSubmit)="saveBooking()">
+
+        <mat-form-field class="full-width">
+          <mat-label>Event ID</mat-label>
+          <input
+            type="text"
+            matInput
+            [formControlName]="'eventIDData'"
+          >
+          <mat-error *ngIf="bookingForm.hasError('required')">
+            Id is required
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+          <mat-label>Date of Booking</mat-label>
+          <input
+            type="date"
+            matInput
+            [formControlName]="'dateStart'"
+          >
+          <mat-error *ngIf="bookingForm.hasError('required')">
+            Date is required
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <mat-label>Duration of Event in min</mat-label>
+          <input
+            type="text"
+            matInput
+            [formControlName]="'eventTime'"
+          >
+          <mat-error *ngIf="bookingForm.hasError('required')">
+            Date is required
+          </mat-error>
+        </mat-form-field>
+
+
+        <div formGroupName="localization">
+  <mat-form-field class="full-width">
+    <mat-label>Localziation ID</mat-label>
+    <input
+      type="text"
+      matInput
+      [formControlName]="'localization.id'"
+    >
+    <mat-error *ngIf="bookingForm.hasError('required')">
+      Localization ID is required
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <mat-label>Localziation Name</mat-label>
+    <input
+      type="text"
+      matInput
+      [formControlName]="'localization.room'"
+    >
+    <mat-error *ngIf="bookingForm.hasError('required')">
+      Coordinate is required
+    </mat-error>
+  </mat-form-field>
+</div>
+
+
+
+
+
+
+
+
+        <div style="padding-top: 20px;">
+          <button
+            mat-raised-button color="primary">Save</button>
+        </div>
+
+      </form>
+
+    </div>
+
+
+  </div>
+
+</div>

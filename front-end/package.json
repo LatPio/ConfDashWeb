@@ -23,10 +23,12 @@
     "angular-oauth2-oidc": "^15.0.1",
     "bootstrap": "^5.3.1",
     "jquery": "^3.7.1",
+    "material-icons": "^1.13.12",
     "ngx-summernote": "^1.0.0",
     "rxjs": "~7.8.0",
     "summernote": "^0.8.20",
     "tslib": "^2.3.0",
+    "typeface-muli": "^1.1.13",
     "zone.js": "~0.13.0"
   },
   "devDependencies": {

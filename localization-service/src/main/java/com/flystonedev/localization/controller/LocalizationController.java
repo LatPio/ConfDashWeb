@@ -2,6 +2,7 @@ package com.flystonedev.localization.controller;
 
 import com.flystonedev.localization.DTO.LocalizationDTO;
 import com.flystonedev.localization.DTO.LocalizationOutResponse;
+import com.flystonedev.localization.DTO.StatsLocationResponse;
 import com.flystonedev.localization.service.LocalizationService;
 import jakarta.annotation.security.RolesAllowed;
 import lombok.AllArgsConstructor;
@@ -45,6 +46,13 @@ public class LocalizationController {
     public ResponseEntity<LocalizationDTO> update(@RequestBody LocalizationDTO localizationDTO){
         return ResponseEntity.status(HttpStatus.OK).body(localizationService.update(localizationDTO));
     }
+
+    @RolesAllowed({"ADMIN"})
+    @GetMapping("/stats")
+    public ResponseEntity<StatsLocationResponse> getStats(){
+        return ResponseEntity.status(HttpStatus.OK).body(localizationService.stats());
+    }
+
     @RolesAllowed({"ADMIN"})
     @DeleteMapping
     public ResponseEntity delete(@RequestParam Integer id){

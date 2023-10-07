@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Table
-@Entity(name = "Map-Image")
+@Entity(name = "MapImage")
 @Data
 @Builder
 @NoArgsConstructor
