@@ -6,7 +6,11 @@ import {LocalizationService} from "../../../../core/service/localization/localiz
 import {SnackbarErrorComponent} from "../../../shared/snackbar-error/snackbar-error.component";
 import {SnackbarMessageComponent} from "../../../shared/snackbar-message/snackbar-message.component";
 import {MatSnackBar} from "@angular/material/snack-bar";
-
+import * as _moment from 'moment';
+import {LocalizationLightDTOModel} from "../../../../core/service/localization/models/LocalizationLightDTO-model";
+import {MapImageResponseModel} from "../../../../core/service/localization/models/MapImageResponse-model";
+// tslint:disable-next-line:no-duplicate-imports
+const moment = _moment;
 @Component({
   selector: 'app-localization-admin-booking-add',
   templateUrl: './localization-admin-booking-add.component.html',
@@ -14,6 +18,9 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 })
 export class LocalizationAdminBookingAddComponent implements OnInit{
   bookingForm!: FormGroup
+  localizationLightList!: Array<LocalizationLightDTOModel>
+
+  selectedLocalization: LocalizationLightDTOModel;
 
   constructor(
     private bookingService: BookingService,
@@ -26,25 +33,40 @@ export class LocalizationAdminBookingAddComponent implements OnInit{
   ) {
   }
 
-
   ngOnInit(): void {
+
+    this.getLocalizationLightList();
 
     this.bookingForm = this.formBuilder.group(
       {
         eventIDData:['', {validators:[Validators.required]}],
-        dateStart:['', {validators:[Validators.required]}],
+        dateStart:[moment(), {validators:[Validators.required]}],
+
+        eventTime:[10, {validators:[Validators.required]}],
+        locationConflict:[false, {validators:[Validators.required]}],
+        timeConflict:[false, {validators:[Validators.required]}],
         localization: this.formBuilder.group(
           {
             id:['', {validators:[Validators.required]}],
-            room:['', {validators:[Validators.required]}]
+            room:['',]
           }
         ),
-        eventTime:['', {validators:[Validators.required]}],
-        locationConflict:['', {validators:[Validators.required]}],
-        timeConflict:['', {validators:[Validators.required]}]
 
       }
     )
+  }
+
+  getLocalizationLightList(){
+    this.localizationService.getListLocalizationLight().subscribe(value => {
+      this.localizationLightList = value;
+    })
+  }
+
+  selected($event: LocalizationLightDTOModel) {
+    this.selectedLocalization = $event
+    this.bookingForm.get('localization.id')?.setValue(this.selectedLocalization.id);
+    this.bookingForm.get('localization.room')?.setValue(this.selectedLocalization.room);
+
   }
 
   openSnackBarError(message: string) {
@@ -59,7 +81,11 @@ export class LocalizationAdminBookingAddComponent implements OnInit{
     });
   }
   saveBooking( ){
-    this.bookingService.postBooking(this.bookingForm.getRawValue()).subscribe(
+
+    let data = this.bookingForm;
+    data.controls['eventTime'].setValue(this.bookingForm.get('eventTime')?.value * 60)
+
+    this.bookingService.postBooking(data.getRawValue()).subscribe(
       {
         next: () => {
           this.openSnackBar("Room Booked Successfully!")

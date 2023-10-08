@@ -22,6 +22,8 @@ import {NgxSummernoteModule} from "ngx-summernote";
 import {MatDialogModule} from '@angular/material/dialog';
 import {SharedModule} from "../shared/shared.module";
 import {AbstractsAdminModule} from "./abstracts-admin/abstracts-admin.module";
+import {MatNativeDateModule} from "@angular/material/core";
+import {MatDatepickerModule} from '@angular/material/datepicker';
 
 
 @NgModule({
@@ -52,9 +54,10 @@ import {AbstractsAdminModule} from "./abstracts-admin/abstracts-admin.module";
     NgxSummernoteModule,
     MatDialogModule,
     SharedModule,
-    AbstractsAdminModule
+    AbstractsAdminModule,
+    MatNativeDateModule,
 
-
+    MatDatepickerModule
 
   ]
 })

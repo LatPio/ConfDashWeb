@@ -26,6 +26,7 @@ export class LocalizationAdminBookingListComponent implements OnInit, AfterViewI
     this.dataSource.sort = this.sort;
   }
   ngOnInit(): void {
+    this.getBookings()
   }
 
   constructor(

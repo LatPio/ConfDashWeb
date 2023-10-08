@@ -4,6 +4,7 @@ import {APP_CONFIG, AppConfig} from "../../config/app-config/app-config.module";
 import {LocalizationDTOModel} from "./models/LocalizationDTOModel";
 import {Observable} from "rxjs";
 import {StatsLocalizationResponseModel} from "./models/StatsLoclizationResponse-model";
+import {LocalizationLightDTOModel} from "./models/LocalizationLightDTO-model";
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +31,11 @@ export class LocalizationService {
 
   getListLocalization():Observable<Array<LocalizationDTOModel>>{
     return  this.httpClient.get<Array<LocalizationDTOModel>>(`${this.config.apiEndpoint}api/v1/localization/list`,
+      {headers:this.httpHeaders, responseType: "json"})
+  }
+
+  getListLocalizationLight():Observable<Array<LocalizationLightDTOModel>>{
+    return  this.httpClient.get<Array<LocalizationLightDTOModel>>(`${this.config.apiEndpoint}api/v1/localization/list`,
       {headers:this.httpHeaders, responseType: "json"})
   }
 

@@ -11,6 +11,7 @@ import {AppConfigModule} from "./core/config/app-config/app-config.module";
 import {MatDialogModule} from '@angular/material/dialog';
 import { MatIconModule } from "@angular/material/icon";
 import {MAT_SNACK_BAR_DEFAULT_OPTIONS} from "@angular/material/snack-bar";
+import {NgxMatDatetimePickerModule, NgxMatTimepickerModule} from "@angular-material-components/datetime-picker";
 
 
 
@@ -27,6 +28,9 @@ import {MAT_SNACK_BAR_DEFAULT_OPTIONS} from "@angular/material/snack-bar";
     AppConfigModule,
     MatDialogModule,
     MatIconModule,
+    NgxMatDatetimePickerModule,
+    NgxMatTimepickerModule,
+
 
     // OAuthModule.forRoot(
     //   {

@@ -26,6 +26,16 @@ import {MatCardModule} from "@angular/material/card";
 import {MatListModule} from "@angular/material/list";
 import { MapImageViewComponent } from './map-image-view/map-image-view.component';
 import { MapImageUpdateComponent } from './map-image-update/map-image-update.component';
+import {
+  NgxMatDatetimePickerModule,
+  NgxMatNativeDateModule,
+  NgxMatTimepickerModule
+} from '@angular-material-components/datetime-picker';
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatNativeDateModule} from "@angular/material/core";
+import {NgxMatMomentModule} from "@angular-material-components/moment-adapter";
+import { LocalizationAdminListLightComponent } from './localization-admin-list-light/localization-admin-list-light.component';
+import {MatCheckboxModule} from "@angular/material/checkbox";
 
 
 @NgModule({
@@ -42,7 +52,8 @@ import { MapImageUpdateComponent } from './map-image-update/map-image-update.com
     MapImageAddComponent,
     LocalizationAdminMapListComponent,
     MapImageViewComponent,
-    MapImageUpdateComponent
+    MapImageUpdateComponent,
+    LocalizationAdminListLightComponent
   ],
   imports: [
     CommonModule,
@@ -57,7 +68,15 @@ import { MapImageUpdateComponent } from './map-image-update/map-image-update.com
     MatSortModule,
     SharedModule,
     MatCardModule,
-    MatListModule
+    MatListModule,
+    NgxMatDatetimePickerModule,
+    MatDatepickerModule,
+    NgxMatNativeDateModule,
+    NgxMatDatetimePickerModule,
+    NgxMatTimepickerModule,
+    MatNativeDateModule,
+    NgxMatMomentModule,
+    MatCheckboxModule
   ]
 })
 export class LocalizationAdminModule { }

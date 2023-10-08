@@ -2,7 +2,7 @@ import {LocalizationDTOModel} from "./LocalizationDTOModel";
 
 export class BookingDTOModel{
   id: number;
-  eventIDDat: number;
+  eventIDData: number;
   locationConflict: boolean;
   timeConflict: boolean;
   dateStart: Date;

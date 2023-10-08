@@ -32,7 +32,7 @@ export class BookingService {
   }
 
   putBooking(bookingDTO: BookingDTOModel):Observable<BookingDTOModel>{
-    return  this.httpClient.post<BookingDTOModel>(`${this.config.apiEndpoint}api/v1/booking`, bookingDTO,
+    return  this.httpClient.put<BookingDTOModel>(`${this.config.apiEndpoint}api/v1/booking`, bookingDTO,
       {headers:this.httpHeaders, responseType: "json"})
   }
 
