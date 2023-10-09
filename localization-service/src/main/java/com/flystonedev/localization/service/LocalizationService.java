@@ -2,6 +2,7 @@ package com.flystonedev.localization.service;
 
 import com.flystonedev.localization.DTO.LocalizationDTO;
 import com.flystonedev.localization.DTO.LocalizationOutResponse;
+import com.flystonedev.localization.DTO.LocalizationWithOutMapDTO;
 import com.flystonedev.localization.DTO.StatsLocationResponse;
 import com.flystonedev.localization.exeption.EntityNotFoundException;
 import com.flystonedev.localization.mapper.BookingMapper;
@@ -46,6 +47,11 @@ public class LocalizationService {
     public List<LocalizationDTO> localizationDTOList(){
         List<Localization> localizationList = localizationRepository.findAll();
         return localizationList.stream().map(localizationMapper::map).collect(Collectors.toList());
+    }
+
+    public List<LocalizationWithOutMapDTO> localizationDTOListLight(){
+        List<Localization> localizationList = localizationRepository.findAll();
+        return localizationList.stream().map(localizationMapper::mapLight).collect(Collectors.toList());
     }
 
     public LocalizationDTO get(Integer id){

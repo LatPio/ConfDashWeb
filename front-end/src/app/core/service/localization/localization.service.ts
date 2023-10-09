@@ -35,7 +35,7 @@ export class LocalizationService {
   }
 
   getListLocalizationLight():Observable<Array<LocalizationLightDTOModel>>{
-    return  this.httpClient.get<Array<LocalizationLightDTOModel>>(`${this.config.apiEndpoint}api/v1/localization/list`,
+    return  this.httpClient.get<Array<LocalizationLightDTOModel>>(`${this.config.apiEndpoint}api/v1/localization/list-light`,
       {headers:this.httpHeaders, responseType: "json"})
   }
 

@@ -2,6 +2,7 @@ package com.flystonedev.localization.controller;
 
 import com.flystonedev.localization.DTO.LocalizationDTO;
 import com.flystonedev.localization.DTO.LocalizationOutResponse;
+import com.flystonedev.localization.DTO.LocalizationWithOutMapDTO;
 import com.flystonedev.localization.DTO.StatsLocationResponse;
 import com.flystonedev.localization.service.LocalizationService;
 import jakarta.annotation.security.RolesAllowed;
@@ -40,6 +41,12 @@ public class LocalizationController {
     @GetMapping("/list")
     public ResponseEntity<List<LocalizationDTO>> listResponseEntity(){
         return ResponseEntity.status(HttpStatus.OK).body(localizationService.localizationDTOList());
+    }
+
+    @RolesAllowed({"USER", "ADMIN"})
+    @GetMapping("/list-light")
+    public ResponseEntity<List<LocalizationWithOutMapDTO>> listLightResponseEntity(){
+        return ResponseEntity.status(HttpStatus.OK).body(localizationService.localizationDTOListLight());
     }
     @RolesAllowed({"ADMIN"})
     @PutMapping
