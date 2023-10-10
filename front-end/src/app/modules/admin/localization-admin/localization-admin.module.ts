@@ -55,6 +55,9 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
     MapImageUpdateComponent,
     LocalizationAdminListLightComponent
   ],
+  exports: [
+    LocalizationAdminListLightComponent
+  ],
   imports: [
     CommonModule,
     LocalizationAdminRoutingModule,

@@ -3,6 +3,7 @@ package com.flystonedev.abstracts.service;
 
 import com.flystonedev.abstracts.DTO.AbstractBlockDTO;
 import com.flystonedev.abstracts.DTO.AbstractDTO;
+import com.flystonedev.abstracts.DTO.AbstractLightDTO;
 import com.flystonedev.abstracts.DTO.AbstractOutResponse;
 import com.flystonedev.abstracts.config.JwtConverter;
 import com.flystonedev.abstracts.exeption.AbstractEditionBlockedException;
@@ -137,6 +138,12 @@ public class AbstractService {
     public List<AbstractDTO> abstractAdminDTOListAccepted(Boolean accepted){
         List<AbstractsEntity> abstractsEntityList = abstractRepository.findAll();
         return abstractsEntityList.stream().filter(f->f.isAccepted() == accepted).map(abstractMapper::map).collect(Collectors.toList());
+    }
+
+    @Transactional
+    public List<AbstractLightDTO> abstractAdminDTOLightListAccepted(Boolean accepted){
+        List<AbstractsEntity> abstractsEntityList = abstractRepository.findAll();
+        return abstractsEntityList.stream().filter(f->f.isAccepted() == accepted).map(abstractMapper::mapLight).collect(Collectors.toList());
     }
     @Transactional
     public AbstractDTO getAbstractByAdmin(Integer id){

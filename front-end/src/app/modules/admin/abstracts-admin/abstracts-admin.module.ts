@@ -30,6 +30,7 @@ import { AbstractAttachmentFileAddButtonComponent } from './abstract-attachment-
 import { AbstractStatisticComponent } from './abstract-statistic/abstract-statistic.component';
 import {MatCardModule} from "@angular/material/card";
 import {CustomerAdminModule} from "../customer-admin/customer-admin.module";
+import { AbstractAdminAcceptedListComponent } from './abstract-admin-accepted-list/abstract-admin-accepted-list.component';
 
 @NgModule({
   declarations: [
@@ -43,31 +44,35 @@ import {CustomerAdminModule} from "../customer-admin/customer-admin.module";
     AbstractToProcessComponent,
     AbstractAttachmentFileAddComponent,
     AbstractAttachmentFileAddButtonComponent,
-    AbstractStatisticComponent
+    AbstractStatisticComponent,
+    AbstractAdminAcceptedListComponent
 
   ],
-    imports: [
-        CommonModule,
-        AbstractsAdminRoutingModule,
-        MatInputModule,
-        MatTableModule,
-        MatPaginatorModule,
-        MatSortModule,
-        MatFormFieldModule,
-        ReactiveFormsModule,
-        MatButtonModule,
-        MatIconModule,
-        MatGridListModule,
-        MatDialogModule,
-        NgxSummernoteModule,
-        MatRadioModule,
-        MatCheckboxModule,
-        SharedModule,
-        MatSelectModule,
-        MatCardModule,
-        CustomerAdminModule
+  exports: [
+    AbstractAdminAcceptedListComponent
+  ],
+  imports: [
+    CommonModule,
+    AbstractsAdminRoutingModule,
+    MatInputModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatIconModule,
+    MatGridListModule,
+    MatDialogModule,
+    NgxSummernoteModule,
+    MatRadioModule,
+    MatCheckboxModule,
+    SharedModule,
+    MatSelectModule,
+    MatCardModule,
+    CustomerAdminModule
 
 
-    ]
+  ]
 })
 export class AbstractsAdminModule { }

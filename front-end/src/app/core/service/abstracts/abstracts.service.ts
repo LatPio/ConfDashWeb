@@ -6,6 +6,7 @@ import {Observable} from "rxjs";
 import {AbstractOutResponseModel} from "./models/AbstractOutResponse-model";
 import {AbstractBlockDTOModel} from "./models/abstractBlockDTO-model";
 import {StatsResponseModel} from "./models/statsResponse-model";
+import {AbstractLightDTOModel} from "./models/AbstractLightDTO-model";
 
 @Injectable({
   providedIn: 'root'
@@ -36,9 +37,13 @@ export class AbstractsService {
   }
 
   getAbstractListAdmin(): Observable<Array<AbstractDTOModel>>{
-    // const headers = new HttpHeaders().set('Content-Type', 'application/json')
 
     return this.httpClient.get<Array<AbstractDTOModel>>(`${this.config.apiEndpoint}api/v1/admin/abstracts/list`,
+      {headers:this.httpHeaders, responseType: "json"})
+  }
+  getAbstractLightListAdmin(): Observable<Array<AbstractLightDTOModel>>{
+
+    return this.httpClient.get<Array<AbstractLightDTOModel>>(`${this.config.apiEndpoint}api/v1/admin/abstracts/approved/light-list?accepted=${true}`,
       {headers:this.httpHeaders, responseType: "json"})
   }
   getAbstractListAdminAccepted(accepted: boolean): Observable<Array<AbstractDTOModel>>{

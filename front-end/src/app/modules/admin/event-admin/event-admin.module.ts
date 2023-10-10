@@ -11,6 +11,20 @@ import { EventAdminListComponent } from './event-admin-list/event-admin-list.com
 import { EventAdminTypeListComponent } from './event-admin-type-list/event-admin-type-list.component';
 import { EventAdminCardComponent } from './event-admin-card/event-admin-card.component';
 import { EventAdminViewComponent } from './event-admin-view/event-admin-view.component';
+import {MatButtonModule} from "@angular/material/button";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatIconModule} from "@angular/material/icon";
+import {MatInputModule} from "@angular/material/input";
+import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatSortModule} from "@angular/material/sort";
+import {MatTableModule} from "@angular/material/table";
+import {SharedModule} from "../../shared/shared.module";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {NgxMatDatetimePickerModule} from "@angular-material-components/datetime-picker";
+import {LocalizationAdminModule} from "../localization-admin/localization-admin.module";
+import { EventAdminTypeListLightComponent } from './event-admin-type-list-light/event-admin-type-list-light.component';
+import {AbstractsAdminModule} from "../abstracts-admin/abstracts-admin.module";
 
 
 @NgModule({
@@ -23,11 +37,26 @@ import { EventAdminViewComponent } from './event-admin-view/event-admin-view.com
     EventAdminListComponent,
     EventAdminTypeListComponent,
     EventAdminCardComponent,
-    EventAdminViewComponent
+    EventAdminViewComponent,
+    EventAdminTypeListLightComponent
   ],
   imports: [
     CommonModule,
-    EventAdminRoutingModule
+    EventAdminRoutingModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatTableModule,
+    SharedModule,
+    FormsModule,
+    MatDatepickerModule,
+    NgxMatDatetimePickerModule,
+    ReactiveFormsModule,
+    LocalizationAdminModule,
+    AbstractsAdminModule
   ]
 })
 export class EventAdminModule { }

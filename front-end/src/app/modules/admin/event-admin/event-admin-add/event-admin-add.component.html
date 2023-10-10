@@ -1,1 +1,140 @@
-<p>event-admin-add works!</p>
+<div class="row">
+
+  <div class="col-3">
+    <h2>List of Registered Speak Hall:</h2>
+    <app-localization-admin-list-light
+      [localizationLightList]="localizationLightList"
+      (selectedRoom)="selectedRoom($event)"
+      (refresh)="getLocalizationLightList()"
+    >
+
+    </app-localization-admin-list-light>
+  </div>
+
+  <div class="col-3">
+    <h2>List of Events Type:</h2>
+    <app-event-admin-type-list-light
+      [eventTypeLightList]="eventTypeLightList"
+      (selectedEventType)="selectedType($event)"
+    >
+    </app-event-admin-type-list-light>
+  </div>
+
+  <div class="col-3">
+    <h2>List of Accepted Abstract:</h2>
+    <app-abstract-admin-accepted-list
+      [abstractAcceptedLightList]="abstractLightList"
+      (selectedAbstract)="selectedAbstractEmit($event)"
+    >
+    </app-abstract-admin-accepted-list>
+  </div>
+
+  <div class="col-3">
+    <div >
+      <h2>Provide Data for booking</h2>
+
+      <form [formGroup]="eventFrom" (ngSubmit)="saveEvent()">
+
+        <mat-form-field class="full-width">
+          <mat-label>Event Name</mat-label>
+          <input
+            type="number"
+            matInput
+            [formControlName]="'name'"
+          >
+          <mat-error *ngIf="eventFrom.hasError('required')">
+            Name is required
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+          <mat-label>abstractId</mat-label>
+          <input
+            [readonly]="true"
+
+            type="number"
+            matInput
+            [formControlName]="'abstractId'"
+          >
+          <mat-error *ngIf="eventFrom.hasError('required')">
+            Name is required
+          </mat-error>
+        </mat-form-field>
+
+
+
+        <mat-form-field class="full-width">
+          <mat-label>localizationName</mat-label>
+          <input
+            [readonly]="true"
+
+            type="text"
+            matInput
+            [formControlName]="'localizationName'"
+          >
+          <mat-error *ngIf="eventFrom.hasError('required')">
+            Name is required
+          </mat-error>
+        </mat-form-field>
+
+
+
+        <mat-form-field>
+          <mat-label>dateTimeOfEvent</mat-label>
+
+          <input
+            matInput
+            [ngxMatDatetimePicker]="picker"
+            placeholder="Choose a date"
+            [formControlName]="'dateTimeOfEvent'"
+          >
+          <mat-datepicker-toggle matIconSuffix [for]="$any(picker)"></mat-datepicker-toggle>
+
+          <ngx-mat-datetime-picker #picker [showSpinners]="true" [showSeconds]="false"
+                                   [stepHour]="1" [stepMinute]="1" [stepSecond]="1"
+                                   [touchUi]=false  [enableMeridian]="false"
+                                   [disableMinute]="false" [hideTime]="false">
+            <ngx-mat-datepicker-actions>
+              <button mat-button ngxMatDatepickerCancel>Cancel</button>
+              <button mat-raised-button color="primary" ngxMatDatepickerApply>Apply</button>
+            </ngx-mat-datepicker-actions>
+          </ngx-mat-datetime-picker>
+
+        </mat-form-field>
+
+
+
+
+
+        <div formGroupName="eventType">
+
+
+          <mat-form-field class="full-width">
+            <mat-label>Event Type</mat-label>
+            <input
+              [readonly]="true"
+              type="text"
+              matInput
+              [formControlName]="'name'"
+            >
+            <mat-error *ngIf="eventFrom.hasError('required')">
+              Coordinate is required
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+
+
+        <div style="padding-top: 20px;">
+          <button
+            mat-raised-button color="primary">Save</button>
+        </div>
+
+      </form>
+
+    </div>
+
+
+  </div>
+
+</div>

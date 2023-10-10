@@ -2,6 +2,7 @@ package com.flystonedev.abstracts.controller;
 
 import com.flystonedev.abstracts.DTO.AbstractBlockDTO;
 import com.flystonedev.abstracts.DTO.AbstractDTO;
+import com.flystonedev.abstracts.DTO.AbstractLightDTO;
 import com.flystonedev.abstracts.DTO.AbstractOutResponse;
 import com.flystonedev.abstracts.config.JwtConverter;
 import com.flystonedev.abstracts.model.StatsResponse;
@@ -49,6 +50,12 @@ public class AbstractAdminController {
     @GetMapping("/approved")
     public ResponseEntity<List<AbstractDTO>> listAccepted(@RequestParam Boolean accepted){
         return ResponseEntity.status(HttpStatus.OK).body(abstractService.abstractAdminDTOListAccepted(accepted));
+    }
+
+    @RolesAllowed({"ADMIN"})
+    @GetMapping("/approved/light-list")
+    public ResponseEntity<List<AbstractLightDTO>> lightListAccepted(@RequestParam Boolean accepted){
+        return ResponseEntity.status(HttpStatus.OK).body(abstractService.abstractAdminDTOLightListAccepted(accepted));
     }
     @RolesAllowed({"ADMIN"})
     @PutMapping
