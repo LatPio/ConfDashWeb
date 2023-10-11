@@ -45,24 +45,19 @@ public class EventEntityService {
     @Transactional
     public void createEventEntity(EventEntityDTO eventEntityDTO){
 
-//        AbstractOutResponse abstractOutResponse = abstractOutResponse(Integer.valueOf(eventEntityDTO.getAbstractId()));
-//        LocalizationOutResponse localizationOutResponse = localizationOutResponse(Integer.valueOf(eventEntityDTO.getLocalizationId()));
-
-
             EventEntity eventEntity = EventEntity.builder()
-//                    .name(abstractClient.abstractOutResponse.getAbstractTitle())
-                    .name(abstractClient.abstractOutResponse(Integer.valueOf(eventEntityDTO.getAbstractId())).getAbstractTitle())
+                    .name(eventEntityDTO.getName())
+                    .abstractName(abstractClient.abstractOutResponse(Integer.valueOf(eventEntityDTO.getAbstractId())).getAbstractTitle())
                     .abstractId(eventEntityDTO.getAbstractId())
                     .localizationId(eventEntityDTO.getLocalizationId())
-//                    .localizationName(localizationOutResponse.getRoom())
                     .localizationName(localizationClient.localizationOutResponse(Integer.valueOf(eventEntityDTO.getLocalizationId())).getRoom())
                     .eventType(eventTypeRepository.getReferenceById(eventEntityDTO.getEventType().getId()))
                     .dateTimeOfEvent(eventEntityDTO.getDateTimeOfEvent())
                     .build();
 
-            EventEntity saved = eventEntityRepository.save(eventEntity);
+        EventEntity saved = eventEntityRepository.save(eventEntity);
 
-            BookingRequest bookingRequest = BookingRequest.builder()
+        BookingRequest bookingRequest = BookingRequest.builder()
                     .eventIDData(saved.getId())
                     .dateStart(saved.getDateTimeOfEvent())
                     .localization(LocalizationDTO.builder().id(Integer.valueOf(saved.getLocalizationId())).build())
@@ -70,8 +65,10 @@ public class EventEntityService {
                     .timeConflict(saved.getEventType().isTimeConflict())
                     .locationConflict(saved.getEventType().isLocationConflict())
                     .build();
-//            createBookingsDTO(bookingRequest);
-            localizationClient.createBookingsDTO(bookingRequest);
+        BookingsDTO savedBooking = localizationClient.createBookingsDTO(bookingRequest);
+
+        saved.setBookingId(savedBooking.getId());
+        eventEntityRepository.save(saved);
 
 
     }

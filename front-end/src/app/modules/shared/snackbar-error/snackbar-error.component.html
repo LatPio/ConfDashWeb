@@ -1,5 +1,5 @@
 <span style="color: red" matSnackBarLabel>
-    Error: {{data}}
+    Error: {{data | json}}
 </span>
 <span matSnackBarActions>
   <button mat-button matSnackBarAction (click)="snackBarRef.dismissWithAction()">

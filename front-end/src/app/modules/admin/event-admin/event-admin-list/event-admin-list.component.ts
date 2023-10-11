@@ -12,7 +12,7 @@ import {EventEntityDTOModel} from "../../../../core/service/event/models/EventEn
 })
 export class EventAdminListComponent implements AfterViewInit ,OnInit{
 
-  displayedColumns: string[] = ['id', 'name', 'abstractId', 'localizationId', 'localizationName','eventType', 'dateTimeOfEvent','option'];
+  displayedColumns: string[] = ['id', 'name','abstractName', 'abstractId', 'localizationId', 'localizationName','eventType', 'dateTimeOfEvent','option'];
   dataSource = new MatTableDataSource<EventEntityDTOModel>();
   abstracts: Array<EventEntityDTOModel> = [];
   @ViewChild(MatPaginator) paginator: MatPaginator;

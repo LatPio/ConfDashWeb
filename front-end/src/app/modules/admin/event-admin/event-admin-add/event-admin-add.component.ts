@@ -73,8 +73,8 @@ export class EventAdminAddComponent implements OnInit{
 
   selectedType($event: EventTypeDTOModel) {
     this.selectedEventType = $event
-    this.eventFrom.get('eventType.id')?.setValue(this.selectedLocalization.id);
-    this.eventFrom.get('eventType.name')?.setValue(this.selectedLocalization.room);
+    this.eventFrom.get('eventType.id')?.setValue(this.selectedEventType.id);
+    this.eventFrom.get('eventType.name')?.setValue(this.selectedEventType.name);
 
   }
 
@@ -104,7 +104,15 @@ export class EventAdminAddComponent implements OnInit{
           this.location.back();
         },
         error: err => {
-          this.openSnackBarError(err.error.detail)
+          if(err.error.text === "Event created successfully"){
+            this.openSnackBar("Event created successfully")
+
+            this.location.back();
+          } else {
+
+            this.openSnackBarError(err.error.text)
+          }
+          // this.location.back();
         }
       }
     )
