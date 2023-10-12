@@ -5,9 +5,10 @@ export class EventEntityDTOModel{
   name: string;
   abstractName: string;
   abstractId: string;
-  localizationId: string;
+  localizationId: number;
   localizationName: string;
   eventType: EventTypeDTOModel;
   dateTimeOfEvent: Date;
+  bookingId: number;
 
 }

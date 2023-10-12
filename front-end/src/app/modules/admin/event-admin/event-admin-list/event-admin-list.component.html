@@ -32,6 +32,11 @@
       <td mat-cell *matCellDef="let row"> {{row.localizationId}} </td>
     </ng-container>
 
+    <ng-container matColumnDef="bookingId">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> bookingId </th>
+      <td mat-cell *matCellDef="let row"> {{row.bookingId}} </td>
+    </ng-container>
+
     <ng-container matColumnDef="localizationName">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Localization Name </th>
       <td mat-cell *matCellDef="let row"> {{row.localizationName}} </td>

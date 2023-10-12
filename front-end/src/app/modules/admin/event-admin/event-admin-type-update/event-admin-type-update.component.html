@@ -1,1 +1,80 @@
-<p>event-admin-type-update works!</p>
+<div class="row">
+
+
+  <div class="col-3">
+    <div >
+      <h2>Provide Data for booking</h2>
+
+      <form [formGroup]="eventTypeForm" (ngSubmit)="saveEventType()">
+
+        <mat-form-field class="full-width">
+          <mat-label>Event Type Name</mat-label>
+          <input
+            type="text"
+            matInput
+            [formControlName]="'name'"
+          >
+          <mat-error *ngIf="eventTypeForm.hasError('required')">
+            Name is required
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+          <mat-label>Length of Event</mat-label>
+          <input
+            type="number"
+            matInput
+            [formControlName]="'time'"
+          >
+          <mat-error *ngIf="eventTypeForm.hasError('required')">
+            Name is required
+          </mat-error>
+        </mat-form-field>
+
+
+
+        <mat-form-field class="full-width">
+          <mat-label>locationConflict</mat-label>
+          <input
+            type="text"
+            matInput
+            [formControlName]="'locationConflict'"
+          >
+          <mat-error *ngIf="eventTypeForm.hasError('required')">
+            Name is required
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+          <mat-label>timeConflict</mat-label>
+          <input
+            type="text"
+            matInput
+            [formControlName]="'timeConflict'"
+          >
+          <mat-error *ngIf="eventTypeForm.hasError('required')">
+            Name is required
+          </mat-error>
+        </mat-form-field>
+
+
+
+
+
+
+
+
+
+        <div style="padding-top: 20px;">
+          <button
+            mat-raised-button color="primary">Save</button>
+        </div>
+
+      </form>
+
+    </div>
+
+
+  </div>
+
+</div>

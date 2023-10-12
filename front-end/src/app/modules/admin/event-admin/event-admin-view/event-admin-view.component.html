@@ -1,1 +1,9 @@
-<p>event-admin-view works!</p>
+{{eventEntity.name}}
+
+<app-localization-card
+  [localizationId]="eventEntity.localizationId"
+></app-localization-card>
+<app-booking-card
+[bookingId]="eventEntity.bookingId">
+
+</app-booking-card>

@@ -36,6 +36,8 @@ import {MatNativeDateModule} from "@angular/material/core";
 import {NgxMatMomentModule} from "@angular-material-components/moment-adapter";
 import { LocalizationAdminListLightComponent } from './localization-admin-list-light/localization-admin-list-light.component';
 import {MatCheckboxModule} from "@angular/material/checkbox";
+import { LocalizationCardComponent } from './localization-card/localization-card.component';
+import { BookingCardComponent } from './booking-card/booking-card.component';
 
 
 @NgModule({
@@ -53,10 +55,14 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
     LocalizationAdminMapListComponent,
     MapImageViewComponent,
     MapImageUpdateComponent,
-    LocalizationAdminListLightComponent
+    LocalizationAdminListLightComponent,
+    LocalizationCardComponent,
+    BookingCardComponent
   ],
   exports: [
-    LocalizationAdminListLightComponent
+    LocalizationAdminListLightComponent,
+    LocalizationCardComponent,
+    BookingCardComponent
   ],
   imports: [
     CommonModule,
