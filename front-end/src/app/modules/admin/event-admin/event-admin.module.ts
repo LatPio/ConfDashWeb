@@ -25,6 +25,9 @@ import {NgxMatDatetimePickerModule} from "@angular-material-components/datetime-
 import {LocalizationAdminModule} from "../localization-admin/localization-admin.module";
 import { EventAdminTypeListLightComponent } from './event-admin-type-list-light/event-admin-type-list-light.component';
 import {AbstractsAdminModule} from "../abstracts-admin/abstracts-admin.module";
+import { EventSimpleViewCardComponent } from './event-simple-view-card/event-simple-view-card.component';
+import {MatCardModule} from "@angular/material/card";
+import { EventViewCardComponent } from './event-view-card/event-view-card.component';
 
 
 @NgModule({
@@ -38,25 +41,28 @@ import {AbstractsAdminModule} from "../abstracts-admin/abstracts-admin.module";
     EventAdminTypeListComponent,
     EventAdminCardComponent,
     EventAdminViewComponent,
-    EventAdminTypeListLightComponent
+    EventAdminTypeListLightComponent,
+    EventSimpleViewCardComponent,
+    EventViewCardComponent
   ],
-  imports: [
-    CommonModule,
-    EventAdminRoutingModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatInputModule,
-    MatPaginatorModule,
-    MatSortModule,
-    MatTableModule,
-    SharedModule,
-    FormsModule,
-    MatDatepickerModule,
-    NgxMatDatetimePickerModule,
-    ReactiveFormsModule,
-    LocalizationAdminModule,
-    AbstractsAdminModule
-  ]
+    imports: [
+        CommonModule,
+        EventAdminRoutingModule,
+        MatButtonModule,
+        MatFormFieldModule,
+        MatIconModule,
+        MatInputModule,
+        MatPaginatorModule,
+        MatSortModule,
+        MatTableModule,
+        SharedModule,
+        FormsModule,
+        MatDatepickerModule,
+        NgxMatDatetimePickerModule,
+        ReactiveFormsModule,
+        LocalizationAdminModule,
+        AbstractsAdminModule,
+        MatCardModule
+    ]
 })
 export class EventAdminModule { }

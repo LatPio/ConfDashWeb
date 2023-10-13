@@ -4,7 +4,7 @@ export class EventEntityDTOModel{
   id: number;
   name: string;
   abstractName: string;
-  abstractId: string;
+  abstractId: number;
   localizationId: number;
   localizationName: string;
   eventType: EventTypeDTOModel;

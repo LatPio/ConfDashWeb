@@ -1,9 +1,21 @@
-{{eventEntity.name}}
+<h1>
+  Code Name for Event: {{eventEntity.name}}
+</h1>
+<h2>Simple View of Event:</h2>
 
-<app-localization-card
-  [localizationId]="eventEntity.localizationId"
-></app-localization-card>
+<app-event-simple-view-card
+[eventID]="eventEntity.id">
+
+</app-event-simple-view-card>
+
+<h2>View of Event:</h2>
+<app-event-view-card
+  [eventID]="evenId"
+></app-event-view-card>
+
+<h2>Booking Data:</h2>
 <app-booking-card
 [bookingId]="eventEntity.bookingId">
 
 </app-booking-card>
+

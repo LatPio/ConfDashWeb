@@ -1,0 +1,25 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>{{eventData.eventType.name}}: {{eventData.dateTimeOfEvent | date: 'dd-MM-yyyy HH:mm'}}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="row">
+      <div class="col">
+        <app-abstract-card-view
+          [abstractID]="eventData.abstractId"
+          [showButtons]="false"
+          [widthOfCard]="1000"
+        ></app-abstract-card-view>
+      </div>
+      <div  class="col button-list">
+        <button mat-button>See Speaker</button>
+
+        <button mat-button>View Abstract</button>
+        <button mat-button>Find Where</button>
+        <button mat-button>Add to My Schedule</button>
+      </div>
+    </div>
+
+  </mat-card-content>
+
+</mat-card>

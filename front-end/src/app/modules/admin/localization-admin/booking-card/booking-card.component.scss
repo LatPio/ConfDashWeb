@@ -1,0 +1,31 @@
+.map-image{
+  max-height: 400px;
+  max-width: 400px;
+  height:auto;
+  width:auto;
+}
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.item {
+  position:relative;
+  display:inline-block;
+}
+.notify-badge{
+
+  position: absolute;
+
+}
+.card{
+  max-height: 600px;
+  width: 400px;
+
+}
+
+.pin-style{
+  color: darkred;
+  transform: scale(1);
+}

@@ -1,0 +1,17 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>{{eventData.abstractName}}</mat-card-title>
+    <mat-card-subtitle>{{eventData.abstractId}}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <h3>About <strong>{{eventData.eventType.name}}</strong> you can find more at
+      <strong>{{eventData.dateTimeOfEvent | date: 'dd-MM-yyyy'}} </strong> and will be held <strong>{{eventData.localizationName}}</strong> </h3>
+    <h3><strong>Start At:</strong> {{eventData.dateTimeOfEvent | date: 'HH:mm'}}, <strong>ends within about:</strong> {{eventData.eventType.time}} minutes </h3>
+
+  </mat-card-content>
+  <mat-card-actions align="end">
+    <button mat-button>View Abstract</button>
+    <button mat-button>Find Where</button>
+    <button mat-button>Add to My Schedule</button>
+  </mat-card-actions>
+</mat-card>
