@@ -1,6 +1,7 @@
 package com.flystonedev.event.controller;
 
 import com.flystonedev.event.DTO.EventEntityDTO;
+import com.flystonedev.event.DTO.StatisticResponse;
 import com.flystonedev.event.service.EventEntityService;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.github.resilience4j.retry.annotation.Retry;
@@ -60,6 +61,13 @@ public class EventEntityController {
         eventEntityService.delete(id);
         return new ResponseEntity(HttpStatus.OK);
     }
+
+    @RolesAllowed({"ADMIN"})
+    @GetMapping("/stats")
+    public ResponseEntity<StatisticResponse> getStats(){
+        return ResponseEntity.status(HttpStatus.OK).body(eventEntityService.statistic());
+    }
+
 //todo: show event field for repository to filter events for user to get, endpoint for activation these events single as well from list
 
 }

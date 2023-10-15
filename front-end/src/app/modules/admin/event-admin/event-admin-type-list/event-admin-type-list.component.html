@@ -41,7 +41,7 @@
           <button mat-raised-button [routerLink]="['/admin/event/type/update/', row.id]" class="btn">
             <mat-icon>edit_square</mat-icon> Edit
           </button>
-          <app-delete-button [name]="row.name" (event)="deleteEventType(row)"></app-delete-button>
+          <app-delete-button [name]="row.name" (event)="deleteEventType(row.id)"></app-delete-button>
 
         </div>
 

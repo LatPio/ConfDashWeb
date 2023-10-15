@@ -36,7 +36,7 @@ public class EventType {
     private boolean locationConflict;
     private boolean timeConflict;
 
-    @OneToMany(mappedBy = "eventType",cascade = CascadeType.ALL, orphanRemoval = false)
+    @OneToMany(mappedBy = "eventType")
     private Collection<EventEntity> eventEntity;
 
     @CreationTimestamp

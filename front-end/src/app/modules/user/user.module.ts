@@ -8,12 +8,14 @@ import {MatSidenavModule} from "@angular/material/sidenav";
 import { SideNavUserComponent } from './side-nav-user/side-nav-user.component';
 import {MatIconModule} from "@angular/material/icon";
 import {MatListModule} from "@angular/material/list";
+import { UserAbstractComponent } from './user-abstract/user-abstract.component';
 
 
 @NgModule({
   declarations: [
     UserComponent,
-    SideNavUserComponent
+    SideNavUserComponent,
+    UserAbstractComponent
   ],
   imports: [
     CommonModule,

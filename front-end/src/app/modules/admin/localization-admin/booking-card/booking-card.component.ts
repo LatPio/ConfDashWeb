@@ -1,6 +1,4 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {LocalizationDTOModel} from "../../../../core/service/localization/models/LocalizationDTOModel";
-import {LocalizationService} from "../../../../core/service/localization/localization.service";
 import {BookingDTOModel} from "../../../../core/service/localization/models/BookingDTO-model";
 import {BookingService} from "../../../../core/service/localization/booking.service";
 

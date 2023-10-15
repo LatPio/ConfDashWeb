@@ -1,12 +1,10 @@
 package com.flystonedev.event.service;
 
-import com.flystonedev.abstracts.DTO.AbstractOutResponse;
 import com.flystonedev.event.DTO.EventEntityDTO;
+import com.flystonedev.event.DTO.StatisticResponse;
 import com.flystonedev.event.clients.AbstractClient;
 import com.flystonedev.event.clients.LocalizationClient;
-import com.flystonedev.event.exeption.ClientCallException;
 import com.flystonedev.event.exeption.EntityNotFoundException;
-import com.flystonedev.event.exeption.config.GlobalErrorCode;
 import com.flystonedev.event.mapper.EventEntityMapper;
 import com.flystonedev.event.mapper.EventTypeMapper;
 import com.flystonedev.event.model.EventEntity;
@@ -15,15 +13,11 @@ import com.flystonedev.event.repository.EventTypeRepository;
 import com.flystonedev.localization.DTO.BookingRequest;
 import com.flystonedev.localization.DTO.BookingsDTO;
 import com.flystonedev.localization.DTO.LocalizationDTO;
-import com.flystonedev.localization.DTO.LocalizationOutResponse;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.mapstruct.factory.Mappers;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Mono;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -93,6 +87,11 @@ public class EventEntityService {
 
     public void delete(Integer id){
         eventEntityRepository.deleteById(id);
+    }
+
+    public StatisticResponse statistic(){
+        return new StatisticResponse(eventEntityRepository.count(), eventTypeRepository.count());
+
     }
 
 

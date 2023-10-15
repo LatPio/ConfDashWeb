@@ -6,6 +6,9 @@ import {MatSort} from "@angular/material/sort";
 import {EventEntityService} from "../../../../core/service/event/event-entity.service";
 import {EventTypeService} from "../../../../core/service/event/event-type.service";
 import {EventTypeDTOModel} from "../../../../core/service/event/models/EventTypeDTO-model";
+import {SnackbarErrorComponent} from "../../../shared/snackbar-error/snackbar-error.component";
+import {SnackbarMessageComponent} from "../../../shared/snackbar-message/snackbar-message.component";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-event-admin-type-list',
@@ -30,7 +33,9 @@ export class EventAdminTypeListComponent implements OnInit, AfterViewInit{
 
 
   constructor(
-    private eventTypeService: EventTypeService
+    private eventTypeService: EventTypeService,
+    private _snackBar: MatSnackBar
+
   ) {
   }
 
@@ -49,9 +54,31 @@ export class EventAdminTypeListComponent implements OnInit, AfterViewInit{
     })
   }
 
+  openSnackBarError(message: string) {
+    this._snackBar.openFromComponent(SnackbarErrorComponent, {
+      data: message,
+    });
+  }
+
+  openSnackBar(message: string) {
+    this._snackBar.openFromComponent(SnackbarMessageComponent, {
+      data: message,
+    });
+  }
+
   deleteEventType(eventTypeId: number){
-    this.eventTypeService.deleteEventType(eventTypeId).subscribe(value => {
-      this.getEventType();
-    })
+    this.eventTypeService.deleteEventType(eventTypeId).subscribe(
+      {
+        next: ()=>{
+          this.openSnackBar("Event Type Deleted Successfully!")
+
+          this.getEventType();
+        },
+        error: err => {
+          this.openSnackBarError("This Event Type is In USE")
+
+        }
+      }
+    )
   }
 }

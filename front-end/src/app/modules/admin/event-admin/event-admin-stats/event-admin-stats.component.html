@@ -1,1 +1,65 @@
-<p>event-admin-stats works!</p>
+<div class="card-group-view">
+
+  <br>
+  <mat-card class="card-stats">
+    <mat-card-header>
+      <mat-card-title>Registered Events</mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="content-box">
+      <div style="text-align: center">
+        <div class="text-size">
+          <mat-icon style="transform: scale(2)">event</mat-icon>
+          {{eventStatistic.eventsCount}}
+        </div>
+      </div>
+
+    </mat-card-content>
+    <mat-card-actions align="end">
+      <button mat-button routerLink="../add">Add</button>
+      <button mat-button routerLink="../list">See</button>
+
+    </mat-card-actions>
+  </mat-card>
+  <br>
+  <mat-card class="card-stats">
+    <mat-card-header>
+      <mat-card-title>Type of Events</mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="content-box">
+      <div style="text-align: center">
+        <div class="text-size">
+          <mat-icon style="transform: scale(2)" class="color-icon-green">theater_comedy</mat-icon>
+          {{eventStatistic.eventTypeCounts}}
+        </div>
+      </div>
+
+    </mat-card-content>
+    <mat-card-actions align="end">
+      <button mat-button routerLink="../type/add">Add</button>
+
+      <button mat-button routerLink="../type/list">See</button>
+
+    </mat-card-actions>
+  </mat-card>
+  <br>
+
+  <mat-card class="card-stats">
+    <mat-card-header>
+      <mat-card-title>Download</mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="content-box">
+      <div style="text-align: center">
+        <div class="text-size">
+          <mat-icon style="transform: scale(2)" >download</mat-icon>
+          CSV
+        </div>
+
+      </div>
+    </mat-card-content>
+    <mat-card-actions align="end">
+      <!--          <button mat-button>SHARE</button>-->
+    </mat-card-actions>
+  </mat-card>
+  <br>
+</div>
+
