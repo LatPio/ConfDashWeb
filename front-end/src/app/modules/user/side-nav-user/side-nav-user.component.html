@@ -4,17 +4,24 @@
     <mat-icon>home</mat-icon> <span>Home</span>
   </a>
 
-  <a mat-list-item  routerLink="abstracts" (click)="onSidenavClose()">
+  <a mat-list-item  routerLink="abstracts/list" (click)="onSidenavClose()">
     <mat-icon>article</mat-icon> <span>Abstracts</span>
   </a>
-  <a mat-list-item  routerLink="customer" (click)="onSidenavClose()">
+  <a mat-list-item  routerLink="participants" (click)="onSidenavClose()">
     <mat-icon>groups</mat-icon> <span>Participants</span>
   </a>
-  <a mat-list-item  routerLink="" (click)="onSidenavClose()">
+  <a mat-list-item  routerLink="booked" (click)="onSidenavClose()">
     <mat-icon>event</mat-icon> <span>Saved Presentation</span>
   </a>
-  <a mat-list-item  routerLink="" (click)="onSidenavClose()">
+  <a mat-list-item  routerLink="localization" (click)="onSidenavClose()">
     <mat-icon>signpost</mat-icon> <span>Localization</span>
+  </a>
+  <br>
+  <a mat-list-item  routerLink="participants/profile" (click)="onSidenavClose()">
+    <mat-icon>account_circle</mat-icon> <span>My Profile</span>
+  </a>
+  <a mat-list-item  routerLink="abstracts/panel" (click)="onSidenavClose()">
+    <mat-icon>history_edu</mat-icon> <span>My Abstracts</span>
   </a>
 
 

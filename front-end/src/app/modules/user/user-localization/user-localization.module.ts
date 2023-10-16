@@ -5,13 +5,15 @@ import { UserLocalizationRoutingModule } from './user-localization-routing.modul
 import { UserLocalizationComponent } from './user-localization.component';
 import { UserMapListComponent } from './user-map-list/user-map-list.component';
 import { UserLocalizationListComponent } from './user-localization-list/user-localization-list.component';
+import { UserLocalziationViewComponent } from './user-localziation-view/user-localziation-view.component';
 
 
 @NgModule({
   declarations: [
     UserLocalizationComponent,
     UserMapListComponent,
-    UserLocalizationListComponent
+    UserLocalizationListComponent,
+    UserLocalziationViewComponent
   ],
   imports: [
     CommonModule,

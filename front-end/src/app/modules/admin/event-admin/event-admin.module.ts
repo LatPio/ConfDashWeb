@@ -31,20 +31,23 @@ import { EventViewCardComponent } from './event-view-card/event-view-card.compon
 
 
 @NgModule({
-  declarations: [
-    EventAdminStatsComponent,
-    EventAdminAddComponent,
-    EventAdminTypeAddComponent,
-    EventAdminTypeUpdateComponent,
-    EventAdminUpdateComponent,
-    EventAdminListComponent,
-    EventAdminTypeListComponent,
-    EventAdminCardComponent,
-    EventAdminViewComponent,
-    EventAdminTypeListLightComponent,
-    EventSimpleViewCardComponent,
-    EventViewCardComponent
-  ],
+    declarations: [
+        EventAdminStatsComponent,
+        EventAdminAddComponent,
+        EventAdminTypeAddComponent,
+        EventAdminTypeUpdateComponent,
+        EventAdminUpdateComponent,
+        EventAdminListComponent,
+        EventAdminTypeListComponent,
+        EventAdminCardComponent,
+        EventAdminViewComponent,
+        EventAdminTypeListLightComponent,
+        EventSimpleViewCardComponent,
+        EventViewCardComponent
+    ],
+    exports: [
+        EventViewCardComponent
+    ],
     imports: [
         CommonModule,
         EventAdminRoutingModule,

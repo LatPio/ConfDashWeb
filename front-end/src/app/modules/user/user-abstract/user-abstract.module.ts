@@ -8,6 +8,15 @@ import { UserAbstractGlobalListComponent } from './user-abstract-global-list/use
 import { UserAbstractGlobalViewComponent } from './user-abstract-global-view/user-abstract-global-view.component';
 import { UserAbstractViewComponent } from './user-abstract-view/user-abstract-view.component';
 import { UserAbstractPanelComponent } from './user-abstract-panel/user-abstract-panel.component';
+import {MatButtonModule} from "@angular/material/button";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatIconModule} from "@angular/material/icon";
+import {MatInputModule} from "@angular/material/input";
+import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatSortModule} from "@angular/material/sort";
+import {MatTableModule} from "@angular/material/table";
+import {SharedModule} from "../../shared/shared.module";
+import {EventAdminModule} from "../../admin/event-admin/event-admin.module";
 
 
 @NgModule({
@@ -21,7 +30,16 @@ import { UserAbstractPanelComponent } from './user-abstract-panel/user-abstract-
   ],
   imports: [
     CommonModule,
-    UserAbstractRoutingModule
+    UserAbstractRoutingModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatTableModule,
+    SharedModule,
+    EventAdminModule
   ]
 })
 export class UserAbstractModule { }
