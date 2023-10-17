@@ -31,9 +31,15 @@ public class CustomerController {
     }
 
     @RolesAllowed({"USER"})
-    @GetMapping
+    @RequestMapping(method = RequestMethod.GET ,params = {"id"})
     public ResponseEntity<CustomerDTO> getUser(@RequestParam Integer id){
         return ResponseEntity.status(HttpStatus.OK).body(customerService.getUser(id));
+    }
+
+    @RolesAllowed({"USER"})
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<CustomerDTO> getUser(){
+        return ResponseEntity.status(HttpStatus.OK).body(customerService.getUserByAuthId());
     }
 
     @RolesAllowed({"USER"})

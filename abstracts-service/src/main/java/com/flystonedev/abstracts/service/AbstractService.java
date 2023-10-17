@@ -5,6 +5,7 @@ import com.flystonedev.abstracts.DTO.AbstractBlockDTO;
 import com.flystonedev.abstracts.DTO.AbstractDTO;
 import com.flystonedev.abstracts.DTO.AbstractLightDTO;
 import com.flystonedev.abstracts.DTO.AbstractOutResponse;
+import com.flystonedev.abstracts.clients.CustomerClient;
 import com.flystonedev.abstracts.config.JwtConverter;
 import com.flystonedev.abstracts.exeption.AbstractEditionBlockedException;
 import com.flystonedev.abstracts.exeption.EntityNotFoundException;
@@ -38,21 +39,24 @@ public class AbstractService {
     private final AbstractBlockMapper abstractBlockMapper = Mappers.getMapper(AbstractBlockMapper.class);
     private final AbstractSimpleMapper abstractSimpleMapper = Mappers.getMapper(AbstractSimpleMapper.class);
 
+    private final CustomerClient customerClient;
     /*
     *
     * !!!!!!!!! USER SERVICE METHODS !!!!!!!!
     *
     * */
-
+    @Transactional
     public AbstractDTO createUserAbstract(AbstractDTO abstractDTO){
         AbstractsEntity abstracts = AbstractsEntity.builder()
                 .abstractTitle(abstractDTO.getAbstractTitle())
                 .body(abstractDTO.getBody())
                 .affiliation(abstractDTO.getAffiliation())
-                .presenterId(abstractDTO.getPresenterId())
                 .authors(abstractDTO.getAuthors())
-                .ownerId(abstractDTO.getOwnerId()) //todo from customer get user id
+//                .ownerId(abstractDTO.getOwnerId()) //todo from customer get user id
+
+                .ownerId(customerClient.getCustomer().getId()) //todo from customer get user id
                 .authId(jwtConverter.getKeycloakUserID())
+                .accepted(false)
                 .build();
         abstractRepository.save(abstracts);
         //todo files?
@@ -123,7 +127,6 @@ public class AbstractService {
                 .affiliation(abstractDTO.getAffiliation())
                 .authors(abstractDTO.getAuthors())
                 .ownerId(abstractDTO.getOwnerId())
-                .presenterId(abstractDTO.getPresenterId())
                 .authId(abstractDTO.getAuthId())
                 .build();
         abstractRepository.save(abstracts);

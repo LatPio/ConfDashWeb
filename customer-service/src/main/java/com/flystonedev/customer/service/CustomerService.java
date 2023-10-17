@@ -93,6 +93,10 @@ public class CustomerService {
     public CustomerDTO getUser(Integer id){
         return customerRepository.findCustomerByIdAndAuthID(id, jwtConverter.getKeycloakUserID()).map(customerMapper::map).orElseThrow(EntityNotFoundException::new);
     }
+
+    public CustomerDTO getUserByAuthId(){
+        return customerRepository.findCustomerByAuthID(jwtConverter.getKeycloakUserID()).map(customerMapper::map).orElseThrow(EntityNotFoundException::new);
+    }
     public CustomerDTO updateUser(CustomerDTO customerDTO){
         Customer exist = customerMapper.map(getUser(customerDTO.getId()));
         if (exist == null) {

@@ -17,6 +17,9 @@ import {MatSortModule} from "@angular/material/sort";
 import {MatTableModule} from "@angular/material/table";
 import {SharedModule} from "../../shared/shared.module";
 import {EventAdminModule} from "../../admin/event-admin/event-admin.module";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {NgxSummernoteModule} from "ngx-summernote";
+import {MatDividerModule} from "@angular/material/divider";
 
 
 @NgModule({
@@ -39,7 +42,11 @@ import {EventAdminModule} from "../../admin/event-admin/event-admin.module";
     MatSortModule,
     MatTableModule,
     SharedModule,
-    EventAdminModule
+    EventAdminModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgxSummernoteModule,
+    MatDividerModule
   ]
 })
 export class UserAbstractModule { }

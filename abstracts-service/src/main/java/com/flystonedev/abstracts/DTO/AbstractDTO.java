@@ -1,6 +1,5 @@
 package com.flystonedev.abstracts.DTO;
 
-import com.flystonedev.abstracts.model.AttachmentFile;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,7 +17,6 @@ public class AbstractDTO {
     private String body;
     private String authors;
     private String affiliation;
-    private Integer presenterId;
     private Integer ownerId;
     private String authId;
     private boolean accepted;

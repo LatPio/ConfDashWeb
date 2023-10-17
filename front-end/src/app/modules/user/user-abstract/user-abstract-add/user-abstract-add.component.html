@@ -1,1 +1,66 @@
-<p>user-abstract-add works!</p>
+<form [formGroup]="abstractForm" (ngSubmit)="saveAbstract()">
+  <mat-form-field class="full-width">
+    <mat-label>Abstract Title</mat-label>
+    <input
+      type="text"
+      matInput
+      [formControlName]="'abstractTitle'"
+      placeholder="Ex. Research about ....">
+    <mat-error *ngIf="abstractForm.hasError('required')">
+      Name is required
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <mat-label>Authors</mat-label>
+    <input
+      type="text"
+      matInput
+      [formControlName]="'authors'"
+      placeholder="Ex. Research about ....">
+    <mat-error *ngIf="abstractForm.hasError('required')">
+      Name is required
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <mat-label>Affiliation</mat-label>
+    <input
+      type="text"
+      matInput
+      [formControlName]="'affiliation'"
+      placeholder="Ex. Research about ....">
+    <mat-error *ngIf="abstractForm.hasError('required')">
+      Name is required
+    </mat-error>
+  </mat-form-field>
+
+
+  <div>Abstract Content:</div>
+  <div [ngxSummernote]="config" [formControlName]="'body'"></div>
+
+
+
+
+
+
+  <!--  <mat-form-field class="full-width">-->
+  <!--    <mat-label>Accepted</mat-label>-->
+  <!--    <input-->
+  <!--      type="text"-->
+  <!--      matInput-->
+  <!--      [formControlName]="'accepted'"-->
+  <!--      placeholder="Ex. Research about ....">-->
+  <!--    <mat-error *ngIf="abstractForm.hasError('required')">-->
+  <!--      Name is required-->
+  <!--    </mat-error>-->
+  <!--  </mat-form-field>-->
+
+
+
+  <div style="padding-top: 20px;">
+    <button
+      mat-raised-button color="primary">Save</button>
+  </div>
+
+</form>

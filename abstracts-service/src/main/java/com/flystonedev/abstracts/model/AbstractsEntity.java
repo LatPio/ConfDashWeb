@@ -36,7 +36,6 @@ public class AbstractsEntity {
     private String body;
     private String authors;
     private String affiliation;
-    private Integer presenterId;
     private Integer ownerId;
     @Column(nullable = false, name = "AuthId")
     private String authId;
