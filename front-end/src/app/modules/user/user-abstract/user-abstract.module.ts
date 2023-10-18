@@ -20,6 +20,9 @@ import {EventAdminModule} from "../../admin/event-admin/event-admin.module";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {NgxSummernoteModule} from "ngx-summernote";
 import {MatDividerModule} from "@angular/material/divider";
+import {MatCardModule} from "@angular/material/card";
+import {AbstractsAdminModule} from "../../admin/abstracts-admin/abstracts-admin.module";
+import {MatCheckboxModule} from "@angular/material/checkbox";
 
 
 @NgModule({
@@ -46,7 +49,10 @@ import {MatDividerModule} from "@angular/material/divider";
     FormsModule,
     ReactiveFormsModule,
     NgxSummernoteModule,
-    MatDividerModule
+    MatDividerModule,
+    MatCardModule,
+    AbstractsAdminModule,
+    MatCheckboxModule
   ]
 })
 export class UserAbstractModule { }

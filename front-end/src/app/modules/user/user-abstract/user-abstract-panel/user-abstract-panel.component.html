@@ -9,3 +9,42 @@
 </section>
 <mat-divider></mat-divider>
 
+<h1>List of My Abstract:</h1>
+<div class="leyout col-12">
+  <div *ngFor="let abstract of abstractUsersList"  style="display:flex; flex-direction: row">
+
+      <app-abstract-card-view
+        [showButtons]="false"
+        [abstract]="abstract">
+      </app-abstract-card-view>
+
+    <mat-card>
+
+      <mat-card-content>
+        <div *ngIf="!abstract.accepted">
+          <h1>Options:</h1>
+          <button mat-raised-button [routerLink]="['/user/abstracts/edit/', abstract.id ]">
+            <mat-icon>edit_square</mat-icon> Edit
+          </button>
+          <app-abstract-attachment-file-add-button
+            [abstract]="abstract"
+            (event)="refreshData()"
+          ></app-abstract-attachment-file-add-button>
+
+          <app-delete-button  [name]="abstract.abstractTitle" (event)="deleteAbstract(abstract)"></app-delete-button>
+          <h2>Comments:</h2>
+          <div>{{abstract.comments}}</div>
+          <h2>{{abstract.accepted? '':'Abstract is NOT accepted'}}</h2>
+        </div>
+        <div *ngIf="abstract.accepted">
+          <h1>Abstract is Accepted</h1>
+        </div>
+
+
+      </mat-card-content>
+
+    </mat-card>
+
+  </div>
+</div>
+

@@ -88,6 +88,7 @@
   <mat-form-field class="full-width">
     <mat-label>AUTH ID</mat-label>
     <input
+
       type="text"
       matInput
       [formControlName]="'authId'"
@@ -96,20 +97,16 @@
       Name is required
     </mat-error>
   </mat-form-field>
+  <mat-form-field class="full-width">
+    <mat-label>comments</mat-label>
+    <input
+      type="text"
+      matInput
+      [formControlName]="'comments'"
+      placeholder="Describe What to Change">
 
-<!--  <mat-form-field class="full-width">-->
-<!--    <mat-label>Accepted</mat-label>-->
-<!--    <mat-radio-button [formControlName]="'accepted'">Accepted</mat-radio-button>-->
+  </mat-form-field>
 
-<!--&lt;!&ndash;    <input&ndash;&gt;-->
-<!--&lt;!&ndash;      type="text"&ndash;&gt;-->
-<!--&lt;!&ndash;      matInput&ndash;&gt;-->
-<!--&lt;!&ndash;      [formControlName]="'accepted'"&ndash;&gt;-->
-<!--&lt;!&ndash;      placeholder="Ex. Research about ....">&ndash;&gt;-->
-<!--    <mat-error *ngIf="abstractForm.hasError('required')">-->
-<!--      Name is required-->
-<!--    </mat-error>-->
-<!--  </mat-form-field>-->
   <p><mat-checkbox color="primary" [formControlName]="'accepted'">Accepted</mat-checkbox></p>
 
 

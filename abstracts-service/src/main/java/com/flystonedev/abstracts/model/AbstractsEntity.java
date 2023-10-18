@@ -40,6 +40,8 @@ public class AbstractsEntity {
     @Column(nullable = false, name = "AuthId")
     private String authId;
     private boolean accepted;
+    private String comments;
+
 
     @OneToMany(mappedBy = "abstractsEntity", orphanRemoval = true)
     private List<AttachmentFile> files;

@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {UserAbstractModule} from "./user-abstract.module";
 import {UserAbstractAddComponent} from "./user-abstract-add/user-abstract-add.component";
 import {UserAbstractEditComponent} from "./user-abstract-edit/user-abstract-edit.component";
 import {UserAbstractViewComponent} from "./user-abstract-view/user-abstract-view.component";
@@ -14,7 +13,7 @@ const routes: Routes = [
   component: UserAbstractComponent,
   children:[
     {path: 'add', component: UserAbstractAddComponent},
-    {path: 'edit', component: UserAbstractEditComponent},
+    {path: 'edit/:abstractID', component: UserAbstractEditComponent},
     {path: 'view', component: UserAbstractViewComponent},
     {path: 'panel', component: UserAbstractPanelComponent},
     {path: 'list', component: UserAbstractGlobalListComponent},

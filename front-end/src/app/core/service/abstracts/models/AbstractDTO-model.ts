@@ -12,6 +12,8 @@ export class AbstractDTOModel{
   authId: string;
   accepted: boolean;
   files: AttachmentFileDTOModel[];
+  comments: string;
+
 
 }
 

@@ -17,7 +17,7 @@ export class AbstractAdminListComponent implements AfterViewInit ,OnInit{
     this.dataSource.sort = this.sort;
   }
 
-  displayedColumns: string[] = ['id', 'abstractTitle', 'authors','affiliation', 'presenterId', 'ownerId','authId', 'accepted','files','option'];
+  displayedColumns: string[] = ['id', 'abstractTitle', 'authors','affiliation', 'ownerId','authId', 'accepted','files','option'];
   dataSource = new MatTableDataSource<AbstractDTOModel>();
   abstracts: Array<AbstractDTOModel> = [];
   @ViewChild(MatPaginator) paginator: MatPaginator;

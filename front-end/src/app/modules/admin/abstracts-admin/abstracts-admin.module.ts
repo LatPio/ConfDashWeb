@@ -48,9 +48,10 @@ import { AbstractAdminAcceptedListComponent } from './abstract-admin-accepted-li
     AbstractAdminAcceptedListComponent
 
   ],
-  exports: [
-    AbstractAdminAcceptedListComponent
-  ],
+    exports: [
+        AbstractAdminAcceptedListComponent,
+        AbstractAttachmentFileAddButtonComponent
+    ],
   imports: [
     CommonModule,
     AbstractsAdminRoutingModule,

@@ -21,4 +21,5 @@ public class AbstractDTO {
     private String authId;
     private boolean accepted;
     private List<AttachmentFileDTO> files;
+    private String comments;
 }

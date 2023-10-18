@@ -19,5 +19,7 @@ public class AbstractLightDTO {
     private Integer presenterId;
     private Integer ownerId;
     private String authId;
+    private String comments;
+
     private boolean accepted;
 }

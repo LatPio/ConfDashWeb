@@ -8,4 +8,5 @@ export class AbstractLightDTOModel{
   ownerId: number;
   authId: string;
   accepted: boolean;
+  comments: string;
 }
