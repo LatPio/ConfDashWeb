@@ -5,6 +5,7 @@ import {Observable} from "rxjs";
 import {AttachmentFileDTOModel} from "./models/AttachmentFileDTO-model";
 import {AttachmentFileAdminRequestModel} from "./models/AttachmentFileAdminRequest-model";
 import {AttachmentFileResponseModel} from "./models/AttachmentFileResponse-model";
+import {AttachmentFileUserRequestModel} from "./models/AttachmentFileUserRequest-model";
 
 @Injectable({
   providedIn: 'root'
@@ -44,6 +45,35 @@ export class AbstractsAttachmentFileService {
 
   deleteFile(fileId: number){
     return this.httpClient.delete(`${this.config.apiEndpoint}api/v1/admin/attachment_file?id=${fileId}`)
+  }
+
+
+  postSaveFileUser(fileUpload:File, attachesFileRequest: AttachmentFileUserRequestModel):Observable<AttachmentFileDTOModel>{
+    const formData: FormData = new FormData();
+
+    formData.append("file", fileUpload);
+
+    const jsonData = new Blob([JSON.stringify(attachesFileRequest)], {type: "application/json",});
+
+    formData.append("data", jsonData);
+    return this.httpClient.post<AttachmentFileDTOModel>(`${this.config.apiEndpoint}api/v1/user/attachment_file`, formData);
+  }
+
+
+  getFileUser(fileId: number) :Observable<AttachmentFileDTOModel>{
+    return this.httpClient.get<AttachmentFileDTOModel>(`${this.config.apiEndpoint}api/v1/user/attachment_file?id=${fileId}`)
+  }
+
+  getDownloadFileUser(fileId: number): Observable<Blob>{
+    return this.httpClient.get<Blob>(`${this.config.apiEndpoint}api/v1/user/attachment_file/file/${fileId}`)
+  }
+
+  getListOfAllFilesUser():Observable<Array<AttachmentFileResponseModel>>{
+    return this.httpClient.get<Array<AttachmentFileResponseModel>>(`${this.config.apiEndpoint}api/v1/user/attachment_file/list`)
+  }
+
+  deleteFileUser(fileId: number){
+    return this.httpClient.delete(`${this.config.apiEndpoint}api/v1/user/attachment_file?id=${fileId}`)
   }
 
 

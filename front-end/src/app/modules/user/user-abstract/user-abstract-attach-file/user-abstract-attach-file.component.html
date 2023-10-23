@@ -1,0 +1,20 @@
+<h2 mat-dialog-title>Attach: {{data.role}} to Abstract</h2>
+<mat-dialog-content>
+  <form [formGroup]="fileForm" (ngSubmit)="addFile()">
+
+
+    <input class="form-control" type="file"
+           (change)="onChange($event)">
+
+    <div style="padding-top: 20px;">
+      <button
+        mat-raised-button color="primary">Save</button>
+    </div>
+  </form>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancelClick()">Cancel</button>
+  <!--  <button mat-button color="warn" (click)="onDeleteClick()">Delete</button>-->
+</mat-dialog-actions>

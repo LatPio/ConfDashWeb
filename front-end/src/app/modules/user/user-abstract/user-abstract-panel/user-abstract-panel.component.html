@@ -26,10 +26,17 @@
           <button mat-raised-button [routerLink]="['/user/abstracts/edit/', abstract.id ]">
             <mat-icon>edit_square</mat-icon> Edit
           </button>
-          <app-abstract-attachment-file-add-button
+          <app-user-abstract-attach-file-button
             [abstract]="abstract"
+            [role]="FileRole.GRAPHICAL_ABSTRACT"
             (event)="refreshData()"
-          ></app-abstract-attachment-file-add-button>
+          ></app-user-abstract-attach-file-button>
+
+          <app-user-abstract-attach-file-button
+            [abstract]="abstract"
+            [role]="FileRole.OTHER"
+            (event)="refreshData()"
+          ></app-user-abstract-attach-file-button>
 
           <app-delete-button  [name]="abstract.abstractTitle" (event)="deleteAbstract(abstract)"></app-delete-button>
           <h2>Comments:</h2>

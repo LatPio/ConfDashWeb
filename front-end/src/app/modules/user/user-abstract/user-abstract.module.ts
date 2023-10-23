@@ -23,6 +23,11 @@ import {MatDividerModule} from "@angular/material/divider";
 import {MatCardModule} from "@angular/material/card";
 import {AbstractsAdminModule} from "../../admin/abstracts-admin/abstracts-admin.module";
 import {MatCheckboxModule} from "@angular/material/checkbox";
+import { UserAbstractAttachFileComponent } from './user-abstract-attach-file/user-abstract-attach-file.component';
+import { UserAbstractAttachFileButtonComponent } from './user-abstract-attach-file-button/user-abstract-attach-file-button.component';
+import {MatDialogModule} from "@angular/material/dialog";
+import {MatOptionModule} from "@angular/material/core";
+import {MatSelectModule} from "@angular/material/select";
 
 
 @NgModule({
@@ -32,7 +37,9 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
     UserAbstractGlobalListComponent,
     UserAbstractGlobalViewComponent,
     UserAbstractViewComponent,
-    UserAbstractPanelComponent
+    UserAbstractPanelComponent,
+    UserAbstractAttachFileComponent,
+    UserAbstractAttachFileButtonComponent
   ],
   imports: [
     CommonModule,
@@ -52,7 +59,10 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
     MatDividerModule,
     MatCardModule,
     AbstractsAdminModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatDialogModule,
+    MatOptionModule,
+    MatSelectModule
   ]
 })
 export class UserAbstractModule { }

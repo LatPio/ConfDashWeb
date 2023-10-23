@@ -45,7 +45,7 @@ export class UserAbstractEditComponent {
   }
 
   getAbstract(){
-    this.abstractService.getAbstractAdmin(this.abstractID).subscribe(value => {
+    this.abstractService.getAbstractUser(this.abstractID).subscribe(value => {
       this.abstractForm = this.formBuilder.group(
         {
           id:[{value: this.abstractID, disabled:true}],

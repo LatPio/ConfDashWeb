@@ -1,0 +1,14 @@
+<div *ngIf="role === FileRole.GRAPHICAL_ABSTRACT ">
+  <button mat-raised-button (click)="openAddFileDialog()">
+    <mat-icon class="color-icon">attach_file</mat-icon> Attach Graphical Abstract
+  </button>
+</div>
+
+
+<div *ngIf="role === FileRole.OTHER">
+  <button mat-raised-button (click)="openAddFileDialog()">
+    <mat-icon class="color-icon">attach_file</mat-icon> Attach PDF
+  </button>
+</div>
+
+
