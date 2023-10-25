@@ -2,14 +2,17 @@
 
 
   <mat-card-content>
+    <div class="center-box">
       <img *ngIf="customerData.photo" class="profile-photo" src="data:image/jpg;base64,{{customerData.photo.data}}"  >
-      <div  *ngIf="customerData.photo == null" class="center-box" style="margin: 50px">
-        <mat-icon class="default-face">face</mat-icon>
-      </div>
-    <h2 class="center-box">
+      <img *ngIf="customerData.photo === null" class="profile-photo-default" src="assets/face.svg"  >
+    </div>
+
+
+
+        <h2 class="center-box">
       {{customerData.degree}} {{customerData.firstName}} {{customerData.lastName}}
     </h2>
-    <h3 class="center-box">
+    <h3 class="center-box" *ngIf="customerData.department !== null">
       {{customerData.department.institution.name}}  {{customerData.department.city}}, {{customerData.department.name}}
     </h3>
 

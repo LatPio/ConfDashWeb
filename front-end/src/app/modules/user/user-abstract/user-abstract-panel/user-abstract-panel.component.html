@@ -4,7 +4,6 @@
     <a mat-raised-button routerLink="../add" color="primary">Add Abstract</a>
 
 
-
   </div>
 </section>
 <mat-divider></mat-divider>
@@ -25,6 +24,9 @@
           <h1>Options:</h1>
           <button mat-raised-button [routerLink]="['/user/abstracts/edit/', abstract.id ]">
             <mat-icon>edit_square</mat-icon> Edit
+          </button>
+          <button mat-raised-button [routerLink]="['/user/abstracts/edit-files/', abstract.id ]">
+            <mat-icon>edit_square</mat-icon> Files
           </button>
           <app-user-abstract-attach-file-button
             [abstract]="abstract"

@@ -1,0 +1,33 @@
+
+<section>
+  <div class="button-row mat-mdc-button-base">
+
+    <a mat-raised-button routerLink="../../panel" color="primary">Back</a>
+
+
+  </div>
+  <div class="button-row mat-mdc-button-base">
+    <h2>Provide One Graphical Abstract and One PDF file with abstract </h2>
+
+  </div>
+</section>
+<mat-divider></mat-divider>
+
+<div class="card-row">
+  <div *ngFor="let file of abstractData.files" class="file-card">
+
+    <div >
+      <app-abstract-file-view
+        [access]="'user'"
+        [showOptions]="true"
+        (refreshEvent)="getAbstract()"
+        [figure]="file"
+
+      ></app-abstract-file-view>
+    </div>
+
+
+  </div>
+
+</div>
+

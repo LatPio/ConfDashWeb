@@ -11,7 +11,7 @@ import { DepartmentAddComponent } from './department-add/department-add.componen
 import { ProfilePhotoAddComponent } from './profile-photo-add/profile-photo-add.component';
 import { ProfilePhotoAddButtonComponent } from './profile-photo-add-button/profile-photo-add-button.component';
 import { AffiliationCorrectionComponent } from './affiliation-correction/affiliation-correction.component';
-import { CustomerCardComponent } from './cutomer-card/customer-card.component';
+import { CustomerCardComponent } from '../../shared/cutomer-card/customer-card.component';
 import { CustomerStatsComponent } from './customer-stats/customer-stats.component';
 import {MatButtonModule} from "@angular/material/button";
 import {MatFormFieldModule} from "@angular/material/form-field";
@@ -22,7 +22,7 @@ import {MatSortModule} from "@angular/material/sort";
 import {MatTableModule} from "@angular/material/table";
 import {SharedModule} from "../../shared/shared.module";
 import {MatCardModule} from "@angular/material/card";
-import { CustomerCardSmallComponent } from './customer-card-small/customer-card-small.component';
+import { CustomerCardSmallComponent } from '../../shared/customer-card-small/customer-card-small.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import { InstitutionListComponent } from './institution-list/institution-list.component';
 
@@ -38,13 +38,10 @@ import { InstitutionListComponent } from './institution-list/institution-list.co
     ProfilePhotoAddComponent,
     ProfilePhotoAddButtonComponent,
     AffiliationCorrectionComponent,
-    CustomerCardComponent,
     CustomerStatsComponent,
-    CustomerCardSmallComponent,
     InstitutionListComponent,
   ],
   exports: [
-    CustomerCardComponent
   ],
   imports: [
     CommonModule,

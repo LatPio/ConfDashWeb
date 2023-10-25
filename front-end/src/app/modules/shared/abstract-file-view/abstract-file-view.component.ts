@@ -9,6 +9,7 @@ import {AbstractsAttachmentFileService} from "../../../core/service/abstracts/ab
 })
 export class AbstractFileViewComponent {
 
+  @Input() access: string;
   @Input() figure!: AttachmentFileDTOModel;
   @Output() refreshEvent = new EventEmitter();
   @Input() showOptions: boolean = true
@@ -17,10 +18,19 @@ export class AbstractFileViewComponent {
   ) {
   }
   deleteFile(id: number){
-    this.fileService.deleteFile(id).subscribe(() => {
-      this.refreshEvent.emit();
+    if(this.access === 'admin'){
+      this.fileService.deleteFile(id).subscribe(() => {
+        this.refreshEvent.emit();
+      })
+    }
+    if(this.access === 'user'){
+      this.fileService.deleteFileUser(id).subscribe(() => {
+        this.refreshEvent.emit();
+      })
+    }
 
-    })
+
+
   }
 
 }

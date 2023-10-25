@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AbstractsService} from "../../../../core/service/abstracts/abstracts.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Location} from "@angular/common";
@@ -35,7 +35,9 @@ export class UserAbstractEditComponent {
         ownerId: ['', {validators:[Validators.required]}],
         authId: ['', {validators:[Validators.required]}],
         accepted: ['', {validators:[Validators.required]}],
-        files: [''],
+        files: this.formBuilder.array([
+          this.addFilesControl()
+        ]),
       }
     );
     this.getAbstract();
@@ -91,5 +93,27 @@ export class UserAbstractEditComponent {
       ['insert', ['table', 'link', 'hr']]
     ],
     fontNames: ['Helvetica', 'Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'Roboto', 'Times']
+  }
+
+  get attachedFiles(){
+    return this.abstractForm.controls["files"] as FormArray;
+  }
+  addFilesControl() {
+    return this.formBuilder.group(
+      {
+        id:[''],
+        name:[''],
+        type:[''],
+        authId:[''],
+        fileRole:[''],
+        accepted:[''],
+        data:['']
+      }
+    );
+  }
+
+  removeFile(i: number) {
+    this.attachedFiles.removeAt(i);
+
   }
 }

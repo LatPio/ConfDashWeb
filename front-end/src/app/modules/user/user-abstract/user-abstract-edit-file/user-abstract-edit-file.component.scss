@@ -1,0 +1,21 @@
+.file-card {
+  width: 650px;
+}
+.card-row{
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.section {
+  display: table;
+}
+.button-row {
+  padding-left: 20px;
+  display: table-cell;
+  max-width: 1000px;
+}
+.button-row .mat-mdc-button-base {
+  margin: 8px 8px 8px 0;
+}

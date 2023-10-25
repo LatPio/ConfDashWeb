@@ -57,7 +57,10 @@ export class CustomersService {
     return this.httpClient.get<CustomerAdminDTOModel>(`${this.config.apiEndpoint}api/v1/user/customer?id=${customerId}`,
       {headers:this.httpHeaders, responseType: "json"})
   }
-
+  getPersonalInfo():Observable<CustomerAdminDTOModel>{
+    return this.httpClient.get<CustomerAdminDTOModel>(`${this.config.apiEndpoint}api/v1/user/customer`,
+      {headers:this.httpHeaders, responseType: "json"})
+  }
   getCustomersUserCard(customerId: number):Observable<CustomerCardDTOModel>{
     return this.httpClient.get<CustomerCardDTOModel>(`${this.config.apiEndpoint}api/v1/user/customer/card?id=${customerId}`,
       {headers:this.httpHeaders, responseType: "json"})

@@ -28,7 +28,7 @@
   </h2>
   <div class="col-10 flex-box " >
       <div class="box flex-box " *ngFor="let file of abstractData.files">
-        <app-abstract-file-view [figure]="file" (refreshEvent)="getAbstract()"></app-abstract-file-view>
+        <app-abstract-file-view access="'admin'" [figure]="file" (refreshEvent)="getAbstract()"></app-abstract-file-view>
       </div>
 
   </div>

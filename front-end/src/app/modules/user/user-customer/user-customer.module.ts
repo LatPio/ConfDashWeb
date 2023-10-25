@@ -6,6 +6,8 @@ import { UserCustomerComponent } from './user-customer.component';
 import { UserCustomerProfileComponent } from './user-customer-profile/user-customer-profile.component';
 import { UserCustomerProfileEditComponent } from './user-customer-profile-edit/user-customer-profile-edit.component';
 import { UserCustomerListComponent } from './user-customer-list/user-customer-list.component';
+import {SharedModule} from "../../shared/shared.module";
+import { UserCustomerViewComponent } from './user-customer-view/user-customer-view.component';
 
 
 @NgModule({
@@ -13,11 +15,13 @@ import { UserCustomerListComponent } from './user-customer-list/user-customer-li
     UserCustomerComponent,
     UserCustomerProfileComponent,
     UserCustomerProfileEditComponent,
-    UserCustomerListComponent
+    UserCustomerListComponent,
+    UserCustomerViewComponent
   ],
   imports: [
     CommonModule,
-    UserCustomerRoutingModule
+    UserCustomerRoutingModule,
+    SharedModule
   ]
 })
 export class UserCustomerModule { }

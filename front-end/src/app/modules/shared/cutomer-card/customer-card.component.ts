@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {CustomerCardDTOModel} from "../../../../core/service/customers/models/CustomerCardDTO-model";
+import {CustomerCardDTOModel} from "../../../core/service/customers/models/CustomerCardDTO-model";
 import {Router} from "@angular/router";
-import {CustomersService} from "../../../../core/service/customers/customers.service";
+import {CustomersService} from "../../../core/service/customers/customers.service";
 
 @Component({
   selector: 'app-customer-card',
@@ -10,6 +10,7 @@ import {CustomersService} from "../../../../core/service/customers/customers.ser
 })
 export class CustomerCardComponent  implements OnInit{
 
+  @Input() access: string;
   @Input() customerData: CustomerCardDTOModel;
   @Input() customerId: number;
 
@@ -26,7 +27,13 @@ export class CustomerCardComponent  implements OnInit{
   }
 
   customerView() {
-    this.router.navigate(["/admin/customer/view/", this.customerData.id]).then()
+    if(this.access == 'admin'){
+      this.router.navigate(["/admin/customer/view/", this.customerData.id]).then()
+    }
+    if(this.access == 'user'){
+      this.router.navigate(["/user/participants/view/", this.customerData.id]).then()
+
+    }
   }
 
   ngOnInit(): void {

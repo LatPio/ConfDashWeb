@@ -28,6 +28,8 @@ import { UserAbstractAttachFileButtonComponent } from './user-abstract-attach-fi
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatOptionModule} from "@angular/material/core";
 import {MatSelectModule} from "@angular/material/select";
+import {MatExpansionModule} from "@angular/material/expansion";
+import { UserAbstractEditFileComponent } from './user-abstract-edit-file/user-abstract-edit-file.component';
 
 
 @NgModule({
@@ -39,7 +41,8 @@ import {MatSelectModule} from "@angular/material/select";
     UserAbstractViewComponent,
     UserAbstractPanelComponent,
     UserAbstractAttachFileComponent,
-    UserAbstractAttachFileButtonComponent
+    UserAbstractAttachFileButtonComponent,
+    UserAbstractEditFileComponent
   ],
   imports: [
     CommonModule,
@@ -62,7 +65,8 @@ import {MatSelectModule} from "@angular/material/select";
     MatCheckboxModule,
     MatDialogModule,
     MatOptionModule,
-    MatSelectModule
+    MatSelectModule,
+    MatExpansionModule
   ]
 })
 export class UserAbstractModule { }

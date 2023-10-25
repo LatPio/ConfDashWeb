@@ -1,4 +1,4 @@
-<mat-card>
+<mat-card *ngIf="access === 'admin' ">
   <mat-card-content>
 
     <div class="element-border">
@@ -26,4 +26,31 @@
   </mat-card-actions>
 </mat-card>
 
+<mat-card *ngIf="access === 'user' ">
+  <mat-card-content>
+
+    <div class="element-border">
+      <div>
+        <h4>Name: {{figure.name}}</h4>
+        <h4>Role: {{figure.fileRole}}</h4>
+        <h4>File Type:{{figure.type}}</h4>
+        <div style="text-align: center">
+          <h2>Full Image:</h2>
+          <img src="data:image/jpg;base64,{{figure.data}}"  alt="{{figure.fileRole}}: {{figure.name}}">
+          <h2>Compressed Image:</h2>
+          <img src="data:image/jpg;base64,{{figure.smallData}}"  alt="{{figure.fileRole}}: {{figure.name}}">
+
+        </div>
+      </div>
+
+    </div>
+
+  </mat-card-content>
+  <mat-card-actions align="end">
+    <div class="col-auto" *ngIf="showOptions">
+      <app-delete-button [name]="figure.name" (event)="deleteFile(figure.id)"></app-delete-button>
+    </div>
+
+  </mat-card-actions>
+</mat-card>
 

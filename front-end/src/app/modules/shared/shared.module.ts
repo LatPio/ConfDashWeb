@@ -13,6 +13,8 @@ import {MatCardModule} from "@angular/material/card";
 import { SnackbarErrorComponent } from './snackbar-error/snackbar-error.component';
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import { SnackbarMessageComponent } from './snackbar-message/snackbar-message.component';
+import {CustomerCardComponent} from "./cutomer-card/customer-card.component";
+import {CustomerCardSmallComponent} from "./customer-card-small/customer-card-small.component";
 
 
 
@@ -24,13 +26,18 @@ import { SnackbarMessageComponent } from './snackbar-message/snackbar-message.co
     AbstractFileViewComponent,
     AbstractCardViewComponent,
     SnackbarErrorComponent,
-    SnackbarMessageComponent
+    SnackbarMessageComponent,
+    CustomerCardComponent,
+    CustomerCardSmallComponent,
+
   ],
   exports: [
     AbstractSheetViewComponent,
     DeleteButtonComponent,
     AbstractFileViewComponent,
-    AbstractCardViewComponent
+    AbstractCardViewComponent,
+    CustomerCardComponent,
+    CustomerCardSmallComponent
   ],
     imports: [
         CommonModule,
