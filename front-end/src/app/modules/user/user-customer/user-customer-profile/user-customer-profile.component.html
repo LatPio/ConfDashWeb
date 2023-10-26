@@ -1,2 +1,41 @@
-Name: {{personalInfo.firstName}}<br>
-LastName: {{personalInfo.lastName}}
+
+
+<div class="center-box">
+  <mat-card class="card">
+    <mat-card-header><mat-card-title>{{personalInfo.degree}} {{personalInfo.firstName}} {{personalInfo.lastName}}</mat-card-title>
+      <mat-card-subtitle>{{personalInfo.email}}</mat-card-subtitle>
+
+    </mat-card-header>
+    <mat-card-content>
+
+      <div *ngIf="personalInfo.photo; then thenBlock else elseBlock"></div>
+      <ng-template #thenBlock>
+        <img class="profile-photo" src="data:image/jpg;base64,{{personalInfo.photo}}"  >
+      </ng-template>
+      <ng-template #elseBlock >
+        <div class="center-box" style="margin: 100px">
+          <mat-icon class="default-face">face</mat-icon>
+        </div>
+      </ng-template>
+
+      <div *ngIf="personalInfo.department"> Affiliation: {{personalInfo.department.institution.name}} {{personalInfo.department.name}}</div>
+      <div>Phone Number: {{personalInfo.phoneNumber}}</div>
+      <div class="row">
+        <div class="col">
+          Links:
+        </div>
+        <div class="col">
+          <div *ngFor="let link of personalInfo.links ">
+            <a href="{{link.urlLink}}">{{link.name}}</a>
+          </div>
+        </div>
+
+      </div>
+
+
+    </mat-card-content>
+    <mat-card-actions align="end">
+      <button mat-button routerLink="../edit">Edit</button>
+    </mat-card-actions>
+
+  </mat-card>  </div>

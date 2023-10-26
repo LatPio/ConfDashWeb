@@ -24,6 +24,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -102,7 +103,7 @@ public class CustomerService {
         if (exist == null) {
             throw new EntityNotFoundException("User not found", GlobalErrorCode.ERROR_CUSTOMER_SERVICE_ENTITY_NOT_FOUND);
         } else
-            if(exist.getAuthID() != jwtConverter.getKeycloakUserID()){
+            if(!Objects.equals(exist.getAuthID(), jwtConverter.getKeycloakUserID())){
             throw new CustomerUpdateException("You can edit only yours Customer!", GlobalErrorCode.ERROR_CUSTOMER_SERVICE_UPDATE_BLOCKED);
         } else {
             UserRepresentation userRepresentation = keycloakUserManagementService.readUser(exist.getAuthID());

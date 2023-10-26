@@ -1,1 +1,196 @@
-<p>user-customer-profile-edit works!</p>
+<div class="center-box">
+<form [formGroup]="personalInfoForm" (ngSubmit)="updatePersonalInfo()"  class="personal-info-form">
+  <h2> Personal Information</h2>
+  <mat-form-field class="full-width">
+    <mat-label>E-mail (disabled)</mat-label>
+    <input
+      matInput
+      [formControlName]="'email'">
+  </mat-form-field>
+
+  <div class="full-width" >
+    <div class="row">
+      <div class="col-2">
+        <mat-form-field class="full-width">
+          <mat-label>Academic Degree</mat-label>
+          <input
+            type="text"
+            matInput
+            [formControlName]="'degree'"
+            placeholder="Ex. Research about ....">
+          <mat-error *ngIf="personalInfoForm.hasError('required')">
+            Name is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-5">
+        <mat-form-field class="full-width">
+        <mat-label>First Name</mat-label>
+          <input
+            type="text"
+            matInput
+            [formControlName]="'firstName'"
+            placeholder="Ex. Research about ....">
+          <mat-error *ngIf="personalInfoForm.hasError('required')">
+            Name is required
+          </mat-error>
+      </mat-form-field>
+      </div>
+      <div class="col-5">
+        <mat-form-field class="full-width">
+          <mat-label>Last Name</mat-label>
+          <input
+            type="text"
+            matInput
+            [formControlName]="'lastName'"
+            placeholder="Ex. Research about ....">
+          <mat-error *ngIf="personalInfoForm.hasError('required')">
+            Name is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+
+
+  <h2> Institution </h2>
+    <div class="full-width">
+    <div class="row">
+      <div class="col-4">
+        <mat-form-field class="full-width">
+          <mat-label>Institution Abbreviation</mat-label>
+          <input
+            type="text"
+            matInput
+            [formControlName]="'abbreviation'"
+            placeholder="Ex. Research about ....">
+          <mat-error *ngIf="personalInfoForm.hasError('required')">
+            Name is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-8">
+        <mat-form-field class="full-width">
+          <mat-label>Institution Name</mat-label>
+          <input
+            type="text"
+            matInput
+            [formControlName]="'name'"
+            placeholder="Ex. Research about ....">
+          <mat-error *ngIf="personalInfoForm.hasError('required')">
+            Name is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <h2>Department</h2>
+    <div class="full-width">
+    <div class="row">
+      <div class="col">
+        <mat-form-field class="full-width">
+          <mat-label>Department Name</mat-label>
+          <input
+            type="text"
+            matInput
+            [formControlName]="'name'"
+            placeholder="Ex. Research about ....">
+          <mat-error *ngIf="personalInfoForm.hasError('required')">
+            Name is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-6">
+        <mat-form-field class="full-width">
+          <mat-label>Street</mat-label>
+          <input
+            type="text"
+            matInput
+            [formControlName]="'street'"
+            placeholder="Ex. Research about ....">
+          <mat-error *ngIf="personalInfoForm.hasError('required')">
+            Name is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-3">
+        <mat-form-field class="full-width">
+          <mat-label>Building Number</mat-label>
+          <input
+            type="text"
+            matInput
+            [formControlName]="'buildingNumber'"
+            placeholder="Ex. Research about ....">
+          <mat-error *ngIf="personalInfoForm.hasError('required')">
+            Name is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-3">
+        <mat-form-field class="full-width">
+          <mat-label>Flat Number</mat-label>
+          <input
+            type="text"
+            matInput
+            [formControlName]="'flatNumber'"
+            placeholder="Ex. Research about ....">
+          <mat-error *ngIf="personalInfoForm.hasError('required')">
+            Name is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+      <div class="row">
+        <div class="col-5">
+          <mat-form-field class="full-width">
+            <mat-label>City</mat-label>
+            <input
+              type="text"
+              matInput
+              [formControlName]="'city'"
+              placeholder="Ex. Research about ....">
+            <mat-error *ngIf="personalInfoForm.hasError('required')">
+              Name is required
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-3">
+          <mat-form-field class="full-width">
+            <mat-label>Postal Code</mat-label>
+            <input
+              type="text"
+              matInput
+              [formControlName]="'postalCode'"
+              placeholder="Ex. Research about ....">
+            <mat-error *ngIf="personalInfoForm.hasError('required')">
+              Name is required
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-4">
+          <mat-form-field class="full-width">
+            <mat-label>Country</mat-label>
+            <input
+              type="text"
+              matInput
+              [formControlName]="'country'"
+              placeholder="Ex. Research about ....">
+            <mat-error *ngIf="personalInfoForm.hasError('required')">
+              Name is required
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+  </div>
+
+  <div style="padding-top: 20px;">
+    <button
+      mat-raised-button color="primary">Save</button>
+  </div>
+</form>
+</div>

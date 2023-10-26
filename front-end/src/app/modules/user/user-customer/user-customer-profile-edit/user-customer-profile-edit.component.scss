@@ -1,0 +1,28 @@
+.personal-info-form {
+  min-width: 150px;
+  max-width: 1000px;
+  width: 100%;
+}
+
+
+.full-width {
+  width: 100%;
+}
+.half-width {
+  width: 50%;
+}
+
+.third-width {
+  width: 30%;
+}
+.fifth-width {
+  width: 20%;
+}
+
+td {
+  padding-right: 8px;
+}
+.center-box{
+  display: flex;
+  justify-content: center;
+}
