@@ -12,8 +12,7 @@ import com.flystonedev.customer.mapper.CustomerCardMapper;
 import com.flystonedev.customer.mapper.CustomerMapper;
 import com.flystonedev.customer.model.Customer;
 import com.flystonedev.customer.repository.CustomerRepository;
-import com.flystonedev.customer.repository.DepartmentRepository;
-import com.flystonedev.customer.repository.InstitutionRepository;
+import com.flystonedev.customer.repository.InvoiceDataRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,8 +33,7 @@ import java.util.stream.Collectors;
 public class CustomerService {
 
     private final CustomerRepository customerRepository;
-    private final DepartmentRepository departmentRepository;
-    private final InstitutionRepository institutionRepository;
+    private final InvoiceDataRepository invoiceDataRepository;
     private final CustomerMapper customerMapper = Mappers.getMapper(CustomerMapper.class);
     private final CustomerCardMapper customerCardMapper = Mappers.getMapper(CustomerCardMapper.class);
     private final CustomerAdminMapper customerAdminMapper = Mappers.getMapper(CustomerAdminMapper.class);
@@ -157,9 +155,9 @@ public class CustomerService {
     public StatsResponse stats() {
         return new StatsResponse(
                 customerRepository.count(),
-                departmentRepository.count(),
-                institutionRepository.count(),
-                departmentRepository.countDistinctCountries()
+                invoiceDataRepository.count(),
+                invoiceDataRepository.countDistinctInstitutions(),
+                invoiceDataRepository.countDistinctCountries()
         );
     }
 }

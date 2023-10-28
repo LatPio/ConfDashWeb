@@ -5,9 +5,9 @@ import { CustomerAdminRoutingModule } from './customer-admin-routing.module';
 import { CustomersListComponent } from './customers-list/customers-list.component';
 import { CustomersViewComponent } from './customers-view/customers-view.component';
 import { CustomerUpdateComponent } from './customer-update/customer-update.component';
-import { DepartmentListComponent } from './department-list/department-list.component';
-import { DepartmentUpdateComponent } from './department-update/department-update.component';
-import { DepartmentAddComponent } from './department-add/department-add.component';
+import { InvoiceDataListComponent } from './invoice-data-list/Invoice-data-list.component';
+import { DepartmentUpdateComponent } from './invoice-data-update/department-update.component';
+import { InvoiceDataAddComponent } from './invoice-data-add/invoice-data-add.component';
 import { ProfilePhotoAddComponent } from './profile-photo-add/profile-photo-add.component';
 import { ProfilePhotoAddButtonComponent } from './profile-photo-add-button/profile-photo-add-button.component';
 import { AffiliationCorrectionComponent } from './affiliation-correction/affiliation-correction.component';
@@ -24,7 +24,6 @@ import {SharedModule} from "../../shared/shared.module";
 import {MatCardModule} from "@angular/material/card";
 import { CustomerCardSmallComponent } from '../../shared/customer-card-small/customer-card-small.component';
 import {ReactiveFormsModule} from "@angular/forms";
-import { InstitutionListComponent } from './institution-list/institution-list.component';
 
 
 @NgModule({
@@ -32,14 +31,13 @@ import { InstitutionListComponent } from './institution-list/institution-list.co
     CustomersListComponent,
     CustomersViewComponent,
     CustomerUpdateComponent,
-    DepartmentListComponent,
+    InvoiceDataListComponent,
     DepartmentUpdateComponent,
-    DepartmentAddComponent,
+    InvoiceDataAddComponent,
     ProfilePhotoAddComponent,
     ProfilePhotoAddButtonComponent,
     AffiliationCorrectionComponent,
     CustomerStatsComponent,
-    InstitutionListComponent,
   ],
   exports: [
   ],

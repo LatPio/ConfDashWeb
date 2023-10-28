@@ -3,9 +3,6 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 import {CustomersService} from "../../../../core/service/customers/customers.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Location} from "@angular/common";
-import {InformationLinksUserDTOModel} from "../../../../core/service/customers/models/InformationLinksUserDTOModel";
-import {DepartmentDTOModel} from "../../../../core/service/customers/models/DepartmentDTO-model";
-import {ProfilePhotoDTOModel} from "../../../../core/service/customers/models/ProfilePhotoDTO-model";
 import {SnackbarErrorComponent} from "../../../shared/snackbar-error/snackbar-error.component";
 import {SnackbarMessageComponent} from "../../../shared/snackbar-message/snackbar-message.component";
 import {MatSnackBar} from "@angular/material/snack-bar";
@@ -60,7 +57,6 @@ export class UserCustomerProfileEditComponent {
           phoneNumber: [value.phoneNumber],
           authID: [value.authID],
           links: [value.links],
-          department: [value.department],
           photo: [value.photo],
         }
       )

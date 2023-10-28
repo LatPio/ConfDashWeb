@@ -1,7 +1,7 @@
 import {Inject, Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {APP_CONFIG, AppConfig} from "../../config/app-config/app-config.module";
-import {DepartmentDTOModel} from "./models/DepartmentDTO-model";
+import {InvoiceDataDTOModel} from "./models/InvoiceDataDTOModel";
 import {Observable} from "rxjs";
 import {InformationLinksUserDTOModel} from "./models/InformationLinksUserDTOModel";
 import {InformationLinksRequestModel} from "./models/InformationLinksRequest-model";

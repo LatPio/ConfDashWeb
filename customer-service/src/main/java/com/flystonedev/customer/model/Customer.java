@@ -47,7 +47,7 @@ public class Customer {
     private List<InformationLinks> links;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id")
-    private Department department;
+    private InvoiceData invoiceData;
 
     @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn

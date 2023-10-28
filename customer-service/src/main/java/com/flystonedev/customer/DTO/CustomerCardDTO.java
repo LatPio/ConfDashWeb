@@ -19,6 +19,6 @@ public class CustomerCardDTO {
     private String lastName;
     private String degree;
     private List<InformationLinksDTO> links;
-    private DepartmentDTO department;
+    private InvoiceDataDTO invoiceData;
     private ProfilePhotoDTO photo;
 }

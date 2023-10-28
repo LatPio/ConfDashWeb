@@ -22,6 +22,6 @@ public class CustomerDTO {
     private String degree;
     private String phoneNumber;
     private List<InformationLinksDTO> links;
-    private DepartmentDTO department;
+    private InvoiceDataDTO invoiceData;
     private ProfilePhotoDTO photo;
 }

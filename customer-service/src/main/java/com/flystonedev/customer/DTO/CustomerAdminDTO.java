@@ -22,6 +22,6 @@ public class CustomerAdminDTO {
     private String phoneNumber;
     private String authID;
     private List<InformationLinksDTO> links;
-    private DepartmentDTO department;
+    private InvoiceDataDTO invoiceData;
     private ProfilePhotoDTO photo;
 }

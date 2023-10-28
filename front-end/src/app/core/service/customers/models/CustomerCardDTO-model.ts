@@ -1,5 +1,5 @@
 import {InformationLinksUserDTOModel} from "./InformationLinksUserDTOModel";
-import {DepartmentDTOModel} from "./DepartmentDTO-model";
+import {InvoiceDataDTOModel} from "./InvoiceDataDTOModel";
 import {ProfilePhotoDTOModel} from "./ProfilePhotoDTO-model";
 
 export class CustomerCardDTOModel{
@@ -9,6 +9,6 @@ export class CustomerCardDTOModel{
   degree: string;
   phoneNumber: string;
   links: Array<InformationLinksUserDTOModel>;
-  department: DepartmentDTOModel;
+  invoice: InvoiceDataDTOModel;
   photo: ProfilePhotoDTOModel;
 }

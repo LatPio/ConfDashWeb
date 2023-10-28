@@ -1,7 +1,6 @@
 import {AfterViewInit, Component, EventEmitter, Input, Output} from '@angular/core';
 import {MapImageResponseModel} from "../../../../core/service/localization/models/MapImageResponse-model";
 import {MatTableDataSource} from "@angular/material/table";
-import {InstitutionDTOModel} from "../../../../core/service/customers/models/InstitutionDTO-model";
 
 @Component({
   selector: 'app-map-image-simple-list',

@@ -30,7 +30,7 @@ spring:
         - id: customer-service
           uri: lb://customer-service
           predicates:
-            - Path=/api/v1/user/customer, /api/v1/user/customer/**,/api/v1/user/customer/new, /api/v1/admin/customer, /api/v1/admin/customer/**, /api/v1/department, /api/v1/department/**, /api/v1/user/info_links, /api/v1/user/info_links/**, /api/v1/admin/info_links, /api/v1/admin/info_links/**, /api/v1/institution, /api/v1/institution/**, /api/v1/admin/profile_photo, /api/v1/admin/profile_photo/**, /api/v1/user/profile_photo, /api/v1/user/profile_photo/**
+            - Path=/api/v1/user/customer, /api/v1/user/customer/**,/api/v1/user/customer/new, /api/v1/admin/customer, /api/v1/admin/customer/**, /api/v1/invoice, /api/v1/invoice/**, /api/v1/user/info_links, /api/v1/user/info_links/**, /api/v1/admin/info_links, /api/v1/admin/info_links/**, /api/v1/admin/profile_photo, /api/v1/admin/profile_photo/**, /api/v1/user/profile_photo, /api/v1/user/profile_photo/**
 
         - id: localization-service
           uri: lb://localization-service
@@ -76,7 +76,7 @@ spring:
             provider: keycloak-provider
             scope: openid
             client-id: spring-cloud-client
-            client-secret: eIEAsftRLNv8hk9FX1L9OR3jtaSqkIqe
+            client-secret: AJyqXK1ifepxg44L3MgNqxfc7gi93yed
             authorization-grant-type: authorization_code
             redirect-uri: http://localhost:8080/login/oauth2/code/keycloak
 

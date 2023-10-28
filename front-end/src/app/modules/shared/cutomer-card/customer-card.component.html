@@ -12,8 +12,8 @@
         <h2 class="center-box">
       {{customerData.degree}} {{customerData.firstName}} {{customerData.lastName}}
     </h2>
-    <h3 class="center-box" *ngIf="customerData.department !== null">
-      {{customerData.department.institution.name}}  {{customerData.department.city}}, {{customerData.department.name}}
+    <h3 class="center-box" *ngIf="customerData.invoice !== null">
+      {{customerData.invoice.institution}}  {{customerData.invoice.city}}, {{customerData.invoice.name}}
     </h3>
 
 

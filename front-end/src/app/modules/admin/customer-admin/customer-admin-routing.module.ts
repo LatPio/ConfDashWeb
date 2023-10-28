@@ -4,8 +4,8 @@ import {CustomerAdminComponent} from "./customer-admin.component";
 import {CustomersListComponent} from "./customers-list/customers-list.component";
 import {CustomerUpdateComponent} from "./customer-update/customer-update.component";
 import {CustomersViewComponent} from "./customers-view/customers-view.component";
-import {DepartmentListComponent} from "./department-list/department-list.component";
-import {DepartmentAddComponent} from "./department-add/department-add.component";
+import {InvoiceDataListComponent} from "./invoice-data-list/Invoice-data-list.component";
+import {InvoiceDataAddComponent} from "./invoice-data-add/invoice-data-add.component";
 import {AffiliationCorrectionComponent} from "./affiliation-correction/affiliation-correction.component";
 import {CustomerStatsComponent} from "./customer-stats/customer-stats.component";
 
@@ -16,8 +16,8 @@ const routes: Routes = [
       {path: 'list', component:CustomersListComponent},
       {path: 'update', component: CustomerUpdateComponent},
       {path: 'view/:customerID', component: CustomersViewComponent},
-      {path: 'department-list', component: DepartmentListComponent},
-      {path: 'department-add', component: DepartmentAddComponent},
+      {path: 'invoice-list', component: InvoiceDataListComponent},
+      {path: 'invoice-add', component: InvoiceDataAddComponent},
       {path: 'affiliation-correction', component: AffiliationCorrectionComponent},
       {path: 'stats', component: CustomerStatsComponent}
 

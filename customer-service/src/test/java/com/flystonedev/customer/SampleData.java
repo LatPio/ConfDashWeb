@@ -29,7 +29,7 @@ public interface SampleData {
                 .lastName("Master")
                 .phoneNumber("1234567890")
                 .links(new ArrayList<>())
-                .department(null)
+                .invoiceData(null)
 //                .photo(ProfilePhoto.builder().id(1).build())
                 .authID("aaaa")
                 .createdAt(LocalDate.of(2022,5,1).atTime(10,35,44).atZone(ZoneOffset.UTC).toInstant())
@@ -44,7 +44,7 @@ public interface SampleData {
                 .phoneNumber("1234567890")
                 .links(new ArrayList<>())
                 .authID("bbbb")
-                .department(null)
+                .invoiceData(null)
 //                .photo(ProfilePhoto.builder().id(2).build())
                 .createdAt(LocalDate.of(2022,5,1).atTime(10,35,44).atZone(ZoneOffset.UTC).toInstant())
                 .updatedAt(LocalDate.of(2022,5,1).atTime(10,35,44).atZone(ZoneOffset.UTC).toInstant())
@@ -69,7 +69,7 @@ public interface SampleData {
                 .lastName("Typical")
                 .degree("bachelor")
                 .links(new ArrayList<>())
-                .department(null)
+                .invoiceData(null)
                 .photo(null)
                 .build();
         return customerCardDTO;
@@ -84,7 +84,7 @@ public interface SampleData {
                 .authID("bbbb")
                 .phoneNumber("1234567890")
                 .links(new ArrayList<>())
-                .department(null)
+                .invoiceData(null)
                 .photo(null)
                 .build();
         return customerDTO;
@@ -100,14 +100,14 @@ public interface SampleData {
                 .authID("bbbb")
                 .phoneNumber("1234567890")
                 .links(new ArrayList<>())
-                .department(null)
+                .invoiceData(null)
                 .photo(null)
                 .build();
         return customerAdminDTO;
     }
 
-    default List<Department> getSampleOfDepartment(){
-        Department department1= Department.builder()
+    default List<InvoiceData> getSampleOfDepartment(){
+        InvoiceData invoiceData1 = InvoiceData.builder()
                 .id(1)
                 .name("Test Department")
                 .street("street1")
@@ -121,7 +121,7 @@ public interface SampleData {
                 .createdAt(LocalDate.of(2022,5,1).atTime(10,35,44).atZone(ZoneOffset.UTC).toInstant())
                 .updatedAt(LocalDate.of(2022,5,1).atTime(10,35,44).atZone(ZoneOffset.UTC).toInstant())
                 .build();
-        Department department2= Department.builder()
+        InvoiceData invoiceData2 = InvoiceData.builder()
                 .id(2)
                 .name("Test2 Department")
                 .street("street2")
@@ -136,7 +136,7 @@ public interface SampleData {
                 .updatedAt(LocalDate.of(2022,5,1).atTime(10,35,44).atZone(ZoneOffset.UTC).toInstant())
                 .build();
 
-        return Arrays.asList(department1,department2);
+        return Arrays.asList(invoiceData1, invoiceData2);
     }
 
     default List<InformationLinks> getSampleOfInformationLinks(){
@@ -159,23 +159,23 @@ public interface SampleData {
     }
 
 
-    default List<Institution> getSampleOfInstitution(){
-        Institution institution1 = Institution.builder()
-                .id(1)
-                .name("University")
-                .createdAt(LocalDate.of(2022,5,1).atTime(10,35,44).atZone(ZoneOffset.UTC).toInstant())
-                .updatedAt(LocalDate.of(2022,5,1).atTime(10,35,44).atZone(ZoneOffset.UTC).toInstant())
-                .build();
-        Institution institution2 = Institution.builder()
-                .id(2)
-                .name("Company")
-                .createdAt(LocalDate.of(2022,5,1).atTime(10,35,44).atZone(ZoneOffset.UTC).toInstant())
-                .updatedAt(LocalDate.of(2022,5,1).atTime(10,35,44).atZone(ZoneOffset.UTC).toInstant())
-                .build();
-
-        return Arrays.asList(institution1,institution2);
-
-    }
+//    default List<Institution> getSampleOfInstitution(){
+//        Institution institution1 = Institution.builder()
+//                .id(1)
+//                .name("University")
+//                .createdAt(LocalDate.of(2022,5,1).atTime(10,35,44).atZone(ZoneOffset.UTC).toInstant())
+//                .updatedAt(LocalDate.of(2022,5,1).atTime(10,35,44).atZone(ZoneOffset.UTC).toInstant())
+//                .build();
+//        Institution institution2 = Institution.builder()
+//                .id(2)
+//                .name("Company")
+//                .createdAt(LocalDate.of(2022,5,1).atTime(10,35,44).atZone(ZoneOffset.UTC).toInstant())
+//                .updatedAt(LocalDate.of(2022,5,1).atTime(10,35,44).atZone(ZoneOffset.UTC).toInstant())
+//                .build();
+//
+//        return Arrays.asList(institution1,institution2);
+//
+//    }
 
     default List<ProfilePhoto> getSampleOfProfilePhotos(){
         ProfilePhoto photo1 = ProfilePhoto.builder()
@@ -245,8 +245,8 @@ public interface SampleData {
         return userRepresentation;
     }
 
-    default DepartmentDTO getSampleOfDepartmentDTO(){
-        DepartmentDTO departmentDTO = DepartmentDTO.builder()
+    default InvoiceDataDTO getSampleOfDepartmentDTO(){
+        InvoiceDataDTO invoiceDataDTO = InvoiceDataDTO.builder()
                 .id(1)
                 .name("Name")
                 .street("Street")
@@ -255,9 +255,9 @@ public interface SampleData {
                 .city("New Your")
                 .postalCode("1234-12")
                 .country("USA")
-                .institution(InstitutionDTO.builder().id(1).build())
+                .institution("MIT")
                 .build();
-        return departmentDTO;
+        return invoiceDataDTO;
     }
 
 default InformationLinksRequest getSampleOFInformationLinksRequest (){
@@ -306,13 +306,13 @@ default InformationLinksRequest getSampleOFInformationLinksRequest (){
         return informationLinksAdminDTO;
     }
 
-    default InstitutionDTO getSampleOfInstitutionDTO(){
-        InstitutionDTO institutionDTO = InstitutionDTO.builder()
-                .id(1)
-                .name("Institution")
-                .build();
-        return institutionDTO;
-    }
+//    default InstitutionDTO getSampleOfInstitutionDTO(){
+//        InstitutionDTO institutionDTO = InstitutionDTO.builder()
+//                .id(1)
+//                .name("Institution")
+//                .build();
+//        return institutionDTO;
+//    }
 
     default ProfilePhoto getSampleOfProfilePhoto(){
         ProfilePhoto profilePhoto = ProfilePhoto.builder()
