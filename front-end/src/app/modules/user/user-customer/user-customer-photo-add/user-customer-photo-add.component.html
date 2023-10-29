@@ -1,0 +1,19 @@
+<h2 mat-dialog-title>Attach File to Abstract</h2>
+<mat-dialog-content>
+
+
+
+    <input class="form-control" type="file"
+           (change)="onChange($event)">
+
+
+
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button *ngIf="!customerData.update" mat-button color="primary" (click)="addPhoto()">Save Photo</button>
+  <button *ngIf="customerData.update" mat-button color="primary" (click)="putPhoto()">Update Photo</button>
+
+  <button mat-button (click)="onCancelClick()">Cancel</button>
+</mat-dialog-actions>

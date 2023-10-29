@@ -1,6 +1,7 @@
 package com.flystonedev.customer.service;
 
 import com.flystonedev.customer.DTO.CustomerAdminDTO;
+import com.flystonedev.customer.DTO.CustomerDTO;
 import com.flystonedev.customer.DTO.ProfilePhotoDTO;
 import com.flystonedev.customer.config.JwtConverter;
 import com.flystonedev.customer.exeption.CustomerUpdateException;
@@ -47,6 +48,8 @@ public class ProfilePhotoService {
         profilePhotoRepository.save(profilePhoto);
     }
     //todo implementation for admin
+    @Transactional
+
     public List<ProfilePhotoDTO> profilePhotoDTOList(){
         List<ProfilePhoto> profilePhotoList = profilePhotoRepository.findAll();
         return profilePhotoList.stream().map(profilePhotoMapper::map).collect(Collectors.toList());
@@ -57,10 +60,11 @@ public class ProfilePhotoService {
      * !!!!!!!!! USER SERVICE METHODS !!!!!!!!
      *
      * */
+    @Transactional
     public ProfilePhotoDTO getUserPhoto(Integer id){
         return profilePhotoRepository.findProfilePhotoByIdAndAuthId(id, jwtConverter.getKeycloakUserID()).map(profilePhotoMapper::map).orElseThrow(EntityNotFoundException::new);
     }
-
+    @Transactional
     public ProfilePhotoDTO updateUser(ProfilePhotoDTO profilePhotoDTO){
         ProfilePhotoDTO exist = getUserPhoto(profilePhotoDTO.getId());
         if (exist == null) {
@@ -73,14 +77,17 @@ public class ProfilePhotoService {
         }
     }
 
-
+    @Transactional
     public void deleteUser (Integer id) {
         ProfilePhotoDTO exist = getUserPhoto(id);
         if (exist == null) {
             throw new EntityNotFoundException();
-        } else if (exist.getAuthId() != jwtConverter.getKeycloakUserID()) {
+        } else if (!Objects.equals(exist.getAuthId(), jwtConverter.getKeycloakUserID())) {
             throw new CustomerUpdateException();
         } else {
+            CustomerDTO customerDTO = customerService.getUserByAuthId();
+            customerDTO.setPhoto(null);
+            customerService.updateUser(customerDTO);
             profilePhotoRepository.deleteById(id);
 
         }
@@ -91,10 +98,11 @@ public class ProfilePhotoService {
      * !!!!!!!!! ADMIN SERVICE METHODS !!!!!!!!
      *
      * */
+    @Transactional
     public ProfilePhotoDTO getAdmin(Integer id){
         return profilePhotoRepository.findById(id).map(profilePhotoMapper::map).orElseThrow(EntityNotFoundException::new);
     }
-
+    @Transactional
     public ProfilePhotoDTO updateAdmin(ProfilePhotoDTO profilePhotoDTO){
         ProfilePhotoDTO exist = getAdmin(profilePhotoDTO.getId());
         if (exist == null) {
@@ -103,7 +111,7 @@ public class ProfilePhotoService {
         ProfilePhoto updated = profilePhotoRepository.save(profilePhotoMapper.map(profilePhotoDTO));
         return profilePhotoMapper.map(updated);
     }
-
+    @Transactional
     public void deleteAdmin (Integer id) {
         CustomerAdminDTO customerDTO = customerService.getAdmin(id);
         customerDTO.setPhoto(null);

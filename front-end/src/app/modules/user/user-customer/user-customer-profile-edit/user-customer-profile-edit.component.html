@@ -52,17 +52,17 @@
     </div>
   </div>
 
-
+  <div formGroupName="invoiceData">
   <h2> Institution </h2>
     <div class="full-width">
-    <div class="row">
+      <div class="row">
       <div class="col-4">
         <mat-form-field class="full-width">
           <mat-label>Institution Abbreviation</mat-label>
           <input
             type="text"
             matInput
-            [formControlName]="'abbreviation'"
+            formControlName="institutionShortName"
             placeholder="Ex. Research about ....">
           <mat-error *ngIf="personalInfoForm.hasError('required')">
             Name is required
@@ -75,7 +75,7 @@
           <input
             type="text"
             matInput
-            [formControlName]="'name'"
+            formControlName="institution"
             placeholder="Ex. Research about ....">
           <mat-error *ngIf="personalInfoForm.hasError('required')">
             Name is required
@@ -86,14 +86,14 @@
   </div>
   <h2>Department</h2>
     <div class="full-width">
-    <div class="row">
+      <div class="row">
       <div class="col">
         <mat-form-field class="full-width">
           <mat-label>Department Name</mat-label>
           <input
             type="text"
             matInput
-            [formControlName]="'name'"
+            formControlName="name"
             placeholder="Ex. Research about ....">
           <mat-error *ngIf="personalInfoForm.hasError('required')">
             Name is required
@@ -109,7 +109,7 @@
           <input
             type="text"
             matInput
-            [formControlName]="'street'"
+            formControlName="street"
             placeholder="Ex. Research about ....">
           <mat-error *ngIf="personalInfoForm.hasError('required')">
             Name is required
@@ -122,7 +122,7 @@
           <input
             type="text"
             matInput
-            [formControlName]="'buildingNumber'"
+            formControlName="buildingNumber"
             placeholder="Ex. Research about ....">
           <mat-error *ngIf="personalInfoForm.hasError('required')">
             Name is required
@@ -135,7 +135,7 @@
           <input
             type="text"
             matInput
-            [formControlName]="'flatNumber'"
+            formControlName="flatNumber"
             placeholder="Ex. Research about ....">
           <mat-error *ngIf="personalInfoForm.hasError('required')">
             Name is required
@@ -144,49 +144,52 @@
       </div>
     </div>
 
-      <div class="row">
-        <div class="col-5">
-          <mat-form-field class="full-width">
-            <mat-label>City</mat-label>
-            <input
-              type="text"
-              matInput
-              [formControlName]="'city'"
-              placeholder="Ex. Research about ....">
-            <mat-error *ngIf="personalInfoForm.hasError('required')">
-              Name is required
-            </mat-error>
-          </mat-form-field>
-        </div>
-        <div class="col-3">
-          <mat-form-field class="full-width">
-            <mat-label>Postal Code</mat-label>
-            <input
-              type="text"
-              matInput
-              [formControlName]="'postalCode'"
-              placeholder="Ex. Research about ....">
-            <mat-error *ngIf="personalInfoForm.hasError('required')">
-              Name is required
-            </mat-error>
-          </mat-form-field>
-        </div>
-        <div class="col-4">
-          <mat-form-field class="full-width">
-            <mat-label>Country</mat-label>
-            <input
-              type="text"
-              matInput
-              [formControlName]="'country'"
-              placeholder="Ex. Research about ....">
-            <mat-error *ngIf="personalInfoForm.hasError('required')">
-              Name is required
-            </mat-error>
-          </mat-form-field>
-        </div>
+    <div class="row">
+      <div class="col-5">
+        <mat-form-field class="full-width">
+          <mat-label>City</mat-label>
+          <input
+            type="text"
+            matInput
+            formControlName="city"
+            placeholder="Ex. Research about ....">
+          <mat-error *ngIf="personalInfoForm.hasError('required')">
+            Name is required
+          </mat-error>
+        </mat-form-field>
       </div>
+      <div class="col-3">
+        <mat-form-field class="full-width">
+          <mat-label>Postal Code</mat-label>
+          <input
+            type="text"
+            matInput
+            formControlName="postalCode"
+            placeholder="Ex. Research about ....">
+          <mat-error *ngIf="personalInfoForm.hasError('required')">
+            Name is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-4">
+        <mat-form-field class="full-width">
+          <mat-label>Country</mat-label>
+          <input
+            type="text"
+            matInput
+            formControlName="country"
+            placeholder="Ex. Research about ....">
+          <mat-error *ngIf="personalInfoForm.hasError('required')">
+            Name is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
 
   </div>
+</div>
+
+
 
   <div style="padding-top: 20px;">
     <button
@@ -194,3 +197,5 @@
   </div>
 </form>
 </div>
+
+{{personalInfoForm.getRawValue()| json}}

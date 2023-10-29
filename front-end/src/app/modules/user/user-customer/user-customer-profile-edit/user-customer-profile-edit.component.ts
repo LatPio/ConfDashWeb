@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {CustomersService} from "../../../../core/service/customers/customers.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Location} from "@angular/common";
@@ -27,15 +27,33 @@ export class UserCustomerProfileEditComponent {
     this.personalInfoForm = this.formBuilder.group(
       {
         id:[''],
-        firstName: [''],
-        lastName: [''],
-        email: [''],
-        degree: [''],
-        phoneNumber: [''],
-        authID: [''],
-        links: [''],
-        department: [''],
-        photo: [''],
+        firstName: ['',{updateOn: 'blur', validators: [Validators.required]}],
+        lastName: ['',{updateOn: 'blur', validators: [Validators.required]}],
+        email: ['',{updateOn: 'blur', validators: [Validators.email, Validators.required]}],
+        degree: ['',{updateOn: 'blur', validators: [Validators.required]}],
+        phoneNumber: ['',{updateOn: 'blur', validators: [Validators.required]}],
+        authID: ['',{updateOn: 'blur', validators: [Validators.required]}],
+        links: ['',{updateOn: 'blur', validators: [Validators.required]}],
+        // links: this.formBuilder.array([
+        //     this.addLink()
+        //   ]
+        // ),
+        invoiceData: this.formBuilder.group(
+          {
+            id: [''],
+            name: ['',{validators: [Validators.required]}],
+            street: ['',{updateOn: 'blur', validators: [Validators.required]}],
+            buildingNumber: ['',{updateOn: 'blur', validators: [Validators.required]}],
+            flatNumber:['',{updateOn: 'blur', validators: [Validators.required]}],
+            city: ['',{updateOn: 'blur', validators: [Validators.required]}],
+            postalCode: ['',{updateOn: 'blur', validators: [Validators.required]}],
+            country: ['',{updateOn: 'blur', validators: [Validators.required]}],
+            taxIdentificationNumber :['',{updateOn: 'blur', validators: [Validators.required]}],
+            institutionShortName: ['',{validators: [Validators.required]}],
+            institution:['',{updateOn: 'blur', validators: [Validators.required]}]
+          }
+        ),
+        photo: ['']
       }
     );
 
@@ -47,19 +65,8 @@ export class UserCustomerProfileEditComponent {
   getPersonalInfo(){
     this.userService.getPersonalInfo().subscribe(value =>
     {
-      this.personalInfoForm = this.formBuilder.group(
-        {
-          id:[{value: value.id, disabled:true}],
-          firstName: [value.firstName],
-          lastName: [value.lastName],
-          email: [{value: value.email, disabled:true}],
-          degree: [value.degree],
-          phoneNumber: [value.phoneNumber],
-          authID: [value.authID],
-          links: [value.links],
-          photo: [value.photo],
-        }
-      )
+      this.personalInfoForm.patchValue(value)
+
     });
   }
 
@@ -90,5 +97,18 @@ export class UserCustomerProfileEditComponent {
           }
         }
       )
+  }
+
+  private addLink() {
+    return this.formBuilder.group({
+      id:[],
+      name: [],
+      authID:[this.personalInfoForm.get("authID")?.value],
+      urlLink:[],
+      customer:{
+        id: [this.personalInfoForm.get("id")?.value]
+      }
+
+    })
   }
 }

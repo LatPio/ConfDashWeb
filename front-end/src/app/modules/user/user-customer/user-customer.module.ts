@@ -14,6 +14,11 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatDividerModule} from "@angular/material/divider";
 import {MatInputModule} from "@angular/material/input";
 import {ReactiveFormsModule} from "@angular/forms";
+import { UserCustomerPhotoAddButtonComponent } from './user-customer-photo-add-button/user-customer-photo-add-button.component';
+import { UserCustomerPhotoAddComponent } from './user-customer-photo-add/user-customer-photo-add.component';
+import {MatDialogModule} from "@angular/material/dialog";
+import {MatOptionModule} from "@angular/material/core";
+import {MatSelectModule} from "@angular/material/select";
 
 
 @NgModule({
@@ -22,18 +27,23 @@ import {ReactiveFormsModule} from "@angular/forms";
     UserCustomerProfileComponent,
     UserCustomerProfileEditComponent,
     UserCustomerListComponent,
-    UserCustomerViewComponent
+    UserCustomerViewComponent,
+    UserCustomerPhotoAddButtonComponent,
+    UserCustomerPhotoAddComponent
   ],
-  imports: [
-    CommonModule,
-    UserCustomerRoutingModule,
-    SharedModule,
-    MatCardModule,
-    MatIconModule,
-    MatButtonModule,
-    MatDividerModule,
-    MatInputModule,
-    ReactiveFormsModule
-  ]
+    imports: [
+        CommonModule,
+        UserCustomerRoutingModule,
+        SharedModule,
+        MatCardModule,
+        MatIconModule,
+        MatButtonModule,
+        MatDividerModule,
+        MatInputModule,
+        ReactiveFormsModule,
+        MatDialogModule,
+        MatOptionModule,
+        MatSelectModule
+    ]
 })
 export class UserCustomerModule { }

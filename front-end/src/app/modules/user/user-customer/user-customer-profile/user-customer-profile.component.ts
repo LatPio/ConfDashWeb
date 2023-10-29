@@ -22,4 +22,10 @@ export class UserCustomerProfileComponent implements OnInit{
   private getProfile() {
     this.customerService.getPersonalInfo().subscribe(value => {this.personalInfo =value})
   }
+
+  refreshData(){
+    this.getProfile()
+    window.location.reload();
+
+  }
 }

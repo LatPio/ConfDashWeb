@@ -11,13 +11,12 @@ import static io.restassured.RestAssured.given;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class InvoiceDataControllerTest extends KeycloakTestContainers implements SampleData {
 
-    @Autowired
-    private InstitutionRepository institutionRepository;
+
 
     @BeforeEach
     void setUp() {
 
-        institutionRepository.save(Institution.builder().id(1).name("uj").build());
+
 
     }
     @Test

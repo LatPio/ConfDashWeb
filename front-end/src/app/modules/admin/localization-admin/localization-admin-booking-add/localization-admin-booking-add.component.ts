@@ -48,7 +48,7 @@ export class LocalizationAdminBookingAddComponent implements OnInit{
         localization: this.formBuilder.group(
           {
             id:['', {validators:[Validators.required]}],
-            room:['',]
+            room:['']
           }
         ),
 

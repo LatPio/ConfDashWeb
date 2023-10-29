@@ -11,6 +11,6 @@ export class CustomerAdminDTOModel{
   phoneNumber: string;
   authID: string;
   links: Array<InformationLinksUserDTOModel>;
-  invoice: InvoiceDataDTOModel;
+  invoiceData: InvoiceDataDTOModel;
   photo: ProfilePhotoDTOModel;
 }

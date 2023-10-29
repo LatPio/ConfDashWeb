@@ -45,8 +45,9 @@ public class Customer {
 
     @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<InformationLinks> links;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "department_id")
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "Invoice_id")
     private InvoiceData invoiceData;
 
     @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
