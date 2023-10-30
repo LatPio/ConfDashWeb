@@ -1,0 +1,52 @@
+<section>
+  <div class="button-row mat-mdc-button-base">
+    <a mat-raised-button routerLink="../profile" color="primary">Back</a>
+
+    <a mat-raised-button (click)="openCreateLinkDialog(true)" color="primary">Add Link</a>
+
+
+  </div>
+</section>
+
+<div class="mat-elevation-z8" >
+  <table mat-table [dataSource]="dataSource" matSort>
+
+
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Name</th>
+      <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+    </ng-container>
+    <ng-container matColumnDef="urlLink">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> urlLink</th>
+      <td mat-cell *matCellDef="let row"> {{row.urlLink}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="options">
+      <th mat-header-cell *matHeaderCellDef > Option </th>
+      <td mat-cell *matCellDef="let row">
+        <div style="padding: 10px">
+
+          <button mat-raised-button (click)="openEditLinkDialog(row, false)" class="btn">
+            <mat-icon>edit_square</mat-icon> Edit
+          </button>
+          <app-delete-button [name]="row.name" (event)="deleteLink(row)"></app-delete-button>
+
+        </div>
+
+      </td>
+
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">No data!</td>
+    </tr>
+  </table>
+
+</div>
+
+
+

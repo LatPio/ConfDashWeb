@@ -4,25 +4,13 @@
   <mat-card class="card">
     <mat-card-header><mat-card-title>{{personalInfo.degree}} {{personalInfo.firstName}} {{personalInfo.lastName}}</mat-card-title>
       <mat-card-subtitle>{{personalInfo.email}}</mat-card-subtitle>
-
     </mat-card-header>
     <mat-card-content>
-
-<!--      <div *ngIf="personalInfo.photo; then thenBlock else elseBlock"></div>-->
-<!--      <ng-template #thenBlock>-->
-<!--        <img class="profile-photo" src="data:image/jpg;base64,{{personalInfo.photo}}"  >-->
-<!--      </ng-template>-->
-<!--      <ng-template #elseBlock >-->
-<!--        <div class="center-box" style="margin: 100px">-->
-<!--          <mat-icon class="default-face">face</mat-icon>-->
-<!--        </div>-->
-<!--      </ng-template>-->
 
       <div class="center-box">
         <img *ngIf="personalInfo.photo" class="profile-photo" src="data:image/jpg;base64,{{personalInfo.photo.data}}"  >
         <img *ngIf="personalInfo.photo === null" class="default-face" src="assets/face.svg"  >
       </div>
-
       <div *ngIf="personalInfo.invoiceData"> Affiliation: {{personalInfo.invoiceData.institution}} {{personalInfo.invoiceData.name}}</div>
       <div>Phone Number: {{personalInfo.phoneNumber}}</div>
       <div class="row">
@@ -34,9 +22,7 @@
             <a href="{{link.urlLink}}">{{link.name}}</a>
           </div>
         </div>
-
       </div>
-
 
     </mat-card-content>
     <mat-card-actions align="end">
@@ -45,8 +31,7 @@
         [update]="!!personalInfo.photo"
         (event)="refreshData()"
       ></app-user-customer-photo-add-button>
-<!--      <button mat-button routerLink="../edit">Change Photo</button>-->
-      <button mat-button routerLink="../edit">Information Links</button>
+      <button mat-button routerLink="../links">Information Links</button>
       <button mat-button routerLink="../edit">Edit Information</button>
     </mat-card-actions>
 

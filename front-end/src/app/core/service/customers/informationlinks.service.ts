@@ -1,7 +1,6 @@
 import {Inject, Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {APP_CONFIG, AppConfig} from "../../config/app-config/app-config.module";
-import {InvoiceDataDTOModel} from "./models/InvoiceDataDTOModel";
 import {Observable} from "rxjs";
 import {InformationLinksUserDTOModel} from "./models/InformationLinksUserDTOModel";
 import {InformationLinksRequestModel} from "./models/InformationLinksRequest-model";
@@ -57,7 +56,7 @@ export class InformationLinksService {
   }
 
   getInformationLinkListUser(): Observable<Array<InformationLinksUserDTOModel>>{
-    return this.httpClient.get<Array<InformationLinksUserDTOModel>>(`${this.config.apiEndpoint}api/v1/user/info_links`,
+    return this.httpClient.get<Array<InformationLinksUserDTOModel>>(`${this.config.apiEndpoint}api/v1/user/info_links/list`,
       {headers:this.httpHeaders, responseType: "json"} )
   }
 

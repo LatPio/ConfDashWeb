@@ -14,5 +14,6 @@ public class InformationLinksDTO {
     private Integer id;
     private String name;
     private String urlLink;
+    private String authId;
     private CustomerIdDTO customer;
 }

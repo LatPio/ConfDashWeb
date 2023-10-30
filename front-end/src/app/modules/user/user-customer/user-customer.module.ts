@@ -19,6 +19,13 @@ import { UserCustomerPhotoAddComponent } from './user-customer-photo-add/user-cu
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatOptionModule} from "@angular/material/core";
 import {MatSelectModule} from "@angular/material/select";
+import { UserCustomerLinksEditComponent } from './user-customer-links-edit/user-customer-links-edit.component';
+import {EventAdminModule} from "../../admin/event-admin/event-admin.module";
+import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatSortModule} from "@angular/material/sort";
+import {MatTableModule} from "@angular/material/table";
+import {AbstractsAdminModule} from "../../admin/abstracts-admin/abstracts-admin.module";
+import { UserCustomerLinksEditDialogComponent } from './user-customer-links-edit-dialog/user-customer-links-edit-dialog.component';
 
 
 @NgModule({
@@ -29,21 +36,28 @@ import {MatSelectModule} from "@angular/material/select";
     UserCustomerListComponent,
     UserCustomerViewComponent,
     UserCustomerPhotoAddButtonComponent,
-    UserCustomerPhotoAddComponent
+    UserCustomerPhotoAddComponent,
+    UserCustomerLinksEditComponent,
+    UserCustomerLinksEditDialogComponent
   ],
-    imports: [
-        CommonModule,
-        UserCustomerRoutingModule,
-        SharedModule,
-        MatCardModule,
-        MatIconModule,
-        MatButtonModule,
-        MatDividerModule,
-        MatInputModule,
-        ReactiveFormsModule,
-        MatDialogModule,
-        MatOptionModule,
-        MatSelectModule
-    ]
+  imports: [
+    CommonModule,
+    UserCustomerRoutingModule,
+    SharedModule,
+    MatCardModule,
+    MatIconModule,
+    MatButtonModule,
+    MatDividerModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    MatDialogModule,
+    MatOptionModule,
+    MatSelectModule,
+    EventAdminModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatTableModule,
+    AbstractsAdminModule
+  ]
 })
 export class UserCustomerModule { }

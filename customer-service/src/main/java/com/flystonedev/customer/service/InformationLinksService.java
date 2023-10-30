@@ -12,6 +12,7 @@ import com.flystonedev.customer.mapper.InformationLinksMapper;
 import com.flystonedev.customer.model.Customer;
 import com.flystonedev.customer.model.InformationLinks;
 import com.flystonedev.customer.repository.InformationLinksRepository;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
@@ -47,16 +48,17 @@ public class InformationLinksService {
                 .build();
         informationLinksRepository.save(informationLinks);
     }
-
+@Transactional
     public InformationLinksDTO getUserLink(Integer id){
         return informationLinksRepository.findInformationLinksByIdAndAuthId(id, jwtConverter.getKeycloakUserID()).map(informationLinksMapper::map).orElseThrow(EntityNotFoundException::new);
     }
-
+    @Transactional
     public List<InformationLinksDTO> informationLinksUserResponseList(){
         List<InformationLinks> linksList = informationLinksRepository.findInformationLinksByAuthId(jwtConverter.getKeycloakUserID());
         return linksList.stream().map(informationLinksMapper::map).collect(Collectors.toList());
     }
 
+    @Transactional
     public InformationLinksDTO updateUsersLink(InformationLinksDTO informationLinksDTO){
         InformationLinksAdminDTO exist = getAdminLink(informationLinksDTO.getId());
         if (exist == null) {
@@ -64,13 +66,13 @@ public class InformationLinksService {
         } else if (!Objects.equals(exist.getAuthId(), jwtConverter.getKeycloakUserID())){
             throw new CustomerUpdateException();
         } else {
-            InformationLinks informationLinks = InformationLinks.builder()
-                    .name(informationLinksDTO.getName())
-                    .urlLink(informationLinksDTO.getUrlLink())
-                    .authId(exist.getAuthId())
-                    .customer(Customer.builder().id(exist.getCustomer().getId()).build())
-                    .build();
-            InformationLinks updated = informationLinksRepository.save(informationLinks);
+//            InformationLinks informationLinks = InformationLinks.builder()
+//                    .name(informationLinksDTO.getName())
+//                    .urlLink(informationLinksDTO.getUrlLink())
+//                    .authId(exist.getAuthId())
+//                    .customer(Customer.builder().id(exist.getCustomer().getId()).build())
+//                    .build();
+            InformationLinks updated = informationLinksRepository.save(informationLinksMapper.map(informationLinksDTO));
             return informationLinksMapper.map(updated);
         }
     }
