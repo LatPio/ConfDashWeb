@@ -104,7 +104,7 @@ public interface SampleData {
                 .id(1)
                 .abstractTitle("Title: Sample Abstract")
                 .body("Body of abstract")
-                .presenterId(2)
+                .ownerId(2)
                 .build();
         return abstractOutResponse;
     }

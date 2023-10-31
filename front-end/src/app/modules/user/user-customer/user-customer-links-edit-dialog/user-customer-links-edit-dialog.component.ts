@@ -40,6 +40,14 @@ export class UserCustomerLinksEditDialogComponent implements OnInit{
   patchLinkForm(){
     this.infoLinkForm.patchValue(this.data.linkData)
   }
+
+  updateSaveLink() {
+    if(this.data.update){
+      this.updateInfoLinks()
+    } else {
+      this.saveInfoLinks()
+    }
+  }
   saveInfoLinks(){
     this.infoLinksService.postInformationLinkUser(this.infoLinkForm.getRawValue()).subscribe()
     this.dialogRef.close(true)
@@ -53,5 +61,6 @@ export class UserCustomerLinksEditDialogComponent implements OnInit{
   onCancelClick(): void {
     this.dialogRef.close(false);
   }
+
 
 }

@@ -1,19 +1,7 @@
 <h2 mat-dialog-title>Update/Save Information Link</h2>
 <mat-dialog-content>
 
-<form [formGroup]="infoLinkForm" >
-
-<!--  <mat-form-field class="full-width">-->
-<!--    <mat-label>ID</mat-label>-->
-<!--    <input-->
-<!--      type="text"-->
-<!--      matInput-->
-<!--      [formControlName]="'id'"-->
-<!--      placeholder="Ex. Research about ....">-->
-<!--    <mat-error *ngIf="infoLinkForm.hasError('required')">-->
-<!--      Name is required-->
-<!--    </mat-error>-->
-<!--  </mat-form-field>-->
+<form [formGroup]="infoLinkForm" (ngSubmit)="updateSaveLink()">
 
   <mat-form-field class="full-width">
     <mat-label>Name</mat-label>
@@ -39,33 +27,7 @@
     </mat-error>
   </mat-form-field>
 
-<!--  <mat-form-field class="full-width">-->
-<!--    <mat-label>AuthId</mat-label>-->
-<!--    <input-->
-<!--      type="text"-->
-<!--      matInput-->
-<!--      [formControlName]="'authId'"-->
-<!--      placeholder="Ex. Research about ....">-->
-<!--    <mat-error *ngIf="infoLinkForm.hasError('required')">-->
-<!--      Name is required-->
-<!--    </mat-error>-->
-<!--  </mat-form-field>-->
-<!--<div [formGroupName]="'customer'">-->
-<!--  <mat-form-field class="full-width">-->
-<!--    <mat-label>Customer ID</mat-label>-->
-<!--    <input-->
-<!--      type="text"-->
-<!--      matInput-->
-<!--      [formControlName]="'id'"-->
-<!--      placeholder="Ex. Research about ....">-->
-<!--    <mat-error *ngIf="infoLinkForm.hasError('required')">-->
-<!--      Name is required-->
-<!--    </mat-error>-->
-<!--  </mat-form-field>-->
-
-<!--</div>-->
-  <button *ngIf="data.update" mat-button color="primary" (click)="saveInfoLinks()">Save Link</button>
-  <button *ngIf="!data.update" mat-button color="primary" (click)="updateInfoLinks()">Update Link</button>
+  <button mat-button color="primary" > {{data.update?  "Update Link" :"Save Link"}}</button>
 
 </form>
 

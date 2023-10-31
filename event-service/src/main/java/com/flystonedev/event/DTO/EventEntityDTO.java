@@ -15,6 +15,7 @@ public class EventEntityDTO {
 
     private Integer id;
     private String name;
+    private Integer ownerId;
     private String abstractName;
     private String abstractId;
     private String localizationId;

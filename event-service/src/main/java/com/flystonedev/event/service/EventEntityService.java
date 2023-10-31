@@ -41,6 +41,7 @@ public class EventEntityService {
 
             EventEntity eventEntity = EventEntity.builder()
                     .name(eventEntityDTO.getName())
+                    .ownerId(abstractClient.abstractOutResponse(Integer.valueOf(eventEntityDTO.getAbstractId())).getOwnerId())
                     .abstractName(abstractClient.abstractOutResponse(Integer.valueOf(eventEntityDTO.getAbstractId())).getAbstractTitle())
                     .abstractId(eventEntityDTO.getAbstractId())
                     .localizationId(eventEntityDTO.getLocalizationId())

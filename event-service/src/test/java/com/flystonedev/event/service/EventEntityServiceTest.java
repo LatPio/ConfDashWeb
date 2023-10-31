@@ -114,7 +114,7 @@ class EventEntityServiceTest {
                 .id(1)
                 .abstractTitle("new Abstract")
                 .body("body of abstract")
-                .presenterId(1)
+                .ownerId(1)
                 .build();
 
         SecurityContext securityContext = SecurityContextHolder.createEmptyContext();

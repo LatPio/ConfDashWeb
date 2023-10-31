@@ -16,5 +16,5 @@ public class AbstractOutResponse {
     private Integer id;
     private String abstractTitle;
     private String body;
-    private Integer presenterId;
+    private Integer ownerId;
 }
