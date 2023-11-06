@@ -10,6 +10,7 @@ import com.flystonedev.customer.exeption.config.GlobalErrorCode;
 import com.flystonedev.customer.mapper.CustomerAdminMapper;
 import com.flystonedev.customer.mapper.CustomerCardMapper;
 import com.flystonedev.customer.mapper.CustomerMapper;
+import com.flystonedev.customer.mapper.CustomerSimpleMapper;
 import com.flystonedev.customer.model.Customer;
 import com.flystonedev.customer.repository.CustomerRepository;
 import com.flystonedev.customer.repository.InvoiceDataRepository;
@@ -34,14 +35,17 @@ public class CustomerService {
 
     private final CustomerRepository customerRepository;
     private final InvoiceDataRepository invoiceDataRepository;
+
     private final CustomerMapper customerMapper = Mappers.getMapper(CustomerMapper.class);
+    private final CustomerSimpleMapper customerSimpleDataMapper = Mappers.getMapper(CustomerSimpleMapper.class);
+
     private final CustomerCardMapper customerCardMapper = Mappers.getMapper(CustomerCardMapper.class);
     private final CustomerAdminMapper customerAdminMapper = Mappers.getMapper(CustomerAdminMapper.class);
     private final JwtConverter jwtConverter;
 
     private final KeycloakUserManagementService keycloakUserManagementService;
 
-
+    @Transactional
     public void registerCustomer(CustomerRegistrationRequest request) {
 
         List<UserRepresentation> userRepresentationList = keycloakUserManagementService.readUserByEmail(request.email());
@@ -86,9 +90,17 @@ public class CustomerService {
      * !!!!!!!!! USER SERVICE METHODS !!!!!!!!
      *
      * */
+    @Transactional
     public CustomerCardDTO getUserSimple(Integer id){
         return customerRepository.findById(id).map(customerCardMapper::map).orElseThrow(EntityNotFoundException::new);
     }
+
+    @Transactional
+    public CustomerIdDTO getUserSimpleData(){
+        return customerRepository.findCustomerByAuthID(jwtConverter.getKeycloakUserID()).map(customerSimpleDataMapper::map).orElseThrow(EntityNotFoundException::new);
+    }
+
+    @Transactional
     public CustomerDTO getUser(Integer id){
         return customerRepository.findCustomerByIdAndAuthID(id, jwtConverter.getKeycloakUserID()).map(customerMapper::map).orElseThrow(EntityNotFoundException::new);
     }
@@ -98,7 +110,6 @@ public class CustomerService {
         return customerRepository.findCustomerByAuthID(jwtConverter.getKeycloakUserID()).map(customerMapper::map).orElseThrow(EntityNotFoundException::new);
     }
     @Transactional
-
     public CustomerDTO updateUser(CustomerDTO customerDTO){
         Customer exist = customerMapper.map(getUser(customerDTO.getId()));
         if (exist == null) {

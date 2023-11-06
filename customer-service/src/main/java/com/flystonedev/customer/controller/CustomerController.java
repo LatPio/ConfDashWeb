@@ -3,6 +3,7 @@ package com.flystonedev.customer.controller;
 
 import com.flystonedev.customer.DTO.CustomerCardDTO;
 import com.flystonedev.customer.DTO.CustomerDTO;
+import com.flystonedev.customer.DTO.CustomerIdDTO;
 import com.flystonedev.customer.DTO.CustomerRegistrationRequest;
 import com.flystonedev.customer.service.CustomerService;
 import jakarta.annotation.security.RolesAllowed;
@@ -40,6 +41,12 @@ public class CustomerController {
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<CustomerDTO> getUser(){
         return ResponseEntity.status(HttpStatus.OK).body(customerService.getUserByAuthId());
+    }
+
+    @RolesAllowed({"USER"})
+    @GetMapping("/simple")
+    public ResponseEntity<CustomerIdDTO> getSimpleUserData(){
+        return ResponseEntity.status(HttpStatus.OK).body(customerService.getUserSimpleData());
     }
 
     @RolesAllowed({"USER"})

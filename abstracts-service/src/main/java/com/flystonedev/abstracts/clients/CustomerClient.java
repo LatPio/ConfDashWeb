@@ -18,7 +18,7 @@ public class CustomerClient {
         Jwt jwt = (Jwt) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         CustomerDTO customerDTO = webClient.build()
                 .get()
-                .uri("http://customer-service/api/v1/user/customer")
+                .uri("http://customer-service/api/v1/user/customer/simple")
                 .headers(httpHeaders -> httpHeaders.setBearerAuth(jwt.getTokenValue()))
                 .retrieve()
                 .bodyToMono(CustomerDTO.class)

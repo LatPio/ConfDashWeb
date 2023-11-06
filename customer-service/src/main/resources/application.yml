@@ -40,4 +40,4 @@ app:
       server-url: http://localhost:8181
       realm: confdashweb
       client-id: spring-cloud-client
-      client-secret: eIEAsftRLNv8hk9FX1L9OR3jtaSqkIqe
+      client-secret: AJyqXK1ifepxg44L3MgNqxfc7gi93yed

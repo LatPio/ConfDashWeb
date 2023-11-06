@@ -6,6 +6,15 @@ import { UserLocalizationComponent } from './user-localization.component';
 import { UserMapListComponent } from './user-map-list/user-map-list.component';
 import { UserLocalizationListComponent } from './user-localization-list/user-localization-list.component';
 import { UserLocalziationViewComponent } from './user-localziation-view/user-localziation-view.component';
+import {MatButtonModule} from "@angular/material/button";
+import {MatDividerModule} from "@angular/material/divider";
+import {MatCardModule} from "@angular/material/card";
+import { UserMapViewComponent } from './user-map-view/user-map-view.component';
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatInputModule} from "@angular/material/input";
+import {MatTableModule} from "@angular/material/table";
+import {MatIconModule} from "@angular/material/icon";
 
 
 @NgModule({
@@ -13,11 +22,20 @@ import { UserLocalziationViewComponent } from './user-localziation-view/user-loc
     UserLocalizationComponent,
     UserMapListComponent,
     UserLocalizationListComponent,
-    UserLocalziationViewComponent
+    UserLocalziationViewComponent,
+    UserMapViewComponent
   ],
   imports: [
     CommonModule,
-    UserLocalizationRoutingModule
+    UserLocalizationRoutingModule,
+    MatButtonModule,
+    MatDividerModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatPaginatorModule,
+    MatInputModule,
+    MatTableModule,
+    MatIconModule
   ]
 })
 export class UserLocalizationModule { }

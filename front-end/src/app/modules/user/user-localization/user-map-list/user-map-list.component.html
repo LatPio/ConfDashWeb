@@ -1,1 +1,20 @@
-<p>user-map-list works!</p>
+<div class="list-box">
+  <div *ngFor="let map of mapImageListData">
+    <mat-card class="map-card">
+      <mat-card-header>
+        <mat-card-title>{{map.name}}</mat-card-title>
+      </mat-card-header>
+      <img mat-card-image class="map-image" src="data:image/jpg;base64,{{map.data}}"  alt="{{map.name}}: {{map.fileName}}" >
+
+      <mat-card-content>
+
+        <mat-divider></mat-divider>
+      </mat-card-content>
+      <mat-card-actions>
+        <button class="margin" mat-raised-button routerLink="view/{{map.id}}">View</button>
+      </mat-card-actions>
+      <mat-card-footer>
+      </mat-card-footer>
+    </mat-card>
+  </div>
+</div>

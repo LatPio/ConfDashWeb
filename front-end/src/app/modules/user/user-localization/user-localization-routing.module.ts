@@ -4,6 +4,7 @@ import {UserMapListComponent} from "./user-map-list/user-map-list.component";
 import {UserLocalizationListComponent} from "./user-localization-list/user-localization-list.component";
 import {UserLocalziationViewComponent} from "./user-localziation-view/user-localziation-view.component";
 import {UserLocalizationComponent} from "./user-localization.component";
+import {UserMapViewComponent} from "./user-map-view/user-map-view.component";
 
 const routes: Routes = [
   {path: '',
@@ -11,7 +12,8 @@ const routes: Routes = [
   children: [
     {path: 'maps', component: UserMapListComponent},
     {path: 'list', component: UserLocalizationListComponent},
-    {path: 'view', component: UserLocalziationViewComponent}
+    {path: 'view', component: UserLocalziationViewComponent},
+    {path: 'maps/view/:mapId', component: UserMapViewComponent}
   ]}
 ];
 

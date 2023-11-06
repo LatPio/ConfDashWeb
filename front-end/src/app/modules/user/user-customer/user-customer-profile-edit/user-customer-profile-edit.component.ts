@@ -29,7 +29,7 @@ export class UserCustomerProfileEditComponent {
         id:[''],
         firstName: ['',{updateOn: 'blur', validators: [Validators.required]}],
         lastName: ['',{updateOn: 'blur', validators: [Validators.required]}],
-        email: ['',{updateOn: 'blur', validators: [Validators.email, Validators.required]}],
+        email: [{value: '', disabled: true},{updateOn: 'blur', validators: [Validators.email, Validators.required]}],
         degree: ['',{updateOn: 'blur', validators: [Validators.required]}],
         phoneNumber: ['',{updateOn: 'blur', validators: [Validators.required]}],
         authID: ['',{updateOn: 'blur', validators: [Validators.required]}],
