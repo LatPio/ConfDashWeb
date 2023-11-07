@@ -15,6 +15,8 @@ import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatInputModule} from "@angular/material/input";
 import {MatTableModule} from "@angular/material/table";
 import {MatIconModule} from "@angular/material/icon";
+import {MatSortModule} from "@angular/material/sort";
+import {SharedModule} from "../../shared/shared.module";
 
 
 @NgModule({
@@ -25,17 +27,19 @@ import {MatIconModule} from "@angular/material/icon";
     UserLocalziationViewComponent,
     UserMapViewComponent
   ],
-  imports: [
-    CommonModule,
-    UserLocalizationRoutingModule,
-    MatButtonModule,
-    MatDividerModule,
-    MatCardModule,
-    MatFormFieldModule,
-    MatPaginatorModule,
-    MatInputModule,
-    MatTableModule,
-    MatIconModule
-  ]
+    imports: [
+        CommonModule,
+        UserLocalizationRoutingModule,
+        MatButtonModule,
+        MatDividerModule,
+        MatCardModule,
+        MatFormFieldModule,
+        MatPaginatorModule,
+        MatInputModule,
+        MatTableModule,
+        MatIconModule,
+        MatSortModule,
+        SharedModule
+    ]
 })
 export class UserLocalizationModule { }

@@ -17,7 +17,10 @@ const routes: Routes = [
         .then(value => value.UserBookingModule)},
       {path:'localization',
       loadChildren:() => import('./user-localization/user-localization.module')
-        .then(value => value.UserLocalizationModule)}
+        .then(value => value.UserLocalizationModule)},
+      {path: 'calendar',
+        loadChildren:() => import('./user-calendar/user-calendar.module')
+          .then(value => value.UserCalendarModule)}
     ]
   }
 ];

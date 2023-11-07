@@ -12,6 +12,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { MatIconModule } from "@angular/material/icon";
 import {MAT_SNACK_BAR_DEFAULT_OPTIONS} from "@angular/material/snack-bar";
 import {NgxMatDatetimePickerModule, NgxMatTimepickerModule} from "@angular-material-components/datetime-picker";
+import {FullCalendarModule} from "@fullcalendar/angular";
 
 
 
@@ -30,6 +31,7 @@ import {NgxMatDatetimePickerModule, NgxMatTimepickerModule} from "@angular-mater
     MatIconModule,
     NgxMatDatetimePickerModule,
     NgxMatTimepickerModule,
+    FullCalendarModule,
 
 
     // OAuthModule.forRoot(
