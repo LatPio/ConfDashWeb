@@ -46,6 +46,11 @@ public class EventEntityController {
         return ResponseEntity.status(HttpStatus.OK).body(eventEntityService.eventEntityDTOList());
     }
     @RolesAllowed({"USER", "ADMIN"})
+    @GetMapping("/list/room")
+    public ResponseEntity<List<EventEntityDTO>> listByRoom(@RequestParam String id){
+        return ResponseEntity.status(HttpStatus.OK).body(eventEntityService.eventEntityDTOListByLocalization(id));
+    }
+    @RolesAllowed({"USER", "ADMIN"})
     @GetMapping
     public ResponseEntity<EventEntityDTO> get(@RequestParam Integer id){
         return ResponseEntity.status(HttpStatus.OK).body(eventEntityService.get(id));

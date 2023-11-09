@@ -11,7 +11,11 @@ export class UserCalendarViewComponent {
 
   calendarOptions: CalendarOptions = {
     initialView: 'timeGridDay',
-    plugins: [timeGridPlugin]
+    plugins: [timeGridPlugin],
+    headerToolbar: {
+      left: 'prev,next',
+      center: 'title',
+      right: 'timeGridWeek,timeGridDay'
+    }
   }
-
 }
