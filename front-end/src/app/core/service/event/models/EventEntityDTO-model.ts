@@ -9,7 +9,8 @@ export class EventEntityDTOModel{
   localizationId: number;
   localizationName: string;
   eventType: EventTypeDTOModel;
-  dateTimeOfEvent: Date;
+  startOfEvent: Date;
+  endOfEvent: Date;
   bookingId: number;
 
 }

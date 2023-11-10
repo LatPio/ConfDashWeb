@@ -35,8 +35,8 @@ export class UserCalendarRoomComponent implements OnInit{
         .map(value => (
           {
             title: value.name,
-            start: value.dateTimeOfEvent,
-
+            start: value.startOfEvent,
+            end: value.endOfEvent
           })))
     )
       .subscribe( value => this.events = value)

@@ -20,5 +20,5 @@ public class BookingsDTO {
     private boolean timeConflict;
     private LocalDateTime dateStart;
     private LocalDateTime dateEnd;
-    private LocalizationDTO localization;
+    private LocalizationWithOutMapDTO localization;
 }

@@ -58,7 +58,9 @@ export class EventAdminUpdateComponent implements OnInit{
         abstractName:[''],
         localizationId: ['', {validators:[Validators.required]}],
         localizationName: ['', {validators:[Validators.required]}],
-        dateTimeOfEvent: [new Date(), {validators:[Validators.required]}],
+        startOfEvent: [new Date(), {validators:[Validators.required]}],
+        endOfEvent: [new Date(), {validators:[Validators.required]}],
+
         eventType: this.formBuilder.group(
           {
             id: ['', {validators:[Validators.required]}],
@@ -81,7 +83,9 @@ export class EventAdminUpdateComponent implements OnInit{
           abstractId: [value.abstractId],
           localizationId: [value.localizationId],
           localizationName: [value.localizationName],
-          dateTimeOfEvent: [value.dateTimeOfEvent],
+          startOfEvent: [value.startOfEvent],
+          endOfEvent: [value.endOfEvent],
+
           eventType: this.formBuilder.group(
             {
               id: [value.eventType.id],

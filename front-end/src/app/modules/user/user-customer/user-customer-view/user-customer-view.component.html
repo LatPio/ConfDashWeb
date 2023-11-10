@@ -1,1 +1,28 @@
-<p>user-customer-view works!</p>
+
+
+<div class="center-box">
+  <mat-card class="card">
+    <mat-card-header><mat-card-title>{{userInfo.degree}} {{userInfo.firstName}} {{userInfo.lastName}}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+
+      <div class="center-box box">
+        <img *ngIf="userInfo.photo" class="profile-photo" src="data:image/jpg;base64,{{userInfo.photo.data}}"  >
+        <img *ngIf="userInfo.photo === null" class="default-face" src="assets/face.svg"  >
+      </div>
+      <div *ngIf="userInfo.invoiceData" class="center-box box"> {{userInfo.invoiceData.institution}} {{userInfo.invoiceData.name}}</div>
+      <div class="row">
+        <div class="col">
+          Find more about me here:
+        </div>
+        <div class="col">
+          <div *ngFor="let link of userInfo.links ">
+            <a href="{{link.urlLink}}">{{link.name}}</a>
+          </div>
+        </div>
+      </div>
+
+    </mat-card-content>
+
+
+  </mat-card>  </div>

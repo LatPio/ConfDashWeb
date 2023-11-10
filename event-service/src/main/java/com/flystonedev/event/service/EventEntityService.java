@@ -47,16 +47,18 @@ public class EventEntityService {
                     .localizationId(eventEntityDTO.getLocalizationId())
                     .localizationName(localizationClient.localizationOutResponse(Integer.valueOf(eventEntityDTO.getLocalizationId())).getRoom())
                     .eventType(eventTypeRepository.getReferenceById(eventEntityDTO.getEventType().getId()))
-                    .dateTimeOfEvent(eventEntityDTO.getDateTimeOfEvent())
+                    .startOfEvent(eventEntityDTO.getStartOfEvent())
+                    .endOfEvent(eventEntityDTO.getStartOfEvent().plusMinutes(eventEntityDTO.getEventType().getTime().toMinutes()).minusSeconds(1L))
+
                     .build();
 
         EventEntity saved = eventEntityRepository.save(eventEntity);
 
         BookingRequest bookingRequest = BookingRequest.builder()
                     .eventIDData(saved.getId())
-                    .dateStart(saved.getDateTimeOfEvent())
-                    .localization(LocalizationDTO.builder().id(Integer.valueOf(saved.getLocalizationId())).build())
+                    .dateStart(saved.getStartOfEvent())
                     .eventTime(saved.getEventType().getTime())
+                    .localization(LocalizationDTO.builder().id(Integer.valueOf(saved.getLocalizationId())).build())
                     .timeConflict(saved.getEventType().isTimeConflict())
                     .locationConflict(saved.getEventType().isLocationConflict())
                     .build();
@@ -88,7 +90,15 @@ public class EventEntityService {
             return null;
         }
         EventEntity updated = eventEntityRepository.save(eventEntityMapper.map(eventEntityDTO));
+
+        BookingsDTO bookingToUpdate = localizationClient.getBookingsDTO(exist.getBookingId());
+        bookingToUpdate.setDateStart(eventEntityDTO.getStartOfEvent());
+        bookingToUpdate.setDateEnd(eventEntityDTO.getEndOfEvent());
+        BookingsDTO updatedBooking = localizationClient.updateBookingsDTO(bookingToUpdate);
+
         return eventEntityMapper.map(updated);
+
+
     }
 
     public void delete(Integer id){

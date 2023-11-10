@@ -7,7 +7,6 @@ export class CustomerCardDTOModel{
   firstName: string;
   lastName: string;
   degree: string;
-  phoneNumber: string;
   links: Array<InformationLinksUserDTOModel>;
   invoiceData: InvoiceDataDTOModel;
   photo: ProfilePhotoDTOModel;

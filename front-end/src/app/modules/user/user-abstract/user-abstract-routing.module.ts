@@ -19,7 +19,7 @@ const routes: Routes = [
     {path: 'view', component: UserAbstractViewComponent},
     {path: 'panel', component: UserAbstractPanelComponent},
     {path: 'list', component: UserAbstractGlobalListComponent},
-    {path: 'list/view', component: UserAbstractGlobalViewComponent}
+    {path: 'list/view/:abstractID', component: UserAbstractGlobalViewComponent}
   ]}
 ];
 

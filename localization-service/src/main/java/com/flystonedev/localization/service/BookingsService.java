@@ -27,7 +27,7 @@ public class BookingsService {
                 .locationConflict(bookingRequest.isLocationConflict())
                 .timeConflict(bookingRequest.isTimeConflict())
                 .dateStart(bookingRequest.getDateStart())
-                .dateEnd(bookingRequest.getDateStart().plusMinutes(bookingRequest.getEventTime().toMinutes()))
+                .dateEnd(bookingRequest.getDateStart().plusMinutes(bookingRequest.getEventTime().toMinutes()).minusSeconds(1L))
                 .localization(Localization.builder().id(bookingRequest.getLocalization().getId()).build())
                 .build();
         Bookings saved = bookingsRepository.save(bookings);

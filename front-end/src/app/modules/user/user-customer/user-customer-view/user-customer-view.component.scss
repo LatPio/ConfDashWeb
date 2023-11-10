@@ -1,0 +1,28 @@
+.box{
+  margin: 20px;
+}
+
+.card{
+  width: 500px;
+  //max-height: 500px;
+}
+.center-box{
+  display: flex;
+  justify-content: center;
+}
+
+.profile-photo{
+  max-height: 200px;
+  max-width: 200px;
+
+  height:auto;
+  width:auto;
+
+}
+.default-face{
+  transform: scale(4);
+  margin: 100px;
+
+}
+
+

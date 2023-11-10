@@ -43,7 +43,9 @@ public class EventEntity {
     @ManyToOne
     @JoinColumn(name = "event_Type_ID")
     private EventType eventType;
-    private LocalDateTime dateTimeOfEvent;
+    private LocalDateTime startOfEvent;
+    private LocalDateTime endOfEvent;
+
 
     @CreationTimestamp
     @Column(name = "Creation_Date", updatable = false)

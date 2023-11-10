@@ -1,6 +1,6 @@
 <mat-card>
   <mat-card-header>
-    <mat-card-title>{{eventData.eventType.name}}: {{eventData.dateTimeOfEvent | date: 'dd-MM-yyyy HH:mm'}}</mat-card-title>
+    <mat-card-title>{{eventData.eventType.name}}: {{eventData.startOfEvent | date: 'dd-MM-yyyy HH:mm'}}</mat-card-title>
   </mat-card-header>
   <mat-card-content>
     <div class="row">
@@ -14,8 +14,8 @@
       <div  class="col button-list">
         <button mat-button routerLink="../../participants/view/{{eventData.ownerId}}">See Speaker</button>
 
-        <button mat-button>View Abstract</button>
-        <button mat-button>Find Where</button>
+        <button mat-button routerLink="../../abstracts/list/view/{{eventData.abstractId}}">View Abstract</button>
+        <button mat-button routerLink="../../localization/view/{{eventData.abstractId}}">Find Where</button>
         <button mat-button>Add to My Schedule</button>
       </div>
     </div>

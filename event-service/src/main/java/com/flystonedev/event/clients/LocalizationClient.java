@@ -55,4 +55,41 @@ public class LocalizationClient {
         return bookingsDTO;
 
     }
+
+    public BookingsDTO getBookingsDTO (Integer id){
+        Jwt jwt = (Jwt) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        BookingsDTO bookingsDTO = webClientBuilder.build()
+                .get()
+                .uri("http://localization-Service/api/v1/booking")
+                .headers(httpHeaders -> httpHeaders.setBearerAuth(jwt.getTokenValue()))
+                .retrieve()
+                .onStatus(  httpStatusCode-> httpStatusCode.value() == 401,
+                        clientResponse -> {throw new ClientCallException("Access to Localization service Denied", GlobalErrorCode.ERROR_EVENT_SERVICE_ACCESS_DENIED);})
+                .onStatus(  httpStatusCode-> httpStatusCode.value() == 404,
+                        clientResponse -> {throw new ClientCallException("Endpoint to Localization Service not found", GlobalErrorCode.ERROR_EVENT_SERVICE_ENTITY_NOT_FOUND);})
+                .bodyToMono(BookingsDTO.class)
+                .block();
+        return bookingsDTO;
+
+    }
+
+    public BookingsDTO updateBookingsDTO (BookingsDTO bookingsToUpdate){
+        Jwt jwt = (Jwt) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        BookingsDTO bookingsDTO = webClientBuilder.build()
+                .put()
+                .uri("http://localization-Service/api/v1/booking")
+                .body(Mono.just(bookingsToUpdate), BookingsDTO.class)
+                .headers(httpHeaders -> httpHeaders.setBearerAuth(jwt.getTokenValue()))
+                .retrieve()
+                .onStatus(  httpStatusCode-> httpStatusCode.value() == 401,
+                        clientResponse -> {throw new ClientCallException("Access to Localization service Denied", GlobalErrorCode.ERROR_EVENT_SERVICE_ACCESS_DENIED);})
+                .onStatus(  httpStatusCode-> httpStatusCode.value() == 404,
+                        clientResponse -> {throw new ClientCallException("Endpoint to Localization Service not found", GlobalErrorCode.ERROR_EVENT_SERVICE_ENTITY_NOT_FOUND);})
+                .bodyToMono(BookingsDTO.class)
+                .block();
+        return bookingsDTO;
+
+    }
 }

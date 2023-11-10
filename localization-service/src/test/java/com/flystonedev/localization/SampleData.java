@@ -1,9 +1,6 @@
 package com.flystonedev.localization;
 
-import com.flystonedev.localization.DTO.BookingRequest;
-import com.flystonedev.localization.DTO.BookingsDTO;
-import com.flystonedev.localization.DTO.LocalizationDTO;
-import com.flystonedev.localization.DTO.LocalizationOutResponse;
+import com.flystonedev.localization.DTO.*;
 import com.flystonedev.localization.model.Localization;
 
 import java.time.Duration;
@@ -21,7 +18,7 @@ public interface SampleData {
                 .timeConflict(false)
                 .dateStart(LocalDate.of(2022,5,1).atTime(10,35,44).atZone(ZoneOffset.UTC).toLocalDateTime())
                 .dateEnd( LocalDate.of(2022,5,1).atTime(10,55,44).atZone(ZoneOffset.UTC).toLocalDateTime() )
-                .localization(LocalizationDTO.builder().id(1).build())
+                .localization(LocalizationWithOutMapDTO.builder().id(1).build())
                 .build();
         return bookingsDTO;
     }

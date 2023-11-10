@@ -22,5 +22,7 @@ public class EventEntityDTO {
     private String localizationName;
     private Integer bookingId;
     private EventTypeDTO eventType;
-    private LocalDateTime dateTimeOfEvent;
+    private LocalDateTime startOfEvent;
+    private LocalDateTime endOfEvent;
+
 }

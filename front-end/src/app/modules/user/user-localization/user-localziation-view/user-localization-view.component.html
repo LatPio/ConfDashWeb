@@ -1,0 +1,23 @@
+<div class="center">
+  <div class="item">
+    <!--    <span class="notify-badge" style="top: 20% ;left: 20%">X</span>-->
+    <span class="notify-badge"
+          [style.top.%]="localizationData.coordinateY -4.8"
+
+          [style.left.%]="localizationData.coordinateX -1.2"
+
+    >
+      <mat-icon class="pin-style">pin_drop</mat-icon>
+    </span>
+
+    <img class="map-image" src="data:image/jpg;base64,{{localizationData.mapImage.data}}"  alt="{{localizationData.mapImage.name}}: {{localizationData.mapImage.fileName}}" >
+  </div>
+</div>
+<div style="margin: 20px">
+  <h2><strong>Name of Room or Place:</strong> {{localizationData.room}}</h2>
+
+
+
+</div>
+
+

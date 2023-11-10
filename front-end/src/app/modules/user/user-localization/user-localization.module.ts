@@ -5,7 +5,7 @@ import { UserLocalizationRoutingModule } from './user-localization-routing.modul
 import { UserLocalizationComponent } from './user-localization.component';
 import { UserMapListComponent } from './user-map-list/user-map-list.component';
 import { UserLocalizationListComponent } from './user-localization-list/user-localization-list.component';
-import { UserLocalziationViewComponent } from './user-localziation-view/user-localziation-view.component';
+import { UserLocalizationViewComponent } from './user-localziation-view/user-localziation-view.component';
 import {MatButtonModule} from "@angular/material/button";
 import {MatDividerModule} from "@angular/material/divider";
 import {MatCardModule} from "@angular/material/card";
@@ -24,7 +24,7 @@ import {SharedModule} from "../../shared/shared.module";
     UserLocalizationComponent,
     UserMapListComponent,
     UserLocalizationListComponent,
-    UserLocalziationViewComponent,
+    UserLocalizationViewComponent,
     UserMapViewComponent
   ],
     imports: [
