@@ -46,7 +46,8 @@ import { EventViewCardComponent } from './event-view-card/event-view-card.compon
         EventViewCardComponent
     ],
     exports: [
-        EventViewCardComponent
+        EventViewCardComponent,
+        EventSimpleViewCardComponent
     ],
     imports: [
         CommonModule,

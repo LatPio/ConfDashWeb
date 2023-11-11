@@ -16,7 +16,7 @@
 
         <button mat-button routerLink="../../abstracts/list/view/{{eventData.abstractId}}">View Abstract</button>
         <button mat-button routerLink="../../localization/view/{{eventData.abstractId}}">Find Where</button>
-        <button mat-button>Add to My Schedule</button>
+        <button mat-button (click)="postEventToBasket(eventData)" >Add to My Schedule</button>
       </div>
     </div>
 

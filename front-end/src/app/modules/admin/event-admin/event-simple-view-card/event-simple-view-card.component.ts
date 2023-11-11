@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
 import {EventEntityService} from "../../../../core/service/event/event-entity.service";
 import {EventEntityDTOModel} from "../../../../core/service/event/models/EventEntityDTO-model";
 import {verifyHostBindings} from "@angular/compiler";
@@ -8,7 +8,7 @@ import {verifyHostBindings} from "@angular/compiler";
   templateUrl: './event-simple-view-card.component.html',
   styleUrls: ['./event-simple-view-card.component.scss']
 })
-export class EventSimpleViewCardComponent implements OnInit{
+export class EventSimpleViewCardComponent implements OnInit, AfterViewInit{
 
   @Input() eventData: EventEntityDTOModel;
   @Input() eventID: number;
@@ -27,6 +27,10 @@ export class EventSimpleViewCardComponent implements OnInit{
         this.eventData = value;
       }
     )
+  }
+
+  ngAfterViewInit(): void {
+    this.getEventEntity();
   }
 
 }

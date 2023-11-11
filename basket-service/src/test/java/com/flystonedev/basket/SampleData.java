@@ -2,6 +2,7 @@ package com.flystonedev.basket;
 
 import com.flystonedev.basket.DTO.BasketDTO;
 import com.flystonedev.basket.model.BasketItem;
+import com.flystonedev.event.DTO.EventEntityDTO;
 
 import java.util.Arrays;
 import java.util.List;
@@ -33,6 +34,13 @@ public interface SampleData {
                 .eventId(1)
                 .deletable(true)
                 .authId("aaaa-bbbb")
+                .build();
+        return item1;
+    }
+    default EventEntityDTO getSampleInitialDataForBooking(){
+        EventEntityDTO item1 = EventEntityDTO.builder()
+                .id(1)
+                .name("Name of Item In Basket")
                 .build();
         return item1;
     }

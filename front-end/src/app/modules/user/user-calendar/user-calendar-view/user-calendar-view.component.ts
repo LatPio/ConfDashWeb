@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import {CalendarOptions, EventInput} from "@fullcalendar/core";
-import dayGridPlugin from "@fullcalendar/daygrid"
 import timeGridPlugin from "@fullcalendar/timegrid"
 import {EventEntityService} from "../../../../core/service/event/event-entity.service";
 import {ActivatedRoute} from "@angular/router";

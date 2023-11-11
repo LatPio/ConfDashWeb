@@ -45,6 +45,12 @@ public class EventEntityController {
     public ResponseEntity<List<EventEntityDTO>> list(){
         return ResponseEntity.status(HttpStatus.OK).body(eventEntityService.eventEntityDTOList());
     }
+
+    @RolesAllowed({"USER", "ADMIN"})
+    @PostMapping("/user-list")
+    public ResponseEntity<List<EventEntityDTO>> userList(@RequestBody List<Integer> listOfEvents){
+        return ResponseEntity.status(HttpStatus.OK).body(eventEntityService.eventEntityDTOuserList(listOfEvents));
+    }
     @RolesAllowed({"USER", "ADMIN"})
     @GetMapping("/list/room")
     public ResponseEntity<List<EventEntityDTO>> listByRoom(@RequestParam String id){

@@ -7,6 +7,7 @@ import com.flystonedev.basket.exeption.BookingEditionBlockedException;
 import com.flystonedev.basket.mapper.BasketItemMapper;
 import com.flystonedev.basket.model.BasketItem;
 import com.flystonedev.basket.repository.BasketRepository;
+import com.flystonedev.event.DTO.EventEntityDTO;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,13 +32,12 @@ public class BasketService {
      *
      * */
 
-    public BasketDTO bookUSerEvent(BasketDTO basketDTO){
+    public BasketDTO bookUSerEvent(EventEntityDTO eventEntityDTO){
         BasketItem basketItem = BasketItem.builder()
-                .id(basketDTO.getId())
-                .name(basketDTO.getName())
-                .eventId(basketDTO.getEventId())
+                .name(eventEntityDTO.getName())
+                .eventId(eventEntityDTO.getId())
                 .authId(jwtConverter.getKeycloakUserID())
-                .deletable(basketDTO.getDeletable())
+                .deletable(true)
                 .build();
         basketRepository.save(basketItem);
         return basketMapper.map(basketItem);
@@ -73,7 +73,6 @@ public class BasketService {
 
     public BasketDTO bookAdminEvent(BasketDTO basketDTO){
         BasketItem basketItem = BasketItem.builder()
-                .id(basketDTO.getId())
                 .name(basketDTO.getName())
                 .eventId(basketDTO.getEventId())
                 .authId(basketDTO.getAuthId())

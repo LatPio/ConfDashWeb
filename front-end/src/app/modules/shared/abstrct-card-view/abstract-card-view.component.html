@@ -2,7 +2,7 @@
   [style.width.px]="Number(widthOfCard)"
 >
   <mat-card-header>
-    <img mat-card-avatar src="https://material.angular.io/assets/img/examples/shiba1.jpg"  class="example-header-image" >
+    <img mat-card-avatar src="data:image/jpg;base64,{{image}}"  class="example-header-image" >
     <mat-card-title>{{abstract.abstractTitle}}</mat-card-title>
     <mat-card-subtitle>{{abstract.authors}}</mat-card-subtitle>
 <!--    <mat-card-subtitle>{{abstract.affiliation}}</mat-card-subtitle>-->
@@ -12,11 +12,9 @@
   <mat-card-content>
     <div class="center">
       <div class="image-frame">
-        <img *ngIf="image" class="graphical-abstract" src="data:image/jpg;base64,{{image}}"  >
 
         <img *ngIf="filesEmpty" class="graphical-abstract" src="data:image/jpg;base64,{{graphicalAbstract.smallData}}"  alt="{{graphicalAbstract.fileRole}}: {{graphicalAbstract.name}}" >
       </div>
-
       <span class="abstract-text" [innerHTML]=" abstract.body "></span>
     </div>
   </mat-card-content>

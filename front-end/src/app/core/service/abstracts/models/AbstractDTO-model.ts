@@ -7,7 +7,6 @@ export class AbstractDTOModel{
   body: string;
   authors: string;
   affiliation: string;
-  presenterId: number;
   ownerId: number;
   authId: string;
   accepted: boolean;

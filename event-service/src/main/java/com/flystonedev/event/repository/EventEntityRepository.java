@@ -9,5 +9,7 @@ import java.util.List;
 @Repository
 public interface EventEntityRepository extends JpaRepository<EventEntity, Integer> {
 
+    List<EventEntity> findByIdIn(List<Integer> listOfEvents);
+
     List<EventEntity> findEventEntitiesByLocalizationId( String id);
 }

@@ -1,0 +1,45 @@
+{{listOfEvents | json}}
+{{dataSource.data | json}}
+
+<div hidden="true">
+  <app-event-view-card style="margin: 5px"
+                       [eventData]="dataSource.data[0]"
+  >
+
+  </app-event-view-card>
+</div>
+
+<mat-form-field style="width: 100%">
+  <mat-label>Filter</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Provide filter criteria" #input>
+</mat-form-field>
+
+<div class="mat-elevation-z8" >
+  <table mat-table [dataSource]="dataSource" matSort>
+
+
+
+    <ng-container matColumnDef="data">
+      <mat-header-cell mat-header-cell *matHeaderCellDef> Data </mat-header-cell>
+      <mat-cell mat-cell *matCellDef="let data">
+        <app-event-view-card style="margin: 5px"
+                             [eventData]="data"
+        >
+
+        </app-event-view-card>
+      </mat-cell>
+    </ng-container>
+
+    <mat-row  *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+    </tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+</div>
+
+
+

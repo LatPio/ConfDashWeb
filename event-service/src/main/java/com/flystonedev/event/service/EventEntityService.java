@@ -75,6 +75,11 @@ public class EventEntityService {
         return eventEntityList.stream().map(eventEntityMapper::map).collect(Collectors.toList());
     }
 
+    public List<EventEntityDTO> eventEntityDTOuserList(List<Integer> listBookedEvents) {
+        List<EventEntity> eventEntityList = eventEntityRepository.findByIdIn(listBookedEvents);
+        return eventEntityList.stream().map(eventEntityMapper::map).collect(Collectors.toList());
+    }
+
     public List<EventEntityDTO> eventEntityDTOListByLocalization(String id) {
         List<EventEntity> eventEntityList = eventEntityRepository.findEventEntitiesByLocalizationId(id);
         return eventEntityList.stream().map(eventEntityMapper::map).collect(Collectors.toList());

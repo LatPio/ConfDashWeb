@@ -32,6 +32,11 @@ export class EventEntityService {
       {headers:this.httpHeaders, responseType: "json"})
   }
 
+  getListUserEvent(list: Array<number>):Observable<Array<EventEntityDTOModel>>{
+    return this.httpClient.post<Array<EventEntityDTOModel>>(`${this.config.apiEndpoint}api/v1/event/user-list`,
+      list, {headers: this.httpHeaders, responseType: "json"})
+  }
+
   getListEventByLocation(locationId: number):Observable<Array<EventEntityDTOModel>>{
     return this.httpClient.get<Array<EventEntityDTOModel>>(`${this.config.apiEndpoint}api/v1/event/list/room?id=${locationId}`,
       {headers:this.httpHeaders, responseType: "json"})

@@ -4,6 +4,7 @@ import {FileRole} from "../../../core/service/abstracts/models/FileRole";
 import {AttachmentFileDTOModel} from "../../../core/service/abstracts/models/AttachmentFileDTO-model";
 import {AbstractsAttachmentFileService} from "../../../core/service/abstracts/abstracts-attachment-file.service";
 import {AbstractsService} from "../../../core/service/abstracts/abstracts.service";
+import {CustomersService} from "../../../core/service/customers/customers.service";
 
 @Component({
   selector: 'app-abstract-card-view',
@@ -22,15 +23,23 @@ export class AbstractCardViewComponent implements OnInit,AfterViewInit{
 
   constructor(
     private abstractService: AbstractsService,
+    private customerService: CustomersService,
     private fileService:AbstractsAttachmentFileService) {
   }
   ngOnInit(): void {
     this.getAbstract()
+    this.getUSerPhoto()
   }
 
   getAbstract(){
     this.abstractService.getAbstractAdmin(this.abstractID).subscribe(value => {
       this.abstract = value
+    })
+  }
+
+  getUSerPhoto(){
+    this.customerService.getCustomersUserCard(this.abstract.ownerId).subscribe(value => {
+      this.image = value.photo.data
     })
   }
 
@@ -52,6 +61,7 @@ export class AbstractCardViewComponent implements OnInit,AfterViewInit{
 
   ngAfterViewInit(): void {
     this.getFirstGraphicalAbstract()
+    this.getUSerPhoto()
 
   }
 

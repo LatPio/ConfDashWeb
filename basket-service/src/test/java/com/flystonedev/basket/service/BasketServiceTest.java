@@ -6,6 +6,7 @@ import com.flystonedev.basket.config.JwtConverter;
 import com.flystonedev.basket.mapper.BasketItemMapper;
 import com.flystonedev.basket.model.BasketItem;
 import com.flystonedev.basket.repository.BasketRepository;
+import com.flystonedev.event.DTO.EventEntityDTO;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mapstruct.factory.Mappers;
@@ -35,11 +36,12 @@ class BasketServiceTest implements SampleData {
     @Test
     void bookUSerEvent() {
         //given
+        EventEntityDTO data = getSampleInitialDataForBooking();
         BasketDTO expected = getSampleOfBasketDTO();
         expected.setId(null);
         when(jwtConverter.getKeycloakUserID()).thenReturn(expected.getAuthId());
         //when
-        basketService.bookUSerEvent(expected);
+        basketService.bookUSerEvent(data);
         //then
         ArgumentCaptor<BasketItem> basketItemArgumentCaptor = ArgumentCaptor.forClass(BasketItem.class);
         verify(basketRepository).save(basketItemArgumentCaptor.capture());

@@ -2,6 +2,7 @@ package com.flystonedev.basket.controller;
 
 import com.flystonedev.basket.DTO.BasketDTO;
 import com.flystonedev.basket.service.BasketService;
+import com.flystonedev.event.DTO.EventEntityDTO;
 import jakarta.annotation.security.RolesAllowed;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,10 +22,10 @@ public class BasketUserController {
 
     @RolesAllowed({"USER"})
     @PostMapping
-    public ResponseEntity<BasketDTO> addAbstract(@RequestBody BasketDTO abstractDTO){
-        log.info("New Booking added {}", abstractDTO);
+    public ResponseEntity<BasketDTO> addAbstract(@RequestBody EventEntityDTO eventEntityDTO){
+        log.info("New Booking added {}", eventEntityDTO);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(basketService.bookUSerEvent(abstractDTO));
+        return ResponseEntity.status(HttpStatus.CREATED).body(basketService.bookUSerEvent(eventEntityDTO));
     }
 
     @RolesAllowed({"USER"})

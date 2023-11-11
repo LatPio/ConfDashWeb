@@ -25,7 +25,7 @@ spring:
         - id: event-service
           uri: lb://event-service
           predicates:
-            - Path=/api/v1/event, /api/v1/event/**, /api/v1/event/list/**, /api/v1/event-type, /api/v1/event-type/**
+            - Path=/api/v1/event, /api/v1/event/**, /api/v1/event/list/**, /api/v1/event-type, /api/v1/event-type/**, /api/v1/event/user-list
 
         - id: customer-service
           uri: lb://customer-service

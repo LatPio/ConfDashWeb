@@ -21,10 +21,10 @@ public class BasketAdminController {
 
     @RolesAllowed({"ADMIN"})
     @PostMapping
-    public ResponseEntity<BasketDTO> addAbstract(@RequestBody BasketDTO abstractDTO){
-        log.info("New Booking added {}", abstractDTO);
+    public ResponseEntity<BasketDTO> addAbstract(@RequestBody BasketDTO basketDTO){
+        log.info("New Booking added {}", basketDTO);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(basketService.bookAdminEvent(abstractDTO));
+        return ResponseEntity.status(HttpStatus.CREATED).body(basketService.bookAdminEvent(basketDTO));
     }
 
     @RolesAllowed({"ADMIN"})
