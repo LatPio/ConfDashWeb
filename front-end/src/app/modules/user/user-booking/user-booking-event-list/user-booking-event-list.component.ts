@@ -8,7 +8,7 @@ import {AbstractsService} from "../../../../core/service/abstracts/abstracts.ser
 import {EventEntityService} from "../../../../core/service/event/event-entity.service";
 import {MatDialog} from "@angular/material/dialog";
 import {BasketService} from "../../../../core/service/booking/basket.service";
-import {concat, map} from "rxjs";
+import {map} from "rxjs";
 
 @Component({
   selector: 'app-user-booking-event-list',
@@ -39,6 +39,10 @@ export class UserBookingEventListComponent {
 
   }
   applyFilter(event: Event) {
+    this.dataSource.filterPredicate = (data: any, filter) => {
+      const dataStr =JSON.stringify(data).toLowerCase();
+      return dataStr.indexOf(filter) != -1;
+    }
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
 
@@ -55,7 +59,7 @@ export class UserBookingEventListComponent {
          return this.listOfEvents.push(item.eventId)
       }) )).subscribe(
         value => {
-          this.eventService.getListUserEvent(value).subscribe(value1 => {
+          this.eventService.getListUserEvent(this.listOfEvents).subscribe(value1 => {
 
             value1.forEach(value2 => this.dataSource.data.push(value2))
 

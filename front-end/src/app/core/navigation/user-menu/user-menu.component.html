@@ -11,11 +11,11 @@
       </button>
     </div>
 
-
-
   </div>
   <div style="text-align: center">
-   <mat-icon>person</mat-icon>
+    <img *ngIf="personalInfo.photo" class="profile-photo" src="data:image/jpg;base64,{{personalInfo.photo.data}}"  >
+    <img *ngIf="personalInfo.photo === null" class="default-face" src="assets/face.svg"  >
+<!--   <mat-icon>person</mat-icon>-->
   </div>
   <div class="row">
     <h1 style="text-align: center">

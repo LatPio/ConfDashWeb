@@ -1,6 +1,7 @@
+{{dataSource.data | json}}
 <mat-form-field style="width: 100%">
   <mat-label>Filter</mat-label>
-  <input matInput (keyup)="applyFilter($event)" placeholder="Provide filter criteria" #input>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Provide filter criteria such as: Abstract Name, Room Name, Name of event, Type Of event" #input>
 </mat-form-field>
 
 <div class="mat-elevation-z8" >

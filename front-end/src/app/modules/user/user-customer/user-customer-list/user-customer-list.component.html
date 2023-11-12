@@ -1,7 +1,10 @@
-<div *ngFor="let customer of customerList">
-  <app-customer-card
-    [access]="'user'"
-    [customerData]="customer"
+<div class="list-box">
+  <div *ngFor="let customer of customerList">
+    <app-customer-card
+      [access]="'user'"
+      [customerData]="customer"
 
-  ></app-customer-card>
+    ></app-customer-card>
+  </div>
+
 </div>

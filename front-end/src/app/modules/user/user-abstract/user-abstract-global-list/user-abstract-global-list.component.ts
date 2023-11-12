@@ -35,6 +35,10 @@ export class UserAbstractGlobalListComponent implements AfterViewInit, OnInit{
     this.dataSource.sort = this.sort;
   }
   applyFilter(event: Event) {
+    this.dataSource.filterPredicate = (data: any, filter) => {
+      const dataStr =JSON.stringify(data).toLowerCase();
+      return dataStr.indexOf(filter) != -1;
+    }
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
 
@@ -43,11 +47,6 @@ export class UserAbstractGlobalListComponent implements AfterViewInit, OnInit{
     }
   }
 
-  getAbstracts(){
-    this.abstractsService.getAbstractAcceptedListUser().subscribe(value => {
-      // this.dataSource.data = value
-    })
-  }
 
   private getEvents() {
     this.eventService.getListEvent().subscribe(value => {
