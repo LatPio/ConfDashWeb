@@ -1,0 +1,58 @@
+<form [formGroup]="basketItemForm" (ngSubmit)="saveBasketItem()">
+  <mat-form-field class="full-width">
+    <mat-label>Basket Item Name</mat-label>
+    <input
+      type="text"
+      matInput
+      [formControlName]="'name'"
+      placeholder="Ex. Research about ....">
+    <mat-error *ngIf="basketItemForm.hasError('required')">
+      Name is required
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <mat-label>EventID</mat-label>
+    <input
+      type="text"
+      matInput
+      [formControlName]="'eventId'"
+      placeholder="Ex. Research about ....">
+    <mat-error *ngIf="basketItemForm.hasError('required')">
+      Name is required
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <mat-label>deletable</mat-label>
+    <input
+      type="text"
+      matInput
+      [formControlName]="'deletable'"
+      placeholder="Ex. Research about ....">
+    <mat-error *ngIf="basketItemForm.hasError('required')">
+      Name is required
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <mat-label>AUTH ID</mat-label>
+    <input
+      type="text"
+      matInput
+      [formControlName]="'authId'"
+      placeholder="Ex. Research about ....">
+    <mat-error *ngIf="basketItemForm.hasError('required')">
+      Name is required
+    </mat-error>
+  </mat-form-field>
+
+
+
+
+  <div style="padding-top: 20px;">
+    <button
+      mat-raised-button color="primary">Save</button>
+  </div>
+
+</form>

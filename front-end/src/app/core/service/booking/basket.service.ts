@@ -32,8 +32,13 @@ export class BasketService {
       {headers:this.httpHeaders, responseType: "json"})
   }
 
-  deleteAdminBasket(id: number, authId: string): Observable<any>{
-    return this.httpClient.get(`${this.config.apiEndpoint}api/v1/admin/basket?id=${id}&authId=${authId}`,
+  getListAllItemsAdminBasket(): Observable<Array<BasketDTOModel>>{
+    return this.httpClient.get<Array<BasketDTOModel>>(`${this.config.apiEndpoint}api/v1/admin/basket/list-all`,
+      {headers:this.httpHeaders, responseType: "json"})
+  }
+
+  deleteAdminBasket(item: BasketDTOModel): Observable<any>{
+    return this.httpClient.delete(`${this.config.apiEndpoint}api/v1/admin/basket?id=${item.id}&authId=${item.authId}`,
       {headers:this.httpHeaders, responseType: "json"})
   }
 

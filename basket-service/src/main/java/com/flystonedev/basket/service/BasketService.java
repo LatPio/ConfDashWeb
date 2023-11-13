@@ -86,6 +86,10 @@ public class BasketService {
         List<BasketItem> basketDTOListForUser = basketRepository.findBasketItemByAuthId(authId);
         return  basketDTOListForUser.stream().map(basketMapper::map).collect(Collectors.toList());
     }
+    public List<BasketDTO> basketAdminListAllItems(){
+        List<BasketItem> basketDTOListForUser = basketRepository.findAll();
+        return  basketDTOListForUser.stream().map(basketMapper::map).collect(Collectors.toList());
+    }
     public BasketDTO getAdminBooking(Integer id, String authId){
         return basketRepository.findBasketItemByIdAndAuthId(id, authId).map(basketMapper::map).orElseThrow(EntityNotFoundException::new);
     }
@@ -98,7 +102,6 @@ public class BasketService {
         }  else {
             basketRepository.deleteById(id);
         }
-
     }
 
 

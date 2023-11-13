@@ -38,6 +38,11 @@ public class BasketAdminController {
     public ResponseEntity<List<BasketDTO>> list( @RequestParam String authId){
         return ResponseEntity.status(HttpStatus.OK).body(basketService.basketAdminListOwnedItems(authId));
     }
+    @RolesAllowed({"ADMIN"})
+    @GetMapping("/list-all")
+    public ResponseEntity<List<BasketDTO>> listAll(){
+        return ResponseEntity.status(HttpStatus.OK).body(basketService.basketAdminListAllItems());
+    }
 
     @RolesAllowed({"ADMIN"})
     @DeleteMapping

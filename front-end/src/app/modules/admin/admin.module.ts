@@ -24,6 +24,7 @@ import {SharedModule} from "../shared/shared.module";
 import {AbstractsAdminModule} from "./abstracts-admin/abstracts-admin.module";
 import {MatNativeDateModule} from "@angular/material/core";
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import { BasketAdminComponent } from './basket-admin/basket-admin.component';
 
 
 @NgModule({
@@ -35,6 +36,8 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
     EventAdminComponent,
     CustomerAdminComponent,
     AbstractsAdminComponent,
+    BasketAdminComponent,
+
   ],
   imports: [
     CommonModule,

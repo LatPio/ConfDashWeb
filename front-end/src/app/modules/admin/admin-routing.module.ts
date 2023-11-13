@@ -23,6 +23,9 @@ const routes: Routes = [
       {path: 'site',
       loadChildren:()=> import('./site-management-admin/site-management-admin.module')
         .then(value => value.SiteManagementAdminModule)},
+      {path: 'basket',
+        loadChildren:()=> import('./basket-admin/basket-admin.module')
+          .then(value => value.BasketAdminModule)},
 
     ]
   },
