@@ -24,6 +24,7 @@ import {SharedModule} from "../../shared/shared.module";
 import {MatCardModule} from "@angular/material/card";
 import { CustomerCardSmallComponent } from '../../shared/customer-card-small/customer-card-small.component';
 import {ReactiveFormsModule} from "@angular/forms";
+import { CustomerAdminListLightComponent } from './customer-admin-list-light/customer-admin-list-light.component';
 
 
 @NgModule({
@@ -38,9 +39,11 @@ import {ReactiveFormsModule} from "@angular/forms";
     ProfilePhotoAddButtonComponent,
     AffiliationCorrectionComponent,
     CustomerStatsComponent,
+    CustomerAdminListLightComponent,
   ],
-  exports: [
-  ],
+    exports: [
+        CustomerAdminListLightComponent
+    ],
   imports: [
     CommonModule,
     CustomerAdminRoutingModule,

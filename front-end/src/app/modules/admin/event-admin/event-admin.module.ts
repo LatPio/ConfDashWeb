@@ -28,6 +28,7 @@ import {AbstractsAdminModule} from "../abstracts-admin/abstracts-admin.module";
 import { EventSimpleViewCardComponent } from './event-simple-view-card/event-simple-view-card.component';
 import {MatCardModule} from "@angular/material/card";
 import { EventViewCardComponent } from './event-view-card/event-view-card.component';
+import { EventAdminListLightComponent } from './event-admin-list-light/event-admin-list-light.component';
 
 
 @NgModule({
@@ -43,11 +44,13 @@ import { EventViewCardComponent } from './event-view-card/event-view-card.compon
         EventAdminViewComponent,
         EventAdminTypeListLightComponent,
         EventSimpleViewCardComponent,
-        EventViewCardComponent
+        EventViewCardComponent,
+        EventAdminListLightComponent
     ],
     exports: [
         EventViewCardComponent,
-        EventSimpleViewCardComponent
+        EventSimpleViewCardComponent,
+        EventAdminListLightComponent
     ],
     imports: [
         CommonModule,

@@ -14,6 +14,8 @@ import {MatSortModule} from "@angular/material/sort";
 import {MatTableModule} from "@angular/material/table";
 import {SharedModule} from "../../shared/shared.module";
 import {ReactiveFormsModule} from "@angular/forms";
+import {EventAdminModule} from "../event-admin/event-admin.module";
+import {CustomerAdminModule} from "../customer-admin/customer-admin.module";
 
 
 @NgModule({
@@ -34,6 +36,8 @@ import {ReactiveFormsModule} from "@angular/forms";
     MatTableModule,
     SharedModule,
     ReactiveFormsModule,
+    EventAdminModule,
+    CustomerAdminModule,
 
   ]
 })

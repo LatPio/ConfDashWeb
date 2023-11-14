@@ -1,4 +1,6 @@
+
 <form [formGroup]="basketItemForm" (ngSubmit)="saveBasketItem()">
+
   <mat-form-field class="full-width">
     <mat-label>Basket Item Name</mat-label>
     <input
@@ -56,3 +58,16 @@
   </div>
 
 </form>
+
+<app-event-admin-list-light
+  [eventEntityListLight]="eventEntityLightList"
+  (selectedEvent)="getSelectedEventEntity($event)"
+  (refresh)="getEventEntityList()"
+></app-event-admin-list-light>
+
+
+<app-customer-admin-list-light
+  [customerListLight]="customerLightList"
+  (selectedCustomer)="getSelectedCustomer($event)"
+  (refresh)="getCustomerList()"
+></app-customer-admin-list-light>
