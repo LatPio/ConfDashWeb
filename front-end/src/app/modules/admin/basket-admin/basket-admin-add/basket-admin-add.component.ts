@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {BasketService} from "../../../../core/service/booking/basket.service";
 import {Location} from "@angular/common";
 import {MatSnackBar} from "@angular/material/snack-bar";
@@ -25,6 +25,7 @@ export class BasketAdminAddComponent implements OnInit{
   customerLightList!: Array<CustomerAdminDTOModel>;
   selectedCustomer: CustomerAdminDTOModel;
 
+  listOfCustomerAuthID: Array<string> =new Array<string>()
 
   constructor(
     private formBuilder: FormBuilder,
@@ -46,7 +47,7 @@ export class BasketAdminAddComponent implements OnInit{
         name:['',{validators:[Validators.required]}],
         eventId:['', {validators:[Validators.required]}],
         deletable:[true, {validators:[Validators.required]}],
-        authId:['', {validators:[Validators.required]}]
+        authIds: ['', {validators:[Validators.required]}]
 
       }
     )
@@ -67,8 +68,14 @@ export class BasketAdminAddComponent implements OnInit{
 
   getSelectedCustomer($event: CustomerAdminDTOModel) {
     this.selectedCustomer = $event
-    this.basketItemForm.get('authId')?.setValue(this.selectedCustomer.authID);
+    // const toPush = $event
+    if(!this.listOfCustomerAuthID.includes(this.selectedCustomer.authID)){
 
+      this.listOfCustomerAuthID.push(this.selectedCustomer.authID)
+    }
+    this.basketItemForm.get('authIds')?.setValue(this.listOfCustomerAuthID);
+    // const authIds = this.basketItemForm.get('authIds') as FormArray
+    console.log(this.basketItemForm.getRawValue())
   }
 
   getCustomerList(){
@@ -90,14 +97,20 @@ export class BasketAdminAddComponent implements OnInit{
   }
 
   saveBasketItem(){
-    this.basketService.postAdminBasket(this.basketItemForm.getRawValue()).subscribe(
+    this.basketService.postAdminManyBasketItems(this.basketItemForm.getRawValue()).subscribe(
       {
         next: () =>{
+          console.log("Posted")
+          console.log(this.basketItemForm.getRawValue())
           this.openSnackBar("Item Created Successfully!")
 
           this.location.back()
         },
         error: err => {
+          console.log("Error")
+
+          console.log(this.basketItemForm.getRawValue())
+
           this.openSnackBarError(err.error.text)
 
 

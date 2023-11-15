@@ -4,6 +4,7 @@ import {APP_CONFIG, AppConfig} from "../../config/app-config/app-config.module";
 import {BasketDTOModel} from "./models/basketDTO-model";
 import {Observable} from "rxjs";
 import {EventEntityDTOModel} from "../event/models/EventEntityDTO-model";
+import {BasketRequestModel} from "./models/basketRequest-model";
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,11 @@ export class BasketService {
   // Admin
   postAdminBasket(basketDTO: BasketDTOModel): Observable<any>{
     return this.httpClient.post(`${this.config.apiEndpoint}api/v1/admin/basket`, basketDTO,
+      {headers:this.httpHeaders, responseType: "json"})
+  }
+
+  postAdminManyBasketItems(basketsRequest: BasketRequestModel): Observable<any>{
+    return this.httpClient.post(`${this.config.apiEndpoint}api/v1/admin/basket/many`, basketsRequest,
       {headers:this.httpHeaders, responseType: "json"})
   }
 

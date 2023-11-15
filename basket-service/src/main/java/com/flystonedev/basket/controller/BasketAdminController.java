@@ -1,6 +1,7 @@
 package com.flystonedev.basket.controller;
 
 import com.flystonedev.basket.DTO.BasketDTO;
+import com.flystonedev.basket.DTO.BasketManyRequest;
 import com.flystonedev.basket.service.BasketService;
 import jakarta.annotation.security.RolesAllowed;
 import lombok.AllArgsConstructor;
@@ -21,11 +22,20 @@ public class BasketAdminController {
 
     @RolesAllowed({"ADMIN"})
     @PostMapping
-    public ResponseEntity<BasketDTO> addAbstract(@RequestBody BasketDTO basketDTO){
+    public ResponseEntity<BasketDTO> addBooking(@RequestBody BasketDTO basketDTO){
         log.info("New Booking added {}", basketDTO);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(basketService.bookAdminEvent(basketDTO));
     }
+
+    @RolesAllowed({"ADMIN"})
+    @PostMapping("/many")
+    public ResponseEntity<List<BasketDTO>> addManyBooking(@RequestBody BasketManyRequest basketManyRequest){
+        log.info("New Bookings added {}", basketManyRequest);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(basketService.bookAdminManyEvents(basketManyRequest));
+    }
+
 
     @RolesAllowed({"ADMIN"})
     @GetMapping

@@ -44,7 +44,7 @@ spring:
         - id: basket-service
           uri: lb://basket-service
           predicates:
-            - Path=/api/v1/user/basket, /api/v1/user/basket/**, /api/v1/user/basket/list, /api/v1/admin/basket, /api/v1/admin/basket/**, /api/v1/admin/basket/list
+            - Path=/api/v1/user/basket, /api/v1/user/basket/**, /api/v1/user/basket/list, /api/v1/admin/basket, /api/v1/admin/basket/many, /api/v1/admin/basket/**, /api/v1/admin/basket/list
 
         - id: discovery-server
           uri: http://localhost:8761

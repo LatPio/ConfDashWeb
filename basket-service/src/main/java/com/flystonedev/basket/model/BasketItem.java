@@ -11,7 +11,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.Instant;
 
-@Table(name = "Basket")
+@Table(name = "Basket", uniqueConstraints = @UniqueConstraint(columnNames={"name", "eventId", "deletable", "authId" }))
 @Entity
 @Data
 @Builder

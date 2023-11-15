@@ -1,6 +1,11 @@
 
 <form [formGroup]="basketItemForm" (ngSubmit)="saveBasketItem()">
 
+  <div style="padding: 20px;">
+    <button
+      mat-raised-button color="primary">Save</button>
+  </div>
+
   <mat-form-field class="full-width">
     <mat-label>Basket Item Name</mat-label>
     <input
@@ -42,7 +47,7 @@
     <input
       type="text"
       matInput
-      [formControlName]="'authId'"
+      [formControlName]="'authIds'"
       placeholder="Ex. Research about ....">
     <mat-error *ngIf="basketItemForm.hasError('required')">
       Name is required
@@ -52,22 +57,27 @@
 
 
 
-  <div style="padding-top: 20px;">
-    <button
-      mat-raised-button color="primary">Save</button>
-  </div>
+
 
 </form>
+<div class="row">
+  <div class="col-6">
+    <app-event-admin-list-light
+      [eventEntityListLight]="eventEntityLightList"
+      (selectedEvent)="getSelectedEventEntity($event)"
+      (refresh)="getEventEntityList()"
+    ></app-event-admin-list-light>
 
-<app-event-admin-list-light
-  [eventEntityListLight]="eventEntityLightList"
-  (selectedEvent)="getSelectedEventEntity($event)"
-  (refresh)="getEventEntityList()"
-></app-event-admin-list-light>
+  </div>
+  <div  class="col-6">
+    <app-customer-admin-list-light
+      [customerListLight]="customerLightList"
+      (selectedCustomer)="getSelectedCustomer($event)"
+      (refresh)="getCustomerList()"
+    ></app-customer-admin-list-light>
+
+  </div>
+</div>
 
 
-<app-customer-admin-list-light
-  [customerListLight]="customerLightList"
-  (selectedCustomer)="getSelectedCustomer($event)"
-  (refresh)="getCustomerList()"
-></app-customer-admin-list-light>
+

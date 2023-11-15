@@ -1,6 +1,7 @@
 package com.flystonedev.basket.service;
 
 import com.flystonedev.basket.DTO.BasketDTO;
+import com.flystonedev.basket.DTO.BasketManyRequest;
 import com.flystonedev.basket.config.JwtConverter;
 import com.flystonedev.basket.exeption.EntityNotFoundException;
 import com.flystonedev.basket.exeption.BookingEditionBlockedException;
@@ -14,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -80,6 +82,25 @@ public class BasketService {
                 .build();
         basketRepository.save(basketItem);
         return basketMapper.map(basketItem);
+    }
+
+    public List<BasketDTO> bookAdminManyEvents(BasketManyRequest basketManyRequest){
+        List<BasketDTO> savedList = new ArrayList<>();
+        List<BasketItem> toDatabase = new ArrayList<>();
+        for (int i = 0; i < basketManyRequest.authIds().size(); i++) {
+            BasketItem basketItem = BasketItem.builder()
+                    .name(basketManyRequest.name())
+                    .eventId(basketManyRequest.eventId())
+                    .deletable(basketManyRequest.deletable())
+                    .authId(basketManyRequest.authIds().get(i))
+                    .build();
+//            basketRepository.save(basketItem);
+            savedList.add(basketMapper.map(basketItem));
+            toDatabase.add(basketItem);
+        }
+        basketRepository.saveAll(toDatabase);
+
+        return savedList;
     }
 
     public List<BasketDTO> basketAdminListOwnedItems(String authId){
