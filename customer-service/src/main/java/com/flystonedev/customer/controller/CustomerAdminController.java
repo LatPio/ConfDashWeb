@@ -2,6 +2,7 @@ package com.flystonedev.customer.controller;
 
 
 import com.flystonedev.customer.DTO.CustomerAdminDTO;
+import com.flystonedev.customer.DTO.CustomerCardDTO;
 import com.flystonedev.customer.DTO.StatsResponse;
 import com.flystonedev.customer.service.CustomerService;
 import jakarta.annotation.security.RolesAllowed;
@@ -24,13 +25,24 @@ public class CustomerAdminController {
 
     @RolesAllowed({"ADMIN"})
     @GetMapping
-    public ResponseEntity<CustomerAdminDTO> get(@RequestParam Integer id){
+    public ResponseEntity<CustomerAdminDTO> get(@RequestParam(name = "id") Integer id){
         return ResponseEntity.status(HttpStatus.OK).body(customerService.getAdmin(id));
+    }
+    @RolesAllowed({"ADMIN"})
+    @GetMapping("/card")
+    public ResponseEntity<CustomerCardDTO> getCard(@RequestParam(name = "authId") String authID){
+        return ResponseEntity.status(HttpStatus.OK).body(customerService.getUserSimple(authID));
     }
     @RolesAllowed({"ADMIN"})
     @GetMapping("/list")
     public ResponseEntity<List<CustomerAdminDTO>> list(){
         return ResponseEntity.status(HttpStatus.OK).body(customerService.listOfAllCustomersForAdmin());
+    }
+
+    @RolesAllowed({"ADMIN"})
+    @GetMapping("/auth-list")
+    public ResponseEntity<List<String>> listOfAuthsId(){
+        return ResponseEntity.status(HttpStatus.OK).body(customerService.listOfAllAuthIdsCustomersForAdmin());
     }
     @RolesAllowed({"ADMIN"})
     @PutMapping

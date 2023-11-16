@@ -86,7 +86,6 @@ public class BasketService {
 
     public List<BasketDTO> bookAdminManyEvents(BasketManyRequest basketManyRequest){
         List<BasketDTO> savedList = new ArrayList<>();
-        List<BasketItem> toDatabase = new ArrayList<>();
         for (int i = 0; i < basketManyRequest.authIds().size(); i++) {
             BasketItem basketItem = BasketItem.builder()
                     .name(basketManyRequest.name())
@@ -94,11 +93,13 @@ public class BasketService {
                     .deletable(basketManyRequest.deletable())
                     .authId(basketManyRequest.authIds().get(i))
                     .build();
-//            basketRepository.save(basketItem);
-            savedList.add(basketMapper.map(basketItem));
-            toDatabase.add(basketItem);
+            try {
+                basketRepository.save(basketItem);
+                savedList.add(basketMapper.map(basketItem));
+            } catch (Exception ex){
+            }
+
         }
-        basketRepository.saveAll(toDatabase);
 
         return savedList;
     }

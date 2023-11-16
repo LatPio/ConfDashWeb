@@ -25,10 +25,22 @@ export class CustomersService {
       {headers:this.httpHeaders, responseType: "json"})
   }
 
+  getCustomerAdminByAuthId(customerAuthId: string): Observable<CustomerAdminDTOModel>{
+    return this.httpClient.get<CustomerAdminDTOModel>(`${this.config.apiEndpoint}api/v1/admin/customer/card?authId=${customerAuthId}`,
+      {headers:this.httpHeaders, responseType: "json"})
+  }
+
   getCustomersAdminList():Observable<Array<CustomerAdminDTOModel>>{
     return this.httpClient.get<Array<CustomerAdminDTOModel>>(`${this.config.apiEndpoint}api/v1/admin/customer/list`,
       {headers:this.httpHeaders, responseType: "json"})
   }
+
+  getCustomersAuthIdAdminList():Observable<Array<string>>{
+    return this.httpClient.get<Array<string>>(`${this.config.apiEndpoint}api/v1/admin/customer/auth-list`,
+      {headers:this.httpHeaders, responseType: "json"})
+  }
+
+
 
   putCustomersAdmin(customer: CustomerAdminDTOModel):Observable<CustomerAdminDTOModel>{
     return this.httpClient.put<CustomerAdminDTOModel>(`${this.config.apiEndpoint}api/v1/admin/customer`, customer,

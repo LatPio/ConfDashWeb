@@ -96,6 +96,11 @@ public class CustomerService {
     }
 
     @Transactional
+    public CustomerCardDTO getUserSimple(String authId){
+        return customerRepository.findCustomerByAuthID(authId).map(customerCardMapper::map).orElseThrow(EntityNotFoundException::new);
+    }
+
+    @Transactional
     public CustomerIdDTO getUserSimpleData(){
         return customerRepository.findCustomerByAuthID(jwtConverter.getKeycloakUserID()).map(customerSimpleDataMapper::map).orElseThrow(EntityNotFoundException::new);
     }
@@ -141,6 +146,10 @@ public class CustomerService {
     public List<CustomerAdminDTO> listOfAllCustomersForAdmin(){
         List<Customer> customersList = customerRepository.findAll();
         return customersList.stream().map(customerAdminMapper::map).collect(Collectors.toList());
+    }
+    public List<String> listOfAllAuthIdsCustomersForAdmin(){
+        List<String> customersList = customerRepository.findAll().stream().map(customer -> customer.getAuthID()).collect(Collectors.toList());
+        return customersList;
     }
     public CustomerAdminDTO getAdmin(Integer id){
         return customerRepository.findById(id).map(customerAdminMapper::map).orElseThrow(EntityNotFoundException::new);

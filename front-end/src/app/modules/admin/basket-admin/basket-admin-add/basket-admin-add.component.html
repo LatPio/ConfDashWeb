@@ -2,64 +2,76 @@
 <form [formGroup]="basketItemForm" (ngSubmit)="saveBasketItem()">
 
   <div style="padding: 20px;">
-    <button
+    <button [disabled]="basketItemForm.invalid"
       mat-raised-button color="primary">Save</button>
   </div>
+  <div class="row">
+    <div class="col">
+      <mat-form-field class="full-width">
+        <mat-label>Basket Item Name</mat-label>
+        <input
+          type="text"
+          matInput
+          [formControlName]="'name'"
+          placeholder="Ex. Research about ....">
+        <mat-error *ngIf="basketItemForm.hasError('required')">
+          Name is required
+        </mat-error>
+      </mat-form-field>
 
-  <mat-form-field class="full-width">
-    <mat-label>Basket Item Name</mat-label>
-    <input
-      type="text"
-      matInput
-      [formControlName]="'name'"
-      placeholder="Ex. Research about ....">
-    <mat-error *ngIf="basketItemForm.hasError('required')">
-      Name is required
-    </mat-error>
-  </mat-form-field>
+      <mat-form-field class="full-width">
+        <mat-label>EventID</mat-label>
+        <input
+          type="text"
+          matInput
+          [formControlName]="'eventId'"
+          placeholder="Ex. Research about ....">
+        <mat-error *ngIf="basketItemForm.hasError('required')">
+          Name is required
+        </mat-error>
+      </mat-form-field>
 
-  <mat-form-field class="full-width">
-    <mat-label>EventID</mat-label>
-    <input
-      type="text"
-      matInput
-      [formControlName]="'eventId'"
-      placeholder="Ex. Research about ....">
-    <mat-error *ngIf="basketItemForm.hasError('required')">
-      Name is required
-    </mat-error>
-  </mat-form-field>
-
-  <mat-form-field class="full-width">
-    <mat-label>deletable</mat-label>
-    <input
-      type="text"
-      matInput
-      [formControlName]="'deletable'"
-      placeholder="Ex. Research about ....">
-    <mat-error *ngIf="basketItemForm.hasError('required')">
-      Name is required
-    </mat-error>
-  </mat-form-field>
-
-  <mat-form-field class="full-width">
-    <mat-label>AUTH ID</mat-label>
-    <input
-      type="text"
-      matInput
-      [formControlName]="'authIds'"
-      placeholder="Ex. Research about ....">
-    <mat-error *ngIf="basketItemForm.hasError('required')">
-      Name is required
-    </mat-error>
-  </mat-form-field>
+      <mat-form-field class="full-width">
+        <mat-label>deletable</mat-label>
+        <input
+          type="text"
+          matInput
+          [formControlName]="'deletable'"
+          placeholder="Ex. Research about ....">
+        <mat-error *ngIf="basketItemForm.hasError('required')">
+          Name is required
+        </mat-error>
+      </mat-form-field>
+      <mat-checkbox
+                    [checked] = checkedAll
+                    (change)="selectAll($event.checked)">
+        All Users
+      </mat-checkbox>
 
 
+    </div>
+    <div class="col card-group-view">
 
+      <div *ngFor="let user of listOfCustomerAuthID; index as i" style="position: relative">
 
+        <app-customer-card-small
+          [authId]="user"
+        ></app-customer-card-small>
+        <span>
+        <button mat-icon-button color="warn" class="button-badge" (click)="deleteUserFromList(i)">
+          <mat-icon>delete</mat-icon>
+        </button>
+        </span>
+
+      </div>
+
+    </div>
+  </div>
 
 
 </form>
+
+<h2> Select Event And User/Users:</h2>
 <div class="row">
   <div class="col-6">
     <app-event-admin-list-light

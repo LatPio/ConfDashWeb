@@ -13,6 +13,7 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
     Optional<Customer> findCustomerByIdAndAuthID (Integer id, String authId);
     Optional<Customer> findCustomerByAuthID (String authId);
 
+
     long count();
 
 }

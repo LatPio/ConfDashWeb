@@ -16,6 +16,8 @@ import {SharedModule} from "../../shared/shared.module";
 import {ReactiveFormsModule} from "@angular/forms";
 import {EventAdminModule} from "../event-admin/event-admin.module";
 import {CustomerAdminModule} from "../customer-admin/customer-admin.module";
+import {MatBadgeModule} from "@angular/material/badge";
+import {MatCheckboxModule} from "@angular/material/checkbox";
 
 
 @NgModule({
@@ -38,6 +40,8 @@ import {CustomerAdminModule} from "../customer-admin/customer-admin.module";
     ReactiveFormsModule,
     EventAdminModule,
     CustomerAdminModule,
+    MatBadgeModule,
+    MatCheckboxModule,
 
   ]
 })

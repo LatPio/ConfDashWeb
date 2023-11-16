@@ -18,7 +18,7 @@ import {CustomersService} from "../../../../core/service/customers/customers.ser
 export class BasketAdminAddComponent implements OnInit{
 
   basketItemForm!: FormGroup;
-
+  checkedAll = false;
   eventEntityLightList!: Array<EventEntityDTOModel>;
   selectedEventEntity: EventEntityDTOModel;
 
@@ -26,7 +26,7 @@ export class BasketAdminAddComponent implements OnInit{
   selectedCustomer: CustomerAdminDTOModel;
 
   listOfCustomerAuthID: Array<string> =new Array<string>()
-
+  listOfAllCustomerAuthId: Array<string>;
   constructor(
     private formBuilder: FormBuilder,
     private basketService: BasketService,
@@ -41,6 +41,7 @@ export class BasketAdminAddComponent implements OnInit{
 
     this.getEventEntityList();
     this.getCustomerList();
+    this.getAllAuthIdCustomers();
 
     this.basketItemForm = this.formBuilder.group(
       {
@@ -51,6 +52,19 @@ export class BasketAdminAddComponent implements OnInit{
 
       }
     )
+  }
+
+  selectAll(completed: boolean){
+    this.checkedAll = completed
+    if(this.checkedAll){
+
+      this.basketItemForm.get('authIds')?.setValue(this.listOfAllCustomerAuthId);
+    }
+    if(!this.checkedAll){
+      this.basketItemForm.get('authIds')?.setValue(this.listOfCustomerAuthID);
+
+    }
+
   }
 
   getSelectedEventEntity($event: EventEntityDTOModel) {
@@ -64,6 +78,10 @@ export class BasketAdminAddComponent implements OnInit{
     this.eventEntityService.getListEvent().subscribe(value => {
       this.eventEntityLightList = value;
     })
+  }
+  getAllAuthIdCustomers(){
+    this.customerService.getCustomersAuthIdAdminList().subscribe(value =>
+    this.listOfAllCustomerAuthId = value)
   }
 
   getSelectedCustomer($event: CustomerAdminDTOModel) {
@@ -119,4 +137,7 @@ export class BasketAdminAddComponent implements OnInit{
     )
   }
 
+  deleteUserFromList(i: number) {
+    this.listOfCustomerAuthID.splice(i,1);
+  }
 }
