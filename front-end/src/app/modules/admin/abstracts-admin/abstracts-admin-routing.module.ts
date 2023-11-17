@@ -20,9 +20,6 @@ const routes: Routes = [
       {path: 'accepted', component: AbstractAdminAcceptedComponent},
       {path: 'pending', component: AbstractAdminToProcessComponent},
       {path: 'stats', component:AbstractStatisticComponent}
-
-
-
     ]
   }
 ];

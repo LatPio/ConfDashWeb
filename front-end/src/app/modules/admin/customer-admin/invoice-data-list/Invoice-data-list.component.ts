@@ -16,7 +16,7 @@ export class InvoiceDataListComponent implements OnInit, AfterViewInit{
 
 
 
-  displayedColumns: string[] = ['id', 'name', 'street', 'buildingNumber','flatNumber', 'city','postalCode','country','institution','option'];
+  displayedColumns: string[] = ['id', 'name', 'street', 'buildingNumber','flatNumber', 'city','postalCode','country','institution','institutionShortName', 'taxIdentificationNumber','option'];
   dataSource = new MatTableDataSource<InvoiceDataDTOModel>();
   departments: Array<InvoiceDataDTOModel> = [];
   @ViewChild(MatPaginator) paginator: MatPaginator;

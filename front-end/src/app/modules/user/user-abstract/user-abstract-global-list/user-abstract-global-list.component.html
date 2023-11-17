@@ -10,13 +10,14 @@
 
     <ng-container matColumnDef="data">
       <mat-header-cell mat-header-cell *matHeaderCellDef> Data </mat-header-cell>
-      <mat-cell mat-cell *matCellDef="let data">
+      <mat-cell mat-cell *matCellDef="let data" class="center-box">
 
-        <app-event-view-card style="margin: 5px"
-          [eventData]="data"
-        >
+          <app-event-view-card style="  margin: 5px;"
+                               [eventData]="data"
+          >
 
-        </app-event-view-card>
+          </app-event-view-card>
+
       </mat-cell>
     </ng-container>
 

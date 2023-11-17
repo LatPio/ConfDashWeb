@@ -28,7 +28,7 @@
   </h2>
   <div class="col-10 flex-box " >
       <div class="box flex-box " *ngFor="let file of abstractData.files">
-        <app-abstract-file-view access="'admin'" [figure]="file" (refreshEvent)="getAbstract()"></app-abstract-file-view>
+        <app-abstract-file-view [access]="'admin'" [figure]="file" (refreshEvent)="getAbstract()"></app-abstract-file-view>
       </div>
 
   </div>
@@ -39,11 +39,11 @@
     Other Information:
   </h2>
   <div class="col-10 ">
-    <h3> <b>ID:</b>   {{abstractData.id}}</h3>
-    <h3> <b>AuthID:</b> {{abstractData.authId}}</h3>
+    <h3> <b>ID of Abstract:</b>   {{abstractData.id}}</h3>
+    <h3> <b>AuthID of Abstract Owner :</b> {{abstractData.authId}}</h3>
 
     <h3><b>OwnerId:</b> {{abstractData.ownerId}}</h3>
-    <app-customer-card [customerId]="abstractData.ownerId"></app-customer-card>
+    <app-customer-card [access]="'admin'" [customerId]="abstractData.ownerId"></app-customer-card>
 
     <h3><b>Accepted:</b>  {{abstractData.accepted}}</h3>
 
