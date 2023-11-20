@@ -52,28 +52,29 @@ import { AbstractAdminAcceptedListComponent } from './abstract-admin-accepted-li
         AbstractAdminAcceptedListComponent,
         AbstractAttachmentFileAddButtonComponent
     ],
-  imports: [
-    CommonModule,
-    AbstractsAdminRoutingModule,
-    MatInputModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatSortModule,
-    MatFormFieldModule,
-    ReactiveFormsModule,
-    MatButtonModule,
-    MatIconModule,
-    MatGridListModule,
-    MatDialogModule,
-    NgxSummernoteModule,
-    MatRadioModule,
-    MatCheckboxModule,
-    SharedModule,
-    MatSelectModule,
-    MatCardModule,
-    CustomerAdminModule
+    imports: [
+        CommonModule,
+        AbstractsAdminRoutingModule,
+        MatInputModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatSortModule,
+        MatFormFieldModule,
+        ReactiveFormsModule,
+        MatButtonModule,
+        MatIconModule,
+        MatGridListModule,
+        MatDialogModule,
+        NgxSummernoteModule,
+        MatRadioModule,
+        MatCheckboxModule,
+        SharedModule,
+        MatSelectModule,
+        MatCardModule,
+        CustomerAdminModule,
 
 
-  ]
+
+    ]
 })
 export class AbstractsAdminModule { }

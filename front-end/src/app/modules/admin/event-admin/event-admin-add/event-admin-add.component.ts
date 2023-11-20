@@ -51,7 +51,7 @@ export class EventAdminAddComponent implements OnInit{
         abstractId: ['', {validators:[Validators.required]}],
         localizationId: ['', {validators:[Validators.required]}],
         localizationName: ['', {validators:[Validators.required]}],
-        dateTimeOfEvent: [new Date(), {validators:[Validators.required]}],
+        startOfEvent: [new Date(), {validators:[Validators.required]}],
         eventType: this.formBuilder.group(
           {
             id: ['', {validators:[Validators.required]}],

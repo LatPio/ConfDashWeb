@@ -61,53 +61,78 @@
   <div [ngxSummernote]="config" [formControlName]="'body'"></div>
 
 
-  <mat-form-field class="full-width">
-    <mat-label>Presenter ID</mat-label>
-    <input
-      type="text"
-      matInput
-      [formControlName]="'presenterId'"
-      placeholder="Ex. Research about ....">
-    <mat-error *ngIf="abstractForm.hasError('required')">
-      Name is required
-    </mat-error>
-  </mat-form-field>
 
-  <mat-form-field class="full-width">
-    <mat-label>Owner Id</mat-label>
-    <input
-      type="text"
-      matInput
-      [formControlName]="'ownerId'"
-      placeholder="Ex. Research about ....">
-    <mat-error *ngIf="abstractForm.hasError('required')">
-      Name is required
-    </mat-error>
-  </mat-form-field>
 
-  <mat-form-field class="full-width">
-    <mat-label>AUTH ID</mat-label>
-    <input
+  <h2> Select User:</h2>
+  <div class="row">
+    <div class="col-6">
+      <app-customer-admin-list-light
+        [customerListLight]="customerLightList"
+        (selectedCustomer)="getSelectedCustomer($event)"
+        (refresh)="getCustomerList()">
+      </app-customer-admin-list-light>
 
-      type="text"
-      matInput
-      [formControlName]="'authId'"
-      placeholder="Ex. Research about ....">
-    <mat-error *ngIf="abstractForm.hasError('required')">
-      Name is required
-    </mat-error>
-  </mat-form-field>
+    </div>
+    <div  class="col-6">
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-label>Owner Id</mat-label>
+            <input
+              type="text"
+              matInput
+              [formControlName]="'ownerId'"
+              placeholder="Ex. Research about ....">
+            <mat-error *ngIf="abstractForm.hasError('required')">
+              Name is required
+            </mat-error>
+          </mat-form-field>
+
+        </div>
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-label>AUTH ID</mat-label>
+            <input
+              type="text"
+              matInput
+              [formControlName]="'authId'"
+              placeholder="Ex. Research about ....">
+            <mat-error *ngIf="abstractForm.hasError('required')">
+              Name is required
+            </mat-error>
+          </mat-form-field>
+
+        </div>
+      </div>
+
+      <div class="row">
+
+        <app-customer-card *ngIf="selectedCustomer"
+                           [customerData]="selectedCustomer"
+                           [access]="'admin'"
+        ></app-customer-card>
+
+      </div>
+
+
+    </div>
+  </div>
+
+<h2>Add Comment:</h2>
+<div style="margin: 10px">
   <mat-form-field class="full-width">
     <mat-label>comments</mat-label>
-    <input
+    <textarea
       type="text"
       matInput
       [formControlName]="'comments'"
-      placeholder="Describe What to Change">
+      placeholder="Describe What to Change"></textarea>
 
   </mat-form-field>
 
   <p><mat-checkbox color="primary" [formControlName]="'accepted'">Accepted</mat-checkbox></p>
+</div>
+
 
 
 

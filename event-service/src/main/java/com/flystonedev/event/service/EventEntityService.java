@@ -1,6 +1,8 @@
 package com.flystonedev.event.service;
 
+import com.flystonedev.abstracts.DTO.AbstractOutResponse;
 import com.flystonedev.event.DTO.EventEntityDTO;
+import com.flystonedev.event.DTO.EventTypeDTO;
 import com.flystonedev.event.DTO.StatisticResponse;
 import com.flystonedev.event.clients.AbstractClient;
 import com.flystonedev.event.clients.LocalizationClient;
@@ -8,11 +10,13 @@ import com.flystonedev.event.exeption.EntityNotFoundException;
 import com.flystonedev.event.mapper.EventEntityMapper;
 import com.flystonedev.event.mapper.EventTypeMapper;
 import com.flystonedev.event.model.EventEntity;
+import com.flystonedev.event.model.EventType;
 import com.flystonedev.event.repository.EventEntityRepository;
 import com.flystonedev.event.repository.EventTypeRepository;
 import com.flystonedev.localization.DTO.BookingRequest;
 import com.flystonedev.localization.DTO.BookingsDTO;
 import com.flystonedev.localization.DTO.LocalizationDTO;
+import com.flystonedev.localization.DTO.LocalizationOutResponse;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.mapstruct.factory.Mappers;
@@ -39,19 +43,22 @@ public class EventEntityService {
     @Transactional
     public void createEventEntity(EventEntityDTO eventEntityDTO){
 
-            EventEntity eventEntity = EventEntity.builder()
-                    .name(eventEntityDTO.getName())
-                    .ownerId(abstractClient.abstractOutResponse(Integer.valueOf(eventEntityDTO.getAbstractId())).getOwnerId())
-                    .abstractName(abstractClient.abstractOutResponse(Integer.valueOf(eventEntityDTO.getAbstractId())).getAbstractTitle())
-                    .abstractId(eventEntityDTO.getAbstractId())
-                    .localizationId(eventEntityDTO.getLocalizationId())
-                    .localizationName(localizationClient.localizationOutResponse(Integer.valueOf(eventEntityDTO.getLocalizationId())).getRoom())
-                    .eventType(eventTypeRepository.getReferenceById(eventEntityDTO.getEventType().getId()))
-                    .startOfEvent(eventEntityDTO.getStartOfEvent())
-                    .endOfEvent(eventEntityDTO.getStartOfEvent().plusMinutes(eventEntityDTO.getEventType().getTime().toMinutes()).minusSeconds(1L))
+        AbstractOutResponse abstractSelected = abstractClient.abstractOutResponse(Integer.valueOf(eventEntityDTO.getAbstractId()));
+        LocalizationOutResponse localizationSelected =  localizationClient.localizationOutResponse(Integer.valueOf(eventEntityDTO.getLocalizationId()));
+        EventType selectedEventType = eventTypeRepository.getReferenceById(eventEntityDTO.getEventType().getId());
 
-                    .build();
+        EventEntity eventEntity = EventEntity.builder()
+                .name(eventEntityDTO.getName())
+                .ownerId(abstractSelected.getOwnerId())
+                .abstractName(abstractSelected.getAbstractTitle())
+                .abstractId(eventEntityDTO.getAbstractId())
+                .localizationId(eventEntityDTO.getLocalizationId())
+                .localizationName(localizationSelected.getRoom())
+                .eventType(selectedEventType)
+                .startOfEvent(eventEntityDTO.getStartOfEvent())
+                .endOfEvent(eventEntityDTO.getStartOfEvent().plusMinutes(selectedEventType.getTime().toMinutes()).minusSeconds(1L))
 
+                .build();
         EventEntity saved = eventEntityRepository.save(eventEntity);
 
         BookingRequest bookingRequest = BookingRequest.builder()
