@@ -1,22 +1,23 @@
-package com.flystonedev.event.DTO;
+package com.flystonedev.localization.DTO;
 
-import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.Duration;
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class EventTypeDTO {
+public class BookingsDTOLight {
 
     private Integer id;
-    private String name;
-    private Integer timeInMinutes;
+    private Integer eventIDData;
     private boolean locationConflict;
     private boolean timeConflict;
+    private LocalDateTime dateStart;
+    private LocalDateTime dateEnd;
+    private LocalizationWithOutMapDTO localization;
 }

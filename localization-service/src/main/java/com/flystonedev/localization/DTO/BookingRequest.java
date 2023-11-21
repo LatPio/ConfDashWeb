@@ -18,7 +18,7 @@ public class BookingRequest {
     Integer eventIDData;
     LocalDateTime dateStart;
     LocalizationDTO localization;
-    Duration eventTime;
+    Integer eventTime;
     boolean locationConflict;
     boolean timeConflict;
 }

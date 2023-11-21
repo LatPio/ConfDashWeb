@@ -6,7 +6,7 @@
   <mat-card-content>
     <h3>About <strong>{{eventData.eventType.name}}</strong> you can find more at
       <strong>{{eventData.startOfEvent | date: 'dd-MM-yyyy'}} </strong> and will be held <strong>{{eventData.localizationName}}</strong> </h3>
-    <h3><strong>Start At:</strong> {{eventData.startOfEvent | date: 'HH:mm'}}, <strong>ends within about:</strong> {{eventData.eventType.time}} minutes </h3>
+    <h3><strong>Start At:</strong> {{eventData.startOfEvent | date: 'HH:mm'}}, <strong>ends within about:</strong> {{eventData.eventType.timeInMinutes}} minutes </h3>
 
   </mat-card-content>
   <mat-card-actions align="end">

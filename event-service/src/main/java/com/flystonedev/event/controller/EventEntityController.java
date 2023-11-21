@@ -31,7 +31,6 @@ public class EventEntityController {
     @TimeLimiter(name = "event-cals")
     @Retry(name = "abstract")
     public CompletableFuture<String> registerEvent(@RequestBody EventEntityDTO eventEntityDTO){
-//        log.info("New Event registration {}", eventEntityDTO);
         eventEntityService.createEventEntity(eventEntityDTO);
         return CompletableFuture.supplyAsync(()->"Event created successfully");
     }

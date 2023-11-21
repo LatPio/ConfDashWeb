@@ -1,40 +1,10 @@
+
 <div class="row">
+  <div >
+    <h2>Select Data For Creation of Event</h2>
 
-  <div class="col-3">
-    <h2>List of Registered Speak Hall:</h2>
-    <app-localization-admin-list-light
-      [localizationLightList]="localizationLightList"
-      (selectedRoom)="selectedRoom($event)"
-      (refresh)="getLocalizationLightList()"
-    >
-
-    </app-localization-admin-list-light>
-  </div>
-
-  <div class="col-3">
-    <h2>List of Events Type:</h2>
-    <app-event-admin-type-list-light
-      [eventTypeLightList]="eventTypeLightList"
-      (selectedEventType)="selectedType($event)"
-    >
-    </app-event-admin-type-list-light>
-  </div>
-
-  <div class="col-3">
-    <h2>List of Accepted Abstract:</h2>
-    <app-abstract-admin-accepted-list
-      [abstractAcceptedLightList]="abstractLightList"
-      (selectedAbstract)="selectedAbstractEmit($event)"
-    >
-    </app-abstract-admin-accepted-list>
-  </div>
-
-  <div class="col-3">
-    <div >
-      <h2>Provide Data for booking</h2>
-
-      <form [formGroup]="eventFrom" (ngSubmit)="updateEvent()">
-
+    <form [formGroup]="eventFrom" (ngSubmit)="updateEvent()">
+      <div class="row">
         <mat-form-field class="full-width">
           <mat-label>Event Name</mat-label>
           <input
@@ -47,46 +17,14 @@
           </mat-error>
         </mat-form-field>
 
-        <mat-form-field class="full-width">
-          <mat-label>abstractId</mat-label>
-          <input
-            [readonly]="true"
-
-            type="number"
-            matInput
-            [formControlName]="'abstractId'"
-          >
-          <mat-error *ngIf="eventFrom.hasError('required')">
-            Name is required
-          </mat-error>
-        </mat-form-field>
-
-
-
-        <mat-form-field class="full-width">
-          <mat-label>localizationName</mat-label>
-          <input
-            [readonly]="true"
-
-            type="text"
-            matInput
-            [formControlName]="'localizationName'"
-          >
-          <mat-error *ngIf="eventFrom.hasError('required')">
-            Name is required
-          </mat-error>
-        </mat-form-field>
-
-
-
-        <mat-form-field>
-          <mat-label>dateTimeOfEvent</mat-label>
+        <mat-form-field class="two-fifth-width">
+          <mat-label>Start Of Event</mat-label>
 
           <input
             matInput
             [ngxMatDatetimePicker]="picker"
             placeholder="Choose a date"
-            [formControlName]="'dateTimeOfEvent'"
+            [formControlName]="'startOfEvent'"
           >
           <mat-datepicker-toggle matIconSuffix [for]="$any(picker)"></mat-datepicker-toggle>
 
@@ -102,12 +40,35 @@
 
         </mat-form-field>
 
+        <mat-form-field class="fifth-width">
+          <mat-label>abstractId</mat-label>
+          <input
+            [readonly]="true"
 
+            type="number"
+            matInput
+            [formControlName]="'abstractId'"
+          >
+          <mat-error *ngIf="eventFrom.hasError('required')">
+            Name is required
+          </mat-error>
+        </mat-form-field>
 
+        <mat-form-field class="fifth-width">
+          <mat-label>localizationName</mat-label>
+          <input
+            [readonly]="true"
 
+            type="text"
+            matInput
+            [formControlName]="'localizationName'"
+          >
+          <mat-error *ngIf="eventFrom.hasError('required')">
+            Name is required
+          </mat-error>
+        </mat-form-field>
 
-        <div formGroupName="eventType">
-
+        <div formGroupName="eventType" class="fifth-width">
 
           <mat-form-field class="full-width">
             <mat-label>Event Type</mat-label>
@@ -122,19 +83,51 @@
             </mat-error>
           </mat-form-field>
         </div>
+      </div>
 
 
 
-        <div style="padding-top: 20px;">
-          <button
-            mat-raised-button color="primary">Save</button>
-        </div>
 
-      </form>
+      <div style="padding-top: 20px;">
+        <button
+          mat-raised-button color="primary">Save</button>
+      </div>
 
-    </div>
-
+    </form>
 
   </div>
+
+
+</div>
+
+<div class="row">
+
+  <div class="col-4">
+    <h2>List of Registered Speak Hall:</h2>
+    <app-localization-admin-list-light
+      [localizationLightList]="localizationLightList"
+      (selectedRoom)="selectedRoom($event)"
+      (refresh)="getLocalizationLightList()">
+    </app-localization-admin-list-light>
+  </div>
+
+  <div class="col-4">
+    <h2>List of Events Type:</h2>
+    <app-event-admin-type-list-light
+      [eventTypeLightList]="eventTypeLightList"
+      (selectedEventType)="selectedType($event)"
+    >
+    </app-event-admin-type-list-light>
+  </div>
+
+  <div class="col-4">
+    <h2>List of Accepted Abstract:</h2>
+    <app-abstract-admin-accepted-list
+      [abstractAcceptedLightList]="abstractLightList"
+      (selectedAbstract)="selectedAbstractEmit($event)"
+    >
+    </app-abstract-admin-accepted-list>
+  </div>
+
 
 </div>

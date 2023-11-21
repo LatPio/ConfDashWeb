@@ -49,11 +49,11 @@
 
     <ng-container matColumnDef="startOfEvent">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Start Date and Time of Event </th>
-      <td mat-cell *matCellDef="let row"> {{row.startOfEvent}} </td>
+      <td mat-cell *matCellDef="let row"> {{row.startOfEvent | date: 'd-MM-yyyy h:mm'}} </td>
     </ng-container>
     <ng-container matColumnDef="endOfEvent">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> End Date and Time of Event </th>
-      <td mat-cell *matCellDef="let row"> {{row.endOfEvent}} </td>
+      <td mat-cell *matCellDef="let row"> {{row.endOfEvent | date: 'd-MM-yyyy h:mm'}} </td>
     </ng-container>
 
     <ng-container matColumnDef="option">

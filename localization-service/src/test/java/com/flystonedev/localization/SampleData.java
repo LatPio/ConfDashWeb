@@ -18,7 +18,7 @@ public interface SampleData {
                 .timeConflict(false)
                 .dateStart(LocalDate.of(2022,5,1).atTime(10,35,44).atZone(ZoneOffset.UTC).toLocalDateTime())
                 .dateEnd( LocalDate.of(2022,5,1).atTime(10,55,44).atZone(ZoneOffset.UTC).toLocalDateTime() )
-                .localization(LocalizationWithOutMapDTO.builder().id(1).build())
+                .localization(LocalizationDTO.builder().id(1).build())
                 .build();
         return bookingsDTO;
     }
@@ -30,7 +30,7 @@ public interface SampleData {
                 .timeConflict(false)
                 .dateStart(LocalDate.of(2022,5,1).atTime(10,35,44).atZone(ZoneOffset.UTC).toLocalDateTime())
                 .localization(LocalizationDTO.builder().id(1).build())
-                .eventTime(Duration.ofMinutes(20))
+                .eventTime(20)
                 .build();
         return bookingRequest;
     }

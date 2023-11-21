@@ -20,7 +20,7 @@ export class AbstractAdminAcceptedListComponent {
   @Output() refresh = new EventEmitter;
 
   dataSource: MatTableDataSource<AbstractLightDTOModel>;
-  displayedColumns: string[] = ['authors','name'];
+  displayedColumns: string[] = ['authors','abstractTitle'];
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 

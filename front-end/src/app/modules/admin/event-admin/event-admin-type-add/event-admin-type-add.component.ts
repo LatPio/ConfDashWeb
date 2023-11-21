@@ -29,7 +29,7 @@ export class EventAdminTypeAddComponent implements OnInit{
     this.eventTypeForm = this.formBuilder.group(
       {
         name:['',{validators:[Validators.required]}],
-        time:['',{validators:[Validators.required]}],
+        timeInMinutes:['',{validators:[Validators.required]}],
         locationConflict: [false,{validators:[Validators.required]}],
         timeConflict: [false,{validators:[Validators.required]}],
       }

@@ -28,6 +28,10 @@ export class EventAdminAddComponent implements OnInit{
   selectedEventType: EventTypeDTOModel;
   selectedAbstract: AbstractLightDTOModel;
 
+  nameOfEventType: string;
+  authorsName: string;
+  abstractTitle: string;
+
   constructor(
     private formBuilder: FormBuilder,
     private eventService: EventEntityService,
@@ -48,14 +52,14 @@ export class EventAdminAddComponent implements OnInit{
     this.eventFrom = this.formBuilder.group(
       {
         name: ['', {validators:[Validators.required]}],
-        abstractId: ['', {validators:[Validators.required]}],
-        localizationId: ['', {validators:[Validators.required]}],
-        localizationName: ['', {validators:[Validators.required]}],
+        abstractId: [{value: '', disabled: true}, {validators:[Validators.required]}],
+        localizationId: [{value: '', disabled: true}, {validators:[Validators.required]}],
+        localizationName: [{value: '', disabled: true}, {validators:[Validators.required]}],
         startOfEvent: [new Date(), {validators:[Validators.required]}],
         eventType: this.formBuilder.group(
           {
             id: ['', {validators:[Validators.required]}],
-            name: ['', {validators:[Validators.required]}]
+            name: [{value: '', disabled: true}, {validators:[Validators.required]}]
 
           }
         ),
@@ -64,10 +68,19 @@ export class EventAdminAddComponent implements OnInit{
     )
   }
 
+  generateEventName(){
+    if(this.authorsName && this.nameOfEventType && this.abstractTitle){
+      this.eventFrom.get('name')?.setValue( this.nameOfEventType + ": " + this.authorsName + " \"" + this.abstractTitle + "\"");
+
+    }
+
+  }
+
   selectedRoom($event: LocalizationLightDTOModel) {
     this.selectedLocalization = $event
     this.eventFrom.get('localizationId')?.setValue(this.selectedLocalization.id);
     this.eventFrom.get('localizationName')?.setValue(this.selectedLocalization.room);
+
 
   }
 
@@ -76,11 +89,18 @@ export class EventAdminAddComponent implements OnInit{
     this.eventFrom.get('eventType.id')?.setValue(this.selectedEventType.id);
     this.eventFrom.get('eventType.name')?.setValue(this.selectedEventType.name);
 
+    this.nameOfEventType = this.selectedEventType.name;
+    this.generateEventName();
   }
 
   selectedAbstractEmit($event: AbstractLightDTOModel) {
     this.selectedAbstract = $event;
-    this.eventFrom.get('abstractId')?.setValue(this.selectedAbstract.id)
+    this.eventFrom.get('abstractId')?.setValue(this.selectedAbstract.id);
+
+    this.abstractTitle = this.selectedAbstract.abstractTitle;
+    this.authorsName = this.selectedAbstract.authors;
+    this.generateEventName();
+
   }
 
   openSnackBarError(message: string) {

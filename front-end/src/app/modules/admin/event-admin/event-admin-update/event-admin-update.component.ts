@@ -30,6 +30,10 @@ export class EventAdminUpdateComponent implements OnInit{
   selectedEventType: EventTypeDTOModel;
   selectedAbstract: AbstractLightDTOModel;
 
+  nameOfEventType: string;
+  authorsName: string;
+  abstractTitle: string;
+
   constructor(
     private formBuilder: FormBuilder,
     private eventService: EventEntityService,
@@ -52,25 +56,34 @@ export class EventAdminUpdateComponent implements OnInit{
 
     this.eventFrom = this.formBuilder.group(
       {
-        id:[],
+        id:[''],
         name: ['', {validators:[Validators.required]}],
-        abstractId: ['', {validators:[Validators.required]}],
+        ownerId:[''],
+        abstractId: [{value: '', disabled: true}, {validators:[Validators.required]}],
         abstractName:[''],
-        localizationId: ['', {validators:[Validators.required]}],
-        localizationName: ['', {validators:[Validators.required]}],
+        localizationId: [{value: '', disabled: true}, {validators:[Validators.required]}],
+        localizationName: [{value: '', disabled: true}, {validators:[Validators.required]}],
         startOfEvent: [new Date(), {validators:[Validators.required]}],
         endOfEvent: [new Date(), {validators:[Validators.required]}],
-
+        bookingId:[''],
         eventType: this.formBuilder.group(
           {
             id: ['', {validators:[Validators.required]}],
-            name: ['', {validators:[Validators.required]}]
+            name: [{value: '', disabled: true}, {validators:[Validators.required]}],
+            timeInMinutes:[''],
+            locationConflict:[''],
+            timeConflict:['']
           }
         ),
       }
     );
     this.getEvent();
+  }
 
+  generateEventName(){
+    if(this.authorsName && this.nameOfEventType && this.abstractTitle){
+      this.eventFrom.get('name')?.setValue( this.nameOfEventType + ": " + this.authorsName + " \"" + this.abstractTitle + "\"");
+    }
   }
 
   getEvent(){
@@ -79,17 +92,21 @@ export class EventAdminUpdateComponent implements OnInit{
         {
           id:[{value: value.id, disabled:true}],
           name: [value.name],
+          ownerId:[value.ownerId],
           abstractName:[value.abstractName],
-          abstractId: [value.abstractId],
+          abstractId: [{value: value.abstractId, disabled:true}],
           localizationId: [value.localizationId],
-          localizationName: [value.localizationName],
+          localizationName: [{value: value.localizationName, disabled:true}],
           startOfEvent: [value.startOfEvent],
           endOfEvent: [value.endOfEvent],
-
+          bookingId:[value.bookingId],
           eventType: this.formBuilder.group(
             {
               id: [value.eventType.id],
-              name: [value.eventType.name]
+              name: [{value: value.eventType.name, disabled:true}],
+              timeInMinutes:[value.eventType.timeInMinutes],
+              locationConflict:[value.eventType.locationConflict],
+              timeConflict:[value.eventType.locationConflict]
             }
           ),
         }
@@ -108,12 +125,17 @@ export class EventAdminUpdateComponent implements OnInit{
     this.selectedEventType = $event
     this.eventFrom.get('eventType.id')?.setValue(this.selectedEventType.id);
     this.eventFrom.get('eventType.name')?.setValue(this.selectedEventType.name);
+    this.nameOfEventType = this.selectedEventType.name;
+    this.generateEventName();
 
   }
 
   selectedAbstractEmit($event: AbstractLightDTOModel) {
     this.selectedAbstract = $event;
-    this.eventFrom.get('abstractId')?.setValue(this.selectedAbstract.id)
+    this.eventFrom.get('abstractId')?.setValue(this.selectedAbstract.id);
+    this.abstractTitle = this.selectedAbstract.abstractTitle;
+    this.authorsName = this.selectedAbstract.authors;
+    this.generateEventName();
   }
 
   openSnackBarError(message: string) {

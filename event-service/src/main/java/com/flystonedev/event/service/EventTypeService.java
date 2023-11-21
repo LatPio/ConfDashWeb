@@ -22,7 +22,7 @@ public class EventTypeService {
     public void createEventType(EventTypeDTO eventTypeDTO){
         EventType eventType = EventType.builder()
                 .name(eventTypeDTO.getName())
-                .time(eventTypeDTO.getTime())
+                .timeInMinutes(eventTypeDTO.getTimeInMinutes())
                 .timeConflict(eventTypeDTO.isTimeConflict())
                 .locationConflict(eventTypeDTO.isLocationConflict())
                 .build();

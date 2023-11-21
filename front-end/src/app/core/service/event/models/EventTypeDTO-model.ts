@@ -1,7 +1,7 @@
 export class EventTypeDTOModel{
   id: number;
   name:string;
-  time: number;
+  timeInMinutes: number;
   locationConflict: boolean;
   timeConflict: boolean;
 }

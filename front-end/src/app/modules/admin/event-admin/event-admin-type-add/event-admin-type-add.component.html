@@ -20,11 +20,13 @@
         </mat-form-field>
 
         <mat-form-field class="full-width">
-          <mat-label>Length of Event</mat-label>
+          <mat-label>Length of Event in Minutes</mat-label>
           <input
             type="number"
             matInput
-            [formControlName]="'time'"
+            [min]="0"
+
+            [formControlName]="'timeInMinutes'"
           >
           <mat-error *ngIf="eventTypeForm.hasError('required')">
             Name is required

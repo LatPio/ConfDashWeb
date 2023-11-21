@@ -16,7 +16,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
   styleUrls: ['./event-admin-type-list.component.scss']
 })
 export class EventAdminTypeListComponent implements OnInit, AfterViewInit{
-  displayedColumns: string[] = ['id', 'name', 'time', 'locationConflict', 'timeConflict','option'];
+  displayedColumns: string[] = ['id', 'name', 'timeInMinutes', 'locationConflict', 'timeConflict','option'];
   dataSource = new MatTableDataSource<EventTypeDTOModel>();
   abstracts: Array<EventTypeDTOModel> = [];
   @ViewChild(MatPaginator) paginator: MatPaginator;

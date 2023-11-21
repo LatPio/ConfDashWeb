@@ -2,6 +2,7 @@ package com.flystonedev.localization.controller;
 
 import com.flystonedev.localization.DTO.BookingRequest;
 import com.flystonedev.localization.DTO.BookingsDTO;
+import com.flystonedev.localization.DTO.BookingsDTOLight;
 import com.flystonedev.localization.service.BookingsService;
 import jakarta.annotation.security.RolesAllowed;
 import lombok.AllArgsConstructor;
@@ -28,7 +29,7 @@ public class BookingController {
     }
     @RolesAllowed({"USER", "ADMIN"})
     @GetMapping("/list")
-    public ResponseEntity<List<BookingsDTO>> bookingsDTOList(){
+    public ResponseEntity<List<BookingsDTOLight>> bookingsDTOList(){
         return ResponseEntity.status(HttpStatus.OK).body(bookingsService.bookingsDTOList());
 
     }

@@ -32,7 +32,7 @@ public class EventType {
     )
     private Integer id;
     private String name;
-    private Duration time;
+    private Integer timeInMinutes;
     private boolean locationConflict;
     private boolean timeConflict;
 

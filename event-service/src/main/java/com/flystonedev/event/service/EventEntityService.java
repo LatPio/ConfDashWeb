@@ -56,7 +56,7 @@ public class EventEntityService {
                 .localizationName(localizationSelected.getRoom())
                 .eventType(selectedEventType)
                 .startOfEvent(eventEntityDTO.getStartOfEvent())
-                .endOfEvent(eventEntityDTO.getStartOfEvent().plusMinutes(selectedEventType.getTime().toMinutes()).minusSeconds(1L))
+                .endOfEvent(eventEntityDTO.getStartOfEvent().plusMinutes(selectedEventType.getTimeInMinutes()))
 
                 .build();
         EventEntity saved = eventEntityRepository.save(eventEntity);
@@ -64,7 +64,7 @@ public class EventEntityService {
         BookingRequest bookingRequest = BookingRequest.builder()
                     .eventIDData(saved.getId())
                     .dateStart(saved.getStartOfEvent())
-                    .eventTime(saved.getEventType().getTime())
+                    .eventTime(saved.getEventType().getTimeInMinutes())
                     .localization(LocalizationDTO.builder().id(Integer.valueOf(saved.getLocalizationId())).build())
                     .timeConflict(saved.getEventType().isTimeConflict())
                     .locationConflict(saved.getEventType().isLocationConflict())

@@ -61,7 +61,8 @@ public class LocalizationClient {
 
         BookingsDTO bookingsDTO = webClientBuilder.build()
                 .get()
-                .uri("http://localization-Service/api/v1/booking")
+                .uri("http://localization-Service/api/v1/booking",
+                        uriBuilder -> uriBuilder.queryParam("id", id.intValue()).build())
                 .headers(httpHeaders -> httpHeaders.setBearerAuth(jwt.getTokenValue()))
                 .retrieve()
                 .onStatus(  httpStatusCode-> httpStatusCode.value() == 401,

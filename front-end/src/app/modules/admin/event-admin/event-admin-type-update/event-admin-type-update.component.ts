@@ -31,7 +31,7 @@ export class EventAdminTypeUpdateComponent{
       {
         id:[''],
         name:['',{validators:[Validators.required]}],
-        time:['',{validators:[Validators.required]}],
+        timeInMinutes:['',{validators:[Validators.required]}],
         locationConflict: [false,{validators:[Validators.required]}],
         timeConflict: [false,{validators:[Validators.required]}],
       }
@@ -47,7 +47,7 @@ export class EventAdminTypeUpdateComponent{
         {
           id:[{value: value.id, disabled:true} ],
           name:[value.name],
-          time:[value.time],
+          timeInMinutes:[value.timeInMinutes],
           locationConflict: [value.locationConflict],
           timeConflict: [value.timeConflict],
         }

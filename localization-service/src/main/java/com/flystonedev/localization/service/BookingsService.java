@@ -2,6 +2,7 @@ package com.flystonedev.localization.service;
 
 import com.flystonedev.localization.DTO.BookingRequest;
 import com.flystonedev.localization.DTO.BookingsDTO;
+import com.flystonedev.localization.DTO.BookingsDTOLight;
 import com.flystonedev.localization.exeption.EntityNotFoundException;
 import com.flystonedev.localization.mapper.BookingMapper;
 import com.flystonedev.localization.model.Bookings;
@@ -27,16 +28,16 @@ public class BookingsService {
                 .locationConflict(bookingRequest.isLocationConflict())
                 .timeConflict(bookingRequest.isTimeConflict())
                 .dateStart(bookingRequest.getDateStart())
-                .dateEnd(bookingRequest.getDateStart().plusMinutes(bookingRequest.getEventTime().toMinutes()).minusSeconds(1L))
+                .dateEnd(bookingRequest.getDateStart().plusMinutes(bookingRequest.getEventTime()).minusSeconds(1L))
                 .localization(Localization.builder().id(bookingRequest.getLocalization().getId()).build())
                 .build();
         Bookings saved = bookingsRepository.save(bookings);
         return bookingMapper.map(saved);
     }
 
-    public List<BookingsDTO> bookingsDTOList(){
+    public List<BookingsDTOLight> bookingsDTOList(){
         List<Bookings> bookingsList = bookingsRepository.findAll();
-        return bookingsList.stream().map(bookingMapper::map).collect(Collectors.toList());
+        return bookingsList.stream().map(bookingMapper::mapLight).collect(Collectors.toList());
     }
 
     public BookingsDTO get(Integer id){
