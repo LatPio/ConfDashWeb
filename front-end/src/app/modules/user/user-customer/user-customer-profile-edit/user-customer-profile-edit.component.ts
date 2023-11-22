@@ -91,7 +91,6 @@ export class UserCustomerProfileEditComponent {
             this.location.back();
           },
           error: err => {
-            // console.log(err.error.detail)
             this.openSnackBarError(err.error.detail)
 
           }

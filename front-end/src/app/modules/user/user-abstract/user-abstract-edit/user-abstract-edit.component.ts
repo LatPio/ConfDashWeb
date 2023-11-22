@@ -3,6 +3,9 @@ import {FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AbstractsService} from "../../../../core/service/abstracts/abstracts.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Location} from "@angular/common";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {SnackbarErrorComponent} from "../../../shared/snackbar-error/snackbar-error.component";
+import {SnackbarMessageComponent} from "../../../shared/snackbar-message/snackbar-message.component";
 
 @Component({
   selector: 'app-user-abstract-edit',
@@ -20,7 +23,9 @@ export class UserAbstractEditComponent {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private location: Location
+    private location: Location,
+    private _snackBar: MatSnackBar,
+
   ) {
     this.abstractID = this.route.snapshot.params['abstractID'];
 
@@ -65,14 +70,29 @@ export class UserAbstractEditComponent {
 
   }
 
+  openSnackBarError(message: string) {
+    this._snackBar.openFromComponent(SnackbarErrorComponent, {
+      data: message,
+    });
+  }
+
+  openSnackBar(message: string) {
+    this._snackBar.openFromComponent(SnackbarMessageComponent, {
+      data: message,
+    });
+  }
   updateAbstract() {
     console.log(this.abstractForm.getRawValue())
     this.abstractService.putAbstractUser(this.abstractForm.getRawValue()).subscribe(
       {
         next: () => {
+          this.openSnackBar('Abstract Updated Successfully!')
+
           this.location.back();
         },
         error: err => {
+          this.openSnackBarError(err.error.text)
+
         }
       }
     )
