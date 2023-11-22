@@ -116,7 +116,7 @@ public class CustomerService {
     }
     @Transactional
     public CustomerDTO updateUser(CustomerDTO customerDTO){
-        Customer exist = customerMapper.map(getUser(customerDTO.getId()));
+        Customer exist = customerMapper.map(getUserByAuthId());
         if (exist == null) {
             throw new EntityNotFoundException("User not found", GlobalErrorCode.ERROR_CUSTOMER_SERVICE_ENTITY_NOT_FOUND);
         } else

@@ -91,6 +91,7 @@ export class UserCustomerProfileEditComponent {
             this.location.back();
           },
           error: err => {
+            console.log(this.personalInfoForm.getRawValue())
             this.openSnackBarError(err.error.detail)
 
           }
