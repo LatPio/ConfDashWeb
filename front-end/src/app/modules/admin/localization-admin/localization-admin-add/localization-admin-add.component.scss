@@ -1,0 +1,43 @@
+.map-image{
+  max-height: 1000px;
+  max-width: 1000px;
+  height:100%;
+  width:100%;
+}
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.item {
+  position:relative;
+  display:inline-block;
+}
+.notify-badge{
+
+  position: absolute;
+
+}
+
+.pin-style{
+  color: darkred;
+  transform: scale(3);
+}
+.fill-img {
+  object-fit: contain;
+}
+.full-width {
+  width: 100%;
+}
+
+.fifth-width {
+  width: 20%;
+}
+.third-width{
+  width: 33%;
+}
+
+.two-fifth-width{
+  width: 40%;
+}

@@ -1,8 +1,16 @@
 <div class="row">
   <div class="col-6 fill-img">
 
-    <img class="map-image" src="data:image/jpg;base64,{{mapImageData.data}}"  alt="{{mapImageData.name}}: {{mapImageData.fileName}}" >
+    <div class="item">
+      <span class="notify-badge"
+            [style.top.%]="coordinateY -4.8"
+            [style.left.%]="coordinateX -1.2"
+      >
+      <mat-icon class="pin-style">pin_drop</mat-icon>
+        </span>
+      <img class="map-image " src="data:image/jpg;base64,{{mapImageData.data}}"  alt="{{mapImageData.name}}: {{mapImageData.fileName}}" >
 
+    </div>
   </div>
 
   <div class="col-6">
@@ -48,7 +56,10 @@
                 <mat-icon>edit_square</mat-icon> Edit
               </button>
               <app-delete-button [name]="row.room" (event)="deleteLocalization(row.id)"></app-delete-button>
-
+              <button mat-raised-button  class="btn" (click)="assignCoordinates(row)">
+                                <mat-icon>pin_drop</mat-icon>
+                Show on Map
+              </button>
             </div>
 
           </td>

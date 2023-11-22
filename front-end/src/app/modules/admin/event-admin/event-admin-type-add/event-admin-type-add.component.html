@@ -1,71 +1,69 @@
 <div class="row">
 
 
-  <div class="col-3">
+  <div class="col-12">
     <div >
-      <h2>Provide Data for booking</h2>
+      <h2>Event Type Data:</h2>
 
       <form [formGroup]="eventTypeForm" (ngSubmit)="saveEventType()">
+  <div class="row">
+    <div class="col">
+      <mat-form-field class="full-width">
+        <mat-label>Event Type Name</mat-label>
+        <input
+          type="text"
+          matInput
+          [formControlName]="'name'"
+        >
+        <mat-error *ngIf="eventTypeForm.hasError('required')">
+          Name is required
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="col">
+      <mat-form-field class="full-width">
+        <mat-label>Length of Event in Minutes</mat-label>
+        <input
+          type="number"
+          matInput
+          [min]="0"
 
-        <mat-form-field class="full-width">
-          <mat-label>Event Type Name</mat-label>
-          <input
-            type="text"
-            matInput
-            [formControlName]="'name'"
-          >
-          <mat-error *ngIf="eventTypeForm.hasError('required')">
-            Name is required
-          </mat-error>
-        </mat-form-field>
+          [formControlName]="'timeInMinutes'"
+        >
+        <mat-error *ngIf="eventTypeForm.hasError('required')">
+          Name is required
+        </mat-error>
+      </mat-form-field>
 
-        <mat-form-field class="full-width">
-          <mat-label>Length of Event in Minutes</mat-label>
-          <input
-            type="number"
-            matInput
-            [min]="0"
-
-            [formControlName]="'timeInMinutes'"
-          >
-          <mat-error *ngIf="eventTypeForm.hasError('required')">
-            Name is required
-          </mat-error>
-        </mat-form-field>
-
-
-
-        <mat-form-field class="full-width">
-          <mat-label>locationConflict</mat-label>
-          <input
-            type="text"
-            matInput
-            [formControlName]="'locationConflict'"
-          >
-          <mat-error *ngIf="eventTypeForm.hasError('required')">
-            Name is required
-          </mat-error>
-        </mat-form-field>
-
-        <mat-form-field class="full-width">
-          <mat-label>timeConflict</mat-label>
-          <input
-            type="text"
-            matInput
-            [formControlName]="'timeConflict'"
-          >
-          <mat-error *ngIf="eventTypeForm.hasError('required')">
-            Name is required
-          </mat-error>
-        </mat-form-field>
+    </div>
+  </div>
 
 
+        <mat-checkbox color="primary" [formControlName]="'locationConflict'"> Location Conflict</mat-checkbox>
+<!--        <mat-form-field class="full-width">-->
+<!--          <mat-label>locationConflict</mat-label>-->
+<!--          <input-->
+<!--            type="text"-->
+<!--            matInput-->
+<!--            [formControlName]="'locationConflict'"-->
+<!--          >-->
+<!--          <mat-error *ngIf="eventTypeForm.hasError('required')">-->
+<!--            Name is required-->
+<!--          </mat-error>-->
+<!--        </mat-form-field>-->
+        <mat-checkbox color="primary" [formControlName]="'timeConflict'"> Time Conflict</mat-checkbox>
 
-
-
-
-
-
+<!--        <mat-form-field class="full-width">-->
+<!--          <mat-label>timeConflict</mat-label>-->
+<!--          <input-->
+<!--            type="text"-->
+<!--            matInput-->
+<!--            [formControlName]="'timeConflict'"-->
+<!--          >-->
+<!--          <mat-error *ngIf="eventTypeForm.hasError('required')">-->
+<!--            Name is required-->
+<!--          </mat-error>-->
+<!--        </mat-form-field>-->
 
         <div style="padding-top: 20px;">
           <button

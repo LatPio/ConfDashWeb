@@ -5,6 +5,7 @@ import {MapImageService} from "../../../../core/service/localization/map-image.s
 import {Router} from "@angular/router";
 import {Location} from "@angular/common";
 import {MapImageResponseModel} from "../../../../core/service/localization/models/MapImageResponse-model";
+import {MapImageDTOModel} from "../../../../core/service/localization/models/MapImageDTO-model";
 
 
 @Component({
@@ -17,7 +18,9 @@ export class LocalizationAdminAddComponent implements OnInit {
   localizationForm!: FormGroup;
   mapImageSimpleList!: Array<MapImageResponseModel>;
 
-  selectedMApImage: MapImageResponseModel;
+  selectedMApImage: MapImageDTOModel;
+  private selectedMapImageSimple: MapImageResponseModel;
+
   constructor(
     private formBuilder: FormBuilder,
     private localizationService: LocalizationService,
@@ -39,7 +42,9 @@ export class LocalizationAdminAddComponent implements OnInit {
         mapImage: this.formBuilder.group(
           {
             id:[ '', {validators:[Validators.required]}],
-            name:['', {validators:[Validators.required]}]
+            name:['', {validators:[Validators.required]}],
+            filaName:[''],
+            data:['']
           }
         )
       }
@@ -66,10 +71,19 @@ export class LocalizationAdminAddComponent implements OnInit {
     })
   }
 
-  selected($event: MapImageResponseModel) {
-    this.selectedMApImage = $event
-    this.localizationForm.get('mapImage.id')?.setValue(this.selectedMApImage.id);
-    this.localizationForm.get('mapImage.name')?.setValue(this.selectedMApImage.name);
+  getActualSelectedImage(id: number){
+    this.mapImageService.getMapImage(id).subscribe(value => {this.selectedMApImage = value})
 
   }
+
+  selected($event: MapImageResponseModel) {
+    this.getActualSelectedImage($event.id)
+    this.selectedMapImageSimple = $event
+    this.localizationForm.get('mapImage.id')?.setValue(this.selectedMapImageSimple.id);
+    this.localizationForm.get('mapImage.name')?.setValue(this.selectedMapImageSimple.name);
+    this.localizationForm.get('mapImage.data')?.setValue(this.selectedMApImage.data);
+
+  }
+
+  protected readonly Number = Number;
 }

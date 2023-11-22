@@ -27,8 +27,8 @@ export class UserMapViewComponent {
   @ViewChild(MatSort) sort: MatSort;
   // localizationData: LocalizationWithOutMapDTOModel;
 
-  coordinateX:number = 11;
-  coordinateY:number = 22;
+  coordinateX:number = 0;
+  coordinateY:number = 0;
 
 
   ngAfterViewInit(): void {

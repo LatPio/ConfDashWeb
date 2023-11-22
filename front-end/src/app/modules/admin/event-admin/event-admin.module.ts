@@ -29,6 +29,7 @@ import { EventSimpleViewCardComponent } from './event-simple-view-card/event-sim
 import {MatCardModule} from "@angular/material/card";
 import { EventViewCardComponent } from './event-view-card/event-view-card.component';
 import { EventAdminListLightComponent } from './event-admin-list-light/event-admin-list-light.component';
+import {MatCheckboxModule} from "@angular/material/checkbox";
 
 
 @NgModule({
@@ -69,7 +70,8 @@ import { EventAdminListLightComponent } from './event-admin-list-light/event-adm
         ReactiveFormsModule,
         LocalizationAdminModule,
         AbstractsAdminModule,
-        MatCardModule
+        MatCardModule,
+        MatCheckboxModule
     ]
 })
 export class EventAdminModule { }

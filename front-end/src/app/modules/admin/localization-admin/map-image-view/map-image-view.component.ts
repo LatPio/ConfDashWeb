@@ -27,6 +27,9 @@ export class MapImageViewComponent implements AfterViewInit, OnInit{
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
+  coordinateX:number = 0;
+  coordinateY:number = 0;
+
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -49,6 +52,10 @@ export class MapImageViewComponent implements AfterViewInit, OnInit{
       this.mapImageData = value;
       this.dataSource.data = value.localization;
     })
+  }
+  assignCoordinates(row: LocalizationWithOutMapDTOModel){
+    this.coordinateX = row.coordinateX;
+    this.coordinateY = row.coordinateY;
   }
 
   applyFilter(event: Event) {

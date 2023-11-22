@@ -52,14 +52,14 @@ export class EventAdminAddComponent implements OnInit{
     this.eventFrom = this.formBuilder.group(
       {
         name: ['', {validators:[Validators.required]}],
-        abstractId: [{value: '', disabled: true}, {validators:[Validators.required]}],
-        localizationId: [{value: '', disabled: true}, {validators:[Validators.required]}],
-        localizationName: [{value: '', disabled: true}, {validators:[Validators.required]}],
+        abstractId: [{value: ''}, {validators:[Validators.required]}],
+        localizationId: [{value: ''}, {validators:[Validators.required]}],
+        localizationName: [{value: ''}, {validators:[Validators.required]}],
         startOfEvent: [new Date(), {validators:[Validators.required]}],
         eventType: this.formBuilder.group(
           {
             id: ['', {validators:[Validators.required]}],
-            name: [{value: '', disabled: true}, {validators:[Validators.required]}]
+            name: [{value: ''}, {validators:[Validators.required]}]
 
           }
         ),
