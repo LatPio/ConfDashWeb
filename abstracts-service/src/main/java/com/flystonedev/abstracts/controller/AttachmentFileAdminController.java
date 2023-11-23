@@ -79,7 +79,6 @@ public class AttachmentFileAdminController {
                             attachmentFileDTO.getName(),
                             attachmentFileDTO.getType(),
                             fileDownloadUri,
-                            attachmentFileDTO.getAccepted(),
                             attachmentFileDTO.getFileRole()
                     );
                 }

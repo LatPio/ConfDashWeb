@@ -36,7 +36,9 @@ export class AbstractsAttachmentFileService {
   }
 
   getDownloadFile(fileId: number): Observable<Blob>{
-    return this.httpClient.get<Blob>(`${this.config.apiEndpoint}api/v1/admin/attachment_file/file/${fileId}`)
+    return this.httpClient.get<Blob>(`${this.config.apiEndpoint}api/v1/admin/attachment_file/file/${fileId}`, {
+      headers: this.httpHeaders, responseType: 'blob' as 'json'
+    })
   }
 
   getListOfAllFiles():Observable<Array<AttachmentFileResponseModel>>{

@@ -17,8 +17,6 @@ public class AttachmentFileDTO {
     private String type;
     private String authId;
     private FileRole fileRole;
-    private Boolean accepted;
     private byte[] data;
     private byte[] smallData;
-//    private AbstractDTO abstractsEntity;
 }

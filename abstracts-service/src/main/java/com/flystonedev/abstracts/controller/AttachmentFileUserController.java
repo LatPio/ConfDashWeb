@@ -75,7 +75,6 @@ public class AttachmentFileUserController {
                             attachmentFileDTO.getName(),
                             attachmentFileDTO.getType(),
                             fileDownloadUri,
-                            attachmentFileDTO.getAccepted(),
                             attachmentFileDTO.getFileRole()
                     );
                 }

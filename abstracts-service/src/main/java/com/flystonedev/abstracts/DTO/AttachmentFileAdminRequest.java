@@ -6,7 +6,6 @@ public record AttachmentFileAdminRequest(
 
         FileRole fileRole,
         AbstractDTO abstractsEntity,
-        Boolean accepted,
         String authId
 
 

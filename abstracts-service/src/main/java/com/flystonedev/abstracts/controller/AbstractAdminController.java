@@ -20,7 +20,6 @@ import java.util.List;
 @RestController
 @RequestMapping("api/v1/admin/abstracts")
 @AllArgsConstructor
-//@CrossOrigin(origins = "http://localhost:4200")
 public class AbstractAdminController {
     private final AbstractService abstractService;
 
@@ -79,10 +78,5 @@ public class AbstractAdminController {
     public ResponseEntity<StatsResponse> stats(){
         return ResponseEntity.status(HttpStatus.OK).body(abstractService.stats());
     }
-    @RolesAllowed({"ADMIN"})
-    @GetMapping("/principal")
-    public ResponseEntity<String> getPrincipal(){
-        System.out.println(JwtConverter.getKeycloakJWT().getId().toString());
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
+
 }

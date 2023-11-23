@@ -1,6 +1,8 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {AttachmentFileDTOModel} from "../../../core/service/abstracts/models/AttachmentFileDTO-model";
 import {AbstractsAttachmentFileService} from "../../../core/service/abstracts/abstracts-attachment-file.service";
+import {FileRole} from "../../../core/service/abstracts/models/FileRole";
+import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-abstract-file-view',
@@ -13,8 +15,12 @@ export class AbstractFileViewComponent {
   @Input() figure!: AttachmentFileDTOModel;
   @Output() refreshEvent = new EventEmitter();
   @Input() showOptions: boolean = true
+  fileUrl: SafeResourceUrl;
+  blob: Blob;
+
   constructor(
-    private fileService:AbstractsAttachmentFileService
+    private fileService:AbstractsAttachmentFileService,
+    private sanitizer: DomSanitizer
   ) {
   }
   deleteFile(id: number){
@@ -28,9 +34,41 @@ export class AbstractFileViewComponent {
         this.refreshEvent.emit();
       })
     }
-
-
-
   }
 
+
+
+
+  getFileDownload(id: number){
+    this.fileService.getDownloadFile(id).subscribe(
+      data=>{
+        let blob = new Blob([data], { type: 'application/pdf' });
+        let url = window.URL.createObjectURL(blob);
+        let anchor = document.createElement("a");
+        anchor.download = this.figure.name
+        anchor.href = url;
+        anchor.click();
+        // window.open(anchor.href, anchor.download)
+      }
+    )
+  }
+
+
+
+  // getFileOpen(id: number){
+  //   this.fileService.getDownloadFile(id).subscribe(
+  //     data=>{
+  //       const blob = new Blob([data], {
+  //         type: 'application/pdf'
+  //       });
+  //       // const fileURL = URL.createObjectURL(blob);
+  //       // this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
+  //       // const file = new File([data], "abstract" ,{ type: 'application/pdf' })
+  //
+  //       window.open(window.URL.createObjectURL(blob))
+  //     }
+  //   )
+  // }
+
+  protected readonly FileRole = FileRole;
 }

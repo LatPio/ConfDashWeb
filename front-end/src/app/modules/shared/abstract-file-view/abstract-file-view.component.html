@@ -6,11 +6,17 @@
         <h4> ID: {{figure.id}}</h4>
         <h4>Name: {{figure.name}}</h4>
         <h4>Role: {{figure.fileRole}}</h4>
-        <h4>Accepted: {{figure.accepted}}</h4>
         <h4>File Type:{{figure.type}}</h4>
-        <div style="text-align: center">
+        <div *ngIf="figure.fileRole === FileRole.GRAPHICAL_ABSTRACT" style="text-align: center">
           <img src="data:image/jpg;base64,{{figure.data}}"  alt="{{figure.fileRole}}: {{figure.name}}">
           <img src="data:image/jpg;base64,{{figure.smallData}}"  alt="{{figure.fileRole}}: {{figure.name}}">
+
+        </div>
+
+        <div *ngIf="figure.fileRole === FileRole.FILE_ABSTRACT" style="text-align: center">
+          <mat-icon class="icon-display" >picture_as_pdf</mat-icon>
+
+
 
         </div>
       </div>
@@ -20,8 +26,17 @@
   </mat-card-content>
   <mat-card-actions align="end">
     <div class="col-auto" *ngIf="showOptions">
+      <button *ngIf="figure.fileRole===FileRole.FILE_ABSTRACT" mat-raised-button (click)="getFileDownload(figure.id)" class="btn">
+        <mat-icon class="color-icon">download</mat-icon> Download PDF
+      </button>
+
       <app-delete-button [name]="figure.name" (event)="deleteFile(figure.id)"></app-delete-button>
+
     </div>
+
+
+
+
 
   </mat-card-actions>
 </mat-card>

@@ -44,20 +44,30 @@ public class AttachmentFileService {
     @Transactional
     public AttachmentFileDTO saveUsersFile(MultipartFile file, AttachmentFileRequest attachmentFileRequest) throws IOException{
         String filename = StringUtils.cleanPath(file.getOriginalFilename());
+        AttachmentFile attachmentFile = null;
+        if(filename.substring(filename.length() - 3).equals("pdf")){
+            attachmentFile = AttachmentFile.builder()
+                    .name(filename)
+                    .type(file.getContentType())
+                    .fileRole(attachmentFileRequest.fileRole())
+                    .data(file.getBytes())
+                    .authId(jwtConverter.getKeycloakUserID())
+                    .abstractsEntity(abstractRepository.findById(attachmentFileRequest.abstractsEntity().getId()).orElseThrow(EntityNotFoundException::new))
+                    .build();
+        }else{
+            attachmentFile = AttachmentFile.builder()
+                    .name(filename)
+                    .type(file.getContentType())
+                    .fileRole(attachmentFileRequest.fileRole())
+                    .data(file.getBytes())
+                    .authId(jwtConverter.getKeycloakUserID())
+                    .smallData(ResizeImage.resizeImage(file))
 
-        AttachmentFile attachmentFile = AttachmentFile.builder()
-                .name(filename)
-                .type(file.getContentType())
-                .fileRole(attachmentFileRequest.fileRole())
-                .data(file.getBytes())
-                .authId(jwtConverter.getKeycloakUserID())
-                .accepted(false)
-                .smallData(ResizeImage.resizeImage(file))
-
-                .abstractsEntity(abstractRepository.findById(attachmentFileRequest.abstractsEntity().getId()).orElseThrow(EntityNotFoundException::new))
-                .build();
-        if(!filename.substring(filename.length() - 3).equals("pdf")){
+                    .abstractsEntity(abstractRepository.findById(attachmentFileRequest.abstractsEntity().getId()).orElseThrow(EntityNotFoundException::new))
+                    .build();
         }
+
+
         attachmentFileRepository.save(attachmentFile);
         return attachmentFileMapper.map(attachmentFile);
 
@@ -79,10 +89,10 @@ public class AttachmentFileService {
         AttachmentFile exist = attachmentFileMapper.map(getUserFile(attachmentFileUserUpdateRequest.id()));
         if(exist == null){
             throw new EntityNotFoundException();
-        } else
-        if (exist.getAccepted()) {
-            throw new AttachmentFileEditionBlockedException();
-        } else if (file.getBytes().length !=0){
+        }
+//        else if (exist.getAccepted()) {
+//            throw new AttachmentFileEditionBlockedException();}
+        else if (file.getBytes().length !=0){
             exist.setData(file.getBytes());
             exist.setName(StringUtils.cleanPath(file.getOriginalFilename()));
             exist.setType(file.getContentType());
@@ -111,10 +121,10 @@ public class AttachmentFileService {
         AttachmentFileDTO exist = getUserFile(id);
         if(exist == null){
             throw new EntityNotFoundException();
-        } else
-        if (exist.getAccepted()) {
-            throw new AttachmentFileEditionBlockedException();
-        } else {
+        }
+//        else if (exist.getAccepted()) {
+//            throw new AttachmentFileEditionBlockedException();}
+        else {
             attachmentFileRepository
                     .deleteAttachmentFileByIdAndAuthId(id, jwtConverter.getKeycloakUserID());
         }
@@ -129,17 +139,31 @@ public class AttachmentFileService {
     @Transactional
     public AttachmentFileDTO saveAdminFile(MultipartFile file, AttachmentFileAdminRequest attachmentFileAdminRequest) throws IOException{
         String filename = StringUtils.cleanPath(file.getOriginalFilename());
-        AttachmentFile attachmentFile = AttachmentFile.builder()
-                .name(filename)
-                .type(file.getContentType())
-                .fileRole(attachmentFileAdminRequest.fileRole())
-                .data(file.getBytes())
-                .smallData(resizeImage.resizeImage(file))
 
-                .authId(attachmentFileAdminRequest.authId())
-                .accepted(attachmentFileAdminRequest.accepted())
-                .abstractsEntity(abstractRepository.findById(attachmentFileAdminRequest.abstractsEntity().getId()).orElseThrow(EntityNotFoundException::new))
-                .build();
+        AttachmentFile attachmentFile = null;
+        if(filename.substring(filename.length() - 3).equals("pdf")){
+            attachmentFile = AttachmentFile.builder()
+                    .name(filename)
+                    .type(file.getContentType())
+                    .fileRole(attachmentFileAdminRequest.fileRole())
+                    .data(file.getBytes())
+                    .authId(attachmentFileAdminRequest.authId())
+                    .abstractsEntity(abstractRepository.findById(attachmentFileAdminRequest.abstractsEntity().getId()).orElseThrow(EntityNotFoundException::new))
+                    .build();
+        }else{
+            attachmentFile = AttachmentFile.builder()
+                    .name(filename)
+                    .type(file.getContentType())
+                    .fileRole(attachmentFileAdminRequest.fileRole())
+                    .data(file.getBytes())
+                    .authId(attachmentFileAdminRequest.authId())
+                    .smallData(ResizeImage.resizeImage(file))
+
+                    .abstractsEntity(abstractRepository.findById(attachmentFileAdminRequest.abstractsEntity().getId()).orElseThrow(EntityNotFoundException::new))
+                    .build();
+        }
+
+
         attachmentFileRepository.save(attachmentFile);
         return attachmentFileMapper.map(attachmentFile);
     }
@@ -164,7 +188,6 @@ public class AttachmentFileService {
             exist.setName(StringUtils.cleanPath(file.getOriginalFilename()));
             exist.setType(file.getContentType());
 
-            exist.setAccepted(attachmentFileAdminUpdateRequest.accepted());
             exist.setAuthId(attachmentFileAdminUpdateRequest.authId());
             exist.setFileRole(attachmentFileAdminUpdateRequest.fileRole());
             exist.setAbstractsEntity(
@@ -175,7 +198,6 @@ public class AttachmentFileService {
             return attachmentFileMapper.map(updated);
         } else {
 
-            exist.setAccepted(attachmentFileAdminUpdateRequest.accepted());
             exist.setAuthId(attachmentFileAdminUpdateRequest.authId());
             exist.setFileRole(attachmentFileAdminUpdateRequest.fileRole());
             exist.setAbstractsEntity(
@@ -192,7 +214,6 @@ public class AttachmentFileService {
         List<AttachmentFile> attachmentFileByAbstractsEntityId = attachmentFileRepository.findAttachmentFileByAbstractsEntity_Id(id);
         //todo block these files for modification
         attachmentFileByAbstractsEntityId.stream().forEach(attachmentFile -> {
-            attachmentFile.setAccepted(accepted);
             attachmentFileRepository.save(attachmentFile);
         });
     }

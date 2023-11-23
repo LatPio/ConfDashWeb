@@ -20,7 +20,7 @@ export class AbstractCardViewComponent implements OnInit,AfterViewInit{
   image: any = null;
   @Input() showButtons: boolean = true;
   @Input() widthOfCard: number = 700;
-
+  blob: Blob;
   constructor(
     private abstractService: AbstractsService,
     private customerService: CustomersService,
@@ -44,7 +44,17 @@ export class AbstractCardViewComponent implements OnInit,AfterViewInit{
   }
 
   getBigImg(id: number){
-    this.fileService.getDownloadFile(id).subscribe()
+    this.fileService.getDownloadFile(id).subscribe(
+      data=>{
+        this.blob = new Blob([data], {type: 'application/pdf'});
+
+        var downloadURL = window.URL.createObjectURL(data);
+        var link = document.createElement('a');
+        link.href = downloadURL;
+        link.download = "help.pdf";
+        link.click();
+      }
+    )
   }
 
 
