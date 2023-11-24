@@ -16,6 +16,7 @@ const routes: Routes = [
   children:[
     {path: 'stats', component: EventAdminStatsComponent},
     {path: 'add', component: EventAdminAddComponent},
+    {path: 'assign/:abstractID', component: EventAdminAddComponent},
     {path: 'list', component: EventAdminListComponent},
     {path: 'get/:eventID', component: EventAdminViewComponent},
     {path: 'update/:eventID', component: EventAdminUpdateComponent},

@@ -56,7 +56,4 @@ export class AbstractAdminAcceptedComponent implements AfterViewInit, OnInit{
     }
   }
 
-  assignToEvent() {
-
-  }
 }

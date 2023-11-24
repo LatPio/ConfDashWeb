@@ -39,7 +39,7 @@ class BasketUserControllerTest extends KeycloakTestContainers  {
     void get() {
         Response response = given()
                 .header("Authorization", getAccessToken("admin@email.com", "password"))
-                .param("id", "1")
+                .param("id", "2")
                 .when()
                 .get("api/v1/user/basket")
                 .peek()
@@ -70,7 +70,7 @@ class BasketUserControllerTest extends KeycloakTestContainers  {
     void delete() {
         Response response = given()
                 .header("Authorization", getAccessToken("admin@email.com", "password"))
-                .param("id", "1")
+                .param("id", "2")
                 .when()
                 .delete("api/v1/user/basket")
                 .peek()

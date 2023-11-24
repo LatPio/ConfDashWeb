@@ -28,7 +28,7 @@
              [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
 
           <div class="row">
-            <a mat-raised-button (click)="assignToEvent()" color="primary">Assign to Event</a>
+            <a mat-raised-button [href]="'/admin/event/assign/' + element.id " color="primary">Assign to Event</a>
 
             <div class="col">
               <app-abstract-sheet-view [abstract]="element"></app-abstract-sheet-view>

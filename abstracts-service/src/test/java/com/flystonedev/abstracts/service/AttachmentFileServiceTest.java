@@ -138,7 +138,6 @@ class AttachmentFileServiceTest implements SampleData {
     void willThrowErrorWhenUserUpdateOwnFileAndFileIsBlocked(){
         //given
         final var expected = getSampleOfOneAttachmentFile();
-        expected.setAccepted(true);
         when(jwtConverter.getKeycloakUserID()).thenReturn(expected.getAuthId());
         when(attachmentFileRepository.findAttachmentFileByIdAndAuthId(expected.getId(), expected.getAuthId())).thenReturn(Optional.ofNullable(expected));
         //when
@@ -177,7 +176,6 @@ class AttachmentFileServiceTest implements SampleData {
     void willThrowErrorWhenUserDeleteOwnFileAndFileIsBlocked(){
         //given
         var attachmentFileDTO = getSampleOfOneAttachmentFileDTO();
-        attachmentFileDTO.setAccepted(true);
         when(jwtConverter.getKeycloakUserID()).thenReturn(attachmentFileDTO.getAuthId());
         when(attachmentFileRepository.findAttachmentFileByIdAndAuthId(attachmentFileDTO.getId(), attachmentFileDTO.getAuthId())).thenReturn(Optional.ofNullable(attachmentFileMapper.map(attachmentFileDTO)));
         //when

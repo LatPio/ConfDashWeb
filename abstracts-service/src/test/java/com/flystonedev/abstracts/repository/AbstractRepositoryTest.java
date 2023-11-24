@@ -36,7 +36,7 @@ class AbstractRepositoryTest implements SampleData{
     @Test
     void findAbstractByIdAndAuthId(){
         String authId = "vava-dddd";
-        Integer id = 13;
+        Integer id = 1;
         System.out.println(underTest.findAll());
         var testValue = underTest.findByIdAndAuthId(id, authId);
 

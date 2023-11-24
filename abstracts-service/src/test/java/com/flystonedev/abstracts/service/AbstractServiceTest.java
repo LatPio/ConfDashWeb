@@ -2,6 +2,7 @@ package com.flystonedev.abstracts.service;
 
 import com.flystonedev.abstracts.DTO.AbstractDTO;
 import com.flystonedev.abstracts.SampleData;
+import com.flystonedev.abstracts.clients.CustomerClient;
 import com.flystonedev.abstracts.config.JwtConverter;
 import com.flystonedev.abstracts.exeption.AbstractEditionBlockedException;
 import com.flystonedev.abstracts.exeption.EntityNotFoundException;
@@ -40,6 +41,9 @@ class AbstractServiceTest   implements SampleData {
     private AttachmentFileRepository attachmentFileRepository;
     @Mock
     private JwtConverter jwtConverter;
+
+    @Mock
+    private CustomerClient customerClient;
     private final AbstractMapper abstractMapper = Mappers.getMapper(AbstractMapper.class);
     private final AbstractSimpleMapper abstractSimpleMapper = Mappers.getMapper(AbstractSimpleMapper.class);
 
@@ -49,7 +53,7 @@ class AbstractServiceTest   implements SampleData {
         AbstractDTO expected = getSampleOfOneAbstractDTO();
         expected.setId(null);
         when(jwtConverter.getKeycloakUserID()).thenReturn(expected.getAuthId());
-
+        when(customerClient.getCustomer().getId()).thenReturn(2);
         underTest.createUserAbstract(expected);
         //then
         ArgumentCaptor<AbstractsEntity> abstractsEntityArgumentCaptor = ArgumentCaptor.forClass(AbstractsEntity.class);

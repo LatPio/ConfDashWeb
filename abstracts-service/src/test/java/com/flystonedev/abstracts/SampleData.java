@@ -116,8 +116,7 @@ public interface SampleData {
                 .name("Figure 1")
                 .type("multipart/form-data")
                 .authId("aaaa-bbbb")
-                .accepted(false)
-                .fileRole(FileRole.FIGURE)
+                .fileRole(FileRole.GRAPHICAL_ABSTRACT)
                 .data("1234567".getBytes())
                 .abstractsEntity(null)
                 .build();
@@ -127,7 +126,6 @@ public interface SampleData {
                 .name("Graphical Abstract")
                 .type("multipart/form-data")
                 .authId("vava-dddd")
-                .accepted(true)
                 .fileRole(FileRole.GRAPHICAL_ABSTRACT)
                 .data("1234567".getBytes())
                 .abstractsEntity(null)
@@ -143,7 +141,6 @@ public interface SampleData {
                 .name("Hello.txt")
                 .type("text/plain")
                 .authId("vava-dddd")
-                .accepted(false)
                 .fileRole(FileRole.GRAPHICAL_ABSTRACT)
                 .data("Hello, World!".getBytes())
                 .abstractsEntity(getSampleOfOneAbstractEntity())
@@ -152,7 +149,7 @@ public interface SampleData {
     }
     default AttachmentFileAdminUpdateRequest getSampleOfAttachmentFileAdminUpdateRequest(){
         AttachmentFileAdminUpdateRequest attachmentFile1 =
-                new AttachmentFileAdminUpdateRequest(1, FileRole.GRAPHICAL_ABSTRACT, getSampleOfOneAbstractDTO(),false, "vava-dddd" );
+                new AttachmentFileAdminUpdateRequest(1, FileRole.GRAPHICAL_ABSTRACT, getSampleOfOneAbstractDTO(), "vava-dddd" );
         return attachmentFile1;
     }
 
@@ -169,7 +166,6 @@ public interface SampleData {
                 .name("Hello.txt")
                 .type("text/plain")
                 .authId("vava-dddd")
-                .accepted(false)
                 .fileRole(FileRole.GRAPHICAL_ABSTRACT)
                 .data("Hello, World!".getBytes())
 //                .abstractsEntity(getSampleOfOneAbstractEntity())
@@ -180,7 +176,7 @@ public interface SampleData {
         return  new AttachmentFileRequest(FileRole.GRAPHICAL_ABSTRACT, AbstractDTO.builder().id(1).build());
     }
     default AttachmentFileAdminRequest getSampleOfOneAttachmentFileAdminRequest(){
-        return  new AttachmentFileAdminRequest(FileRole.GRAPHICAL_ABSTRACT, AbstractDTO.builder().id(1).build(), false,"vava-dddd"  );
+        return  new AttachmentFileAdminRequest(FileRole.GRAPHICAL_ABSTRACT, AbstractDTO.builder().id(1).build(), "vava-dddd"  );
     }
 
 
@@ -205,8 +201,7 @@ public interface SampleData {
                 .name("Figure 1t")
                 .type("????")
                 .authId("vava-dddd")
-                .accepted(true)
-                .fileRole(FileRole.FIGURE)
+                .fileRole(FileRole.FILE_ABSTRACT)
                 .data("1234567".getBytes())
                 .abstractsEntity(AbstractsEntity.builder().id(2).build())
                 .build();
@@ -216,7 +211,6 @@ public interface SampleData {
                 .name("Graphical Abstract")
                 .type("????")
                 .authId("vava-dddd")
-                .accepted(true)
                 .fileRole(FileRole.GRAPHICAL_ABSTRACT)
                 .data("1234567".getBytes())
                 .abstractsEntity(AbstractsEntity.builder().id(2).build())

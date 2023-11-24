@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Location} from "@angular/common";
 import {EventEntityService} from "../../../../core/service/event/event-entity.service";
@@ -11,6 +11,7 @@ import {LocalizationService} from "../../../../core/service/localization/localiz
 import {EventTypeService} from "../../../../core/service/event/event-type.service";
 import {AbstractLightDTOModel} from "../../../../core/service/abstracts/models/AbstractLightDTO-model";
 import {AbstractsService} from "../../../../core/service/abstracts/abstracts.service";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-event-admin-add',
@@ -28,6 +29,8 @@ export class EventAdminAddComponent implements OnInit{
   selectedEventType: EventTypeDTOModel;
   selectedAbstract: AbstractLightDTOModel;
 
+  abstractID: number;
+
   nameOfEventType: string;
   authorsName: string;
   abstractTitle: string;
@@ -39,16 +42,18 @@ export class EventAdminAddComponent implements OnInit{
     private  eventTypeService: EventTypeService,
     private abstractService: AbstractsService,
     private location: Location,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private route: ActivatedRoute
 
   ) {
+    this.abstractID = this.route.snapshot.params['abstractID']
   }
 
   ngOnInit(): void {
     this.getLocalizationLightList();
     this.getEventTypeLightList();
     this.getAbstractTypeLightList();
-
+    this.getAbstract();
     this.eventFrom = this.formBuilder.group(
       {
         name: ['', {validators:[Validators.required]}],
@@ -65,7 +70,18 @@ export class EventAdminAddComponent implements OnInit{
         ),
 
       }
-    )
+    );
+
+
+  }
+
+  getAbstract(){
+    this.abstractService.getAbstractAdmin(this.abstractID).subscribe(value => {
+      this.eventFrom.get('abstractId')?.setValue(value.id);
+
+      this.abstractTitle = value.abstractTitle;
+      this.authorsName = value.authors;
+      this.generateEventName();    })
   }
 
   generateEventName(){
@@ -132,7 +148,6 @@ export class EventAdminAddComponent implements OnInit{
 
             this.openSnackBarError(err.error.text)
           }
-          // this.location.back();
         }
       }
     )

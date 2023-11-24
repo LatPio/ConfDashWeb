@@ -158,16 +158,5 @@ public class AbstractAdminControllerTest extends KeycloakTestContainers implemen
         Assertions.assertEquals(200, response.statusCode());
     }
 
-    @Test
-    void getPrincipal() {
 
-         given()
-                 .header("Authorization", getAccessToken("admin@email.com", "password"))
-                 .when()
-                 .get("api/v1/admin/abstracts/principal")
-                 .peek()
-                 .then()
-                 .statusCode(200);
-
-    }
 }

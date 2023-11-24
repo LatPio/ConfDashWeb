@@ -52,8 +52,6 @@ public class AbstractService {
                 .body(abstractDTO.getBody())
                 .affiliation(abstractDTO.getAffiliation())
                 .authors(abstractDTO.getAuthors())
-//                .ownerId(abstractDTO.getOwnerId()) //todo from customer get user id
-
                 .ownerId(customerClient.getCustomer().getId()) //todo from customer get user id
                 .authId(jwtConverter.getKeycloakUserID())
                 .accepted(false)
