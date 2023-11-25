@@ -70,7 +70,6 @@ public interface SampleData {
                 .ownerId(2)
                 .authId("vava-dddd")
                 .accepted(false)
-
                 .build();
         return abstractsEntity;
     }

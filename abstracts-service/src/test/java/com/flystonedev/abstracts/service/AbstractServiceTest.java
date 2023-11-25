@@ -11,6 +11,7 @@ import com.flystonedev.abstracts.mapper.AbstractSimpleMapper;
 import com.flystonedev.abstracts.model.AbstractsEntity;
 import com.flystonedev.abstracts.repository.AbstractRepository;
 import com.flystonedev.abstracts.repository.AttachmentFileRepository;
+import com.flystonedev.customer.DTO.CustomerDTO;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mapstruct.factory.Mappers;
@@ -53,7 +54,7 @@ class AbstractServiceTest   implements SampleData {
         AbstractDTO expected = getSampleOfOneAbstractDTO();
         expected.setId(null);
         when(jwtConverter.getKeycloakUserID()).thenReturn(expected.getAuthId());
-        when(customerClient.getCustomer().getId()).thenReturn(2);
+        when(customerClient.getCustomer()).thenReturn(CustomerDTO.builder().id(2).build());
         underTest.createUserAbstract(expected);
         //then
         ArgumentCaptor<AbstractsEntity> abstractsEntityArgumentCaptor = ArgumentCaptor.forClass(AbstractsEntity.class);

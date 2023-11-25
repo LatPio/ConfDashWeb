@@ -102,8 +102,13 @@ public class AbstractAdminControllerTest extends KeycloakTestContainers implemen
                 "  \"id\": \"1\",\n" +
                 "  \"abstractTitle\": \"Abstract New Title\",\n" +
                 "  \"body\": \"Body of Abstract\",\n" +
+                "  \"authors\": \"authors\",\n" +
+                "  \"affiliation\": \"affiliation\",\n" +
+                "  \"ownerId\": \"1\",\n" +
                 "  \"authId\": \"authorization\",\n" +
-                "  \"presenterId\": \"1\" \n}";
+                "  \"accepted\": \"false\",\n" +
+                "  \"files\": [],\n" +
+                "  \"comments\": \"comments\" \n}";
 
         Response response = given()
                 .header("Content-type", "application/json")

@@ -37,7 +37,7 @@ import static io.restassured.RestAssured.given;
 
 @Testcontainers
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-public abstract class KeycloakTestContainers {
+public abstract class        KeycloakTestContainers {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(KeycloakTestContainers.class.getName());
 

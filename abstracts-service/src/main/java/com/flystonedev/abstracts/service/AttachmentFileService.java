@@ -62,7 +62,6 @@ public class AttachmentFileService {
                     .data(file.getBytes())
                     .authId(jwtConverter.getKeycloakUserID())
                     .smallData(ResizeImage.resizeImage(file))
-
                     .abstractsEntity(abstractRepository.findById(attachmentFileRequest.abstractsEntity().getId()).orElseThrow(EntityNotFoundException::new))
                     .build();
         }
