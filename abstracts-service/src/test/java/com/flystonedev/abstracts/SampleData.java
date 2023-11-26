@@ -4,10 +4,15 @@ import com.flystonedev.abstracts.DTO.*;
 import com.flystonedev.abstracts.model.AbstractsEntity;
 import com.flystonedev.abstracts.model.AttachmentFile;
 import com.flystonedev.abstracts.model.FileRole;
+import io.restassured.internal.util.IOUtils;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
@@ -134,14 +139,15 @@ public interface SampleData {
 
     }
 
-    default AttachmentFile getSampleOfOneAttachmentFile(){
+    default AttachmentFile getSampleOfOneAttachmentFile() throws IOException {
         AttachmentFile attachmentFile1= AttachmentFile.builder()
                 .id(1)
-                .name("Hello.txt")
-                .type("text/plain")
+                .name("kot.jpg")
+                .type("image/jpeg")
                 .authId("vava-dddd")
                 .fileRole(FileRole.GRAPHICAL_ABSTRACT)
-                .data("Hello, World!".getBytes())
+                .data(getSampleMultipartImage().getBytes())
+                .smallData(null)
                 .abstractsEntity(getSampleOfOneAbstractEntity())
                 .build();
         return attachmentFile1;
@@ -188,7 +194,16 @@ public interface SampleData {
         );
     }
 
-
+    default MultipartFile getSampleMultipartImage() throws IOException {
+        File file = new File("src/test/resources/kot.jpg");
+        FileInputStream input = new FileInputStream(file);
+        return new MockMultipartFile(
+                "file",
+                "kot.jpg",
+                MediaType.IMAGE_JPEG_VALUE,
+                IOUtils.toByteArray(input)
+        );
+    }
 
 
     default List<AbstractsEntity> getCombinatorDataAbstractAndFile(){

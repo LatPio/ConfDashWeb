@@ -2,9 +2,12 @@ package com.flystonedev.abstracts.repository;
 
 import com.flystonedev.abstracts.SampleData;
 import com.flystonedev.abstracts.model.AbstractsEntity;
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.transaction.annotation.Propagation;
 
 
 import java.util.List;
@@ -16,6 +19,7 @@ import static org.hamcrest.core.IsNot.not;
 
 
 @DataJpaTest
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
 class AbstractRepositoryTest implements SampleData{
 
 
@@ -36,7 +40,7 @@ class AbstractRepositoryTest implements SampleData{
     @Test
     void findAbstractByIdAndAuthId(){
         String authId = "vava-dddd";
-        Integer id = 3;
+        Integer id = 1;
         System.out.println(underTest.findAll());
         var testValue = underTest.findByIdAndAuthId(id, authId);
 

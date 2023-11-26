@@ -6,25 +6,32 @@ import com.flystonedev.abstracts.repository.AbstractRepository;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.DirtiesContext;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.io.File;
 
 import static io.restassured.RestAssured.given;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@Testcontainers
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
+
 class AttachmentFileAdminControllerTest extends KeycloakTestContainers implements SampleData {
 
     @Autowired
     private AbstractRepository abstractRepository;
 
+
+
     @Test
     @Order(1)
     void canAdminSaveAttachmentFile() {
         abstractRepository.save(getSampleOfOneAbstractEntity());
-        String body = "{\"fileRole\":\"OTHER\",\"accepted\":\"false\", \"abstractsEntity\":{\"id\":1}}";
+        String body = "{\"fileRole\":\"GRAPHICAL_ABSTRACT\",\"authId\":\"authorization\", \"abstractsEntity\":{\"id\":1}}";
         Response response = given()
                 .header("Authorization", getAccessToken("admin@email.com", "password"))
-                .multiPart("file", new File("./src/test/resources/test.txt"),"multipart/form-data")
+                .multiPart("file", new File("./src/test/resources/kot.jpg"),"image/jpeg")
                 .multiPart("data", body,"application/json")
                 .when()
                 .post("api/v1/admin/attachment_file")
@@ -32,7 +39,12 @@ class AttachmentFileAdminControllerTest extends KeycloakTestContainers implement
                 .then()
                 .extract().response();
         Assertions.assertEquals(200, response.statusCode());
-        Assertions.assertEquals("OTHER", response.jsonPath().getString("fileRole"));
+        Assertions.assertEquals("GRAPHICAL_ABSTRACT", response.jsonPath().getString("fileRole"));
+        Assertions.assertEquals("kot.jpg", response.jsonPath().getString("name"));
+        Assertions.assertEquals("image/jpeg", response.jsonPath().getString("type"));
+        Assertions.assertEquals("authorization", response.jsonPath().getString("authId"));
+
+
 
     }
 
@@ -49,8 +61,10 @@ class AttachmentFileAdminControllerTest extends KeycloakTestContainers implement
                 .extract().response();
 
         Assertions.assertEquals(200, response.statusCode());
-        Assertions.assertEquals("test.txt", response.jsonPath().getString("name"));
-
+        Assertions.assertEquals("GRAPHICAL_ABSTRACT", response.jsonPath().getString("fileRole"));
+        Assertions.assertEquals("kot.jpg", response.jsonPath().getString("name"));
+        Assertions.assertEquals("image/jpeg", response.jsonPath().getString("type"));
+        Assertions.assertEquals("authorization", response.jsonPath().getString("authId"));
     }
 
     @Test
@@ -85,10 +99,10 @@ class AttachmentFileAdminControllerTest extends KeycloakTestContainers implement
     @Test
     @Order(5)
     void canAdminUpdateAttachmentFile() {
-        String body = "{\"id\":\"1\", \"fileRole\":\"FIGURE\", \"accepted\":\"false\", \"abstractsEntity\":{\"id\":1} }";
+        String body = "{\"id\":\"1\", \"fileRole\":\"FILE_ABSTRACT\", \"authId\":\"authorization_new\", \"abstractsEntity\":{\"id\":1} }";
         Response response = given()
                 .header("Authorization", getAccessToken("admin@email.com", "password"))
-                .multiPart("file", new File("./src/test/resources/test.txt"),"multipart/form-data")
+                .multiPart("file", new File("./src/test/resources/kot.jpg"),"image/jpeg")
                 .multiPart("data", body,"application/json")
                 .when()
                 .put("api/v1/admin/attachment_file")
@@ -96,8 +110,10 @@ class AttachmentFileAdminControllerTest extends KeycloakTestContainers implement
                 .then()
                 .extract().response();
         Assertions.assertEquals(200, response.statusCode());
-        Assertions.assertEquals("FIGURE", response.jsonPath().getString("fileRole"));
-    }
+        Assertions.assertEquals("FILE_ABSTRACT", response.jsonPath().getString("fileRole"));
+        Assertions.assertEquals("kot.jpg", response.jsonPath().getString("name"));
+        Assertions.assertEquals("image/jpeg", response.jsonPath().getString("type"));
+        Assertions.assertEquals("authorization_new", response.jsonPath().getString("authId"));    }
 
     @Test
     @Order(6)
@@ -113,7 +129,5 @@ class AttachmentFileAdminControllerTest extends KeycloakTestContainers implement
         Assertions.assertEquals(200, response.statusCode());
     }
 
-    @Test
-    void roleList() {
-    }
+
 }

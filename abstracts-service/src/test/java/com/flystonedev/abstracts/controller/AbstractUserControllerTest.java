@@ -36,7 +36,6 @@ class AbstractUserControllerTest extends KeycloakTestContainers implements Sampl
         abstractRepository.saveAll(getSampleAbstract());
 
     }
-    Integer startId = null;
     @Test
     @Order(1)
     void addAbstract() {
