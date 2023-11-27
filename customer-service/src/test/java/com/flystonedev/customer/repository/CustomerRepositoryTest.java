@@ -31,9 +31,10 @@ class CustomerRepositoryTest implements SampleData {
     @Test
     void findCustomerByIdAndAuthID() {
 
-        String authId ="aaaa";
+        String authId ="bbbb";
 
         Integer id = 1;
+
 
         var testValue = customerRepository.findCustomerByIdAndAuthID(id, authId);
         assertThat(testValue.get().getId(), is(id));

@@ -2,7 +2,6 @@ package com.flystonedev.customer.service;
 
 import com.flystonedev.customer.DTO.InvoiceDataDTO;
 import com.flystonedev.customer.exeption.EntityNotFoundException;
-import com.flystonedev.customer.exeption.config.EntityAlreadyInDatabaseException;
 import com.flystonedev.customer.mapper.InvoiceDataMapper;
 import com.flystonedev.customer.model.InvoiceData;
 import com.flystonedev.customer.repository.InvoiceDataRepository;
@@ -23,26 +22,22 @@ public class InvoiceDataService {
     private final InvoiceDataMapper departmentMapper = Mappers.getMapper(InvoiceDataMapper.class);
 
     @Transactional
-    public void addDepartment(InvoiceDataDTO invoiceDataDTO){
-        InvoiceDataDTO nameExist = departmentMapper.map(departmentRepository.findDepartmentByName(invoiceDataDTO.getName()));
-        if (nameExist != null) {
-            throw new EntityAlreadyInDatabaseException();
-        } else {
-            InvoiceData invoiceData = InvoiceData.builder()
-                    .name(invoiceDataDTO.getName())
-                    .street(invoiceDataDTO.getStreet())
-                    .buildingNumber(invoiceDataDTO.getBuildingNumber())
-                    .flatNumber(invoiceDataDTO.getFlatNumber())
-                    .city(invoiceDataDTO.getCity())
-                    .postalCode(invoiceDataDTO.getPostalCode())
-                    .country(invoiceDataDTO.getCountry())
-                    .institution(invoiceDataDTO.getInstitution())
-                    .institutionShortName(invoiceDataDTO.getInstitutionShortName())
-                    .taxIdentificationNumber(invoiceDataDTO.getTaxIdentificationNumber())
-                    .build();
-            departmentRepository.save(invoiceData);
-        }
+    public InvoiceDataDTO addDepartment(InvoiceDataDTO invoiceDataDTO){
 
+        InvoiceData invoiceData = InvoiceData.builder()
+                .name(invoiceDataDTO.getName())
+                .street(invoiceDataDTO.getStreet())
+                .buildingNumber(invoiceDataDTO.getBuildingNumber())
+                .flatNumber(invoiceDataDTO.getFlatNumber())
+                .city(invoiceDataDTO.getCity())
+                .postalCode(invoiceDataDTO.getPostalCode())
+                .country(invoiceDataDTO.getCountry())
+                .institution(invoiceDataDTO.getInstitution())
+                .institutionShortName(invoiceDataDTO.getInstitutionShortName())
+                .taxIdentificationNumber(invoiceDataDTO.getTaxIdentificationNumber())
+                .build();
+        InvoiceData saved = departmentRepository.save(invoiceData);
+        return departmentMapper.map(saved);
     }
     public List<InvoiceDataDTO> departmentResponseList(){
         List<InvoiceData> invoiceDataList = departmentRepository.findAll();

@@ -58,6 +58,7 @@ public interface SampleData {
                 .email("user@email.com")
                 .firstName("User")
                 .lastName("Typical")
+                .authID("authId")
                 .build();
         return customer1;
     }
@@ -229,7 +230,8 @@ public interface SampleData {
         credentialRepresentation.setTemporary(false);
         userRepresentation.setCredentials(Collections.singletonList(credentialRepresentation));
         return userRepresentation;
-    }default UserRepresentation getSampleOfCustomerRepresentation(){
+    }
+    default UserRepresentation getSampleOfCustomerRepresentation(){
         UserRepresentation userRepresentation = new UserRepresentation();
         userRepresentation.setEmail("user@email.com");
         userRepresentation.setEmailVerified(true);

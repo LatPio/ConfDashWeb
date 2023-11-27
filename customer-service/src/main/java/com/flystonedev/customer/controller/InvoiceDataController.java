@@ -21,9 +21,10 @@ public class InvoiceDataController {
 
     @RolesAllowed({"USER", "ADMIN"})
     @PostMapping
-    public void addDepartment (@RequestBody InvoiceDataDTO invoiceDataDTO){
+    public ResponseEntity<InvoiceDataDTO> addDepartment (@RequestBody InvoiceDataDTO invoiceDataDTO){
         log.info("New Department registration to dataBase {}", invoiceDataDTO);
-        invoiceDataService.addDepartment(invoiceDataDTO);
+//        invoiceDataService.addDepartment(invoiceDataDTO);
+        return ResponseEntity.status(HttpStatus.OK).body(invoiceDataService.addDepartment(invoiceDataDTO));
     }
     @RolesAllowed({"USER", "ADMIN"})
     @GetMapping

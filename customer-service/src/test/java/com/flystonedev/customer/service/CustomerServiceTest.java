@@ -11,6 +11,7 @@ import com.flystonedev.customer.mapper.CustomerMapper;
 import com.flystonedev.customer.repository.CustomerRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.keycloak.representations.idm.UserRepresentation;
 import org.mapstruct.factory.Mappers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -30,7 +31,6 @@ class CustomerServiceTest implements SampleData {
 
     @InjectMocks
     private CustomerService customerService;
-
     @Mock
     private CustomerRepository customerRepository;
     @Mock
@@ -38,14 +38,18 @@ class CustomerServiceTest implements SampleData {
     @Mock
     private JwtConverter jwtConverter;
     private final CustomerMapper customerMapper = Mappers.getMapper(CustomerMapper.class);
-    private final CustomerCardMapper customerCardMapper = Mappers.getMapper(CustomerCardMapper.class);
     private final CustomerAdminMapper customerAdminMapper = Mappers.getMapper(CustomerAdminMapper.class);
 
     @Test
-    void canAdminOrUserRegisterNewCustomer() {
+    void canRegisterNewCustomer() {
         //given
         CustomerRegistrationRequest request = getSampleOfCustomerRegistrationRequest();
-        when(keycloakUserManagementService.readUserByEmail(request.email())).thenReturn(new ArrayList<>());
+        UserRepresentation userNew = new UserRepresentation();
+        userNew.setId("authId");
+        userNew.setEmail(request.email());
+        ArrayList<UserRepresentation> usersListReturn = new ArrayList<>();
+        usersListReturn.add(userNew);
+        when(keycloakUserManagementService.readUserByEmail(request.email())).thenReturn(new ArrayList<>(),usersListReturn );
         when(keycloakUserManagementService.createUser(any())).thenReturn(201);
         //when
         customerService.registerCustomer(request);
@@ -69,7 +73,7 @@ class CustomerServiceTest implements SampleData {
     @Test
     void canUserGetSimpleRepresentationOfCustomer() {
         var excepted = getSampleOfCustomerCardDTO();
-        var repositoryCall = getSampleOfCustomers().get(1);
+        var repositoryCall = getSampleOfCustomers().get(0);
         when(customerRepository.findById(excepted.getId())).thenReturn(Optional.ofNullable(repositoryCall));
 
         var actual  = customerService.getUserSimple(excepted.getId());
@@ -91,7 +95,7 @@ class CustomerServiceTest implements SampleData {
     @Test
     void canUserGetOwnCustomerInformation() {
         var excepted = getSampleOfCustomerDTO();
-        var repositoryCall = getSampleOfCustomers().get(1);
+        var repositoryCall = getSampleOfCustomers().get(0);
         when(jwtConverter.getKeycloakUserID()).thenReturn(repositoryCall.getAuthID());
 
         when(customerRepository.findCustomerByIdAndAuthID(repositoryCall.getId(),repositoryCall.getAuthID())).thenReturn(Optional.ofNullable(repositoryCall));
@@ -119,10 +123,10 @@ class CustomerServiceTest implements SampleData {
     void canUserUpdateOwnCustomerInformation() {
         //given
         var request = getSampleOfCustomerDTO();
-        var repositoryCall = getSampleOfCustomers().get(1);
+        var repositoryCall = getSampleOfCustomers().get(0);
         when(jwtConverter.getKeycloakUserID()).thenReturn(repositoryCall.getAuthID());
         when(keycloakUserManagementService.readUser(repositoryCall.getAuthID())).thenReturn(getSampleOfCustomerRepresentation());
-        when(customerRepository.findCustomerByIdAndAuthID(repositoryCall.getId(),repositoryCall.getAuthID())).thenReturn(Optional.ofNullable(repositoryCall));
+        when(customerRepository.findCustomerByAuthID(any() ) ).thenReturn(Optional.ofNullable(repositoryCall));
         //when
         var actual = customerService.updateUser(request);
         //then
@@ -137,7 +141,7 @@ class CustomerServiceTest implements SampleData {
         var request = getSampleOfCustomerDTO();
         var repositoryCall = getSampleOfCustomers().get(1);
         when(jwtConverter.getKeycloakUserID()).thenReturn(repositoryCall.getAuthID());
-        when(customerRepository.findCustomerByIdAndAuthID(repositoryCall.getId(),repositoryCall.getAuthID())).thenReturn(Optional.ofNullable(null));
+        when(customerRepository.findCustomerByAuthID(repositoryCall.getAuthID())).thenReturn(Optional.ofNullable(null));
 
         assertThatThrownBy(() -> customerService.updateUser(request))
                 .isInstanceOf(EntityNotFoundException.class)
@@ -165,7 +169,7 @@ class CustomerServiceTest implements SampleData {
     @Test
     void canAdminGetOfAnyCustomerInformation() {
         var excepted = getSampleOfCustomerAdminDTO();
-        var repositoryCall = getSampleOfCustomers().get(1);
+        var repositoryCall = getSampleOfCustomers().get(0);
 
         when(customerRepository.findById(repositoryCall.getId())).thenReturn(Optional.ofNullable(repositoryCall));
 
@@ -188,7 +192,7 @@ class CustomerServiceTest implements SampleData {
     void canAdminUpdateOfAnyCustomerInformation() {
         //given
         var request = getSampleOfCustomerAdminDTO();
-        var repositoryCall = getSampleOfCustomers().get(1);
+        var repositoryCall = getSampleOfCustomers().get(0);
         when(keycloakUserManagementService.readUser(repositoryCall.getAuthID())).thenReturn(getSampleOfCustomerRepresentation());
         when(customerRepository.findById(repositoryCall.getId())).thenReturn(Optional.ofNullable(repositoryCall));
         //when

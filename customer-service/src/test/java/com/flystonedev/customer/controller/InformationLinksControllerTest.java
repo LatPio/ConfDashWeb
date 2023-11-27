@@ -6,9 +6,11 @@ import com.flystonedev.customer.repository.CustomerRepository;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.DirtiesContext;
 
 import static io.restassured.RestAssured.given;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
 class InformationLinksControllerTest extends KeycloakTestContainers {
 
     @Autowired
@@ -24,10 +26,12 @@ class InformationLinksControllerTest extends KeycloakTestContainers {
     @Test
     @Order(1)
     void addInformationLink() {
-        String requestBody = "{\n" +
-                "  \"name\": \"LinkedIn\",\n" +
-                "  \"urlLink\": \"http....\",\n" +
-                "  \"customer\": {\"id\": \"1\" } \n}";
+        String requestBody = """
+                {
+                  "name": "LinkedIn",
+                  "urlLink": "http....",
+                  "customer": {"id": "1" }
+                }""";
         Response response = given()
                 .header("Content-type", "application/json")
                 .header("Authorization", getAccessToken("admin@email.com", "password"))
@@ -74,12 +78,14 @@ class InformationLinksControllerTest extends KeycloakTestContainers {
     @Test
     @Order(4)
     void update() {
-        String requestBody = "{\n" +
-                "  \"id\": \"1\",\n" +
-                "  \"name\": \"LinkedIn\",\n" +
-                "  \"urlLink\": \"some new address\",\n" +
-                "  \"customer\": {\"id\": \"1\" },\n" +
-                "  \"authId\": \"authorization id\" \n}";
+        String requestBody = """
+                {
+                  "id": "1",
+                  "name": "LinkedIn",
+                  "urlLink": "some new address",
+                  "customer": {"id": "1" },
+                  "authId": "authorization id"
+                }""";
 
         Response response = given()
                 .header("Content-type", "application/json")
