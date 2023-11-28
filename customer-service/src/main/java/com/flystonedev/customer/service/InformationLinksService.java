@@ -19,7 +19,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -39,14 +38,15 @@ public class InformationLinksService {
      *
      * */
 
-    public void addUserLinks(InformationLinksRequest informationLinksRequest){
+    public InformationLinksDTO addUserLinks(InformationLinksRequest informationLinksRequest){
         InformationLinks informationLinks = InformationLinks.builder()
                 .name(informationLinksRequest.name())
                 .urlLink(informationLinksRequest.urlLink())
                 .authId(jwtConverter.getKeycloakUserID())
                 .customer(Customer.builder().id(informationLinksRequest.customer().getId()).build())
                 .build();
-        informationLinksRepository.save(informationLinks);
+        InformationLinks saved = informationLinksRepository.save(informationLinks);
+        return informationLinksMapper.map(saved);
     }
 @Transactional
     public InformationLinksDTO getUserLink(Integer id){
@@ -60,25 +60,21 @@ public class InformationLinksService {
 
     @Transactional
     public InformationLinksDTO updateUsersLink(InformationLinksDTO informationLinksDTO){
-        InformationLinksAdminDTO exist = getAdminLink(informationLinksDTO.getId());
+        InformationLinksDTO exist = getUserLink(informationLinksDTO.getId());
         if (exist == null) {
             throw new EntityNotFoundException();
         } else if (!Objects.equals(exist.getAuthId(), jwtConverter.getKeycloakUserID())){
             throw new CustomerUpdateException();
         } else {
-//            InformationLinks informationLinks = InformationLinks.builder()
-//                    .name(informationLinksDTO.getName())
-//                    .urlLink(informationLinksDTO.getUrlLink())
-//                    .authId(exist.getAuthId())
-//                    .customer(Customer.builder().id(exist.getCustomer().getId()).build())
-//                    .build();
-            InformationLinks updated = informationLinksRepository.save(informationLinksMapper.map(informationLinksDTO));
+            exist.setUrlLink(informationLinksDTO.getUrlLink());
+            exist.setName(informationLinksDTO.getName());
+            InformationLinks updated = informationLinksRepository.save(informationLinksMapper.map(exist));
             return informationLinksMapper.map(updated);
         }
     }
 
     public void deleteUserLink(Integer id){
-        InformationLinksAdminDTO exist = getAdminLink(id);
+        InformationLinksDTO exist = getUserLink(id);
         if (exist == null) {
             throw new EntityNotFoundException();
         } else if (!Objects.equals(exist.getAuthId(), jwtConverter.getKeycloakUserID())){

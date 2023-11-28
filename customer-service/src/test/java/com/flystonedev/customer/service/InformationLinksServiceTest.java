@@ -15,6 +15,7 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.Optional;
 
@@ -23,6 +24,7 @@ import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 @ExtendWith(MockitoExtension.class)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
 class InformationLinksServiceTest implements SampleData {
 
     @InjectMocks
@@ -101,7 +103,7 @@ class InformationLinksServiceTest implements SampleData {
         when(jwtConverter.getKeycloakUserID()).thenReturn(repositoryCall.getAuthId());
 
         when(informationLinksRepository
-                .findById(repositoryCall.getId())
+                .findInformationLinksByIdAndAuthId(repositoryCall.getId(), repositoryCall.getAuthId())
                 ).thenReturn(Optional.of(repositoryCall));
         //when
         InformationLinksDTO informationLinksDTO = informationLinksService.updateUsersLink(toSave);
@@ -119,7 +121,7 @@ class InformationLinksServiceTest implements SampleData {
 
         when(jwtConverter.getKeycloakUserID()).thenReturn(sample.getAuthId());
         when(informationLinksRepository
-                .findById(sample.getId())
+                .findInformationLinksByIdAndAuthId(sample.getId(), sample.getAuthId())
         ).thenReturn(Optional.of(sample));
         //when
         informationLinksService.deleteUserLink(sample.getId());

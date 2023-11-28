@@ -42,6 +42,7 @@ class InformationLinksControllerTest extends KeycloakTestContainers {
                 .then()
                 .extract().response();
         Assertions.assertEquals(200, response.statusCode());
+        System.out.println(response.jsonPath().getString("authId"));
     }
 
     @Test
@@ -83,8 +84,7 @@ class InformationLinksControllerTest extends KeycloakTestContainers {
                   "id": "1",
                   "name": "LinkedIn",
                   "urlLink": "some new address",
-                  "customer": {"id": "1" },
-                  "authId": "authorization id"
+                  "customer": {"id": "1" }
                 }""";
 
         Response response = given()

@@ -6,12 +6,15 @@ import com.flystonedev.customer.repository.CustomerRepository;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.DirtiesContext;
 
 import java.io.File;
 
 import static io.restassured.RestAssured.given;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
+
 class ProfilePhotoControllerTest extends KeycloakTestContainers  {
 
     @Autowired

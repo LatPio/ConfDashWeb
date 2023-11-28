@@ -30,6 +30,9 @@ class ProfilePhotoServiceTest implements SampleData {
     private CustomerRepository customerRepository;
 
     @Mock
+    private CustomerService customerService;
+
+    @Mock
     private JwtConverter jwtConverter;
 
     private final ProfilePhotoMapper profilePhotoMapper = Mappers.getMapper(ProfilePhotoMapper.class);
@@ -105,6 +108,8 @@ class ProfilePhotoServiceTest implements SampleData {
         when(jwtConverter.getKeycloakUserID()).thenReturn(sample.getAuthId());
         when(profilePhotoRepository.findProfilePhotoByIdAndAuthId(sample.getId(),sample.getAuthId()))
                 .thenReturn(Optional.ofNullable(profilePhotoMapper.map(sample)));
+        when(customerService.getUserByAuthId()).thenReturn(getSampleOfCustomerDTO());
+
         //when
         profilePhotoService.deleteUser(sample.getId());
         //then
@@ -144,6 +149,7 @@ class ProfilePhotoServiceTest implements SampleData {
     void deleteAdmin() {
         //given
         ProfilePhotoDTO sample = getSampleOfProfilePhotoDTO();
+        when(customerService.getAdmin(sample.getId())).thenReturn(getSampleOfCustomerAdminDTO());
         //when
         profilePhotoService.deleteAdmin(sample.getId());
         //then

@@ -22,9 +22,10 @@ public class InformationLinksController {
 
     @RolesAllowed({"USER"})
     @PostMapping
-    public void addInformationLink(@RequestBody InformationLinksRequest informationLinksResponse){
+    public ResponseEntity<InformationLinksDTO> addInformationLink(@RequestBody InformationLinksRequest informationLinksResponse){
         log.info("New Information Link registration to dataBase {}", informationLinksResponse);
-        informationLinksService.addUserLinks(informationLinksResponse);
+//        informationLinksService.addUserLinks(informationLinksResponse);
+        return ResponseEntity.status(HttpStatus.OK).body(informationLinksService.addUserLinks(informationLinksResponse));
     }
     @RolesAllowed({"USER"})
     @GetMapping
