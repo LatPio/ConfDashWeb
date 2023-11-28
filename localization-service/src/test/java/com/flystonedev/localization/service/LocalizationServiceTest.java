@@ -1,15 +1,13 @@
 package com.flystonedev.localization.service;
 
-import com.flystonedev.localization.DTO.BookingRequest;
-import com.flystonedev.localization.DTO.BookingsDTO;
 import com.flystonedev.localization.DTO.LocalizationDTO;
 import com.flystonedev.localization.DTO.LocalizationOutResponse;
 import com.flystonedev.localization.SampleData;
 import com.flystonedev.localization.mapper.LocalizationMapper;
 import com.flystonedev.localization.mapper.LocalizationOutResponseMapper;
-import com.flystonedev.localization.model.Bookings;
 import com.flystonedev.localization.model.Localization;
 import com.flystonedev.localization.repository.LocalizationRepository;
+import com.flystonedev.localization.repository.MapImageRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mapstruct.factory.Mappers;
@@ -21,7 +19,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -33,6 +30,9 @@ class LocalizationServiceTest implements SampleData {
     @Mock
     private LocalizationRepository localizationRepository;
 
+    @Mock
+    private MapImageRepository mapImageRepository;
+
     private final LocalizationMapper localizationMapper = Mappers.getMapper(LocalizationMapper.class);
     private final LocalizationOutResponseMapper localizationOutResponseMapper = Mappers.getMapper(LocalizationOutResponseMapper.class);
 
@@ -42,6 +42,7 @@ class LocalizationServiceTest implements SampleData {
         //given
         LocalizationDTO excepted = getSampleOfLocalizationDTO();
         excepted.setId(null);
+        when(mapImageRepository.findById(excepted.getMapImage().getId())).thenReturn(Optional.ofNullable(getSampleOfMapImage()));
 
         //when
         localizationService.createLocalization(excepted);

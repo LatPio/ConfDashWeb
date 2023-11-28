@@ -2,11 +2,17 @@ package com.flystonedev.localization;
 
 import com.flystonedev.localization.DTO.*;
 import com.flystonedev.localization.model.Localization;
+import com.flystonedev.localization.model.MapImage;
+import io.restassured.internal.util.IOUtils;
+import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.time.Duration;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
-import java.time.temporal.TemporalUnit;
 
 public interface SampleData {
 
@@ -41,7 +47,7 @@ public interface SampleData {
                 .room("Room 1")
                 .coordinateX(34)
                 .coordinateY(67)
-                .mapImage(null)
+                .mapImage(getSampleOfMapImageDTO())
                 .build();
         return localizationDTO;
     }
@@ -51,7 +57,7 @@ public interface SampleData {
                 .room("Room 1")
                 .coordinateX(34)
                 .coordinateY(67)
-                .mapImage(null)
+                .mapImage(getSampleOfMapImage())
                 .build();
         return localization;
     }
@@ -62,5 +68,52 @@ public interface SampleData {
         return localizationOutResponse;
     }
 
+    default MapImage getSampleOfMapImage(){
+        MapImage mapImage = MapImage.builder()
+                .name("Map")
+                .fileName("map")
+                .data("Hello, World!".getBytes())
+                .localization(null)
+                .build();
+        return mapImage;
+
+    }
+    default MapImageDTO getSampleOfMapImageDTO(){
+        MapImageDTO mapImageDTO = MapImageDTO.builder()
+                .name("map")
+                .fileName("Hello.txt")
+                .data("Hello, World!".getBytes())
+                .build();
+        return mapImageDTO;
+
+    }
+
+    default MultipartFile getSampleMultipart(){
+        return new MockMultipartFile(
+                "file",
+                "Hello.txt",
+                MediaType.TEXT_PLAIN_VALUE,
+                "Hello, World!".getBytes()
+        );
+    }
+
+    default MultipartFile getSampleMultipartImage() throws IOException {
+        File file = new File("src/test/resources/kot.jpg");
+        FileInputStream input = new FileInputStream(file);
+        return new MockMultipartFile(
+                "file",
+                "kot.jpg",
+                MediaType.IMAGE_JPEG_VALUE,
+                IOUtils.toByteArray(input)
+        );
+    }
+
+
+    default MapImageRequest getSampleOfMapImageRequest(){
+        MapImageRequest mapImageRequest = MapImageRequest.builder()
+                .name("map")
+                .build();
+        return mapImageRequest;
+    }
 
 }

@@ -2,114 +2,79 @@ package com.flystonedev.localization.controller;
 
 import com.flystonedev.localization.SampleData;
 import com.flystonedev.localization.config.KeycloakTestContainers;
-import com.flystonedev.localization.repository.LocalizationRepository;
-import com.flystonedev.localization.repository.MapImageRepository;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
+import java.io.File;
+
 import static io.restassured.RestAssured.given;
+
 @Testcontainers
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
-
-class BookingControllerTest extends KeycloakTestContainers implements SampleData {
-
-    @Autowired
-    private LocalizationRepository localizationRepository;
-
-    @Autowired
-    private MapImageRepository mapImageRepository;
-
-    @BeforeEach
-    void setUp() {
-        mapImageRepository.save(getSampleOfMapImage());
-        localizationRepository.save(getSampleOfLocalization());
-
-    }
+class MapImageControllerTest extends KeycloakTestContainers implements SampleData {
 
     @Test
     @Order(1)
-    void createBooking() {
-        String requestBody = """
+    void saveFile() {
+        String body = """
                 {
-                  "eventIDData": 1,
-                  "dateStart": "2023-06-08T12:15:22",
-                  "eventTime": 1200,
-                  "localization": {"id": 1 },
-                  "locationConflict": false,
-                  "timeConflict": false
+                  "name": "map"
                 }""";
         Response response = given()
-                .header("Content-type", "application/json")
                 .header("Authorization", getAccessToken("admin@email.com", "password"))
+                .multiPart("file", new File("./src/test/resources/test.txt"),"multipart/form-data")
+                .multiPart("data", body,"application/json")
                 .and()
-                .body(requestBody)
                 .when()
-                .post("api/v1/booking")
+                .post("api/v1/mapImage")
                 .peek()
                 .then()
                 .extract().response();
         Assertions.assertEquals(200, response.statusCode());
+        Assertions.assertEquals("map", response.jsonPath().getString("name"));
 
     }
 
     @Test
     @Order(2)
-
-    void bookingsDTOList() {
-        Response response = given()
-                .header("Authorization", getAccessToken("admin@email.com", "password"))
-//                .param("id", "1")
-                .when()
-                .get("api/v1/booking/list")
-                .peek()
-                .then()
-                .extract().response();
-
-        Assertions.assertEquals(200, response.statusCode());
-    }
-
-    @Test
-    @Order(3)
-
     void get() {
         Response response = given()
                 .header("Authorization", getAccessToken("admin@email.com", "password"))
                 .param("id", "1")
                 .when()
-                .get("api/v1/booking")
+                .get("api/v1/mapImage")
                 .peek()
                 .then()
                 .extract().response();
-
         Assertions.assertEquals(200, response.statusCode());
-//        Assertions.assertEquals("Title: Sample Abstract", response.jsonPath().getString("abstractTitle"));
+        Assertions.assertEquals("map", response.jsonPath().getString("name"));
+    }
+
+    @Test
+    @Order(3)
+    void getWithRooms() {
+        Response response = given()
+                .header("Authorization", getAccessToken("admin@email.com", "password"))
+                .param("id", "1")
+                .when()
+                .get("api/v1/mapImage/rooms")
+                .peek()
+                .then()
+                .extract().response();
+        Assertions.assertEquals(200, response.statusCode());
+
     }
 
     @Test
     @Order(4)
-
-    void update() {
-        String requestBody = """
-                {
-                  "id": "1",
-                  "eventIDData": 1,
-                  "dateStart": "2023-06-08T12:15:22",
-                  "eventTime": 1200,
-                  "localization": {"id": 1 },
-                  "locationConflict": false,
-                  "timeConflict": false               
-                }""";
+    void getList() {
         Response response = given()
-                .header("Content-type", "application/json")
                 .header("Authorization", getAccessToken("admin@email.com", "password"))
-                .and()
-                .body(requestBody)
                 .when()
-                .put("api/v1/booking")
+                .get("api/v1/mapImage/list")
                 .peek()
                 .then()
                 .extract().response();
@@ -118,17 +83,50 @@ class BookingControllerTest extends KeycloakTestContainers implements SampleData
 
     @Test
     @Order(5)
+    void getSimpleList() {
+        Response response = given()
+                .header("Authorization", getAccessToken("admin@email.com", "password"))
+                .when()
+                .get("api/v1/mapImage/simple-list")
+                .peek()
+                .then()
+                .extract().response();
+        Assertions.assertEquals(200, response.statusCode());
+    }
 
+    @Test
+    @Order(6)
+    void update() {
+        String body = """
+                {
+                  "id": "1",
+                  "name": "map new"
+                }""";
+        Response response = given()
+                .header("Authorization", getAccessToken("admin@email.com", "password"))
+                .multiPart("file", new File("./src/test/resources/test.txt"),"multipart/form-data")
+                .multiPart("data", body,"application/json")
+                .and()
+                .when()
+                .put("api/v1/mapImage")
+                .peek()
+                .then()
+                .extract().response();
+        Assertions.assertEquals(200, response.statusCode());
+        Assertions.assertEquals("map new", response.jsonPath().getString("name"));
+    }
+
+    @Test
+    @Order(7)
     void delete() {
         Response response = given()
                 .header("Authorization", getAccessToken("admin@email.com", "password"))
                 .param("id", "1")
                 .when()
-                .delete("api/v1/booking")
+                .delete("api/v1/mapImage")
                 .peek()
                 .then()
                 .extract().response();
-
         Assertions.assertEquals(200, response.statusCode());
     }
 }

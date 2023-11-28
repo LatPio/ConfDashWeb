@@ -2,14 +2,12 @@ package com.flystonedev.abstracts.service;
 
 import com.flystonedev.abstracts.SampleData;
 import com.flystonedev.abstracts.config.JwtConverter;
-import com.flystonedev.abstracts.exeption.AttachmentFileEditionBlockedException;
 import com.flystonedev.abstracts.exeption.EntityNotFoundException;
 import com.flystonedev.abstracts.mapper.AttachmentFileMapper;
 import com.flystonedev.abstracts.model.AbstractsEntity;
 import com.flystonedev.abstracts.model.AttachmentFile;
 import com.flystonedev.abstracts.repository.AbstractRepository;
 import com.flystonedev.abstracts.repository.AttachmentFileRepository;
-import com.flystonedev.abstracts.tools.ResizeImage;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mapstruct.factory.Mappers;
@@ -17,12 +15,9 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;

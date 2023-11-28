@@ -9,7 +9,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.Instant;
-import java.util.Collection;
 import java.util.List;
 
 @Table
@@ -39,7 +38,7 @@ public class Localization {
     private String linkToExternalMap;
     private Integer coordinateX;
     private Integer coordinateY;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn
     private MapImage mapImage;
 //    private byte[] mapImage;
