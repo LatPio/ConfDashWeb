@@ -5,16 +5,13 @@ import com.flystonedev.localization.DTO.LocalizationOutResponse;
 import com.flystonedev.localization.DTO.LocalizationWithOutMapDTO;
 import com.flystonedev.localization.DTO.StatsLocationResponse;
 import com.flystonedev.localization.exeption.EntityNotFoundException;
-import com.flystonedev.localization.mapper.BookingMapper;
 import com.flystonedev.localization.mapper.LocalizationMapper;
 import com.flystonedev.localization.mapper.LocalizationOutResponseMapper;
-import com.flystonedev.localization.mapper.MapImageMapper;
 import com.flystonedev.localization.model.Localization;
 import com.flystonedev.localization.repository.BookingsRepository;
 import com.flystonedev.localization.repository.LocalizationRepository;
 import com.flystonedev.localization.repository.MapImageRepository;
 import lombok.AllArgsConstructor;
-import lombok.SneakyThrows;
 import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
 
@@ -29,19 +26,18 @@ public class LocalizationService {
     private final MapImageRepository mapImageRepository;
     private final BookingsRepository bookingsRepository;
     private final LocalizationMapper localizationMapper = Mappers.getMapper(LocalizationMapper.class);
-    private final MapImageMapper mapImageMapper = Mappers.getMapper(MapImageMapper.class);
-    private final BookingMapper bookingMapper = Mappers.getMapper(BookingMapper.class);
     private final LocalizationOutResponseMapper localizationOutResponseMapper = Mappers.getMapper(LocalizationOutResponseMapper.class);
 
 
-    public void createLocalization(LocalizationDTO localizationDTO){
+    public LocalizationDTO createLocalization(LocalizationDTO localizationDTO){
         Localization localization = Localization.builder()
                 .room(localizationDTO.getRoom())
                 .mapImage(mapImageRepository.findById(localizationDTO.getMapImage().getId()).orElseThrow(EntityNotFoundException::new))
                 .coordinateX(localizationDTO.getCoordinateX())
                 .coordinateY(localizationDTO.getCoordinateY())
                 .build();
-        localizationRepository.save(localization);
+        Localization saved = localizationRepository.save(localization);
+        return localizationMapper.map(saved);
     }
 
     public List<LocalizationDTO> localizationDTOList(){

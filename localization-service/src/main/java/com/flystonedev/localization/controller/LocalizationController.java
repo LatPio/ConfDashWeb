@@ -23,9 +23,10 @@ public class LocalizationController {
     private final LocalizationService localizationService;
     @RolesAllowed({"ADMIN"})
     @PostMapping
-    public void addLocalization(@RequestBody LocalizationDTO localizationDTO){
+    public ResponseEntity<LocalizationDTO> addLocalization(@RequestBody LocalizationDTO localizationDTO){
         log.info("Created Localization {}", localizationDTO);
-        localizationService.createLocalization(localizationDTO);
+//        localizationService.createLocalization(localizationDTO);
+        return ResponseEntity.status(HttpStatus.OK).body(localizationService.createLocalization(localizationDTO));
     }
     @RolesAllowed({"USER", "ADMIN"})
     @GetMapping

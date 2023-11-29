@@ -52,7 +52,7 @@ class LocalizationServiceTest implements SampleData {
         verify(localizationRepository).save(argumentCaptor.capture());
 
         Localization value = argumentCaptor.getValue();
-        assertThat(value).isEqualTo(localizationMapper.map(excepted));
+        assertThat(localizationMapper.map(value)).isEqualTo(excepted);
     }
 
     @Test

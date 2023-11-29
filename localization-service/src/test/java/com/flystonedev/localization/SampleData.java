@@ -13,6 +13,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
+import java.util.ArrayList;
+import java.util.List;
 
 public interface SampleData {
 
@@ -57,7 +59,7 @@ public interface SampleData {
                 .room("Room 1")
                 .coordinateX(34)
                 .coordinateY(67)
-                .mapImage(getSampleOfMapImage())
+//                .mapImage(getSampleOfMapImage())
                 .build();
         return localization;
     }
@@ -70,23 +72,37 @@ public interface SampleData {
 
     default MapImage getSampleOfMapImage(){
         MapImage mapImage = MapImage.builder()
+                .id(1)
                 .name("Map")
-                .fileName("map")
+                .fileName("Hello.txt")
                 .data("Hello, World!".getBytes())
-                .localization(null)
+                .localization(getSampleOfListLocalization())
+                .build();
+        return mapImage;
+
+    }
+    default MapImage getSampleOfMapImageRepositoryAdd(){
+        MapImage mapImage = MapImage.builder()
+//                .id(1)
+                .name("Map")
+                .fileName("Hello.txt")
+                .data("Hello, World!".getBytes())
+                .localization(getSampleOfListLocalization())
                 .build();
         return mapImage;
 
     }
     default MapImageDTO getSampleOfMapImageDTO(){
         MapImageDTO mapImageDTO = MapImageDTO.builder()
-                .name("map")
+                .id(1)
+                .name("Map")
                 .fileName("Hello.txt")
                 .data("Hello, World!".getBytes())
                 .build();
         return mapImageDTO;
 
     }
+
 
     default MultipartFile getSampleMultipart(){
         return new MockMultipartFile(
@@ -111,9 +127,51 @@ public interface SampleData {
 
     default MapImageRequest getSampleOfMapImageRequest(){
         MapImageRequest mapImageRequest = MapImageRequest.builder()
-                .name("map")
+                .name("Map")
                 .build();
         return mapImageRequest;
+    }
+
+    default MapImageWithRoomsDTO getSampleOfMapImageWithRoomsDTO(){
+        MapImageWithRoomsDTO mapImageWithRoomsDTO = MapImageWithRoomsDTO.builder()
+                .id(1)
+                .name("Map")
+                .fileName("Hello.txt")
+                .data("Hello, World!".getBytes())
+                .localization(getSampleOfListLocalizationWithOutMapDTO())
+                .build();
+        return mapImageWithRoomsDTO;
+    }
+
+    default List<LocalizationWithOutMapDTO> getSampleOfListLocalizationWithOutMapDTO(){
+        List<LocalizationWithOutMapDTO> list = new ArrayList<>();
+        list.add(getSampleOfLocalizationWithOutMapDTO());
+        return list;
+    }
+
+    default List<MapImageDTO> getSampleOfListMapImageDTO(){
+        List<MapImageDTO> list = new ArrayList<>();
+        list.add(getSampleOfMapImageDTO());
+        return list;
+    }
+    default List<MapImage> getSampleOfListMapImage(){
+        List<MapImage> list = new ArrayList<>();
+        list.add(getSampleOfMapImage());
+        return list;
+    }
+    default List<Localization> getSampleOfListLocalization(){
+        List<Localization> list = new ArrayList<>();
+        list.add(getSampleOfLocalization());
+        return list;
+    }
+    default LocalizationWithOutMapDTO getSampleOfLocalizationWithOutMapDTO(){
+        LocalizationWithOutMapDTO localizationWithOutMapDTO = LocalizationWithOutMapDTO.builder()
+                .id(1)
+                .room("Room 1")
+                .coordinateX(34)
+                .coordinateY(67)
+                .build();
+        return localizationWithOutMapDTO;
     }
 
 }

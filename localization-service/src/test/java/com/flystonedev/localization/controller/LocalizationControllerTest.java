@@ -23,14 +23,12 @@ class LocalizationControllerTest extends KeycloakTestContainers implements Sampl
 
     @BeforeEach
     void setUp() {
-        mapImageRepository.save(getSampleOfMapImage());
+        mapImageRepository.save(getSampleOfMapImageRepositoryAdd());
 
     }
     @Test
     @Order(1)
     void addLocalization() {
-
-
         String requestBody = """
                 {
                   "room": "Room 1",

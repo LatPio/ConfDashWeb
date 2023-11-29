@@ -25,7 +25,7 @@ class BookingControllerTest extends KeycloakTestContainers implements SampleData
 
     @BeforeEach
     void setUp() {
-        mapImageRepository.save(getSampleOfMapImage());
+        mapImageRepository.save(getSampleOfMapImageRepositoryAdd());
         localizationRepository.save(getSampleOfLocalization());
 
     }
@@ -101,8 +101,8 @@ class BookingControllerTest extends KeycloakTestContainers implements SampleData
                   "eventTime": 1200,
                   "localization": {"id": 1 },
                   "locationConflict": false,
-                  "timeConflict": false               
-                }""";
+                  "timeConflict": false
+                  }""";
         Response response = given()
                 .header("Content-type", "application/json")
                 .header("Authorization", getAccessToken("admin@email.com", "password"))
