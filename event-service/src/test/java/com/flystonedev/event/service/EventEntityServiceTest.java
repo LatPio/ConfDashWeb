@@ -1,87 +1,61 @@
 package com.flystonedev.event.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.flystonedev.abstracts.DTO.AbstractOutResponse;
-import com.flystonedev.abstracts.config.JwtConverter;
+import com.flystonedev.event.DTO.EventEntityDTO;
+import com.flystonedev.event.SampleData;
 import com.flystonedev.event.clients.AbstractClient;
-import lombok.RequiredArgsConstructor;
-import okhttp3.mockwebserver.MockResponse;
-import okhttp3.mockwebserver.MockWebServer;
+import com.flystonedev.event.clients.LocalizationClient;
+import com.flystonedev.event.mapper.EventEntityMapper;
+import com.flystonedev.event.repository.EventEntityRepository;
+import com.flystonedev.event.repository.EventTypeRepository;
+import com.flystonedev.localization.DTO.BookingsDTO;
+import com.flystonedev.localization.DTO.LocalizationOutResponse;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mapstruct.factory.Mappers;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.oauth2.jwt.Jwt;
-import org.springframework.test.web.reactive.server.WebTestClient;
-import org.springframework.web.reactive.function.client.WebClient;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.io.IOException;
-import java.util.Collections;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-@RequiredArgsConstructor
-class EventEntityServiceTest {
+@ExtendWith(MockitoExtension.class)
+class EventEntityServiceTest implements SampleData {
+
+    @InjectMocks
+    private EventEntityService eventEntityService;
+
     @Mock
-    private JwtConverter jwtConverter;
+    private EventEntityRepository eventEntityRepository;
 
-//    @Autowired
-//    private WebTestClient webTestClient;
+    @Mock
+    private EventTypeRepository eventTypeRepository;
 
-    private WebClient.Builder webClient = WebClient.builder();
-
-
-    public static MockWebServer mockBackEnd;
-    @Autowired
+    @Mock
     private AbstractClient abstractClient;
-    private ObjectMapper MAPPER = new ObjectMapper();
 
+    @Mock
+    private LocalizationClient localizationClient;
 
+    private final EventEntityMapper eventEntityMapper = Mappers.getMapper(EventEntityMapper.class);
 
-//    @BeforeAll
-//    void setUp() throws IOException {
-//        mockBackEnd = new MockWebServer();
-//        mockBackEnd.start();
-//    }
-//    @AfterAll
-//    static void tearDown() throws IOException {
-//        mockBackEnd.shutdown();
-//    }
-//    @BeforeEach
-//    void initialize() {
-//        String baseUrl = String.format("http://localhost:%s",
-//                mockBackEnd.getPort());
-//        abstractClient = new AbstractClient(WebClient.builder());
-//    }
-
-    @BeforeEach
-    void setUP() throws IOException {
-        mockBackEnd = new MockWebServer();
-        mockBackEnd.start();
-
-
-//        webClient = webClient.baseUrl(mockBackEnd.url("/").toString());
-
-
-    }
-
-    @AfterEach
-    void tearDown() throws IOException {
-        mockBackEnd.shutdown();
-
-    }
 
     @Test
     void createEventEntity() {
+        //given
+        EventEntityDTO expected = getSampleOfEventEntityDTO();
+        when(abstractClient.abstractOutResponse(anyInt())).thenReturn(AbstractOutResponse.builder().id(1).abstractTitle("Abstract").build());
+        when(localizationClient.localizationOutResponse(anyInt())).thenReturn(LocalizationOutResponse.builder().id(1).room("Room 1").build());
+        when(eventTypeRepository.getReferenceById(anyInt())).thenReturn(getSampleOfEventType());
+        when(eventEntityRepository.save(any())).thenReturn(getSampleOfEventEntity());
+        when(localizationClient.createBookingsDTO(any())).thenReturn(BookingsDTO.builder().id(1).build());
+        //when
+        eventEntityService.createEventEntity(expected);
+        //then
+        verify(eventEntityRepository, times(1)).save(getSampleOfEventEntity());
+        verifyNoMoreInteractions(eventEntityRepository);
     }
 
     @Test
@@ -101,33 +75,7 @@ class EventEntityServiceTest {
     }
 
     @Test
-    void abstractOutResponse() throws Exception {
-        Jwt jwt = Jwt.withTokenValue("test_token")
-                .header("alg", "HS256")
-                .claim("sub", "testuser")
-                .claim("authorities", Collections.singletonList("ROLE_ADMIN"))
-                .build();
-
-        String baseUrl = String.format("http://localhost:%s",
-                mockBackEnd.getPort());
-        AbstractOutResponse abstractOutResponse = AbstractOutResponse.builder()
-                .id(1)
-                .abstractTitle("new Abstract")
-                .body("body of abstract")
-                .ownerId(1)
-                .build();
-
-        SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
-        Authentication authentication = new UsernamePasswordAuthenticationToken(jwt,jwt.getTokenValue());
-
-        securityContext.setAuthentication(authentication);
-        SecurityContextHolder.setContext(securityContext);
-
-        mockBackEnd.enqueue(new MockResponse().setResponseCode(200).setBody(MAPPER.writeValueAsString(abstractOutResponse)).addHeader("Content-Type", "application/json"));
-//        AbstractOutResponse abstractOutResponse1 = abstractClient.abstractOutResponseTest(1, baseUrl);
-        System.out.println(
-//                abstractOutResponse1
-        );
+    void abstractOutResponse() {
 
     }
 

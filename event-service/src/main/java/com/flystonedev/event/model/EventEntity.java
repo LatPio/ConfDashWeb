@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class EventEntity {
+public class  EventEntity {
 
     @Id
     @Column(name = "ID")

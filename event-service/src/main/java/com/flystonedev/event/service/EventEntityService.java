@@ -2,7 +2,6 @@ package com.flystonedev.event.service;
 
 import com.flystonedev.abstracts.DTO.AbstractOutResponse;
 import com.flystonedev.event.DTO.EventEntityDTO;
-import com.flystonedev.event.DTO.EventTypeDTO;
 import com.flystonedev.event.DTO.StatisticResponse;
 import com.flystonedev.event.clients.AbstractClient;
 import com.flystonedev.event.clients.LocalizationClient;
@@ -31,15 +30,15 @@ import java.util.stream.Collectors;
 public class EventEntityService {
 
     private final EventEntityRepository eventEntityRepository;
+
     private final EventTypeRepository eventTypeRepository;
     private final EventEntityMapper eventEntityMapper = Mappers.getMapper(EventEntityMapper.class);
 
     private final EventTypeMapper eventTypeMapper = Mappers.getMapper(EventTypeMapper.class);
 
-    private final WebClient.Builder webClientBuilder;
 
     private AbstractClient abstractClient;
-    private final LocalizationClient localizationClient;
+    private LocalizationClient localizationClient;
     @Transactional
     public void createEventEntity(EventEntityDTO eventEntityDTO){
 
@@ -57,7 +56,6 @@ public class EventEntityService {
                 .eventType(selectedEventType)
                 .startOfEvent(eventEntityDTO.getStartOfEvent())
                 .endOfEvent(eventEntityDTO.getStartOfEvent().plusMinutes(selectedEventType.getTimeInMinutes()))
-
                 .build();
         EventEntity saved = eventEntityRepository.save(eventEntity);
 
