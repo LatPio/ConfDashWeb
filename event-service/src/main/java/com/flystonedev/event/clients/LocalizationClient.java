@@ -2,9 +2,7 @@ package com.flystonedev.event.clients;
 
 import com.flystonedev.event.exeption.ClientCallException;
 import com.flystonedev.event.exeption.config.GlobalErrorCode;
-import com.flystonedev.localization.DTO.BookingRequest;
-import com.flystonedev.localization.DTO.BookingsDTO;
-import com.flystonedev.localization.DTO.LocalizationOutResponse;
+import com.flystonedev.localization.DTO.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.Jwt;
@@ -56,39 +54,39 @@ public class LocalizationClient {
 
     }
 
-    public BookingsDTO getBookingsDTO (Integer id){
+    public BookingsDTOLight getBookingsDTO (Integer id){
         Jwt jwt = (Jwt) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        BookingsDTO bookingsDTO = webClientBuilder.build()
+        BookingsDTOLight bookingsDTO = webClientBuilder.build()
                 .get()
-                .uri("http://localization-Service/api/v1/booking",
-                        uriBuilder -> uriBuilder.queryParam("id", id.intValue()).build())
+                .uri("http://localization-Service/api/v1/booking/simple",
+                        uriBuilder -> uriBuilder.queryParam("id", id).build())
                 .headers(httpHeaders -> httpHeaders.setBearerAuth(jwt.getTokenValue()))
                 .retrieve()
                 .onStatus(  httpStatusCode-> httpStatusCode.value() == 401,
                         clientResponse -> {throw new ClientCallException("Access to Localization service Denied", GlobalErrorCode.ERROR_EVENT_SERVICE_ACCESS_DENIED);})
                 .onStatus(  httpStatusCode-> httpStatusCode.value() == 404,
                         clientResponse -> {throw new ClientCallException("Endpoint to Localization Service not found", GlobalErrorCode.ERROR_EVENT_SERVICE_ENTITY_NOT_FOUND);})
-                .bodyToMono(BookingsDTO.class)
+                .bodyToMono(BookingsDTOLight.class)
                 .block();
         return bookingsDTO;
 
     }
 
-    public BookingsDTO updateBookingsDTO (BookingsDTO bookingsToUpdate){
+    public BookingsDTOLight updateBookingsDTO (BookingsUpdateRequest bookingsToUpdate){
         Jwt jwt = (Jwt) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        BookingsDTO bookingsDTO = webClientBuilder.build()
+        BookingsDTOLight bookingsDTO = webClientBuilder.build()
                 .put()
-                .uri("http://localization-Service/api/v1/booking")
-                .body(Mono.just(bookingsToUpdate), BookingsDTO.class)
+                .uri("http://localization-Service/api/v1/booking/simple")
+                .body(Mono.just(bookingsToUpdate), BookingsUpdateRequest.class)
                 .headers(httpHeaders -> httpHeaders.setBearerAuth(jwt.getTokenValue()))
                 .retrieve()
                 .onStatus(  httpStatusCode-> httpStatusCode.value() == 401,
                         clientResponse -> {throw new ClientCallException("Access to Localization service Denied", GlobalErrorCode.ERROR_EVENT_SERVICE_ACCESS_DENIED);})
                 .onStatus(  httpStatusCode-> httpStatusCode.value() == 404,
                         clientResponse -> {throw new ClientCallException("Endpoint to Localization Service not found", GlobalErrorCode.ERROR_EVENT_SERVICE_ENTITY_NOT_FOUND);})
-                .bodyToMono(BookingsDTO.class)
+                .bodyToMono(BookingsDTOLight.class)
                 .block();
         return bookingsDTO;
 

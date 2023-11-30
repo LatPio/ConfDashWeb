@@ -3,6 +3,7 @@ package com.flystonedev.localization.controller;
 import com.flystonedev.localization.DTO.BookingRequest;
 import com.flystonedev.localization.DTO.BookingsDTO;
 import com.flystonedev.localization.DTO.BookingsDTOLight;
+import com.flystonedev.localization.DTO.BookingsUpdateRequest;
 import com.flystonedev.localization.service.BookingsService;
 import jakarta.annotation.security.RolesAllowed;
 import lombok.AllArgsConstructor;
@@ -37,6 +38,17 @@ public class BookingController {
     @GetMapping
     public ResponseEntity<BookingsDTO> get(@RequestParam Integer id){
         return ResponseEntity.status(HttpStatus.OK).body(bookingsService.get(id));
+    }
+
+    @RolesAllowed({"USER", "ADMIN"})
+    @GetMapping("/simple")
+    public ResponseEntity<BookingsDTOLight> getSimple(@RequestParam Integer id){
+        return ResponseEntity.status(HttpStatus.OK).body(bookingsService.getSimple(id));
+    }
+    @RolesAllowed({"ADMIN"})
+    @PutMapping("/simple")
+    public ResponseEntity<BookingsDTOLight> updateSimple(@RequestBody BookingsUpdateRequest bookingsUpdateRequest){
+        return ResponseEntity.status(HttpStatus.OK).body(bookingsService.updateSimple(bookingsUpdateRequest));
     }
     @RolesAllowed({"ADMIN"})
     @PutMapping

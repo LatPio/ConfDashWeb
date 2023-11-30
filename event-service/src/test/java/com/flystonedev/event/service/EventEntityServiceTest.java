@@ -18,6 +18,9 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 
+import java.util.Optional;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -52,38 +55,73 @@ class EventEntityServiceTest implements SampleData {
         when(eventEntityRepository.save(any())).thenReturn(getSampleOfEventEntity());
         when(localizationClient.createBookingsDTO(any())).thenReturn(BookingsDTO.builder().id(1).build());
         //when
-        eventEntityService.createEventEntity(expected);
+        EventEntityDTO actual = eventEntityService.createEventEntity(expected);
         //then
+        System.out.println(actual);
+        assertThat(actual).usingRecursiveComparison().isEqualTo(expected);
+
         verify(eventEntityRepository, times(1)).save(getSampleOfEventEntity());
         verifyNoMoreInteractions(eventEntityRepository);
     }
 
     @Test
     void eventEntityDTOList() {
+        //given
+
+        //when
+        eventEntityService.eventEntityDTOList();
+        //then
+        verify(eventEntityRepository, times(1)).findAll();
+        verifyNoMoreInteractions(eventEntityRepository);
     }
 
     @Test
     void get() {
+        //given
+        EventEntityDTO expected = getSampleOfEventEntityDTO();
+        when(eventEntityRepository.findById(anyInt())).thenReturn(Optional.ofNullable(getSampleOfEventEntity()));
+
+        //when
+        EventEntityDTO actual = eventEntityService.get(expected.getId());
+        //then
+        assertThat(actual).usingRecursiveComparison().isEqualTo(expected);
+        verify(eventEntityRepository, times(1)).findById(anyInt());
+        verifyNoMoreInteractions(eventEntityRepository);
+
     }
 
     @Test
     void update() {
+
+        when(eventEntityRepository.findById(anyInt())).thenReturn(Optional.ofNullable(getSampleOfEventEntity()));
+
+        //given
+        EventEntityDTO expected = getSampleOfEventEntityDTO();
+        when(abstractClient.abstractOutResponse(anyInt())).thenReturn(AbstractOutResponse.builder().id(1).abstractTitle("Abstract").build());
+        when(localizationClient.localizationOutResponse(anyInt())).thenReturn(LocalizationOutResponse.builder().id(1).room("Room 1").build());
+        when(eventTypeRepository.getReferenceById(anyInt())).thenReturn(getSampleOfEventType());
+        when(eventEntityRepository.save(any())).thenReturn(getSampleOfEventEntity());
+//        when(localizationClient.getBookingsDTO(anyInt())).thenReturn(getSampleOfBookingsDTO());
+        //when
+        EventEntityDTO actual = eventEntityService.update(expected);
+        //then
+        System.out.println(actual);
+        assertThat(actual).usingRecursiveComparison().isEqualTo(expected);
+
+        verify(eventEntityRepository, times(1)).save(any());
+        verify(eventEntityRepository, times(1)).findById(any());
+
+        verifyNoMoreInteractions(eventEntityRepository);
+
+
+
     }
 
     @Test
     void delete() {
+        //given
+        //when
+        //then
     }
 
-    @Test
-    void abstractOutResponse() {
-
-    }
-
-    @Test
-    void localizationOutResponse() {
-    }
-
-    @Test
-    void createBookingsDTO() {
-    }
 }

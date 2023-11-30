@@ -6,21 +6,18 @@ import com.flystonedev.event.DTO.StatisticResponse;
 import com.flystonedev.event.clients.AbstractClient;
 import com.flystonedev.event.clients.LocalizationClient;
 import com.flystonedev.event.exeption.EntityNotFoundException;
+import com.flystonedev.event.exeption.config.GlobalErrorCode;
 import com.flystonedev.event.mapper.EventEntityMapper;
 import com.flystonedev.event.mapper.EventTypeMapper;
 import com.flystonedev.event.model.EventEntity;
 import com.flystonedev.event.model.EventType;
 import com.flystonedev.event.repository.EventEntityRepository;
 import com.flystonedev.event.repository.EventTypeRepository;
-import com.flystonedev.localization.DTO.BookingRequest;
-import com.flystonedev.localization.DTO.BookingsDTO;
-import com.flystonedev.localization.DTO.LocalizationDTO;
-import com.flystonedev.localization.DTO.LocalizationOutResponse;
+import com.flystonedev.localization.DTO.*;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -40,7 +37,7 @@ public class EventEntityService {
     private AbstractClient abstractClient;
     private LocalizationClient localizationClient;
     @Transactional
-    public void createEventEntity(EventEntityDTO eventEntityDTO){
+    public EventEntityDTO createEventEntity(EventEntityDTO eventEntityDTO){
 
         AbstractOutResponse abstractSelected = abstractClient.abstractOutResponse(Integer.valueOf(eventEntityDTO.getAbstractId()));
         LocalizationOutResponse localizationSelected =  localizationClient.localizationOutResponse(Integer.valueOf(eventEntityDTO.getLocalizationId()));
@@ -71,6 +68,7 @@ public class EventEntityService {
 
         saved.setBookingId(savedBooking.getId());
         eventEntityRepository.save(saved);
+        return eventEntityMapper.map(saved);
 
 
     }
@@ -94,17 +92,50 @@ public class EventEntityService {
         return eventEntityRepository.findById(id).map(eventEntityMapper::map).orElseThrow(EntityNotFoundException::new);
     }
 
+    @Transactional
     public EventEntityDTO update(EventEntityDTO eventEntityDTO){
         EventEntityDTO exist = get(eventEntityDTO.getId());
         if (exist == null) {
-            return null;
+            throw new EntityNotFoundException("Event With provided ID dont exist in database", GlobalErrorCode.ERROR_EVENT_SERVICE_ENTITY_NOT_FOUND);
         }
-        EventEntity updated = eventEntityRepository.save(eventEntityMapper.map(eventEntityDTO));
+        AbstractOutResponse abstractSelected = abstractClient.abstractOutResponse(Integer.valueOf(eventEntityDTO.getAbstractId()));
+        LocalizationOutResponse localizationSelected =  localizationClient.localizationOutResponse(Integer.valueOf(eventEntityDTO.getLocalizationId()));
+        EventType selectedEventType = eventTypeRepository.getReferenceById(eventEntityDTO.getEventType().getId());
 
-        BookingsDTO bookingToUpdate = localizationClient.getBookingsDTO(exist.getBookingId());
-        bookingToUpdate.setDateStart(eventEntityDTO.getStartOfEvent());
-        bookingToUpdate.setDateEnd(eventEntityDTO.getEndOfEvent());
-        BookingsDTO updatedBooking = localizationClient.updateBookingsDTO(bookingToUpdate);
+        EventEntity eventEntity = EventEntity.builder()
+                .id(exist.getId())
+                .name(eventEntityDTO.getName())
+                .ownerId(abstractSelected.getOwnerId())
+                .abstractName(abstractSelected.getAbstractTitle())
+                .abstractId(eventEntityDTO.getAbstractId())
+                .localizationId(eventEntityDTO.getLocalizationId())
+                .localizationName(localizationSelected.getRoom())
+                .eventType(selectedEventType)
+                .startOfEvent(eventEntityDTO.getStartOfEvent())
+                .endOfEvent(eventEntityDTO.getStartOfEvent().plusMinutes(selectedEventType.getTimeInMinutes()))
+                .bookingId(exist.getBookingId())
+                .build();
+
+
+
+        BookingsDTOLight existBooking = localizationClient.getBookingsDTO(exist.getBookingId());
+        BookingsUpdateRequest bookingToUpdate = new BookingsUpdateRequest(
+                existBooking.getId(),
+                existBooking.getEventIDData(),
+                existBooking.isLocationConflict(),
+                existBooking.isTimeConflict(),
+                eventEntity.getStartOfEvent(),
+                eventEntity.getEndOfEvent(),
+                LocalizationWithOutMapDTO.builder()
+                        .id(existBooking.getLocalization().getId())
+                        .room(existBooking.getLocalization().getRoom())
+                        .coordinateX(existBooking.getLocalization().getCoordinateX())
+                        .coordinateY(existBooking.getLocalization().getCoordinateY())
+                        .build()
+        );
+        BookingsDTOLight updatedBooking = localizationClient.updateBookingsDTO(bookingToUpdate);
+
+        EventEntity updated = eventEntityRepository.save(eventEntity);
 
         return eventEntityMapper.map(updated);
 
@@ -119,65 +150,4 @@ public class EventEntityService {
         return new StatisticResponse(eventEntityRepository.count(), eventTypeRepository.count());
 
     }
-
-
-//    public AbstractOutResponse abstractOutResponse(Integer id){
-//        Jwt jwt = (Jwt) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        AbstractOutResponse abstractOutResponse = webClientBuilder.build()
-//                .get()
-//                .uri("http://abstracts-Service/api/v1/admin/abstracts/simple",
-//        uriBuilder -> uriBuilder.queryParam("id", id.intValue()).build())
-//
-//                .headers(httpHeaders -> httpHeaders.setBearerAuth(jwt.getTokenValue()))
-//                .retrieve()
-//                .onStatus(  httpStatusCode-> httpStatusCode.value() == 400,
-//                        clientResponse -> {throw new ClientCallException("Provided Abstract Id don't exist", GlobalErrorCode.ERROR_EVENT_SERVICE_ENTITY_NOT_FOUND);})
-//                .onStatus(  httpStatusCode-> httpStatusCode.value() == 401,
-//                        clientResponse -> {throw new ClientCallException("Access to Abstract service Denied", GlobalErrorCode.ERROR_EVENT_SERVICE_ACCESS_DENIED);})
-//                .onStatus(  httpStatusCode-> httpStatusCode.value() == 404,
-//                        clientResponse -> {throw new ClientCallException("Endpoint to Abstract Service not found", GlobalErrorCode.ERROR_EVENT_SERVICE_ENTITY_NOT_FOUND);})
-//                .bodyToMono(AbstractOutResponse.class)
-//                .block();
-//
-//        return abstractOutResponse;
-//    }
-
-//    public LocalizationOutResponse localizationOutResponse (Integer id) {
-//        Jwt jwt = (Jwt) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//
-//        LocalizationOutResponse localizationOutResponse = webClientBuilder.build()
-//                .get()
-//                .uri("http://localization-Service/api/v1/localization/simple",
-//                        uriBuilder -> uriBuilder.queryParam("id" ,id).build())
-//                .headers(httpHeaders -> httpHeaders.setBearerAuth(jwt.getTokenValue()))
-//                .retrieve()
-//                .onStatus(  httpStatusCode-> httpStatusCode.value() == 400,
-//                            clientResponse -> {throw new ClientCallException("Provided Localization Id don't exist", GlobalErrorCode.ERROR_EVENT_SERVICE_ENTITY_NOT_FOUND);})
-//                .onStatus(  httpStatusCode-> httpStatusCode.value() == 401,
-//                        clientResponse -> {throw new ClientCallException("Access to Localization service Denied", GlobalErrorCode.ERROR_EVENT_SERVICE_ACCESS_DENIED);})
-//                .onStatus(  httpStatusCode-> httpStatusCode.value() == 404,
-//                        clientResponse -> {throw new ClientCallException("Endpoint to Localization Service not found", GlobalErrorCode.ERROR_EVENT_SERVICE_ENTITY_NOT_FOUND);})
-//                .bodyToMono(LocalizationOutResponse.class)
-//                .block();
-//        return localizationOutResponse;
-//    }
-//
-//    public BookingsDTO createBookingsDTO (BookingRequest bookingRequest){
-//        Jwt jwt = (Jwt) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//
-//        BookingsDTO bookingsDTO = webClientBuilder.build()
-//                .post()
-//                .uri("Http://localization-Service/api/v1/booking")
-//                .body(Mono.just(bookingRequest), BookingRequest.class)
-//                .headers(httpHeaders -> httpHeaders.setBearerAuth(jwt.getTokenValue()))
-//                .retrieve()
-//                .onStatus(  httpStatusCode-> httpStatusCode.value() == 401,
-//                        clientResponse -> {throw new ClientCallException("Access to Localization service Denied", GlobalErrorCode.ERROR_EVENT_SERVICE_ACCESS_DENIED);})
-//                .onStatus(  httpStatusCode-> httpStatusCode.value() == 404,
-//                        clientResponse -> {throw new ClientCallException("Endpoint to Localization Service not found", GlobalErrorCode.ERROR_EVENT_SERVICE_ENTITY_NOT_FOUND);})
-//                .bodyToMono(BookingsDTO.class)
-//                .block();
-//        return bookingsDTO;
-//
-//    }
 }

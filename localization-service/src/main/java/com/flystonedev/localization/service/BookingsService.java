@@ -3,6 +3,7 @@ package com.flystonedev.localization.service;
 import com.flystonedev.localization.DTO.BookingRequest;
 import com.flystonedev.localization.DTO.BookingsDTO;
 import com.flystonedev.localization.DTO.BookingsDTOLight;
+import com.flystonedev.localization.DTO.BookingsUpdateRequest;
 import com.flystonedev.localization.exeption.EntityNotFoundException;
 import com.flystonedev.localization.mapper.BookingMapper;
 import com.flystonedev.localization.model.Bookings;
@@ -43,11 +44,25 @@ public class BookingsService {
     public BookingsDTO get(Integer id){
         return bookingsRepository.findById(id).map(bookingMapper::map).orElseThrow(EntityNotFoundException::new);
     }
+    public BookingsDTOLight getSimple(Integer id){
+        return bookingsRepository.findById(id).map(bookingMapper::mapLight).orElseThrow(EntityNotFoundException::new);
+    }
+
+    public BookingsDTOLight updateSimple(BookingsUpdateRequest bookingsUpdateRequest){
+        BookingsDTO exist = get(bookingsUpdateRequest.id());
+        if (exist == null) {
+            throw new EntityNotFoundException();
+        }
+        exist.setDateStart(bookingsUpdateRequest.dateStart());
+        exist.setDateEnd(bookingsUpdateRequest.dateEnd());
+        Bookings updated = bookingsRepository.save(bookingMapper.map(exist));
+        return bookingMapper.mapLight(updated);
+    }
 
     public BookingsDTO update(BookingsDTO bookingsDTO){
         BookingsDTO exist = get(bookingsDTO.getId());
         if (exist == null) {
-            return null;
+            throw new EntityNotFoundException();
         }
         Bookings updated = bookingsRepository.save(bookingMapper.map(bookingsDTO));
         return bookingMapper.map(updated);

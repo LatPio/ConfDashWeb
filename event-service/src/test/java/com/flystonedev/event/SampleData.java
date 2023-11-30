@@ -4,9 +4,10 @@ import com.flystonedev.event.DTO.EventEntityDTO;
 import com.flystonedev.event.DTO.EventTypeDTO;
 import com.flystonedev.event.model.EventEntity;
 import com.flystonedev.event.model.EventType;
+import com.flystonedev.localization.DTO.BookingsDTO;
+import com.flystonedev.localization.DTO.LocalizationDTO;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 public interface SampleData {
 
@@ -65,5 +66,18 @@ public interface SampleData {
                 .timeConflict(false)
                 .build();
         return eventTypeDTO;
+    }
+
+    default BookingsDTO getSampleOfBookingsDTO(){
+        BookingsDTO bookingsDTO = BookingsDTO.builder()
+                .id(1)
+                .eventIDData(1)
+                .locationConflict(false)
+                .timeConflict(false)
+                .dateStart(LocalDateTime.of(2023,10,1,11,0,0))
+                .dateEnd(LocalDateTime.of(2023,10,1,12,0,0))
+                .localization(LocalizationDTO.builder().id(1).build())
+                .build();
+        return bookingsDTO;
     }
 }
