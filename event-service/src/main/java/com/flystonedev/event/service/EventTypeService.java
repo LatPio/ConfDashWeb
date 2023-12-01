@@ -19,14 +19,15 @@ public class EventTypeService {
     private final EventTypeRepository eventTypeRepository;
     private final EventTypeMapper eventTypeMapper = Mappers.getMapper(EventTypeMapper.class);
 
-    public void createEventType(EventTypeDTO eventTypeDTO){
+    public EventTypeDTO createEventType(EventTypeDTO eventTypeDTO){
         EventType eventType = EventType.builder()
                 .name(eventTypeDTO.getName())
                 .timeInMinutes(eventTypeDTO.getTimeInMinutes())
                 .timeConflict(eventTypeDTO.isTimeConflict())
                 .locationConflict(eventTypeDTO.isLocationConflict())
                 .build();
-        eventTypeRepository.save(eventType);
+        EventType newEventType = eventTypeRepository.save(eventType);
+        return eventTypeMapper.map(newEventType);
     }
 
     public List<EventTypeDTO> eventTypeDTOList(){

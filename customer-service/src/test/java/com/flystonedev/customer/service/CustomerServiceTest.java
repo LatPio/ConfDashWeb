@@ -6,7 +6,6 @@ import com.flystonedev.customer.config.JwtConverter;
 import com.flystonedev.customer.exeption.EntityNotFoundException;
 import com.flystonedev.customer.exeption.UserAlreadyRegisteredException;
 import com.flystonedev.customer.mapper.CustomerAdminMapper;
-import com.flystonedev.customer.mapper.CustomerCardMapper;
 import com.flystonedev.customer.mapper.CustomerMapper;
 import com.flystonedev.customer.repository.CustomerRepository;
 import org.junit.jupiter.api.Test;
@@ -168,14 +167,14 @@ class CustomerServiceTest implements SampleData {
 
     @Test
     void canAdminGetOfAnyCustomerInformation() {
-        var excepted = getSampleOfCustomerAdminDTO();
+        var expected = getSampleOfCustomerAdminDTO();
         var repositoryCall = getSampleOfCustomers().get(0);
 
         when(customerRepository.findById(repositoryCall.getId())).thenReturn(Optional.ofNullable(repositoryCall));
 
-        var actual  = customerService.getAdmin(excepted.getId());
+        var actual  = customerService.getAdmin(expected.getId());
 
-        assertThat(actual).usingRecursiveComparison().isEqualTo(excepted);
+        assertThat(actual).usingRecursiveComparison().isEqualTo(expected);
         verify(customerRepository, times(1)).findById(repositoryCall.getId());
         verifyNoMoreInteractions(customerRepository);
     }

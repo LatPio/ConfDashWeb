@@ -1,6 +1,5 @@
 package com.flystonedev.event.model;
 
-import com.flystonedev.localization.model.Bookings;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

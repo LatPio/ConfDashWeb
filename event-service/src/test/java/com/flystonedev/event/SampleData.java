@@ -5,9 +5,13 @@ import com.flystonedev.event.DTO.EventTypeDTO;
 import com.flystonedev.event.model.EventEntity;
 import com.flystonedev.event.model.EventType;
 import com.flystonedev.localization.DTO.BookingsDTO;
+import com.flystonedev.localization.DTO.BookingsDTOLight;
 import com.flystonedev.localization.DTO.LocalizationDTO;
+import com.flystonedev.localization.DTO.LocalizationWithOutMapDTO;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public interface SampleData {
 
@@ -68,6 +72,18 @@ public interface SampleData {
         return eventTypeDTO;
     }
 
+    default List<EventTypeDTO> getSampleOfEventTypeDTOList(){
+        List<EventTypeDTO> list = new ArrayList<>();
+        list.add(getSampleOfEventTypeDTO());
+        return list;
+    }
+
+    default List<EventType> getSampleOfEventTypeList(){
+        List<EventType> list = new ArrayList<>();
+        list.add(getSampleOfEventType());
+        return list;
+    }
+
     default BookingsDTO getSampleOfBookingsDTO(){
         BookingsDTO bookingsDTO = BookingsDTO.builder()
                 .id(1)
@@ -79,5 +95,18 @@ public interface SampleData {
                 .localization(LocalizationDTO.builder().id(1).build())
                 .build();
         return bookingsDTO;
+    }
+
+    default BookingsDTOLight getSampleOfBookingsDTOLight(){
+        BookingsDTOLight bookingsDTOLight = BookingsDTOLight.builder()
+                .id(1)
+                .eventIDData(1)
+                .locationConflict(false)
+                .timeConflict(false)
+                .dateStart(LocalDateTime.of(2023,10,1,11,0,0))
+                .dateEnd(LocalDateTime.of(2023,10,1,12,0,0))
+                .localization(LocalizationWithOutMapDTO.builder().id(1).build())
+                .build();
+        return bookingsDTOLight;
     }
 }

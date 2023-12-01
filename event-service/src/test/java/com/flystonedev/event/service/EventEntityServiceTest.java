@@ -42,7 +42,6 @@ class EventEntityServiceTest implements SampleData {
     @Mock
     private LocalizationClient localizationClient;
 
-    private final EventEntityMapper eventEntityMapper = Mappers.getMapper(EventEntityMapper.class);
 
 
     @Test
@@ -101,7 +100,7 @@ class EventEntityServiceTest implements SampleData {
         when(localizationClient.localizationOutResponse(anyInt())).thenReturn(LocalizationOutResponse.builder().id(1).room("Room 1").build());
         when(eventTypeRepository.getReferenceById(anyInt())).thenReturn(getSampleOfEventType());
         when(eventEntityRepository.save(any())).thenReturn(getSampleOfEventEntity());
-//        when(localizationClient.getBookingsDTO(anyInt())).thenReturn(getSampleOfBookingsDTO());
+        when(localizationClient.getBookingsDTO(anyInt())).thenReturn(getSampleOfBookingsDTOLight());
         //when
         EventEntityDTO actual = eventEntityService.update(expected);
         //then
@@ -121,7 +120,11 @@ class EventEntityServiceTest implements SampleData {
     void delete() {
         //given
         //when
+        eventEntityService.delete(1);
         //then
+        verify(eventEntityRepository, times(1)).deleteById(1);
+        verifyNoMoreInteractions(eventEntityRepository);
+        assertThat(eventEntityRepository.findById(1)).isEqualTo(Optional.empty());
     }
 
 }
