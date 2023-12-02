@@ -1,25 +1,33 @@
 package com.flystonedev.abstracts.clients;
 
+import com.flystonedev.abstracts.config.JwtConverter;
 import com.flystonedev.customer.DTO.CustomerDTO;
-import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 
 @Component
-@RequiredArgsConstructor
 public class CustomerClient {
 
-    private final WebClient.Builder webClient;
 
+    private final WebClient webClient;
+    private final JwtConverter jwtConverter;
+
+    public CustomerClient(WebClient.Builder builder, @Value("${urlCustomer}") String baseUrl, JwtConverter jwtConverter){
+        this.webClient = builder.baseUrl(baseUrl).build();
+        this.jwtConverter = jwtConverter;
+    }
 
     public CustomerDTO getCustomer(){
-        Jwt jwt = (Jwt) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        CustomerDTO customerDTO = webClient.build()
+//        Jwt jwt = (Jwt) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        Jwt jwt = jwtConverter.getKeycloakJWT();
+        String token = jwtConverter.getJWTTokenValue();
+        CustomerDTO customerDTO = webClient
                 .get()
                 .uri("http://customer-service/api/v1/user/customer/simple")
-                .headers(httpHeaders -> httpHeaders.setBearerAuth(jwt.getTokenValue()))
+//                .headers(httpHeaders -> httpHeaders.setBearerAuth(jwt.getTokenValue()))
+                .headers(httpHeaders -> httpHeaders.setBearerAuth(token))
+
                 .retrieve()
                 .bodyToMono(CustomerDTO.class)
                 .block();

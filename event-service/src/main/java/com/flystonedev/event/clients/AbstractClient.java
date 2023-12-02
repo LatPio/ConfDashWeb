@@ -3,39 +3,31 @@ package com.flystonedev.event.clients;
 import com.flystonedev.abstracts.DTO.AbstractOutResponse;
 import com.flystonedev.event.exeption.ClientCallException;
 import com.flystonedev.event.exeption.config.GlobalErrorCode;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 
 @Component
-@RequiredArgsConstructor
 public class AbstractClient {
 
-    private final WebClient.Builder webClientBuilder;
-
-//    public AbstractClient (WebClient.Builder webClientBuilder, String baseUrl){
-//        this.webClientBuilder = webClientBuilder;
-//        BaseUrl = baseUrl;
-//    }
+    private final WebClient webClient;
 
 
-//    public AbstractClient() {
-//        this.webClientBuilder =  WebClient.builder()
-//                .baseUrl("http://abstracts-Service")
-//                .build();
-//    }
+    public AbstractClient(WebClient.Builder builder,@Value("${urlAbstract}") String baseUrl) {
+        this.webClient =  builder
+                .baseUrl(baseUrl)
+                .build();
+    }
 
     public AbstractOutResponse abstractOutResponse(Integer id){
         Jwt jwt = (Jwt) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        AbstractOutResponse abstractOutResponse = webClientBuilder.build()
+        AbstractOutResponse abstractOutResponse = webClient
                 .get()
 
-//                .uri("/api/v1/admin/abstracts/simple",
-//                        uriBuilder -> uriBuilder.queryParam("id", id.intValue()).build())
-                .uri("http://abstracts-Service/api/v1/admin/abstracts/simple",
-                        uriBuilder -> uriBuilder.queryParam("id", id.intValue()).build())
+                .uri("/api/v1/admin/abstracts/simple",
+                        uriBuilder -> uriBuilder.queryParam("id", id).build())
                 .headers(httpHeaders -> httpHeaders.setBearerAuth(jwt.getTokenValue()))
                 .retrieve()
                 .onStatus(  httpStatusCode-> httpStatusCode.value() == 400,

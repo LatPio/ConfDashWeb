@@ -3,7 +3,7 @@ package com.flystonedev.event.clients;
 import com.flystonedev.event.exeption.ClientCallException;
 import com.flystonedev.event.exeption.config.GlobalErrorCode;
 import com.flystonedev.localization.DTO.*;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Component;
@@ -11,16 +11,22 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 @Component
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class LocalizationClient {
-    private final WebClient.Builder webClientBuilder;
+    private final WebClient webClientBuilder;
+
+    public LocalizationClient(WebClient.Builder builder, @Value("${urlLocalization}") String baseUrl){
+        this.webClientBuilder = builder.baseUrl(baseUrl).build();
+    }
 
     public LocalizationOutResponse localizationOutResponse (Integer id) {
         Jwt jwt = (Jwt) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        LocalizationOutResponse localizationOutResponse = webClientBuilder.build()
+        LocalizationOutResponse localizationOutResponse = webClientBuilder
                 .get()
-                .uri("http://localization-Service/api/v1/localization/simple",
+//                .uri("http://localization-Service/api/v1/localization/simple",
+//                        uriBuilder -> uriBuilder.queryParam("id" ,id).build())
+                .uri("/api/v1/localization/simple",
                         uriBuilder -> uriBuilder.queryParam("id" ,id).build())
                 .headers(httpHeaders -> httpHeaders.setBearerAuth(jwt.getTokenValue()))
                 .retrieve()
@@ -38,9 +44,11 @@ public class LocalizationClient {
     public BookingsDTO createBookingsDTO (BookingRequest bookingRequest){
         Jwt jwt = (Jwt) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        BookingsDTO bookingsDTO = webClientBuilder.build()
+        BookingsDTO bookingsDTO = webClientBuilder
                 .post()
-                .uri("http://localization-Service/api/v1/booking")
+//                .uri("http://localization-Service/api/v1/booking")
+                .uri("/api/v1/booking")
+
                 .body(Mono.just(bookingRequest), BookingRequest.class)
                 .headers(httpHeaders -> httpHeaders.setBearerAuth(jwt.getTokenValue()))
                 .retrieve()
@@ -57,9 +65,9 @@ public class LocalizationClient {
     public BookingsDTOLight getBookingsDTO (Integer id){
         Jwt jwt = (Jwt) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        BookingsDTOLight bookingsDTO = webClientBuilder.build()
+        BookingsDTOLight bookingsDTO = webClientBuilder
                 .get()
-                .uri("http://localization-Service/api/v1/booking/simple",
+                .uri("/api/v1/booking/simple",
                         uriBuilder -> uriBuilder.queryParam("id", id).build())
                 .headers(httpHeaders -> httpHeaders.setBearerAuth(jwt.getTokenValue()))
                 .retrieve()
@@ -76,9 +84,9 @@ public class LocalizationClient {
     public BookingsDTOLight updateBookingsDTO (BookingsUpdateRequest bookingsToUpdate){
         Jwt jwt = (Jwt) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        BookingsDTOLight bookingsDTO = webClientBuilder.build()
+        BookingsDTOLight bookingsDTO = webClientBuilder
                 .put()
-                .uri("http://localization-Service/api/v1/booking/simple")
+                .uri("/api/v1/booking/simple")
                 .body(Mono.just(bookingsToUpdate), BookingsUpdateRequest.class)
                 .headers(httpHeaders -> httpHeaders.setBearerAuth(jwt.getTokenValue()))
                 .retrieve()

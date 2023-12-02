@@ -80,3 +80,5 @@ logging:
     level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
 
 
+urlLocalization: http://localization-Service
+urlAbstract: http://abstracts-Service

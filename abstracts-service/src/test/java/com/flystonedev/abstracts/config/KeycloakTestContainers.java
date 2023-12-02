@@ -93,7 +93,6 @@ public abstract class        KeycloakTestContainers {
                         "client_secret", "secret"
                 ))
                 .post(authServer + "realms/confdashweb/protocol/openid-connect/token")
-//                .post(authServer + "realms/confdashweb/protocol/openid-connect/token")
                 .then().assertThat().statusCode(200)
                 .extract().path("access_token");
         return "Bearer " + token;
