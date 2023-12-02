@@ -23,9 +23,9 @@ public class EventTypeController {
 
     @RolesAllowed({"ADMIN"})
     @PostMapping
-    public void registerEventType(@RequestBody EventTypeDTO eventTypeDTO){
+    public ResponseEntity<EventTypeDTO> registerEventType(@RequestBody EventTypeDTO eventTypeDTO){
         log.info("New Event Type registered {}", eventTypeDTO);
-        eventTypeService.createEventType(eventTypeDTO);
+        return ResponseEntity.status(HttpStatus.OK).body(eventTypeService.createEventType(eventTypeDTO));
     }
 
     @RolesAllowed({"USER", "ADMIN"})

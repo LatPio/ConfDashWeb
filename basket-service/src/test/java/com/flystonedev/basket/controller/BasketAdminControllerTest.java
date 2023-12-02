@@ -1,12 +1,10 @@
 package com.flystonedev.basket.controller;
 
-import com.flystonedev.basket.SampleData;
 import com.flystonedev.basket.config.KeycloakTestContainers;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.*;
 
 import static io.restassured.RestAssured.given;
-import static org.junit.jupiter.api.Assertions.*;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class BasketAdminControllerTest extends KeycloakTestContainers  {
 
@@ -43,7 +41,6 @@ class BasketAdminControllerTest extends KeycloakTestContainers  {
                 .peek()
                 .then()
                 .extract().response();
-
         Assertions.assertEquals(200, response.statusCode());
         Assertions.assertEquals("Name of Item In Basket", response.jsonPath().getString("name"));
 
@@ -60,7 +57,6 @@ class BasketAdminControllerTest extends KeycloakTestContainers  {
                 .peek()
                 .then()
                 .extract().response();
-
         Assertions.assertEquals(200, response.statusCode());
     }
 
@@ -76,7 +72,6 @@ class BasketAdminControllerTest extends KeycloakTestContainers  {
                 .peek()
                 .then()
                 .extract().response();
-
         Assertions.assertEquals(200, response.statusCode());
     }
 }
