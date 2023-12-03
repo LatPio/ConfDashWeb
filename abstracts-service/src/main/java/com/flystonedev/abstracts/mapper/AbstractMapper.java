@@ -1,6 +1,5 @@
 package com.flystonedev.abstracts.mapper;
 
-import com.flystonedev.abstracts.AbstractsApplication;
 import com.flystonedev.abstracts.DTO.AbstractDTO;
 import com.flystonedev.abstracts.DTO.AbstractLightDTO;
 import com.flystonedev.abstracts.model.AbstractsEntity;

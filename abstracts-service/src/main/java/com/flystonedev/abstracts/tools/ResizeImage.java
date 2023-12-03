@@ -21,7 +21,6 @@ public class ResizeImage {
         } else  {
             targetWidth = 300 * bufferedImage.getWidth()/bufferedImage.getHeight();
         }
-
         Image resultingImage = ImageIO.read(originalImage.getInputStream()).getScaledInstance(targetWidth, targetHeight, Image.SCALE_DEFAULT);
         BufferedImage outputImage = new BufferedImage(targetWidth, targetHeight, BufferedImage.TYPE_INT_RGB);
         outputImage.getGraphics().drawImage(resultingImage, 0, 0, null);

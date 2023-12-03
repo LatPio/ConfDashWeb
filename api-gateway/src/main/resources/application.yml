@@ -20,7 +20,7 @@ spring:
         - id: abstracts-service
           uri: lb://abstracts-service
           predicates:
-            - Path=/api/v1/user/abstracts, /api/v1/user/abstracts/list, /api/v1/admin/abstracts/stats, /api/v1/user/abstracts/listAccepted, /api/v1/admin/abstracts, /api/v1/admin/abstracts/list, /api/v1/admin/abstracts/approved,/api/v1/admin/abstracts/approved/light-list, /api/v1/user/attachment_file, /api/v1/user/attachment_file/**, /api/v1/admin/attachment_file, /api/v1/admin/attachment_file/file, /api/v1/admin/attachment_file/file/**, /api/v1/admin/attachment_file/**, /api/v1/admin/abstracts/principal, /api/v1/admin/abstracts/block, /api/v1/admin/abstracts/simple
+            - Path=/api/v1/user/abstracts, /api/v1/user/abstracts/list,/api/v1/user/abstracts/accepted, /api/v1/admin/abstracts/stats, /api/v1/user/abstracts/listAccepted, /api/v1/admin/abstracts, /api/v1/admin/abstracts/list, /api/v1/admin/abstracts/approved,/api/v1/admin/abstracts/approved/light-list, /api/v1/user/attachment_file, /api/v1/user/attachment_file/**, /api/v1/admin/attachment_file, /api/v1/admin/attachment_file/file, /api/v1/admin/attachment_file/file/**, /api/v1/admin/attachment_file/**, /api/v1/admin/abstracts/principal, /api/v1/admin/abstracts/block, /api/v1/admin/abstracts/simple
 
         - id: event-service
           uri: lb://event-service

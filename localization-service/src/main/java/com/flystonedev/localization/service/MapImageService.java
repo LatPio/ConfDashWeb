@@ -10,7 +10,6 @@ import com.flystonedev.localization.mapper.MapImageWithRoomsMapper;
 import com.flystonedev.localization.model.MapImage;
 import com.flystonedev.localization.repository.MapImageRepository;
 import lombok.AllArgsConstructor;
-import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -66,9 +65,7 @@ public class MapImageService {
 
     public MapImageDTO updateMapImage(MultipartFile file, MapImageDTO mapImageDTO) throws IOException{
         MapImage exist = mapImageRepository.findById(mapImageDTO.getId()).orElseThrow(EntityNotFoundException::new);
-//        if(exist == null){
-//            throw new EntityNotFoundException();
-//        } else
+
         if (file.getBytes().length !=0){
             exist.setData(file.getBytes());
             exist.setFileName(StringUtils.cleanPath(file.getOriginalFilename()));

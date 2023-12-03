@@ -1,8 +1,6 @@
 package com.flystonedev.event.controller;
 
-import com.flystonedev.event.DTO.EventEntityDTO;
 import com.flystonedev.event.DTO.EventTypeDTO;
-import com.flystonedev.event.model.EventType;
 import com.flystonedev.event.service.EventTypeService;
 import jakarta.annotation.security.RolesAllowed;
 import lombok.AllArgsConstructor;

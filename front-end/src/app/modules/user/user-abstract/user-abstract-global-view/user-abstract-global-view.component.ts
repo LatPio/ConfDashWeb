@@ -25,7 +25,7 @@ export class UserAbstractGlobalViewComponent implements OnInit{
   }
 
   getAbstractData(){
-    this.abstractService.getAbstractUser(this.abstractId).subscribe(value => {
+    this.abstractService.getAbstractAccepted(this.abstractId).subscribe(value => {
       this.abstractData = value
     })
   }

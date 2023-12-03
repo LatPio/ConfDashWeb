@@ -1,1 +1,18 @@
-<p>user-abstract-view works!</p>
+<h1>
+  {{eventEntity.name}}
+</h1>
+<div style="padding: 20px">
+  <app-event-simple-view-card
+    [eventID]="eventEntity.id">
+
+  </app-event-simple-view-card>
+</div>
+<div style="padding: 20px">
+  <app-event-view-card
+    [eventID]="evenId"
+  ></app-event-view-card>
+
+</div>
+
+
+

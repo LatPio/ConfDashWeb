@@ -2,6 +2,7 @@ package com.flystonedev.abstracts.controller;
 
 import com.flystonedev.abstracts.DTO.AbstractDTO;
 import com.flystonedev.abstracts.SampleData;
+import com.flystonedev.abstracts.clients.CustomerClient;
 import com.flystonedev.abstracts.config.KeycloakTestContainers;
 import com.flystonedev.abstracts.mapper.AbstractMapper;
 import com.flystonedev.abstracts.repository.AbstractRepository;
@@ -28,13 +29,14 @@ class AbstractUserControllerTest extends KeycloakTestContainers implements Sampl
     @MockBean
     private AbstractService abstractService;
 
+    @MockBean
+    private CustomerClient customerClient;
+
     @Autowired
     private AbstractMapper abstractMapper = Mappers.getMapper(AbstractMapper.class);
     @BeforeEach
     void setUp() {
-
         abstractRepository.saveAll(getSampleAbstract());
-
     }
     @Test
     @Order(1)

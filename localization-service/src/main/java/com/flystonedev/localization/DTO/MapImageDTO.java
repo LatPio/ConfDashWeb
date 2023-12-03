@@ -5,7 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -16,7 +15,5 @@ public class MapImageDTO {
     private Integer id;
     private String name;
     private String fileName;
-
-    //    private List<LocalizationDTO> localization;
     private byte[] data;
 }

@@ -49,4 +49,4 @@ logging:
     level: '%5p[${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
 
 
-urlCustomer: http://customer-service
+urlCustomer: "http://customer-service"

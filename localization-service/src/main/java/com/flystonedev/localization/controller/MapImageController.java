@@ -49,7 +49,7 @@ public class MapImageController {
         return ResponseEntity.status(HttpStatus.OK).body(mapImageService.getMapImageWithRoomsDTO(id));
     }
 
-    @RolesAllowed({"ADMIN"})
+    @RolesAllowed({"ADMIN", "USER"})
     @GetMapping("/list")
     public ResponseEntity<List<MapImageDTO>> getList(){
         return ResponseEntity.status(HttpStatus.OK).body(mapImageService.mapImageDTOList());

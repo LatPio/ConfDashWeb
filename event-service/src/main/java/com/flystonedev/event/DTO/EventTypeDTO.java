@@ -1,12 +1,9 @@
 package com.flystonedev.event.DTO;
 
-import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.time.Duration;
 
 @Data
 @AllArgsConstructor

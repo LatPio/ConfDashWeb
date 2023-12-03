@@ -22,17 +22,14 @@ public class ResourceServerConfig {
                 .csrf()
                 .disable()
                 .authorizeHttpRequests(authorize -> authorize
-//                                .anyRequest().permitAll()
                         .requestMatchers("/api/v1/user/customer/new").permitAll()
                         .anyRequest().authenticated()
                 )
                 .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
-
                 .oauth2ResourceServer()
                 .jwt(jwtConfigurer -> jwtConfigurer.jwtAuthenticationConverter(jwtAuthenticationConverter()));
         return http.build();
     }
-
 
     private Converter<Jwt, ? extends AbstractAuthenticationToken> jwtAuthenticationConverter() {
         JwtAuthenticationConverter jwtConverter = new JwtAuthenticationConverter();

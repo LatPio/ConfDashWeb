@@ -1,10 +1,12 @@
 package com.flystonedev.abstracts.config;
 
+import lombok.AllArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 
 @Service
+@AllArgsConstructor
 public class JwtConverter {
 
     public String getKeycloakUserID(){

@@ -73,6 +73,12 @@ public class AbstractService {
     }
 
     @Transactional
+    public AbstractDTO getAbstractAccepted(Integer id){
+
+        return abstractRepository.findByIdAndAccepted(id, true).map(abstractMapper::map).orElseThrow(EntityNotFoundException::new);
+    }
+
+    @Transactional
     public AbstractDTO getUsersAbstract(Integer id){
         return abstractRepository.findByIdAndAuthId(id, jwtConverter.getKeycloakUserID()).map(abstractMapper::map).orElseThrow(EntityNotFoundException::new);
     }

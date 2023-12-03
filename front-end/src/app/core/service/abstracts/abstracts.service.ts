@@ -84,6 +84,10 @@ export class AbstractsService {
     return this.httpClient.get<AbstractDTOModel>(`${this.config.apiEndpoint}api/v1/user/abstracts?id=${abstractId}`,
       {headers:this.httpHeaders, responseType: "json"})
   }
+  getAbstractAccepted(abstractId: number): Observable<AbstractDTOModel>{
+    return this.httpClient.get<AbstractDTOModel>(`${this.config.apiEndpoint}api/v1/user/abstracts/accepted?id=${abstractId}`,
+      {headers:this.httpHeaders, responseType: "json"})
+  }
 
   getAbstractListUser(): Observable<Array<AbstractDTOModel>>{
     return this.httpClient.get<Array<AbstractDTOModel>>(`${this.config.apiEndpoint}api/v1/user/abstracts/list`,

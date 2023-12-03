@@ -16,7 +16,7 @@ const routes: Routes = [
     {path: 'add', component: UserAbstractAddComponent},
     {path: 'edit/:abstractID', component: UserAbstractEditComponent},
     {path: 'edit-files/:abstractID', component: UserAbstractEditFileComponent},
-    {path: 'view', component: UserAbstractViewComponent},
+    {path: 'view/:eventID', component: UserAbstractViewComponent},
     {path: 'panel', component: UserAbstractPanelComponent},
     {path: 'list', component: UserAbstractGlobalListComponent},
     {path: 'list/view/:abstractID', component: UserAbstractGlobalViewComponent}

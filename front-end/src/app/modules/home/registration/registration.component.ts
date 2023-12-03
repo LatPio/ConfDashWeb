@@ -29,7 +29,6 @@ export class RegistrationComponent implements OnInit{
         firstName:['', {validators:[Validators.required]}],
         lastName:['', {validators:[Validators.required]}],
         email:['', {validators:[Validators.required, Validators.email]}],
-        // email: new FormControl('',[Validators.required, Validators.email]),
         password:['', {validators:[Validators.required]}],
       }
     )

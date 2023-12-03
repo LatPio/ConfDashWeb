@@ -1,24 +1,26 @@
 package com.flystonedev.abstracts.controller;
 
 import com.flystonedev.abstracts.SampleData;
+import com.flystonedev.abstracts.clients.CustomerClient;
 import com.flystonedev.abstracts.config.KeycloakTestContainers;
 import com.flystonedev.abstracts.repository.AbstractRepository;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.annotation.DirtiesContext;
 
 import java.io.File;
 
 import static io.restassured.RestAssured.given;
-import static org.junit.jupiter.api.Assertions.*;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
-
 class AttachmentFileUserControllerTest extends KeycloakTestContainers implements SampleData {
 
     @Autowired
     private AbstractRepository abstractRepository;
+    @MockBean
+    private CustomerClient customerClient;
 
     @Test
     @Order(1)

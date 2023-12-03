@@ -4,7 +4,6 @@ import com.flystonedev.abstracts.DTO.AbstractBlockDTO;
 import com.flystonedev.abstracts.DTO.AbstractDTO;
 import com.flystonedev.abstracts.DTO.AbstractLightDTO;
 import com.flystonedev.abstracts.DTO.AbstractOutResponse;
-import com.flystonedev.abstracts.config.JwtConverter;
 import com.flystonedev.abstracts.model.StatsResponse;
 import com.flystonedev.abstracts.service.AbstractService;
 import jakarta.annotation.security.RolesAllowed;

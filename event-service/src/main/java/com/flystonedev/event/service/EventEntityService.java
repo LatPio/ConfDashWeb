@@ -116,8 +116,6 @@ public class EventEntityService {
                 .bookingId(exist.getBookingId())
                 .build();
 
-
-
         BookingsDTOLight existBooking = localizationClient.getBookingsDTO(exist.getBookingId());
         BookingsUpdateRequest bookingToUpdate = new BookingsUpdateRequest(
                 existBooking.getId(),

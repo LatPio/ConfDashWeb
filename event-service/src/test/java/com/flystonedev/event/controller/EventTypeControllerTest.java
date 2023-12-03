@@ -1,14 +1,24 @@
 package com.flystonedev.event.controller;
 
+import com.flystonedev.event.clients.AbstractClient;
+import com.flystonedev.event.clients.LocalizationClient;
 import com.flystonedev.event.config.KeycloakTestContainers;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.*;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.annotation.DirtiesContext;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
 import static io.restassured.RestAssured.given;
-
+@Testcontainers
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
 class EventTypeControllerTest extends KeycloakTestContainers {
 
+    @MockBean
+    private AbstractClient abstractClient;
+    @MockBean
+    private LocalizationClient localizationClient;
     @Test
     @Order(1)
     void registerEventType() {

@@ -6,7 +6,6 @@ import com.flystonedev.abstracts.DTO.AttachmentFileDTO;
 import com.flystonedev.abstracts.DTO.AttachmentFileResponse;
 import com.flystonedev.abstracts.model.FileRole;
 import com.flystonedev.abstracts.service.AttachmentFileService;
-import com.flystonedev.abstracts.tools.ResizeImage;
 import jakarta.annotation.security.RolesAllowed;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -116,5 +115,4 @@ public class AttachmentFileAdminController {
         return ResponseEntity.status(HttpStatus.OK).body(Arrays.stream(FileRole.values()).toList());
     }
 
-    //todo block endpoint
 }

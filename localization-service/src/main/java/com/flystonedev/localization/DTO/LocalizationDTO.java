@@ -1,6 +1,5 @@
 package com.flystonedev.localization.DTO;
 
-import com.flystonedev.localization.model.MapImage;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -42,7 +42,6 @@ public class AbstractsEntity {
     private boolean accepted;
     private String comments;
 
-
     @OneToMany(mappedBy = "abstractsEntity", orphanRemoval = true)
     private List<AttachmentFile> files;
 

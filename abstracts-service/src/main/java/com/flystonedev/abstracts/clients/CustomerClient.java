@@ -9,7 +9,6 @@ import org.springframework.web.reactive.function.client.WebClient;
 @Component
 public class CustomerClient {
 
-
     private final WebClient webClient;
     private final JwtConverter jwtConverter;
 
@@ -19,21 +18,14 @@ public class CustomerClient {
     }
 
     public CustomerDTO getCustomer(){
-//        Jwt jwt = (Jwt) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        Jwt jwt = jwtConverter.getKeycloakJWT();
         String token = jwtConverter.getJWTTokenValue();
         CustomerDTO customerDTO = webClient
                 .get()
                 .uri("http://customer-service/api/v1/user/customer/simple")
-//                .headers(httpHeaders -> httpHeaders.setBearerAuth(jwt.getTokenValue()))
                 .headers(httpHeaders -> httpHeaders.setBearerAuth(token))
-
                 .retrieve()
                 .bodyToMono(CustomerDTO.class)
                 .block();
-
         return customerDTO;
-
-
     }
 }

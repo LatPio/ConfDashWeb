@@ -3,14 +3,15 @@ package com.flystonedev.site.controller;
 import com.flystonedev.site.config.KeycloakTestContainers;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.*;
+import org.springframework.test.annotation.DirtiesContext;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.io.File;
 
 import static io.restassured.RestAssured.given;
-import static org.junit.jupiter.api.Assertions.*;
 @Testcontainers
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
 class PhotoAndFilesControllerTest extends KeycloakTestContainers {
 
     @Test

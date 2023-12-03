@@ -19,5 +19,7 @@ public interface AbstractRepository extends JpaRepository<AbstractsEntity, Integ
     long count();
 
     Optional<AbstractsEntity> findByIdAndAuthId(Integer Id, String authId);
+    Optional<AbstractsEntity> findByIdAndAccepted(Integer Id, Boolean accepted);
+
     Optional<Void> deleteByIdAndAuthId (Integer id, String authId);
 }

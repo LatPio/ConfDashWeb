@@ -69,5 +69,4 @@ public class ProfilePhotoController {
         profilePhotoService.deleteUser(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-    //todo modifiable only by user owner
 }

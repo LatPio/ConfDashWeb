@@ -1,7 +1,6 @@
 package com.flystonedev.basket.exeption;
 
 
-import com.flystonedev.basket.exeption.ErrorWrapper;
 import com.flystonedev.basket.exeption.config.GlobalErrorCode;
 
 public class BookingEditionBlockedException extends ErrorWrapper {

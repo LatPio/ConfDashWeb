@@ -15,7 +15,7 @@ import {verifyHostBindings} from "@angular/compiler";
 })
 export class UserBookingListComponent implements AfterViewInit, OnInit{
 
-  displayedColumns: string[] = ['name', 'eventId','option'];
+  displayedColumns: string[] = ['name', 'option'];
   dataSource = new MatTableDataSource<BasketDTOModel>();
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;

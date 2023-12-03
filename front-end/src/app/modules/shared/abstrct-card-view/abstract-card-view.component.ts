@@ -14,6 +14,8 @@ import {CustomersService} from "../../../core/service/customers/customers.servic
 export class AbstractCardViewComponent implements OnInit,AfterViewInit{
 
   @Input() abstract!: AbstractDTOModel;
+  @Input() role!: string;
+
   @Input() abstractID! : number;
   filesEmpty: boolean = false;
   graphicalAbstract: any = null;
@@ -32,10 +34,25 @@ export class AbstractCardViewComponent implements OnInit,AfterViewInit{
   }
 
   getAbstract(){
+    if(this.role === "user"){
+      this.getAbstractUser();
+    }else if(this.role === "admin"){
+      this.getAbstractAdmin()
+    }
+  }
+  getAbstractAdmin(){
     this.abstractService.getAbstractAdmin(this.abstractID).subscribe(value => {
       this.abstract = value
     })
   }
+
+  getAbstractUser(){
+    this.abstractService.getAbstractAccepted(this.abstractID).subscribe(value => {
+      this.abstract = value
+    })
+  }
+
+
 
   getUSerPhoto(){
     this.customerService.getCustomersUserCard(this.abstract.ownerId).subscribe(value => {

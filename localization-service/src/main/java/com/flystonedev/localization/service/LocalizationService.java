@@ -75,9 +75,7 @@ public class LocalizationService {
                 localizationRepository.count(),
                 bookingsRepository.count()
         );
-//        return new StatsLocationResponse(
-//                1L,1L,1L
-//        );
+
     }
 
     public LocalizationOutResponse getSimple(Integer id) {

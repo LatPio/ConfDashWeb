@@ -15,7 +15,7 @@ public class AbstractClient {
     private final WebClient webClient;
 
 
-    public AbstractClient(WebClient.Builder builder,@Value("${urlAbstract}") String baseUrl) {
+    public AbstractClient(WebClient.Builder builder, @Value("${urlAbstract}") String baseUrl) {
         this.webClient =  builder
                 .baseUrl(baseUrl)
                 .build();
@@ -25,7 +25,6 @@ public class AbstractClient {
         Jwt jwt = (Jwt) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         AbstractOutResponse abstractOutResponse = webClient
                 .get()
-
                 .uri("/api/v1/admin/abstracts/simple",
                         uriBuilder -> uriBuilder.queryParam("id", id).build())
                 .headers(httpHeaders -> httpHeaders.setBearerAuth(jwt.getTokenValue()))
@@ -37,8 +36,7 @@ public class AbstractClient {
                 .onStatus(  httpStatusCode-> httpStatusCode.value() == 404,
                         clientResponse -> {throw new ClientCallException("Endpoint to Abstract Service not found", GlobalErrorCode.ERROR_EVENT_SERVICE_ENTITY_NOT_FOUND);})
                 .bodyToMono(AbstractOutResponse.class)
-                .block()
-                ;
+                .block();
 
         return abstractOutResponse;
     }

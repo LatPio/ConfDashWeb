@@ -27,11 +27,7 @@ public class SecurityConfig {
                         authorizeExchangeSpec -> authorizeExchangeSpec
                                 .pathMatchers("/**")
                                 .permitAll()
-//                                .pathMatchers("/eureka/**")
-//                                .permitAll()
-//                                .pathMatchers("/api/v1/user/customer/new").permitAll()
-//                                .anyExchange()
-//                                .authenticated()
+
                 )
                 .oauth2ResourceServer(ServerHttpSecurity.OAuth2ResourceServerSpec::jwt)
                 ;
@@ -51,7 +47,6 @@ public class SecurityConfig {
         OidcClientInitiatedServerLogoutSuccessHandler oidcLogoutSuccessHandler =
                 new OidcClientInitiatedServerLogoutSuccessHandler(repository);
 
-//        oidcLogoutSuccessHandler.setPostLogoutRedirectUri("http://localhost:8080/");
 
         return oidcLogoutSuccessHandler;
     }

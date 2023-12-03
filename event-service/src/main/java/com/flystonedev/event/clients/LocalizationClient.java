@@ -11,7 +11,6 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 @Component
-//@RequiredArgsConstructor
 public class LocalizationClient {
     private final WebClient webClientBuilder;
 
@@ -24,8 +23,6 @@ public class LocalizationClient {
 
         LocalizationOutResponse localizationOutResponse = webClientBuilder
                 .get()
-//                .uri("http://localization-Service/api/v1/localization/simple",
-//                        uriBuilder -> uriBuilder.queryParam("id" ,id).build())
                 .uri("/api/v1/localization/simple",
                         uriBuilder -> uriBuilder.queryParam("id" ,id).build())
                 .headers(httpHeaders -> httpHeaders.setBearerAuth(jwt.getTokenValue()))
@@ -46,9 +43,7 @@ public class LocalizationClient {
 
         BookingsDTO bookingsDTO = webClientBuilder
                 .post()
-//                .uri("http://localization-Service/api/v1/booking")
                 .uri("/api/v1/booking")
-
                 .body(Mono.just(bookingRequest), BookingRequest.class)
                 .headers(httpHeaders -> httpHeaders.setBearerAuth(jwt.getTokenValue()))
                 .retrieve()

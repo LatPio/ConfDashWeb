@@ -2,7 +2,6 @@ package com.flystonedev.abstracts.service;
 
 import com.flystonedev.abstracts.DTO.*;
 import com.flystonedev.abstracts.config.JwtConverter;
-import com.flystonedev.abstracts.exeption.AttachmentFileEditionBlockedException;
 import com.flystonedev.abstracts.exeption.EntityNotFoundException;
 import com.flystonedev.abstracts.mapper.AttachmentFileMapper;
 import com.flystonedev.abstracts.model.AttachmentFile;
@@ -66,7 +65,6 @@ public class AttachmentFileService {
                     .build();
         }
 
-
         attachmentFileRepository.save(attachmentFile);
         return attachmentFileMapper.map(attachmentFile);
 
@@ -89,8 +87,6 @@ public class AttachmentFileService {
         if(exist == null){
             throw new EntityNotFoundException();
         }
-//        else if (exist.getAccepted()) {
-//            throw new AttachmentFileEditionBlockedException();}
         else if (file.getBytes().length !=0){
             exist.setData(file.getBytes());
             exist.setName(StringUtils.cleanPath(file.getOriginalFilename()));
@@ -99,15 +95,12 @@ public class AttachmentFileService {
             exist.setAbstractsEntity(
                     abstractRepository.findById(attachmentFileUserUpdateRequest.abstractsEntity().getId()).orElseThrow(EntityNotFoundException::new));
 
-
             AttachmentFile updated = attachmentFileRepository.save(exist);
             return attachmentFileMapper.map(updated);
         } else {
             exist.setFileRole(attachmentFileUserUpdateRequest.fileRole());
             exist.setAbstractsEntity(
                     abstractRepository.findById(attachmentFileUserUpdateRequest.abstractsEntity().getId()).orElseThrow(EntityNotFoundException::new));
-
-
 
             AttachmentFile updated = attachmentFileRepository.save(exist);
             return attachmentFileMapper.map(updated);
@@ -120,10 +113,7 @@ public class AttachmentFileService {
         AttachmentFileDTO exist = getUserFile(id);
         if(exist == null){
             throw new EntityNotFoundException();
-        }
-//        else if (exist.getAccepted()) {
-//            throw new AttachmentFileEditionBlockedException();}
-        else {
+        } else {
             attachmentFileRepository
                     .deleteAttachmentFileByIdAndAuthId(id, jwtConverter.getKeycloakUserID());
         }
@@ -162,7 +152,6 @@ public class AttachmentFileService {
                     .build();
         }
 
-
         attachmentFileRepository.save(attachmentFile);
         return attachmentFileMapper.map(attachmentFile);
     }
@@ -186,22 +175,18 @@ public class AttachmentFileService {
             exist.setData(file.getBytes());
             exist.setName(StringUtils.cleanPath(file.getOriginalFilename()));
             exist.setType(file.getContentType());
-
             exist.setAuthId(attachmentFileAdminUpdateRequest.authId());
             exist.setFileRole(attachmentFileAdminUpdateRequest.fileRole());
             exist.setAbstractsEntity(
                     abstractRepository.findById(attachmentFileAdminUpdateRequest.abstractsEntity().getId()).orElseThrow(EntityNotFoundException::new));
-
 
             AttachmentFile updated = attachmentFileRepository.save(exist);
             return attachmentFileMapper.map(updated);
         } else {
-
             exist.setAuthId(attachmentFileAdminUpdateRequest.authId());
             exist.setFileRole(attachmentFileAdminUpdateRequest.fileRole());
             exist.setAbstractsEntity(
                     abstractRepository.findById(attachmentFileAdminUpdateRequest.abstractsEntity().getId()).orElseThrow(EntityNotFoundException::new));
-
 
             AttachmentFile updated = attachmentFileRepository.save(exist);
             return attachmentFileMapper.map(updated);
@@ -211,12 +196,8 @@ public class AttachmentFileService {
 
     public void updateAdnBlockAttachmentFilesByAdmin(Integer id, Boolean accepted){
         List<AttachmentFile> attachmentFileByAbstractsEntityId = attachmentFileRepository.findAttachmentFileByAbstractsEntity_Id(id);
-        //todo block these files for modification
-        attachmentFileByAbstractsEntityId.stream().forEach(attachmentFile -> {
-            attachmentFileRepository.save(attachmentFile);
-        });
+        attachmentFileByAbstractsEntityId.stream().forEach(attachmentFileRepository::save);
     }
-
     public void deleteAdmin(Integer id){ attachmentFileRepository.deleteById(id);}
 
 }

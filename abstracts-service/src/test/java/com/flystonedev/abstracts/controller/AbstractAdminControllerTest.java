@@ -1,12 +1,15 @@
 package com.flystonedev.abstracts.controller;
 
 import com.flystonedev.abstracts.SampleData;
+import com.flystonedev.abstracts.clients.CustomerClient;
 import com.flystonedev.abstracts.config.KeycloakTestContainers;
 import com.flystonedev.abstracts.repository.AbstractRepository;
 import io.restassured.response.Response;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import static io.restassured.RestAssured.given;
@@ -14,14 +17,14 @@ import static io.restassured.RestAssured.given;
 @Testcontainers
 public class AbstractAdminControllerTest extends KeycloakTestContainers implements SampleData {
 
+    @MockBean
+    private CustomerClient customerClient;
 
     @Autowired
     private AbstractRepository abstractRepository;
     @BeforeEach
      void setUp() {
-
         abstractRepository.saveAll(getSampleAbstract());
-
     }
 
     public AbstractAdminControllerTest() {

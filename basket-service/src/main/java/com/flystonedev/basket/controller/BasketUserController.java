@@ -22,7 +22,7 @@ public class BasketUserController {
 
     @RolesAllowed({"USER"})
     @PostMapping
-    public ResponseEntity<BasketDTO> addAbstract(@RequestBody EventEntityDTO eventEntityDTO){
+    public ResponseEntity<BasketDTO> addBasketItem(@RequestBody EventEntityDTO eventEntityDTO){
         log.info("New Booking added {}", eventEntityDTO);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(basketService.bookUSerEvent(eventEntityDTO));

@@ -12,6 +12,5 @@ public interface ProfilePhotoRepository extends JpaRepository<ProfilePhoto, Inte
 
     @Transactional
     void deleteById(Integer integer);
-
     Optional<ProfilePhoto> findProfilePhotoByIdAndAuthId (Integer id, String authId);
 }

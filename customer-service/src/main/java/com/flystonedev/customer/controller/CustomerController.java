@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
 @Slf4j
 @RestController
 @RequestMapping("api/v1/user/customer")
@@ -65,8 +64,4 @@ public class CustomerController {
 
         return ResponseEntity.status(HttpStatus.OK).body(customerService.updateUser(customerDTO));
     }
-
-
-
-    //todo modifiable/accessible only by user owner
 }

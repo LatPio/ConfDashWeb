@@ -30,6 +30,11 @@ public class AbstractUserController {
     public ResponseEntity<AbstractDTO> get(@RequestParam Integer id){
         return ResponseEntity.status(HttpStatus.OK).body(abstractService.getUsersAbstract(id));
     }
+    @RolesAllowed({"USER"})
+    @GetMapping("/accepted")
+    public ResponseEntity<AbstractDTO> getAccepted(@RequestParam Integer id){
+        return ResponseEntity.status(HttpStatus.OK).body(abstractService.getAbstractAccepted(id));
+    }
 
     @RolesAllowed({"USER"})
     @GetMapping("/list")

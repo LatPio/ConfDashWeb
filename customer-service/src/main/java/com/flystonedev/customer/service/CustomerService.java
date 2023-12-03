@@ -53,7 +53,6 @@ public class CustomerService {
         if(!userRepresentationList.isEmpty()){
             throw new UserAlreadyRegisteredException("This email already registered in our database. Please check and retry", GlobalErrorCode.ERROR_CUSTOMER_SERVICE_USER_ALREADY_REGISTERED);
         } else {
-            //todo Integrate notification to user email for now user is authenticared create endpoint for activation
 
             UserRepresentation userRepresentation = new UserRepresentation();
             userRepresentation.setEmail(request.email());

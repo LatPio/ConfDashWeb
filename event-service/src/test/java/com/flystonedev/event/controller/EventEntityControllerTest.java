@@ -20,8 +20,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.annotation.DirtiesContext;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import java.util.Optional;
-
 import static io.restassured.RestAssured.given;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
@@ -45,13 +43,11 @@ class EventEntityControllerTest extends KeycloakTestContainers implements Sample
     @BeforeEach
     void setUp(){
         eventTypeRepository.save(getSampleOfEventType());
-//        eventEntityRepository.save(getSampleOfEventEntity());
     }
 
     @Test
     @Order(2)
     void registerEvent() {
-//        eventTypeRepository.save(getSampleOfEventType());
 
         when(abstractClient.abstractOutResponse(anyInt())).thenReturn(AbstractOutResponse.builder().id(1).abstractTitle("Abstract").build());
         when(localizationClient.localizationOutResponse(anyInt())).thenReturn(LocalizationOutResponse.builder().id(1).room("Room 1").build());

@@ -7,7 +7,6 @@ public class ErrorWrapper extends RuntimeException {
         super(message);
         this.code = code;
     }
-
     public Long getCode() {
         return code;
     }

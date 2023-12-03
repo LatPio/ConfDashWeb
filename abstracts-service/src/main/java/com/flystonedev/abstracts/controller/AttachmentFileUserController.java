@@ -51,7 +51,6 @@ public class AttachmentFileUserController {
     @RolesAllowed({"USER"})
     @GetMapping("/file/{id}")
     public ResponseEntity<byte[]> download(@PathVariable Integer id){
-//todo modifiable/accessible only by user owner
         AttachmentFileDTO attachmentFileDTO = get(id).getBody();
 
         return ResponseEntity.status(HttpStatus.OK)
@@ -79,7 +78,6 @@ public class AttachmentFileUserController {
                     );
                 }
         ).collect(Collectors.toList());
-//todo modifi for simple view
         return ResponseEntity.status(HttpStatus.OK).body(files);
     }
 
@@ -111,6 +109,4 @@ public class AttachmentFileUserController {
         return ResponseEntity.status(HttpStatus.OK).body(Arrays.stream(FileRole.values()).toList());
     }
 
-    //todo modifiable/accessible only by user owner
-    //todo block delete after  accepted value true
 }
