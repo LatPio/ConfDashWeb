@@ -5,6 +5,7 @@ import {adminGuard} from "./core/guards/admin.guard";
 import {isAuthenticatedGuard} from "./core/guards/is-authenticated.guard";
 import {adminMatchGuard} from "./core/guards/admin-match.guard";
 import {userMatchGuard} from "./core/guards/user-match.guard";
+import {userRedirectGuard} from "./core/guards/user-redirect.guard";
 
 const routes: Routes = [
   { path: 'admin',

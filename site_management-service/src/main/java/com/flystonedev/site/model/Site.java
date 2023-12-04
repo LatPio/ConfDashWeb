@@ -42,7 +42,4 @@ public class Site {
     @Column(name = "Update_Date")
     private Instant updatedAt;
 
-
-
-
 }

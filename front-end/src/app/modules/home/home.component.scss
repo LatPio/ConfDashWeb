@@ -1,0 +1,14 @@
+.box{
+  position: absolute;
+  margin: 20px;
+  left:10%;
+  right: 10%;
+  top:5%;
+  max-width: 80%;
+}
+.flex-container{
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  flex-direction: row;
+}

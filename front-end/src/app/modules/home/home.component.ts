@@ -32,7 +32,7 @@ export class HomeComponent {
 
   login(){
     this.authService.login();
-    // this.router.navigateByUrl('/admin').then();
+
   }
 
   admin(){
@@ -47,7 +47,6 @@ export class HomeComponent {
 
   logout(){
     this.authService.logout();
-    // this.oauthService.revokeTokenAndLogout().then();
 
   }
   get isAdminFromToken(){
@@ -56,16 +55,7 @@ export class HomeComponent {
   get isUserFromToken(){
     return this.authService.tokenClaimsContains('USER');
   }
-  // get isAdmin(){
-  //   if(this.authService.identityClaims['realm_access']['roles'].includes('ADMIN')){
-  //
-  //     return this.authService.identityClaims['realm_access']['roles'].includes('ADMIN')
-  //   }
-  //   return null
-  // }
-  // get isUser(){
-  //   return this.authService.identityClaims['realm_access']['roles'].includes('USER')
-  // }
+
   get hasValidToken() { return this.authService.hasValidToken(); }
   get accessToken() { return this.authService.accessToken; }
   get refreshToken() { return this.authService.refreshToken; }
