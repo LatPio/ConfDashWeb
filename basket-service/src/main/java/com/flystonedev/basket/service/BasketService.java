@@ -8,7 +8,7 @@ import com.flystonedev.basket.exeption.BookingEditionBlockedException;
 import com.flystonedev.basket.mapper.BasketItemMapper;
 import com.flystonedev.basket.model.BasketItem;
 import com.flystonedev.basket.repository.BasketRepository;
-import com.flystonedev.event.DTO.EventEntityDTO;
+import com.flystonedev.basket.DTO.EventDTOs.EventEntityDTO;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -1,6 +1,6 @@
 package com.flystonedev.event.clients;
 
-import com.flystonedev.abstracts.DTO.AbstractOutResponse;
+import com.flystonedev.event.DTO.AbstractDTOs.AbstractOutResponse;
 import com.flystonedev.event.exeption.ClientCallException;
 import com.flystonedev.event.exeption.config.GlobalErrorCode;
 import org.springframework.beans.factory.annotation.Value;

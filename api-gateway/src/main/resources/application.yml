@@ -76,7 +76,7 @@ spring:
             provider: keycloak-provider
             scope: openid
             client-id: spring-cloud-client
-            client-secret: AJyqXK1ifepxg44L3MgNqxfc7gi93yed
+            client-secret: 4F7tSNbGYBIvAnNPSESeBjxYHO2Grvch
             authorization-grant-type: authorization_code
             redirect-uri: http://localhost:8080/login/oauth2/code/keycloak
 
@@ -93,4 +93,7 @@ management:
   tracing:
     sampling:
       probability: 1.0
-
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://localhost:8761/eureka/

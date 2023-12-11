@@ -1,7 +1,7 @@
 package com.flystonedev.abstracts.clients;
 
 import com.flystonedev.abstracts.config.JwtConverter;
-import com.flystonedev.customer.DTO.CustomerDTO;
+import com.flystonedev.abstracts.DTO.customerServiceDTOs.CustomerDTO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;

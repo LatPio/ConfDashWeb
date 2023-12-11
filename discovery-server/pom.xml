@@ -17,6 +17,8 @@
         <spring-cloud.version>2022.0.3</spring-cloud.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <start-class>com.flystonedev.discoveryserver.DiscoveryServerApplication</start-class>
+
     </properties>
 
     <dependencies>
@@ -45,6 +47,27 @@
 
 
     </dependencies>
+
+    <build>
+        <finalName>${project.artifactId}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>com.flystonedev.discoveryserver.DiscoveryServerApplication</mainClass>
+                    <layout>JAR</layout>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
 
 </project>

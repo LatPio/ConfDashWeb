@@ -47,7 +47,6 @@ public class SecurityConfig {
         OidcClientInitiatedServerLogoutSuccessHandler oidcLogoutSuccessHandler =
                 new OidcClientInitiatedServerLogoutSuccessHandler(repository);
 
-
         return oidcLogoutSuccessHandler;
     }
 

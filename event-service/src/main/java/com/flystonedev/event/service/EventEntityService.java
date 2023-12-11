@@ -1,6 +1,6 @@
 package com.flystonedev.event.service;
 
-import com.flystonedev.abstracts.DTO.AbstractOutResponse;
+import com.flystonedev.event.DTO.AbstractDTOs.AbstractOutResponse;
 import com.flystonedev.event.DTO.EventEntityDTO;
 import com.flystonedev.event.DTO.StatisticResponse;
 import com.flystonedev.event.clients.AbstractClient;
@@ -13,7 +13,7 @@ import com.flystonedev.event.model.EventEntity;
 import com.flystonedev.event.model.EventType;
 import com.flystonedev.event.repository.EventEntityRepository;
 import com.flystonedev.event.repository.EventTypeRepository;
-import com.flystonedev.localization.DTO.*;
+import com.flystonedev.event.DTO.LocalizationDTOs.*;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.mapstruct.factory.Mappers;

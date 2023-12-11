@@ -1,0 +1,16 @@
+server:
+  port: 8080
+spring:
+  datasource:
+    url: jdbc:postgresql://postgres:5432/abstracts
+    username: confdashweb
+    password: password
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://keycloak:8181/realms/confdashweb/protocol/openid-connect/certs
+eureka:
+  client:
+    service-url:
+      defaultZone: http://discovery-server:8761/eureka/

@@ -2,7 +2,7 @@ package com.flystonedev.event.clients;
 
 import com.flystonedev.event.exeption.ClientCallException;
 import com.flystonedev.event.exeption.config.GlobalErrorCode;
-import com.flystonedev.localization.DTO.*;
+import com.flystonedev.event.DTO.LocalizationDTOs.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.Jwt;

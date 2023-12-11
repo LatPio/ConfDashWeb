@@ -2,7 +2,7 @@ package com.flystonedev.basket.controller;
 
 import com.flystonedev.basket.DTO.BasketDTO;
 import com.flystonedev.basket.service.BasketService;
-import com.flystonedev.event.DTO.EventEntityDTO;
+import com.flystonedev.basket.DTO.EventDTOs.EventEntityDTO;
 import jakarta.annotation.security.RolesAllowed;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

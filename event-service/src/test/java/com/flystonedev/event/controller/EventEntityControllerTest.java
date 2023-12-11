@@ -1,6 +1,10 @@
 package com.flystonedev.event.controller;
 
-import com.flystonedev.abstracts.DTO.AbstractOutResponse;
+import com.flystonedev.event.DTO.AbstractDTOs.AbstractOutResponse;
+import com.flystonedev.event.DTO.LocalizationDTOs.BookingsDTO;
+import com.flystonedev.event.DTO.LocalizationDTOs.BookingsDTOLight;
+import com.flystonedev.event.DTO.LocalizationDTOs.LocalizationOutResponse;
+import com.flystonedev.event.DTO.LocalizationDTOs.LocalizationWithOutMapDTO;
 import com.flystonedev.event.SampleData;
 import com.flystonedev.event.clients.AbstractClient;
 import com.flystonedev.event.clients.LocalizationClient;
@@ -9,10 +13,6 @@ import com.flystonedev.event.exeption.EntityNotFoundException;
 import com.flystonedev.event.repository.EventEntityRepository;
 import com.flystonedev.event.repository.EventTypeRepository;
 import com.flystonedev.event.service.EventEntityService;
-import com.flystonedev.localization.DTO.BookingsDTO;
-import com.flystonedev.localization.DTO.BookingsDTOLight;
-import com.flystonedev.localization.DTO.LocalizationOutResponse;
-import com.flystonedev.localization.DTO.LocalizationWithOutMapDTO;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;

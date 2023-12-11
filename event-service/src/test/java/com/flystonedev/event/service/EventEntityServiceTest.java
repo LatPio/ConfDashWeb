@@ -1,22 +1,21 @@
 package com.flystonedev.event.service;
 
-import com.flystonedev.abstracts.DTO.AbstractOutResponse;
+import com.flystonedev.event.DTO.AbstractDTOs.AbstractOutResponse;
 import com.flystonedev.event.DTO.EventEntityDTO;
+import com.flystonedev.event.DTO.LocalizationDTOs.BookingsDTO;
+import com.flystonedev.event.DTO.LocalizationDTOs.LocalizationOutResponse;
 import com.flystonedev.event.SampleData;
 import com.flystonedev.event.clients.AbstractClient;
 import com.flystonedev.event.clients.LocalizationClient;
-import com.flystonedev.event.mapper.EventEntityMapper;
 import com.flystonedev.event.repository.EventEntityRepository;
 import com.flystonedev.event.repository.EventTypeRepository;
-import com.flystonedev.localization.DTO.BookingsDTO;
-import com.flystonedev.localization.DTO.LocalizationOutResponse;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mapstruct.factory.Mappers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
 
 import java.util.Optional;
 

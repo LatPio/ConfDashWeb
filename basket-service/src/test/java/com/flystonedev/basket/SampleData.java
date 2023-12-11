@@ -2,7 +2,7 @@ package com.flystonedev.basket;
 
 import com.flystonedev.basket.DTO.BasketDTO;
 import com.flystonedev.basket.model.BasketItem;
-import com.flystonedev.event.DTO.EventEntityDTO;
+import com.flystonedev.basket.DTO.EventDTOs.EventEntityDTO;
 
 import java.util.Arrays;
 import java.util.List;

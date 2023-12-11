@@ -1,0 +1,37 @@
+#server.port=8080
+#spring.datasource.url=jdbc:postgresql://postgres:5432/customer
+#spring.datasource.driver-class-name=org.postgresql.Driver
+#spring.datasource.username=confdashweb
+#spring.datasource.password=password
+#spring.security.oauth2.resourceserver.jwt.jwk-set-uri= http://keycloak:8181/realms/confdashweb/protocol/openid-connect/certs
+#app.config.keycloak.server-url= http://keycloak:8181
+#app.config.keycloak.realm= confdashweb
+#app.config.keycloak.client-id = spring-cloud-client
+#app.config.keycloak.client-secret= eIEAsftRLNv8hk9FX1L9OR3jtaSqkIqe
+#eureka.client.service-url.defaultZone=http://discovery-server:8761/eureka/
+
+server:
+  port: 8080
+spring:
+  datasource:
+    url: jdbc:postgresql://postgres:5432/customer
+    username: confdashweb
+    password: password
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://keycloak:8181/realms/confdashweb/protocol/openid-connect/certs
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://discovery-server:8761/eureka/
+
+app:
+  config:
+    keycloak:
+      server-url: http://keycloak:8181
+      realm: confdashweb
+      client-id: spring-cloud-client
+      client-secret: eIEAsftRLNv8hk9FX1L9OR3jtaSqkIqe

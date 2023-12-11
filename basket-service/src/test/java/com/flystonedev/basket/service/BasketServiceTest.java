@@ -1,12 +1,12 @@
 package com.flystonedev.basket.service;
 
 import com.flystonedev.basket.DTO.BasketDTO;
+import com.flystonedev.basket.DTO.EventDTOs.EventEntityDTO;
 import com.flystonedev.basket.SampleData;
 import com.flystonedev.basket.config.JwtConverter;
 import com.flystonedev.basket.mapper.BasketItemMapper;
 import com.flystonedev.basket.model.BasketItem;
 import com.flystonedev.basket.repository.BasketRepository;
-import com.flystonedev.event.DTO.EventEntityDTO;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mapstruct.factory.Mappers;
@@ -18,9 +18,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 @ExtendWith(MockitoExtension.class)
 class BasketServiceTest implements SampleData {

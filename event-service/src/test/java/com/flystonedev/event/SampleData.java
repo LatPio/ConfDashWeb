@@ -2,12 +2,12 @@ package com.flystonedev.event;
 
 import com.flystonedev.event.DTO.EventEntityDTO;
 import com.flystonedev.event.DTO.EventTypeDTO;
+import com.flystonedev.event.DTO.LocalizationDTOs.BookingsDTO;
+import com.flystonedev.event.DTO.LocalizationDTOs.BookingsDTOLight;
+import com.flystonedev.event.DTO.LocalizationDTOs.LocalizationDTO;
+import com.flystonedev.event.DTO.LocalizationDTOs.LocalizationWithOutMapDTO;
 import com.flystonedev.event.model.EventEntity;
 import com.flystonedev.event.model.EventType;
-import com.flystonedev.localization.DTO.BookingsDTO;
-import com.flystonedev.localization.DTO.BookingsDTOLight;
-import com.flystonedev.localization.DTO.LocalizationDTO;
-import com.flystonedev.localization.DTO.LocalizationWithOutMapDTO;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

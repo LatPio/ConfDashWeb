@@ -24,11 +24,6 @@ export class HomeComponent {
 
   }
 
-  // private configure(){
-  //   this.oauthService.configure(authConfig);
-  //   this.oauthService.loadDiscoveryDocumentAndLogin().then();
-  // this.oauthService.setupAutomaticSilentRefresh();
-  // }
 
   login(){
     this.authService.login();

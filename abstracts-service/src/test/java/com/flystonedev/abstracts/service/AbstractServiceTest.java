@@ -11,7 +11,7 @@ import com.flystonedev.abstracts.mapper.AbstractSimpleMapper;
 import com.flystonedev.abstracts.model.AbstractsEntity;
 import com.flystonedev.abstracts.repository.AbstractRepository;
 import com.flystonedev.abstracts.repository.AttachmentFileRepository;
-import com.flystonedev.customer.DTO.CustomerDTO;
+import com.flystonedev.abstracts.DTO.customerServiceDTOs.CustomerDTO;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mapstruct.factory.Mappers;

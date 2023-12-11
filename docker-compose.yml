@@ -4,16 +4,20 @@ services:
     container_name: postgres
     image: postgres
     environment:
-      POSTGRES_DB: keycloak
+#      POSTGRES_MULTIPLE_DATABASES: first, second
+#      POSTGRES_DB: keycloak
       POSTGRES_USER: confdashweb
       POSTGRES_PASSWORD: password
-      PGDATA: /data/postgres
+#      PGDATA: /data/postgres
     volumes:
-      - postgres:/data/postgres
+#      - docker_postgres_init.sql
+      - ./docker_postgres_init.sql:/docker-entrypoint-initdb.d/docker_postgres_init.sql
+      - ./pgdata:/var/lib/postgresql/data
     ports:
       - "5432:5432"
-    networks:
-      - postgres
+#    networks:
+#      - postgres
+#    restart: unless-stopped
     restart: unless-stopped
   pgadmin:
     container_name: pgadmin
@@ -23,18 +27,17 @@ services:
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
       PGADMIN_CONFIG_SERVER_MODE: 'False'
     volumes:
-      - pgadmin:/var/lib/pgadmin
+      - ./pgadmin:/var/lib/pgadmin
     ports:
       - "5050:80"
-    networks:
-      - postgres
+#    networks:
+#      - postgres
     restart: unless-stopped
   ## Keycloack
   keycloak:
     container_name: keycloak
     image: quay.io/keycloak/keycloak:21.1.1
     command: [ "start-dev", "--import-realm" ]
-#    command: [ "start-dev" ]
     environment:
       DB_VENDOR: POSTGRES
       DB_ADDR: postgres
@@ -50,22 +53,149 @@ services:
       - ./realms/:/opt/keycloak/data/import/
     depends_on:
       - postgres
-    networks:
-      - postgres
+#    networks:
+#      - postgres
 
   ## Zipkin
   zipkin:
     image: openzipkin/zipkin
     container_name: zipkin
-    restart: unless-stopped
     ports:
       - "9411:9411"
+
+  ##Discovery-Server
+  discovery-server:
+    image: piolat/discovery-server:latest
+    container_name: discovery-server
+    pull_policy: always
+    ports:
+      - "8761:8761"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    depends_on:
+      - zipkin
+  ##Api-Gateway
+  api-gateway:
+    image: piolat/api-gateway:latest
+    container_name: api-gateway
+    pull_policy: always
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY=TRACE
+    depends_on:
+      - zipkin
+      - discovery-server
+      - keycloak
+
+  ##Abstract-Server
+  abstract-service:
+    image: piolat/abstracts-service:latest
+    container_name: abstracts-service
+    pull_policy: always
+    restart: unless-stopped
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+#      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/abstracts
+    depends_on:
+      - api-gateway
+      - discovery-server
+      - keycloak
+      - postgres
+
+#  postgres-abstracts:
+#    container_name: postgresabstracts
+#    image: postgres
+#    environment:
+#      POSTGRES_DB: abstracts
+#      POSTGRES_USER: confdashweb
+#      POSTGRES_PASSWORD: password
+#      PGDATA: /data/postgres-abstracts
+#    volumes:
+#      - ./postgres-abstracts:/var/lib/postgresql/data
+#
+#    ports:
+#      - "5433:5432"
+##    networks:
+##      - postgres
+#    restart: unless-stopped
+
+  ##Basket-Server
+  basket-service:
+    image: piolat/basket-service:latest
+    container_name: basket-service
+    pull_policy: always
+    restart: unless-stopped
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+#      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/basket
+    depends_on:
+      - api-gateway
+      - discovery-server
+      - keycloak
+      - postgres
+  ##Customer-Server
+  customer-service:
+    image: piolat/customer-service:latest
+    container_name: customer-service
+    pull_policy: always
+    restart: unless-stopped
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+#      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/customer
+    depends_on:
+      - api-gateway
+      - discovery-server
+      - keycloak
+      - postgres
+  ##Event-Server
+  event-service:
+    image: piolat/event-service:latest
+    container_name: event-service
+    pull_policy: always
+    restart: unless-stopped
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    depends_on:
+      - api-gateway
+      - discovery-server
+      - keycloak
+      - postgres
+  ##Localization-Server
+  localization-service:
+    image: piolat/localization-service:latest
+    container_name: localization-service
+    pull_policy: always
+    restart: unless-stopped
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    depends_on:
+      - api-gateway
+      - discovery-server
+      - keycloak
+      - postgres
+  ##Site-Server
+
+  site-service:
+    image: piolat/site_management-service:latest
+    container_name: site-service
+    pull_policy: always
+    restart: unless-stopped
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    depends_on:
+      - api-gateway
+      - discovery-server
+      - keycloak
+      - postgres
 
 
 networks:
   postgres:
     driver: bridge
 
-volumes:
-  postgres:
-  pgadmin:
+#volumes:
+#  postgres:
+#  pgadmin:
