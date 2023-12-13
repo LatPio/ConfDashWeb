@@ -4,20 +4,14 @@ services:
     container_name: postgres
     image: postgres
     environment:
-#      POSTGRES_MULTIPLE_DATABASES: first, second
-#      POSTGRES_DB: keycloak
       POSTGRES_USER: confdashweb
       POSTGRES_PASSWORD: password
-#      PGDATA: /data/postgres
     volumes:
-#      - docker_postgres_init.sql
       - ./docker_postgres_init.sql:/docker-entrypoint-initdb.d/docker_postgres_init.sql
       - ./pgdata:/var/lib/postgresql/data
     ports:
       - "5432:5432"
-#    networks:
-#      - postgres
-#    restart: unless-stopped
+
     restart: unless-stopped
   pgadmin:
     container_name: pgadmin
@@ -30,8 +24,7 @@ services:
       - ./pgadmin:/var/lib/pgadmin
     ports:
       - "5050:80"
-#    networks:
-#      - postgres
+
     restart: unless-stopped
   ## Keycloack
   keycloak:
@@ -53,8 +46,7 @@ services:
       - ./realms/:/opt/keycloak/data/import/
     depends_on:
       - postgres
-#    networks:
-#      - postgres
+
 
   ## Zipkin
   zipkin:
@@ -98,29 +90,12 @@ services:
     restart: unless-stopped
     environment:
       - SPRING_PROFILES_ACTIVE=docker
-#      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/abstracts
     depends_on:
       - api-gateway
       - discovery-server
       - keycloak
       - postgres
 
-#  postgres-abstracts:
-#    container_name: postgresabstracts
-#    image: postgres
-#    environment:
-#      POSTGRES_DB: abstracts
-#      POSTGRES_USER: confdashweb
-#      POSTGRES_PASSWORD: password
-#      PGDATA: /data/postgres-abstracts
-#    volumes:
-#      - ./postgres-abstracts:/var/lib/postgresql/data
-#
-#    ports:
-#      - "5433:5432"
-##    networks:
-##      - postgres
-#    restart: unless-stopped
 
   ##Basket-Server
   basket-service:
@@ -130,7 +105,6 @@ services:
     restart: unless-stopped
     environment:
       - SPRING_PROFILES_ACTIVE=docker
-#      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/basket
     depends_on:
       - api-gateway
       - discovery-server
@@ -144,7 +118,6 @@ services:
     restart: unless-stopped
     environment:
       - SPRING_PROFILES_ACTIVE=docker
-#      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/customer
     depends_on:
       - api-gateway
       - discovery-server
@@ -196,6 +169,3 @@ networks:
   postgres:
     driver: bridge
 
-#volumes:
-#  postgres:
-#  pgadmin:

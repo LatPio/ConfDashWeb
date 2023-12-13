@@ -3,6 +3,18 @@ server:
 
 
 spring:
+  cloud:
+    gateway:
+      default-filters:
+        - TokenRelay
+        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+      globalcors:
+        add-to-simple-url-handler-mapping: true
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: '*'
+            allowedMethods: '*'
+            allowedHeaders: '*'
   security:
     oauth2:
       resourceserver:
@@ -18,7 +30,7 @@ spring:
             provider: keycloak-provider
             scope: openid
             client-id: spring-cloud-client
-            client-secret: 4F7tSNbGYBIvAnNPSESeBjxYHO2Grvch
+            client-secret: LBuOYJQBIr0h0OZtiStHCYvzOa3lDmU7
             authorization-grant-type: authorization_code
             redirect-uri: http://keycloak:8080/login/oauth2/code/keycloak
 eureka:
