@@ -71,7 +71,7 @@ import { AbstractAdminAcceptedListComponent } from './abstract-admin-accepted-li
         SharedModule,
         MatSelectModule,
         MatCardModule,
-        CustomerAdminModule,
+        CustomerAdminModule
 
 
 

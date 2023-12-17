@@ -19,8 +19,8 @@ public class SecurityConfig {
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity serverHttpSecurity, ServerLogoutSuccessHandler handler){
 
         serverHttpSecurity
-                .cors()
-                .and()
+//                .cors()
+//                .and()
                 .csrf()
                 .disable()
                 .authorizeExchange(
@@ -50,4 +50,13 @@ public class SecurityConfig {
         return oidcLogoutSuccessHandler;
     }
 
+//    @Bean
+//    CorsConfigurationSource corsConfigurationSource() {
+//        CorsConfiguration configuration = new CorsConfiguration();
+//        configuration.setAllowedOrigins(Arrays.asList("*"));
+//        configuration.setAllowedMethods(Arrays.asList("GET","POST"));
+//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//        source.registerCorsConfiguration("/**", configuration);
+//        return source;
+//    }
 }

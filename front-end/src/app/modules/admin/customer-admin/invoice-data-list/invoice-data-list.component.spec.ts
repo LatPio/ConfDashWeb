@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { InvoiceDataListComponent } from './Invoice-data-list.component';
+import { InvoiceDataListComponent } from './invoice-data-list.component';
 
 describe('DepartmentListComponent', () => {
   let component: InvoiceDataListComponent;

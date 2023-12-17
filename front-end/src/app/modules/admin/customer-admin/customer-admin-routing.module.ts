@@ -4,7 +4,7 @@ import {CustomerAdminComponent} from "./customer-admin.component";
 import {CustomersListComponent} from "./customers-list/customers-list.component";
 import {CustomerUpdateComponent} from "./customer-update/customer-update.component";
 import {CustomersViewComponent} from "./customers-view/customers-view.component";
-import {InvoiceDataListComponent} from "./invoice-data-list/Invoice-data-list.component";
+import {InvoiceDataListComponent} from "./invoice-data-list/invoice-data-list.component";
 import {InvoiceDataAddComponent} from "./invoice-data-add/invoice-data-add.component";
 import {AffiliationCorrectionComponent} from "./affiliation-correction/affiliation-correction.component";
 import {CustomerStatsComponent} from "./customer-stats/customer-stats.component";

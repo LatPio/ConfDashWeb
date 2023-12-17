@@ -1,11 +1,9 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {InvoiceDataService} from "../../../../core/service/customers/invoice-data.service";
 import {MatTableDataSource} from "@angular/material/table";
-import {CustomerAdminDTOModel} from "../../../../core/service/customers/models/CustomerAdminDTO-model";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 import {InvoiceDataDTOModel} from "../../../../core/service/customers/models/InvoiceDataDTOModel";
-import {InvoiceDataAddComponent} from "../invoice-data-add/invoice-data-add.component";
 
 @Component({
   selector: 'app-invoice-data-list',

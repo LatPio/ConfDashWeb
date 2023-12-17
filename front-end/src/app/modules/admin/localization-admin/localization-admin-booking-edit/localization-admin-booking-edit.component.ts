@@ -7,9 +7,9 @@ import {Location} from "@angular/common";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {SnackbarErrorComponent} from "../../../shared/snackbar-error/snackbar-error.component";
 import {SnackbarMessageComponent} from "../../../shared/snackbar-message/snackbar-message.component";
-import * as _moment from "moment/moment";
+// import * as _moment from "moment/moment";
 import {ActivatedRoute} from "@angular/router";
-const moment = _moment;
+// const moment = _moment;
 @Component({
   selector: 'app-localization-admin-booking-edit',
   templateUrl: './localization-admin-booking-edit.component.html',

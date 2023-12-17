@@ -54,6 +54,15 @@ services:
     container_name: zipkin
     ports:
       - "9411:9411"
+  ##FrontEnd-Angular-Server
+  angular-server:
+    image: piolat/frontend-angular:latest
+    container_name: angular-frontend
+    pull_policy: always
+    volumes:
+      - '/app/node_modules'
+    ports:
+      - "4200:4200"
 
   ##Discovery-Server
   discovery-server:

@@ -8,13 +8,14 @@ spring:
       default-filters:
         - TokenRelay
         - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+#        - AddResponseHeader = Access-Control-Allow-Origin, *
       globalcors:
         add-to-simple-url-handler-mapping: true
         cors-configurations:
           '[/**]':
-            allowedOrigins: '*'
-            allowedMethods: '*'
-            allowedHeaders: '*'
+            allowedOrigins: "*"
+            allowedMethods: "*"
+            allowedHeaders: "*"
 
       routes:
         - id: abstracts-service
