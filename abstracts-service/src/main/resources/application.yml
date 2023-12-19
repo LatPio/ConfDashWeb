@@ -22,7 +22,9 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          jwk-set-uri: http://localhost:8181/realms/confdashweb/protocol/openid-connect/certs
+#          jwk-set-uri: http://localhost:8181/realms/confdashweb/protocol/openid-connect/certs
+          issuer-uri: http://localhost:8181/realms/confdashweb
+
   sql:
     init:
       mode: always

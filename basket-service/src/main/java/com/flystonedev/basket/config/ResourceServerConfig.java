@@ -21,7 +21,7 @@ public class ResourceServerConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .cors()
-                .disable()
+                .and()
                 .csrf()
                 .disable()
                 .authorizeHttpRequests(authorize -> authorize

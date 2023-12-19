@@ -7,9 +7,7 @@ spring:
     gateway:
       default-filters:
         - TokenRelay
-        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
-        - AddResponseHeader=Access-Control-Allow-Origin, *
-
+        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin, RETAIN_UNIQUE
       globalcors:
         add-to-simple-url-handler-mapping: true
         cors-configurations:
@@ -17,15 +15,16 @@ spring:
             allowedOrigins: "*"
             allowedMethods: "*"
             allowedHeaders: "*"
+
   security:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://keycloak:8080/realms/confdashweb
+          issuer-uri: http://keycloak:8181/realms/confdashweb
       client:
         provider:
           keycloak-provider:
-            issuer-uri: http://keycloak:8080/realms/confdashweb
+            issuer-uri: http://keycloak:8181/realms/confdashweb
             user-name-attribute: email
         registration:
           keycloak-spring-gateway-client:
@@ -34,7 +33,7 @@ spring:
             client-id: spring-cloud-client
             client-secret: LBuOYJQBIr0h0OZtiStHCYvzOa3lDmU7
             authorization-grant-type: authorization_code
-            redirect-uri: http://keycloak:8080/login/oauth2/code/keycloak
+            redirect-uri: http://keycloak:8181/login/oauth2/code/keycloak
 eureka:
   client:
     service-url:

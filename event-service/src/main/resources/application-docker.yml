@@ -9,7 +9,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          jwk-set-uri: http://keycloak:8080/realms/confdashweb/protocol/openid-connect/certs
+          issuer-uri: http://keycloak:8181/realms/confdashweb
 eureka:
   client:
     service-url:

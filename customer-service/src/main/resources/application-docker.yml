@@ -21,7 +21,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          jwk-set-uri: http://keycloak:8080/realms/confdashweb/protocol/openid-connect/certs
+          issuer-uri: http://keycloak:8181/realms/confdashweb/
 
 eureka:
   client:
@@ -31,7 +31,7 @@ eureka:
 app:
   config:
     keycloak:
-      server-url: http://keycloak:8080
+      server-url: http://keycloak:8181
       realm: confdashweb
       client-id: spring-cloud-client
       client-secret: LBuOYJQBIr0h0OZtiStHCYvzOa3lDmU7
