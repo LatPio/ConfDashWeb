@@ -20,11 +20,7 @@ public class ResourceServerConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .cors()
-                .and()
-                .csrf()
-                .disable()
-                .authorizeHttpRequests(authorize -> authorize
+                   .authorizeHttpRequests(authorize -> authorize
                         .anyRequest().authenticated()
                 )
                 .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)

@@ -30,7 +30,7 @@ services:
   keycloak:
     container_name: keycloak
     image: quay.io/keycloak/keycloak:21.1.1
-    command: [ "start-dev", "--import-realm", "--http-port=8181"   ]
+    command: [ "start-dev", "--import-realm"  ]
 #    command: [ "start-dev", "--import-realm", "--http-port=8181" ,"--hostname=keycloak" ,"--hostname-strict-backchannel=false","--hostname-admin=keycloak" ]
 
     environment:
@@ -41,8 +41,11 @@ services:
       DB_PASSWORD: password
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
+#      KC_HOSTNAME: keycloak
+#      KC_HOSTNAME_ADMIN_URL: http://localhost:8181
+#      KC_HOSTNAME_STRICT_BACKCHANNEL: true
     ports:
-      - "8181:8181"
+      - "8181:8080"
     restart: unless-stopped
     volumes:
       - ./realms/:/opt/keycloak/data/import/

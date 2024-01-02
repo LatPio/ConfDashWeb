@@ -19,8 +19,7 @@ public class ResourceServerConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .csrf()
-                .disable()
+
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/api/v1/user/customer/new").permitAll()
                         .anyRequest().authenticated()
