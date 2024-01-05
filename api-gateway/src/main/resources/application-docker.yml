@@ -1,7 +1,6 @@
 server:
   port: 8080
 
-
 spring:
   cloud:
     gateway:
@@ -9,7 +8,6 @@ spring:
         - TokenRelay
         - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
         - AddResponseHeader=Access-Control-Allow-Origin, *
-
       globalcors:
         add-to-simple-url-handler-mapping: true
         cors-configurations:
@@ -17,6 +15,48 @@ spring:
             allowedOrigins: "*"
             allowedMethods: "*"
             allowedHeaders: "*"
+
+      routes:
+        - id: abstracts-service
+          uri: lb://abstracts-service
+          predicates:
+            - Path=/api/v1/user/abstracts, /api/v1/user/abstracts/list,/api/v1/user/abstracts/accepted, /api/v1/admin/abstracts/stats, /api/v1/user/abstracts/listAccepted, /api/v1/admin/abstracts, /api/v1/admin/abstracts/list, /api/v1/admin/abstracts/approved,/api/v1/admin/abstracts/approved/light-list, /api/v1/user/attachment_file, /api/v1/user/attachment_file/**, /api/v1/admin/attachment_file, /api/v1/admin/attachment_file/file, /api/v1/admin/attachment_file/file/**, /api/v1/admin/attachment_file/**, /api/v1/admin/abstracts/principal, /api/v1/admin/abstracts/block, /api/v1/admin/abstracts/simple
+
+        - id: event-service
+          uri: lb://event-service
+          predicates:
+            - Path=/api/v1/event, /api/v1/event/**, /api/v1/event/list/**, /api/v1/event-type, /api/v1/event-type/**, /api/v1/event/user-list
+
+        - id: customer-service
+          uri: lb://customer-service
+          predicates:
+            - Path=/api/v1/user/customer, /api/v1/user/customer/**,/api/v1/user/customer/new, /api/v1/admin/customer, /api/v1/admin/customer/**, /api/v1/invoice, /api/v1/invoice/**, /api/v1/user/info_links, /api/v1/user/info_links/**, /api/v1/admin/info_links, /api/v1/admin/info_links/**, /api/v1/admin/profile_photo, /api/v1/admin/profile_photo/**, /api/v1/user/profile_photo, /api/v1/user/profile_photo/**
+
+        - id: localization-service
+          uri: lb://localization-service
+          predicates:
+            - Path= /api/v1/localization, /api/v1/localization/**, /api/v1/localization/list, /api/v1/localization/simple-list, /api/v1/booking, /api/v1/booking/**, /api/v1/mapImage, /api/v1/mapImage/list, /api/v1/mapImage/simple-list, /api/v1/mapImage/rooms, /api/v1/localization/stats,
+        - id: site-management-service
+          uri: lb://site-management-service
+          predicates:
+            - Path=/api/v1/files, /api/v1/files/**, /api/v1/site, /api/v1/site/**
+
+        - id: basket-service
+          uri: lb://basket-service
+          predicates:
+            - Path=/api/v1/user/basket, /api/v1/user/basket/**, /api/v1/user/basket/list, /api/v1/admin/basket, /api/v1/admin/basket/many, /api/v1/admin/basket/**, /api/v1/admin/basket/list
+
+        - id: discovery-server
+          uri: http://localhost:8761
+          predicates:
+            - Path=/eureka/web
+          filters:
+            - SetPath=/
+
+        - id: discovery-serve-static
+          uri: http://localhost:8761
+          predicates:
+            - Path=/eureka/**
 
   security:
     oauth2:

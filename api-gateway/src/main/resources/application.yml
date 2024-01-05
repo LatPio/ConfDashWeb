@@ -59,8 +59,6 @@ spring:
           predicates:
             - Path=/eureka/**
 
-
-
   security:
     oauth2:
       resourceserver:
