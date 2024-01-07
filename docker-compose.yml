@@ -3,7 +3,7 @@ services:
   postgres:
     container_name: postgres
     image: postgres
-    network_mode: host
+#    network_mode: host
     environment:
       POSTGRES_USER: confdashweb
       POSTGRES_PASSWORD: password
@@ -16,7 +16,7 @@ services:
     restart: unless-stopped
   pgadmin:
     container_name: pgadmin
-    network_mode: host
+#    network_mode: host
     image: dpage/pgadmin4
     environment:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
@@ -31,7 +31,8 @@ services:
   ## Keycloack
   keycloak:
     container_name: keycloak
-    network_mode: host
+    hostname: keycloak
+#    network_mode: host
     image: quay.io/keycloak/keycloak:21.1.1
     command: [ "start-dev", "--import-realm"  ]
 #    command: [ "start-dev", "--import-realm", "--http-port=8181" ,"--hostname=keycloak" ,"--hostname-strict-backchannel=false","--hostname-admin=keycloak" ]
@@ -44,7 +45,7 @@ services:
       DB_PASSWORD: password
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
-#      KC_HOSTNAME: keycloak
+#      KC_HOSTNAME: localhost
 #      KC_HOSTNAME_ADMIN_URL: http://localhost:8181
 #      KC_HOSTNAME_STRICT_BACKCHANNEL: true
     ports:
@@ -59,14 +60,14 @@ services:
   ## Zipkin
   zipkin:
     image: openzipkin/zipkin
-    network_mode: host
+#    network_mode: host
     container_name: zipkin
     ports:
       - "9411:9411"
   ##FrontEnd-Angular-Server
   angular-server:
     image: piolat/frontend-angular:latest
-    network_mode: host
+#    network_mode: host
     container_name: angular-frontend
     pull_policy: always
     volumes:
@@ -76,7 +77,7 @@ services:
 
   ##Discovery-Server
   discovery-server:
-    network_mode: host
+#    network_mode: host
     image: piolat/discovery-server:latest
     container_name: discovery-server
     pull_policy: always
@@ -88,7 +89,7 @@ services:
       - zipkin
   ##Api-Gateway
   api-gateway:
-    network_mode: host
+#    network_mode: host
     image: piolat/api-gateway:latest
     container_name: api-gateway
     pull_policy: always
@@ -105,7 +106,7 @@ services:
 
   ##Abstract-Server
   abstract-service:
-    network_mode: host
+#    network_mode: host
     image: piolat/abstracts-service:latest
     container_name: abstracts-service
     pull_policy: always
@@ -122,7 +123,7 @@ services:
 
   ##Basket-Server
   basket-service:
-    network_mode: host
+#    network_mode: host
     image: piolat/basket-service:latest
     container_name: basket-service
     pull_policy: always
@@ -136,7 +137,7 @@ services:
       - postgres
   ##Customer-Server
   customer-service:
-    network_mode: host
+#    network_mode: host
     image: piolat/customer-service:latest
     container_name: customer-service
     pull_policy: always
@@ -150,7 +151,7 @@ services:
       - postgres
   ##Event-Server
   event-service:
-    network_mode: host
+#    network_mode: host
     image: piolat/event-service:latest
     container_name: event-service
     pull_policy: always
@@ -164,7 +165,7 @@ services:
       - postgres
   ##Localization-Server
   localization-service:
-    network_mode: host
+#    network_mode: host
     image: piolat/localization-service:latest
     container_name: localization-service
     pull_policy: always
@@ -179,7 +180,7 @@ services:
   ##Site-Server
 
   site-service:
-    network_mode: host
+#    network_mode: host
     image: piolat/site_management-service:latest
     container_name: site-service
     pull_policy: always
