@@ -29,7 +29,6 @@ public class ResourceServerConfig {
                 .jwt(jwtConfigurer -> jwtConfigurer.jwtAuthenticationConverter(jwtAuthenticationConverter()))
                 .and()
                 .oauth2ResourceServer().jwt()
-
         ;
         return http.build();
     }

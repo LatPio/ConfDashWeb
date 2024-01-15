@@ -7,9 +7,7 @@ import {Location} from "@angular/common";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {SnackbarErrorComponent} from "../../../shared/snackbar-error/snackbar-error.component";
 import {SnackbarMessageComponent} from "../../../shared/snackbar-message/snackbar-message.component";
-// import * as _moment from "moment/moment";
 import {ActivatedRoute} from "@angular/router";
-// const moment = _moment;
 @Component({
   selector: 'app-localization-admin-booking-edit',
   templateUrl: './localization-admin-booking-edit.component.html',
@@ -113,8 +111,6 @@ export class LocalizationAdminBookingEditComponent implements OnInit{
   }
   updateBooking( ){
 
-    // let data = this.bookingForm;
-    // data.controls['eventTime'].setValue(this.bookingForm.get('eventTime')?.value * 60)
 
     this.bookingService.putBooking(this.bookingForm.getRawValue()).subscribe(
       {

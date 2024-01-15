@@ -8,8 +8,6 @@ import {SnackbarMessageComponent} from "../../../shared/snackbar-message/snackba
 import {MatSnackBar} from "@angular/material/snack-bar";
 import * as _moment from 'moment';
 import {LocalizationLightDTOModel} from "../../../../core/service/localization/models/LocalizationLightDTO-model";
-import {MapImageResponseModel} from "../../../../core/service/localization/models/MapImageResponse-model";
-// tslint:disable-next-line:no-duplicate-imports
 const moment = _moment;
 @Component({
   selector: 'app-localization-admin-booking-add',

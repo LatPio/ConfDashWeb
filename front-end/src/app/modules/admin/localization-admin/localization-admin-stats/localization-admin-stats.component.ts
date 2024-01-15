@@ -1,7 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {
-  StatsLocalizationResponseModel
-} from "../../../../core/service/localization/models/StatsLoclizationResponse-model";
+import {StatsLocalizationResponseModel} from "../../../../core/service/localization/models/StatsLoclizationResponse-model";
 import {LocalizationService} from "../../../../core/service/localization/localization.service";
 
 @Component({

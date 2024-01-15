@@ -34,10 +34,7 @@ export class UserAbstractAddComponent implements OnInit {
         authors: ['', {validators:[Validators.required]}],
         affiliation: ['', {validators:[Validators.required]}],
         presenterId: ['', {validators:[Validators.required]}],
-        // ownerId: ['', {validators:[Validators.required]}],
         authId: ['', {validators:[Validators.required]}],
-        // accepted: [false, {validators:[Validators.required]}],
-        // files: [''],
       }
     )
 

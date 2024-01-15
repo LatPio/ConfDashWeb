@@ -9,7 +9,6 @@ import { EventAdminTypeUpdateComponent } from './event-admin-type-update/event-a
 import { EventAdminUpdateComponent } from './event-admin-update/event-admin-update.component';
 import { EventAdminListComponent } from './event-admin-list/event-admin-list.component';
 import { EventAdminTypeListComponent } from './event-admin-type-list/event-admin-type-list.component';
-import { EventAdminCardComponent } from './event-admin-card/event-admin-card.component';
 import { EventAdminViewComponent } from './event-admin-view/event-admin-view.component';
 import {MatButtonModule} from "@angular/material/button";
 import {MatFormFieldModule} from "@angular/material/form-field";
@@ -41,7 +40,6 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
         EventAdminUpdateComponent,
         EventAdminListComponent,
         EventAdminTypeListComponent,
-        EventAdminCardComponent,
         EventAdminViewComponent,
         EventAdminTypeListLightComponent,
         EventSimpleViewCardComponent,

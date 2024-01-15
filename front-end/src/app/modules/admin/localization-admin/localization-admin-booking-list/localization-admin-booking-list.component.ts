@@ -1,12 +1,9 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {MatTableDataSource} from "@angular/material/table";
-import {LocalizationDTOModel} from "../../../../core/service/localization/models/LocalizationDTOModel";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
-import {LocalizationService} from "../../../../core/service/localization/localization.service";
 import {BookingService} from "../../../../core/service/localization/booking.service";
 import {BookingDTOModel} from "../../../../core/service/localization/models/BookingDTO-model";
-import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-localization-admin-booking-list',
@@ -17,7 +14,6 @@ export class LocalizationAdminBookingListComponent implements OnInit, AfterViewI
 
   displayedColumns: string[] = ['id', 'eventIDData', 'locationConflict','timeConflict', 'dateStart','dateEnd','localization','option'];
   dataSource = new MatTableDataSource<BookingDTOModel>();
-  localizations: Array<BookingDTOModel> = [];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 

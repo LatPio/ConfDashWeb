@@ -9,6 +9,5 @@ import {AbstractDTOModel} from "../../../../core/service/abstracts/models/Abstra
 export class AbstractAnalyticalDataComponent {
 
   @Input() abstract!: AbstractDTOModel;
-  // @Output() refreshEvent = new EventEmitter();
 
 }

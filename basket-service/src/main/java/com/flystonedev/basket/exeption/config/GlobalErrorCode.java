@@ -5,7 +5,6 @@ public class GlobalErrorCode {
 
     public static final Long ERROR_BASKET_BLOCKED_FOR_EDITION = 1001L;
 
-    public static final Long ERROR_BASKET_ACCESS_BLOCKED = 1002L;
 
 
 }

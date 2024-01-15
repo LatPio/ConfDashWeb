@@ -22,7 +22,7 @@ export class DeleteButtonComponent {
         enterAnimationDuration: 0,
         panelClass: 'customStyle',
 
-        data: { item: this.name } // Pass the item's name or details
+        data: { item: this.name }
       }
     );
 

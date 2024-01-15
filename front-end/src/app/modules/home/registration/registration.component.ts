@@ -39,11 +39,9 @@ export class RegistrationComponent implements OnInit{
       {
         next: () => {
           console.log("Registered Successfully")
-          // this.toastr.success('Abstract Created Successfully')
         this.location.back();
         },
         error: err => {
-          // this.toastr.error("Something Gone Wrong")
         }
       }
     )

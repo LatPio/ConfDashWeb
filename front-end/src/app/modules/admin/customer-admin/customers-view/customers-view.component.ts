@@ -14,8 +14,6 @@ export class CustomersViewComponent implements  OnInit{
   customerId: number;
   customerData: CustomerAdminDTOModel;
   customerCardData: CustomerCardDTOModel;
-
-  // image: any = null;
   constructor(
     private customerService: CustomersService,
     private route: ActivatedRoute,
@@ -41,7 +39,6 @@ export class CustomersViewComponent implements  OnInit{
   refreshData(){
     this.getCustomer()
     window.location.reload();
-
   }
 
 }

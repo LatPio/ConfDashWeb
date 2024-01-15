@@ -36,9 +36,6 @@ export class AbstractFileViewComponent {
     }
   }
 
-
-
-
   getFileDownload(id: number){
     this.fileService.getDownloadFile(id).subscribe(
       data=>{
@@ -48,27 +45,10 @@ export class AbstractFileViewComponent {
         anchor.download = this.figure.name
         anchor.href = url;
         anchor.click();
-        // window.open(anchor.href, anchor.download)
       }
     )
   }
 
-
-
-  // getFileOpen(id: number){
-  //   this.fileService.getDownloadFile(id).subscribe(
-  //     data=>{
-  //       const blob = new Blob([data], {
-  //         type: 'application/pdf'
-  //       });
-  //       // const fileURL = URL.createObjectURL(blob);
-  //       // this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
-  //       // const file = new File([data], "abstract" ,{ type: 'application/pdf' })
-  //
-  //       window.open(window.URL.createObjectURL(blob))
-  //     }
-  //   )
-  // }
 
   protected readonly FileRole = FileRole;
 }

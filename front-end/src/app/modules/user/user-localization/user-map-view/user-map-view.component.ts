@@ -22,10 +22,8 @@ export class UserMapViewComponent {
 
   displayedColumns: string[] = ['room', 'option'];
   dataSource = new MatTableDataSource<LocalizationWithOutMapDTOModel>();
-  localizations: Array<LocalizationDTOModel> = [];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  // localizationData: LocalizationWithOutMapDTOModel;
 
   coordinateX:number = 0;
   coordinateY:number = 0;

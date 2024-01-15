@@ -20,7 +20,6 @@ export class AbstractsService {
 
   httpHeaders = new HttpHeaders({'Content-Type': 'application/json'})
 
-
   postAbstractAdmin(abstract: AbstractDTOModel): Observable<AbstractDTOModel>{
     return this.httpClient.post<AbstractDTOModel>(`${this.config.apiEndpoint}api/v1/admin/abstracts`, abstract,
       {headers:this.httpHeaders, responseType: "json"})
@@ -68,9 +67,6 @@ export class AbstractsService {
     return this.httpClient.get<StatsResponseModel>(`${this.config.apiEndpoint}api/v1/admin/abstracts/stats`,
       {headers:this.httpHeaders, responseType: "json"})
   }
-
-
-
 
 
 

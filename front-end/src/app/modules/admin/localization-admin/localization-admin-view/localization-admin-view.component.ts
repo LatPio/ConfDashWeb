@@ -1,4 +1,4 @@
-import {Component, HostBinding, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {LocalizationService} from "../../../../core/service/localization/localization.service";
 import {LocalizationDTOModel} from "../../../../core/service/localization/models/LocalizationDTOModel";
 import {ActivatedRoute} from "@angular/router";

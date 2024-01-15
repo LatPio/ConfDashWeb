@@ -10,7 +10,6 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {SnackbarErrorComponent} from "../../../shared/snackbar-error/snackbar-error.component";
 import {SnackbarMessageComponent} from "../../../shared/snackbar-message/snackbar-message.component";
 
-
 @Component({
   selector: 'app-localization-admin-add',
   templateUrl: './localization-admin-add.component.html',

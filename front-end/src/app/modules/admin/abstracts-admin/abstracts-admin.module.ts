@@ -23,7 +23,6 @@ import {MatRadioModule} from "@angular/material/radio";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {SharedModule} from "../../shared/shared.module";
 import { AbstractAnalyticalDataComponent } from './abstract-analytical-data/abstract-analytical-data.component';
-import { AbstractToProcessComponent } from './abstract-to-process/abstract-to-process.component';
 import { AbstractAttachmentFileAddComponent } from './abstract-attachment-file-add/abstract-attachment-file-add.component';
 import {MatSelectModule} from "@angular/material/select";
 import { AbstractAttachmentFileAddButtonComponent } from './abstract-attachment-file-add-button/abstract-attachment-file-add-button.component';
@@ -41,7 +40,6 @@ import { AbstractAdminAcceptedListComponent } from './abstract-admin-accepted-li
     AbstractAdminAcceptedComponent,
     AbstractAdminToProcessComponent,
     AbstractAnalyticalDataComponent,
-    AbstractToProcessComponent,
     AbstractAttachmentFileAddComponent,
     AbstractAttachmentFileAddButtonComponent,
     AbstractStatisticComponent,

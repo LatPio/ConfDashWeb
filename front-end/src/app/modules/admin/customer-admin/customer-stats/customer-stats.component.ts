@@ -20,7 +20,6 @@ export class CustomerStatsComponent implements OnInit{
     this.getStats()
   }
 
-
   getStats(){
     this.customerService.getCustomersStatsAdmin().subscribe(value => {
       this.customerStats = value;

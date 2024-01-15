@@ -1,8 +1,6 @@
-import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {MapImageResponseModel} from "../../../../core/service/localization/models/MapImageResponse-model";
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
-import {MatSort} from "@angular/material/sort";
 import {LocalizationLightDTOModel} from "../../../../core/service/localization/models/LocalizationLightDTO-model";
 
 @Component({

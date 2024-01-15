@@ -25,7 +25,7 @@ export class AbstractAttachmentFileAddButtonComponent {
         enterAnimationDuration: 0,
         panelClass: 'customStyle',
 
-        data: this.abstract // Pass the item's name or details
+        data: this.abstract
       }
     );
 

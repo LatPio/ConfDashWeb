@@ -48,8 +48,6 @@ export class ProfilePhotoService {
 
     formData.append("file", fileUpload);
 
-    // const jsonData = new Blob([JSON.stringify(attachesFileAdminRequest)], {type: "application/json",});
-    // formData.append("data", jsonData);
 
     return this.httpClient.post<ProfilePhotoDTOModel>(`${this.config.apiEndpoint}api/v1/user/profile_photo?id=${customerId}`, formData);
   }

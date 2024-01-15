@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {CustomersService} from "../../../../core/service/customers/customers.service";
-import {ActivatedRoute, Router} from "@angular/router";
+import { Router} from "@angular/router";
 import {Location} from "@angular/common";
 import {SnackbarErrorComponent} from "../../../shared/snackbar-error/snackbar-error.component";
 import {SnackbarMessageComponent} from "../../../shared/snackbar-message/snackbar-message.component";
@@ -34,10 +34,7 @@ export class UserCustomerProfileEditComponent {
         phoneNumber: ['',{updateOn: 'blur', validators: [Validators.required]}],
         authID: ['',{updateOn: 'blur', validators: [Validators.required]}],
         links: ['',{updateOn: 'blur', validators: [Validators.required]}],
-        // links: this.formBuilder.array([
-        //     this.addLink()
-        //   ]
-        // ),
+
         invoiceData: this.formBuilder.group(
           {
             id: [''],

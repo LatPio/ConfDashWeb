@@ -4,13 +4,8 @@ import { CommonModule } from '@angular/common';
 import { CustomerAdminRoutingModule } from './customer-admin-routing.module';
 import { CustomersListComponent } from './customers-list/customers-list.component';
 import { CustomersViewComponent } from './customers-view/customers-view.component';
-import { CustomerUpdateComponent } from './customer-update/customer-update.component';
 import { InvoiceDataListComponent } from './invoice-data-list/invoice-data-list.component';
-import { DepartmentUpdateComponent } from './invoice-data-update/department-update.component';
 import { InvoiceDataAddComponent } from './invoice-data-add/invoice-data-add.component';
-import { ProfilePhotoAddComponent } from './profile-photo-add/profile-photo-add.component';
-import { ProfilePhotoAddButtonComponent } from './profile-photo-add-button/profile-photo-add-button.component';
-import { AffiliationCorrectionComponent } from './affiliation-correction/affiliation-correction.component';
 import { CustomerStatsComponent } from './customer-stats/customer-stats.component';
 import {MatButtonModule} from "@angular/material/button";
 import {MatFormFieldModule} from "@angular/material/form-field";
@@ -29,13 +24,8 @@ import { CustomerAdminListLightComponent } from './customer-admin-list-light/cus
   declarations: [
     CustomersListComponent,
     CustomersViewComponent,
-    CustomerUpdateComponent,
     InvoiceDataListComponent,
-    DepartmentUpdateComponent,
     InvoiceDataAddComponent,
-    ProfilePhotoAddComponent,
-    ProfilePhotoAddButtonComponent,
-    AffiliationCorrectionComponent,
     CustomerStatsComponent,
     CustomerAdminListLightComponent,
   ],

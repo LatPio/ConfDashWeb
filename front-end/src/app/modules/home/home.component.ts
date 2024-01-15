@@ -17,32 +17,24 @@ export class HomeComponent {
 
   constructor(private authService: AuthService,
               private router: Router) {
-    // this.configure();
     this.isAuthenticated = this.authService.isAuthenticated$;
     this.isDoneLoading = this.authService.isDoneLoading$;
     this.canActivateProtectedRoutes = this.authService.canActivateProtectedRoutes$;
 
   }
 
-
   login(){
     this.authService.login();
-
   }
-
   admin(){
     this.router.navigateByUrl('/admin').then();
-
   }
   user(){
     this.router.navigateByUrl('/user').then();
-
   }
-
 
   logout(){
     this.authService.logout();
-
   }
   get isAdminFromToken(){
     return this.authService.tokenClaimsContains('ADMIN');
@@ -52,8 +44,5 @@ export class HomeComponent {
   }
 
   get hasValidToken() { return this.authService.hasValidToken(); }
-  get accessToken() { return this.authService.accessToken; }
-  get refreshToken() { return this.authService.refreshToken; }
-  get identityClaims() { return this.authService.identityClaims; }
-  get idToken() { return this.authService.idToken; }
+
 }

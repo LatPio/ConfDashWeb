@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AbstractsService} from "../../../../core/service/abstracts/abstracts.service";
 import {AbstractDTOModel} from "../../../../core/service/abstracts/models/AbstractDTO-model";
-import {catchError, Observable, switchMap} from "rxjs";
 import {FileRole} from "../../../../core/service/abstracts/models/FileRole";
 
 @Component({

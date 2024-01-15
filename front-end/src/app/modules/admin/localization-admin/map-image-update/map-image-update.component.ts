@@ -3,7 +3,6 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {MapImageService} from "../../../../core/service/localization/map-image.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Location} from "@angular/common";
-import {MapImageResponseModel} from "../../../../core/service/localization/models/MapImageResponse-model";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {SnackbarErrorComponent} from "../../../shared/snackbar-error/snackbar-error.component";
 import {SnackbarMessageComponent} from "../../../shared/snackbar-message/snackbar-message.component";

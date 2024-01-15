@@ -1,9 +1,7 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {MatTableDataSource} from "@angular/material/table";
-import {EventEntityDTOModel} from "../../../../core/service/event/models/EventEntityDTO-model";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
-import {EventEntityService} from "../../../../core/service/event/event-entity.service";
 import {EventTypeService} from "../../../../core/service/event/event-type.service";
 import {EventTypeDTOModel} from "../../../../core/service/event/models/EventTypeDTO-model";
 import {SnackbarErrorComponent} from "../../../shared/snackbar-error/snackbar-error.component";

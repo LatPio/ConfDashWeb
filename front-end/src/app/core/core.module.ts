@@ -10,6 +10,8 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import { UserMenuComponent } from './navigation/user-menu/user-menu.component';
 import {MatGridListModule} from "@angular/material/grid-list";
+import {authAppInitializerFactory} from "./authentication/auth-app-initalizer.factory";
+import {AuthService} from "./authentication/auth.service";
 
 export function storageFactory(): OAuthStorage {
   return localStorage;
@@ -32,7 +34,9 @@ export function storageFactory(): OAuthStorage {
   exports: [
     NavbarComponent
   ],
-  providers: []
+  providers: [
+    AuthService
+  ]
 })
 export class  CoreModule {
   static forRoot(): ModuleWithProviders<CoreModule> {

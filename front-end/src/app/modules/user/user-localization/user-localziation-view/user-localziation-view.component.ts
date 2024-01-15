@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {LocalizationService} from "../../../../core/service/localization/localization.service";
 import {ActivatedRoute} from "@angular/router";
 import {LocalizationDTOModel} from "../../../../core/service/localization/models/LocalizationDTOModel";
-import {verifyHostBindings} from "@angular/compiler";
 
 @Component({
   selector: 'app-user-localization-view',

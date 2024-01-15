@@ -71,3 +71,6 @@ export class InformationLinksService {
   }
 
 }
+
+export class InformationlinksService {
+}

@@ -4,7 +4,6 @@ export class AbstractLightDTOModel{
   body: string;
   authors: string;
   affiliation: string;
-  presenterId: number;
   ownerId: number;
   authId: string;
   accepted: boolean;

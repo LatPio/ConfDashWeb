@@ -1,9 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {FileRole} from "../../../../core/service/abstracts/models/FileRole";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {AbstractsAttachmentFileService} from "../../../../core/service/abstracts/abstracts-attachment-file.service";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {AbstractDTOModel} from "../../../../core/service/abstracts/models/AbstractDTO-model";
 
 @Component({
   selector: 'app-user-abstract-attach-file',

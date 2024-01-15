@@ -1,12 +1,9 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {BasketService} from "../../../../core/service/booking/basket.service";
 import {MatTableDataSource} from "@angular/material/table";
-import {AbstractDTOModel} from "../../../../core/service/abstracts/models/AbstractDTO-model";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
-import {BookingDTOModel} from "../../../../core/service/localization/models/BookingDTO-model";
 import {BasketDTOModel} from "../../../../core/service/booking/models/basketDTO-model";
-import {verifyHostBindings} from "@angular/compiler";
 
 @Component({
   selector: 'app-user-booking-list',

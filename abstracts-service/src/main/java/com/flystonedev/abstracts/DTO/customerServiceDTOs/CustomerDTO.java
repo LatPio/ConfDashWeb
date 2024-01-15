@@ -1,6 +1,5 @@
 package com.flystonedev.abstracts.DTO.customerServiceDTOs;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

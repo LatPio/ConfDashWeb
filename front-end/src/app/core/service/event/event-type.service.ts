@@ -1,7 +1,6 @@
 import {Inject, Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {APP_CONFIG, AppConfig} from "../../config/app-config/app-config.module";
-import {EventEntityDTOModel} from "./models/EventEntityDTO-model";
 import {Observable} from "rxjs";
 import {EventTypeDTOModel} from "./models/EventTypeDTO-model";
 

@@ -38,6 +38,7 @@ export class UserMenuComponent implements OnInit{
 
   logout(){
     this.authService.logout();
+    this.dialogRef.close(false);
   }
 
   protected readonly close = close;

@@ -1,5 +1,4 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {Form, FormBuilder, FormGroup} from "@angular/forms";
 import {ProfilePhotoService} from "../../../../core/service/customers/profile-photo.service";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {ProfilePhotoDTOModel} from "../../../../core/service/customers/models/ProfilePhotoDTO-model";

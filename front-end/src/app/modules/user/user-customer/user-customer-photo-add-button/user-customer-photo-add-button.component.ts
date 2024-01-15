@@ -1,9 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {CustomerAdminDTOModel} from "../../../../core/service/customers/models/CustomerAdminDTO-model";
 import {MatDialog} from "@angular/material/dialog";
-import {
-  AbstractAttachmentFileAddComponent
-} from "../../../admin/abstracts-admin/abstract-attachment-file-add/abstract-attachment-file-add.component";
 import {UserCustomerPhotoAddComponent} from "../user-customer-photo-add/user-customer-photo-add.component";
 
 @Component({

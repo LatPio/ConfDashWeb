@@ -12,9 +12,7 @@ import {Location} from "@angular/common";
 export class InvoiceDataAddComponent implements OnInit{
 
   invoiceForm!: FormGroup;
-  // institutionList!: Array<InstitutionDTOModel>;
 
-  // selectedInstitution: InstitutionDTOModel;
   constructor(
     private formBuilder: FormBuilder,
     private invoiceDataService: InvoiceDataService,
@@ -47,33 +45,18 @@ export class InvoiceDataAddComponent implements OnInit{
     )
   }
 
-  // getInstitutions(){
-  //   this.institutionService.getInstitutionList().subscribe(value =>
-  //     this.institutionList= value)
-  // }
+
 
   saveAbstract( ){
     this.invoiceDataService.postInvoice(this.invoiceForm.getRawValue()).subscribe(
       {
         next: () => {
 
-          // this.toastr.success('Abstract Created Successfully')
           this.location.back();
         },
         error: err => {
-          // this.toastr.error("Something Gone Wrong")
         }
       }
     )
-
   }
-
-
-
-  // selected($event: InstitutionDTOModel) {
-  //   this.selectedInstitution = $event
-  //   this.departmentForm.get('institution.id')?.setValue(this.selectedInstitution.id);
-  //   this.departmentForm.get('institution.name')?.setValue(this.selectedInstitution.name);
-  //
-  // }
 }

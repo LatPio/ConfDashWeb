@@ -30,8 +30,7 @@ services:
   keycloak:
     container_name: keycloak
     image: quay.io/keycloak/keycloak:21.1.1
-    command: [ "start-dev", "--import-realm"  ]
-#    command: [ "start-dev", "--import-realm", "--http-port=8181" ,"--hostname=keycloak" ,"--hostname-strict-backchannel=false","--hostname-admin=keycloak" ]
+    command: [ "start-dev", "--import-realm", "--http-port=8181"]
 
     environment:
       DB_VENDOR: POSTGRES
@@ -40,12 +39,9 @@ services:
       DB_USER: confdashweb
       DB_PASSWORD: password
       KEYCLOAK_ADMIN: admin
-      KEYCLOAK_ADMIN_PASSWORD: admin
-#      KC_HOSTNAME: keycloak
-#      KC_HOSTNAME_ADMIN_URL: http://localhost:8181
-#      KC_HOSTNAME_STRICT_BACKCHANNEL: true
+
     ports:
-      - "8181:8080"
+      - "8181:8181"
     restart: unless-stopped
     volumes:
       - ./realms/:/opt/keycloak/data/import/
@@ -59,15 +55,16 @@ services:
     container_name: zipkin
     ports:
       - "9411:9411"
-  ##FrontEnd-Angular-Server
+
   angular-server:
-    image: piolat/frontend-angular:latest
+    image: piolat/front-end-app:new
+    hostname: localhost
     container_name: angular-frontend
     pull_policy: always
-    volumes:
-      - '/app/node_modules'
+
     ports:
-      - "4200:8080"
+      - "4200:80"
+
 
   ##Discovery-Server
   discovery-server:
@@ -90,7 +87,6 @@ services:
     restart: unless-stopped
     environment:
       - SPRING_PROFILES_ACTIVE=docker
-#      - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER-URI= http://localhost:8181/realms/confdashweb
     depends_on:
       - zipkin
       - discovery-server

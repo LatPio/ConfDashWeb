@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 
 import { UserBookingRoutingModule } from './user-booking-routing.module';
 import { UserBookingComponent } from './user-booking.component';
-import { UserBookingCalendarComponent } from './user-booking-calendar/user-booking-calendar.component';
 import { UserBookingListComponent } from './user-booking-list/user-booking-list.component';
 import {AbstractsAdminModule} from "../../admin/abstracts-admin/abstracts-admin.module";
 import {MatButtonModule} from "@angular/material/button";
@@ -21,7 +20,6 @@ import { UserBookingEventListComponent } from './user-booking-event-list/user-bo
 @NgModule({
   declarations: [
     UserBookingComponent,
-    UserBookingCalendarComponent,
     UserBookingListComponent,
     UserBookingEventListComponent
   ],

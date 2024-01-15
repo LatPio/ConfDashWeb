@@ -10,8 +10,8 @@ spring:
       resourceserver:
         jwt:
           client-id: spring-cloud-client
-          jwk-set-uri: http://keycloak:8181/realms/confdashweb/protocol/openid-connect/certs
           issuer-uri: http://keycloak:8181/realms/confdashweb
+          jwk-set-uri: http://keycloak:8181/realms/confdashweb/protocol/openid-connect/certs
 eureka:
   client:
     service-url:

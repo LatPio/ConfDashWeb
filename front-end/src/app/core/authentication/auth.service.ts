@@ -29,14 +29,6 @@ export class AuthService {
     private oauthService: OAuthService,
     private router: Router,
   ) {
-    // Useful for debugging:
-    // this.oauthService.events.subscribe(event => {
-    //   if (event instanceof OAuthErrorEvent) {
-    //     console.error('OAuthErrorEvent Object:', event);
-    //   } else {
-    //     console.warn('OAuthEvent Object:', event);
-    //   }
-    // });
 
 
     window.addEventListener('storage', (event) => {
@@ -128,8 +120,10 @@ export class AuthService {
   }
 
   public login(targetUrl?: string) {
-    this.oauthService.initCodeFlow(targetUrl || this.router.url);
+    this.oauthService.initLoginFlow(targetUrl || this.router.url);
+
   }
+
 
   public tokenClaimsContains(claim: string){
     if(this.oauthService.hasValidAccessToken()){
@@ -147,15 +141,11 @@ export class AuthService {
   }
 
 
-  public logout() { this.oauthService.logOut(); }
+  public logout() {
+    this.oauthService.logOut();
+    this.navigateToLoginPage();
+  }
   public refresh() { this.oauthService.silentRefresh(); }
   public hasValidToken() { return this.oauthService.hasValidAccessToken(); }
-
-  // These normally won't be exposed from a service like this, but
-  // for debugging it makes sense.
-  public get accessToken() { return this.oauthService.getAccessToken(); }
-  public get refreshToken() { return this.oauthService.getRefreshToken(); }
   public get identityClaims() { return this.oauthService.getIdentityClaims(); }
-  public get idToken() { return this.oauthService.getIdToken(); }
-  public get logoutUrl() { return this.oauthService.logoutUrl; }
 }

@@ -32,18 +32,7 @@ import {FullCalendarModule} from "@fullcalendar/angular";
     NgxMatDatetimePickerModule,
     NgxMatTimepickerModule,
     FullCalendarModule,
-
-
-    // OAuthModule.forRoot(
-    //   {
-    //     resourceServer: {
-    //       //Interceptor settings this provides bearer token to every call for this url
-    //       allowedUrls: ['http://localhost:8080/'],
-    //       sendAccessToken: true
-    //     }
-    //   }
-    // ),
-        BrowserAnimationsModule
+    BrowserAnimationsModule
   ],
   providers: [
     {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 5000}}

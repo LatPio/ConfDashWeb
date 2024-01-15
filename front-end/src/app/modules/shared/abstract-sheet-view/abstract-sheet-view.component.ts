@@ -3,7 +3,6 @@ import {AbstractDTOModel} from "../../../core/service/abstracts/models/AbstractD
 import {AttachmentFileDTOModel} from "../../../core/service/abstracts/models/AttachmentFileDTO-model";
 import {FileRole} from "../../../core/service/abstracts/models/FileRole";
 import {AbstractsService} from "../../../core/service/abstracts/abstracts.service";
-import {AbstractsAttachmentFileService} from "../../../core/service/abstracts/abstracts-attachment-file.service";
 
 @Component({
   selector: 'app-abstract-sheet-view',
@@ -38,7 +37,6 @@ export class AbstractSheetViewComponent implements OnInit, AfterViewInit{
     this.abstractService.getAbstractUser(this.abstractID).subscribe(value => {
       this.abstract = value
     })
-    // this.getFirstGraphicalAbstract()
   }
   getFirstGraphicalAbstract(){
     let firstGraphAbstract: AttachmentFileDTOModel = this.abstract.files.filter(value => value.fileRole === FileRole.GRAPHICAL_ABSTRACT)[0];

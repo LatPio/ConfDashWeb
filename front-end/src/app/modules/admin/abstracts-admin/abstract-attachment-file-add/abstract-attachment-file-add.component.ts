@@ -1,4 +1,4 @@
-import {Component, Inject, Input, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {AbstractsAttachmentFileService} from "../../../../core/service/abstracts/abstracts-attachment-file.service";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {AbstractDTOModel} from "../../../../core/service/abstracts/models/AbstractDTO-model";
@@ -12,7 +12,6 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 })
 export class AbstractAttachmentFileAddComponent implements OnInit{
 
-  // @Input() abstract!: AbstractDTOModel
 
   fileRole = Object.values(FileRole);
   fileForm!: FormGroup;

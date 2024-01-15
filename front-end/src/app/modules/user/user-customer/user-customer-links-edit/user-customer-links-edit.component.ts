@@ -1,18 +1,13 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {InformationLinksService} from "../../../../core/service/customers/informationlinks.service";
 import {InformationLinksUserDTOModel} from "../../../../core/service/customers/models/InformationLinksUserDTOModel";
-import {CustomerIdDTOModel} from "../../../../core/service/customers/models/CustomerIdDTO-model";
 import {CustomersService} from "../../../../core/service/customers/customers.service";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatSort} from "@angular/material/sort";
 import {MatDialog} from "@angular/material/dialog";
 import {
-  UserAbstractAttachFileComponent
-} from "../../user-abstract/user-abstract-attach-file/user-abstract-attach-file.component";
-import {
   UserCustomerLinksEditDialogComponent
 } from "../user-customer-links-edit-dialog/user-customer-links-edit-dialog.component";
-import {CustomerCardDTOModel} from "../../../../core/service/customers/models/CustomerCardDTO-model";
 import {CustomerAdminDTOModel} from "../../../../core/service/customers/models/CustomerAdminDTO-model";
 
 @Component({
@@ -26,7 +21,6 @@ export class UserCustomerLinksEditComponent implements OnInit{
   dataSource = new MatTableDataSource<InformationLinksUserDTOModel>();
   @ViewChild(MatSort) sort: MatSort;
 
-  informationLinksList: Array<InformationLinksUserDTOModel>;
   customerData!: CustomerAdminDTOModel
   constructor(
     private informationLinkService: InformationLinksService,

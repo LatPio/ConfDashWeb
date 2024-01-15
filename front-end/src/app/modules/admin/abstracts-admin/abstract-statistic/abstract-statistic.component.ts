@@ -22,7 +22,6 @@ export class AbstractStatisticComponent implements OnInit{
     );
   }
 
-
   ngOnInit(): void {
     this.getStats();
   }

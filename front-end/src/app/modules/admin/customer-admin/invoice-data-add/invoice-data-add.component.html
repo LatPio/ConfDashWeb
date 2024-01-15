@@ -1,18 +1,9 @@
 <div class="row">
   <div class="col-4">
-<!--    <app-institution-list-->
-<!--      [institutionList]="institutionList"-->
-<!--      (selectedInstitution)="selected($event)"-->
-<!--      (refresh)="getInstitutions()"-->
-<!--    >-->
 
-<!--    </app-institution-list>-->
   </div>
   <div class="col-8">
-<!--    <div *ngIf="selectedInstitution">-->
-<!--      {{selectedInstitution.name}}-->
 
-<!--    </div>-->
 
     <form [formGroup]="invoiceForm" (ngSubmit)="saveAbstract()">
 
@@ -112,10 +103,7 @@
             Name of Institution is required
           </mat-error>
         </mat-form-field>
-
       </div>
-
-
 
       <div style="padding-top: 20px;">
         <button

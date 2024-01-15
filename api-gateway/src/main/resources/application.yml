@@ -8,7 +8,7 @@ spring:
       default-filters:
         - TokenRelay
         - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
-#        - AddResponseHeader = Access-Control-Allow-Origin, *
+#        - AddResponseHeader=Access-Control-Allow-Origin, *
       globalcors:
         add-to-simple-url-handler-mapping: true
         cors-configurations:
@@ -31,7 +31,7 @@ spring:
         - id: customer-service
           uri: lb://customer-service
           predicates:
-            - Path=/api/v1/user/customer, /api/v1/user/customer/**,/api/v1/user/customer/new, /api/v1/admin/customer, /api/v1/admin/customer/**, /api/v1/invoice, /api/v1/invoice/**, /api/v1/user/info_links, /api/v1/user/info_links/**, /api/v1/admin/info_links, /api/v1/admin/info_links/**, /api/v1/admin/profile_photo, /api/v1/admin/profile_photo/**, /api/v1/user/profile_photo, /api/v1/user/profile_photo/**
+            - Path=/api/v1/user/customer, /api/v1/user/customer/**, /api/v1/user/customer/new, /api/v1/admin/customer, /api/v1/admin/customer/**, /api/v1/invoice, /api/v1/invoice/**, /api/v1/user/info_links, /api/v1/user/info_links/**, /api/v1/admin/info_links, /api/v1/admin/info_links/**, /api/v1/admin/profile_photo, /api/v1/admin/profile_photo/**, /api/v1/user/profile_photo, /api/v1/user/profile_photo/**
 
         - id: localization-service
           uri: lb://localization-service

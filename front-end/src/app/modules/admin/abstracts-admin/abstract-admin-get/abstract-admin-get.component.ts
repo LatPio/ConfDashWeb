@@ -6,7 +6,6 @@ import {MatDialog} from "@angular/material/dialog";
 import {AbstractsAttachmentFileService} from "../../../../core/service/abstracts/abstracts-attachment-file.service";
 import {CustomerCardDTOModel} from "../../../../core/service/customers/models/CustomerCardDTO-model";
 import {CustomersService} from "../../../../core/service/customers/customers.service";
-import {Observable} from "rxjs";
 
 
 @Component({

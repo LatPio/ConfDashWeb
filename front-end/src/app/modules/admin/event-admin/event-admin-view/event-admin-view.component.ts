@@ -21,7 +21,6 @@ export class EventAdminViewComponent implements OnInit{
 
   }
 
-
   ngOnInit(): void {
     this.getEvent();
   }
