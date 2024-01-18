@@ -2,7 +2,8 @@
   [style.width.px]="Number(widthOfCard)"
 >
   <mat-card-header>
-    <img mat-card-avatar src="data:image/jpg;base64,{{image}}"  class="example-header-image" >
+    <img *ngIf="image" mat-card-avatar src="data:image/jpg;base64,{{image}}"  class="example-header-image" >
+    <img *ngIf="image === null" mat-card-avatar src="assets/face.svg"  >
     <mat-card-title>{{abstract.abstractTitle}}</mat-card-title>
     <mat-card-subtitle>{{abstract.authors}}</mat-card-subtitle>
 

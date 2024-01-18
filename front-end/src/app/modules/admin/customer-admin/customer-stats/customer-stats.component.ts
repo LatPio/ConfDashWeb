@@ -9,7 +9,7 @@ import {CustomersService} from "../../../../core/service/customers/customers.ser
 })
 export class CustomerStatsComponent implements OnInit{
 
-  customerStats!: CustomerStatsResponseModel;
+  customerStats: CustomerStatsResponseModel = new CustomerStatsResponseModel();
 
   constructor(
     private customerService: CustomersService

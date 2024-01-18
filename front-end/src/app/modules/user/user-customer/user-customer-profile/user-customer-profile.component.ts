@@ -9,7 +9,7 @@ import {CustomerAdminDTOModel} from "../../../../core/service/customers/models/C
 })
 export class UserCustomerProfileComponent implements OnInit{
 
-  personalInfo: CustomerAdminDTOModel
+  personalInfo: CustomerAdminDTOModel = new CustomerAdminDTOModel();
   constructor(
     private customerService:CustomersService
   ) {

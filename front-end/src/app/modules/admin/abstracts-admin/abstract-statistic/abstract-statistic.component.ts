@@ -11,7 +11,7 @@ import {StatsResponseModel} from "../../../../core/service/abstracts/models/stat
 })
 export class AbstractStatisticComponent implements OnInit{
 
-  abstractStats!: StatsResponseModel;
+  abstractStats: StatsResponseModel = new StatsResponseModel();
   constructor(private abstractService: AbstractsService,
               private matIconRegistry: MatIconRegistry,
               private domSanitizer: DomSanitizer

@@ -21,9 +21,13 @@ export class CustomerCardComponent  implements OnInit{
   }
 
   getCustomer(){
-  this.customerService.getCustomersUserCard(this.customerId).subscribe(value => {
-      this.customerData = value;
-    })
+    if(this.customerData === null){
+      console.log("Geted CustomerData from Card component")
+      this.customerService.getCustomersUserCard(this.customerId).subscribe(value => {
+        this.customerData = value;
+      })
+    }
+
   }
 
   customerView() {
@@ -37,7 +41,7 @@ export class CustomerCardComponent  implements OnInit{
   }
 
   ngOnInit(): void {
-    this.getCustomer()
+    // this.getCustomer()
 
   }
 }

@@ -6,7 +6,7 @@
     Customer:
   </h2>
   <div class="col-10 center-box">
-    <mat-card class="card">
+    <mat-card class="card" *ngIf="customerData">
       <mat-card-header><mat-card-title>{{customerData.degree}} {{customerData.firstName}} {{customerData.lastName}}</mat-card-title>
         <mat-card-subtitle>{{customerData.email}}</mat-card-subtitle>
 
@@ -37,6 +37,7 @@
 
     </mat-card>  </div>
 </div>
+
 <div class="row box" >
   <h2 class="col-2">
     Customer Small Card representation:
@@ -44,7 +45,6 @@
   <div class="col-10 center-box">
     <app-customer-card-small [customerData]="customerCardData"></app-customer-card-small>
   </div>
-
 </div>
 
 <div class="row box" >
@@ -54,16 +54,12 @@
   <div class="col-10 center-box">
     <app-customer-card [customerData]="customerCardData"></app-customer-card>
   </div>
-
-
-
 </div>
-<div class="row box" >
+
+<div class="row box" *ngIf="customerData" >
   <h2 class="col-2">
 Affiliation and Tax Data  </h2>
   <div class="col-10 center-box">
-
-
     <mat-card>
       <mat-card-header>
         <mat-card-title>Affiliation</mat-card-title>
@@ -76,7 +72,4 @@ Affiliation and Tax Data  </h2>
         Tax number: {{customerData.invoiceData.taxIdentificationNumber}}
       </mat-card-content>
     </mat-card>  </div>
-
-
-
 </div>

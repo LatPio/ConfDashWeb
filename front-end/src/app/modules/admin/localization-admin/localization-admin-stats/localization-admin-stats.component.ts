@@ -9,7 +9,7 @@ import {LocalizationService} from "../../../../core/service/localization/localiz
 })
 export class LocalizationAdminStatsComponent implements OnInit{
 
-  localizationStats!: StatsLocalizationResponseModel;
+  localizationStats: StatsLocalizationResponseModel = new StatsLocalizationResponseModel();
 
   constructor(
     private localizationService: LocalizationService,

@@ -1,10 +1,13 @@
-<mat-card class="card">
+<mat-card class="card" *ngIf="customerData">
 
 
   <mat-card-content>
     <div class="center-box">
-      <img *ngIf="customerData.photo" class="profile-photo" src="data:image/jpg;base64,{{customerData.photo.data}}"  >
-      <img *ngIf="customerData.photo === null" class="profile-photo-default" src="assets/face.svg"  >
+      <img *ngIf="customerData.photo; else elseBlock" class="profile-photo"
+           src="data:image/jpg;base64,{{customerData.photo.data}}">
+      <ng-template #elseBlock>
+        <img class="profile-photo-default" src="assets/face.svg">
+      </ng-template>
     </div>
 
 

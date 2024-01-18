@@ -11,8 +11,8 @@ import {AbstractsService} from "../../../core/service/abstracts/abstracts.servic
 })
 export class AbstractSheetViewComponent implements OnInit, AfterViewInit{
 
-  @Input() abstract!: AbstractDTOModel;
-  @Input() abstractID! : number;
+  @Input() abstract: AbstractDTOModel;
+  @Input() abstractID : number;
   filesEmpty: boolean = false;
   graphicalAbstract: any = null;
   image: any = null;
@@ -29,14 +29,14 @@ export class AbstractSheetViewComponent implements OnInit, AfterViewInit{
 
   ngAfterViewInit(): void {
     this.getFirstGraphicalAbstract()
-
   }
-
-
   getAbstract(){
-    this.abstractService.getAbstractUser(this.abstractID).subscribe(value => {
-      this.abstract = value
-    })
+    if(this.abstract === null){
+      this.abstractService.getAbstractUser(this.abstractID).subscribe(value => {
+        this.abstract = value
+      })
+    }
+
   }
   getFirstGraphicalAbstract(){
     let firstGraphAbstract: AttachmentFileDTOModel = this.abstract.files.filter(value => value.fileRole === FileRole.GRAPHICAL_ABSTRACT)[0];

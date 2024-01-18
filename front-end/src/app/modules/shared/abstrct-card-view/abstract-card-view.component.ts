@@ -29,8 +29,6 @@ export class AbstractCardViewComponent implements OnInit,AfterViewInit{
     private fileService:AbstractsAttachmentFileService) {
   }
   ngOnInit(): void {
-    this.getAbstract()
-    this.getUSerPhoto()
   }
 
   getAbstract(){
@@ -39,24 +37,29 @@ export class AbstractCardViewComponent implements OnInit,AfterViewInit{
     }else if(this.role === "admin"){
       this.getAbstractAdmin()
     }
+
   }
   getAbstractAdmin(){
-    this.abstractService.getAbstractAdmin(this.abstractID).subscribe(value => {
-      this.abstract = value
-    })
+    if(this.abstract === null){
+      this.abstractService.getAbstractAdmin(this.abstractID).subscribe(value => {
+        this.abstract = value
+      })
+    }
   }
 
   getAbstractUser(){
-    this.abstractService.getAbstractAccepted(this.abstractID).subscribe(value => {
-      this.abstract = value
-    })
+    if(this.abstract === null) {
+      this.abstractService.getAbstractAccepted(this.abstractID).subscribe(value => {
+        this.abstract = value
+      })
+    }
   }
-
-
 
   getUSerPhoto(){
     this.customerService.getCustomersUserCard(this.abstract.ownerId).subscribe(value => {
-      this.image = value.photo.data
+      if(value.photo != null){
+        this.image = value.photo.data
+      }
     })
   }
 
@@ -87,6 +90,8 @@ export class AbstractCardViewComponent implements OnInit,AfterViewInit{
   }
 
   ngAfterViewInit(): void {
+    this.getAbstract()
+
     this.getFirstGraphicalAbstract()
     this.getUSerPhoto()
 

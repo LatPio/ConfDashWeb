@@ -16,8 +16,9 @@ import {CustomersService} from "../../../../core/service/customers/customers.ser
 export class AbstractAdminGetComponent implements OnInit{
 
   abstractID: number;
-  abstractData!: AbstractDTOModel;
+  abstractData: AbstractDTOModel;
   customerCard: CustomerCardDTOModel;
+  filesExist: boolean = false;
 
   constructor(
     private abstractService: AbstractsService,
@@ -38,18 +39,24 @@ export class AbstractAdminGetComponent implements OnInit{
   getAbstract(){
     this.abstractService.getAbstractAdmin(this.abstractID).subscribe(value => {
       this.abstractData = value;
+      this.filesExist
+
+      this.getCustomer(value.ownerId);
     });
-    this.getCustomer();
+
 
   }
-  getCustomer(){
-    this.customerService.getCustomersUser(this.abstractData.ownerId).subscribe(
-      value => { this.customerCard = value
+  getCustomer(ownerId :number){
+    this.customerService.getCustomerAdmin(ownerId).subscribe(
+      value => {
+        this.customerCard = value
       }
     );
   }
 
-
+  tryFiles(){
+    this.filesExist = this.abstractData.files.length > 0;
+  }
   refreshData(){
     this.getAbstract()
     window.location.reload();

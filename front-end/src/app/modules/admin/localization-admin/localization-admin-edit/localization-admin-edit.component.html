@@ -11,16 +11,16 @@
     </app-map-image-simple-list>
   </div>
   <div class="col-8">
-    <div>
+    <div >
 
       <div class="col fill-img">
-        <div class="item">
+        <div class="item" *ngIf="localizationData">
           <span class="notify-badge"
                 [style.top.%]="Number(inputCoordinateY.value) -4.8"
                 [style.left.%]="Number(inputCoordinateX.value) -1.2">
           <mat-icon class="pin-style">pin_drop</mat-icon>
-          </span>
-          <img class="map-image" src="data:image/jpg;base64,{{selectedMApImage.data}}"  alt="{{localizationData.mapImage.name}}: {{localizationData.mapImage.fileName}}" >
+          </span >
+          <img *ngIf="selectedMApImage" class="map-image" src="data:image/jpg;base64,{{selectedMApImage.data}}"  alt="{{localizationData.mapImage.name}}: {{localizationData.mapImage.fileName}}" >
         </div>
       </div>
 

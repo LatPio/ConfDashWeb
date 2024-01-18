@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {CommonModule, NgOptimizedImage} from '@angular/common';
 import {DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatButtonModule} from "@angular/material/button";
@@ -47,6 +47,7 @@ import {CustomerCardSmallComponent} from "./customer-card-small/customer-card-sm
         MatIconModule,
         MatCardModule,
         MatSnackBarModule,
+        NgOptimizedImage,
 
     ]
 })

@@ -10,14 +10,9 @@
         <div *ngIf="figure.fileRole === FileRole.GRAPHICAL_ABSTRACT" style="text-align: center">
           <img src="data:image/jpg;base64,{{figure.data}}"  alt="{{figure.fileRole}}: {{figure.name}}">
           <img src="data:image/jpg;base64,{{figure.smallData}}"  alt="{{figure.fileRole}}: {{figure.name}}">
-
         </div>
-
         <div *ngIf="figure.fileRole === FileRole.FILE_ABSTRACT" style="text-align: center">
           <mat-icon class="icon-display" >picture_as_pdf</mat-icon>
-
-
-
         </div>
       </div>
 
@@ -50,11 +45,15 @@
         <h4>Role: {{figure.fileRole}}</h4>
         <h4>File Type:{{figure.type}}</h4>
         <div style="text-align: center">
-          <h2>Full Image:</h2>
-          <img src="data:image/jpg;base64,{{figure.data}}"  alt="{{figure.fileRole}}: {{figure.name}}">
-          <h2>Compressed Image:</h2>
-          <img src="data:image/jpg;base64,{{figure.smallData}}"  alt="{{figure.fileRole}}: {{figure.name}}">
-
+          <div *ngIf="figure.fileRole === FileRole.GRAPHICAL_ABSTRACT" style="text-align: center">
+            <h2>Full Image:</h2>
+              <img src="data:image/jpg;base64,{{figure.data}}"  alt="{{figure.fileRole}}: {{figure.name}}">
+            <h2>Compressed Image:</h2>
+              <img src="data:image/jpg;base64,{{figure.smallData}}"  alt="{{figure.fileRole}}: {{figure.name}}">
+          </div>
+          <div *ngIf="figure.fileRole === FileRole.FILE_ABSTRACT" style="text-align: center">
+            <mat-icon class="icon-display" >picture_as_pdf</mat-icon>
+          </div>
         </div>
       </div>
 

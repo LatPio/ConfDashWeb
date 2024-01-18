@@ -10,7 +10,7 @@ import {AbstractDTOModel} from "../../../../core/service/abstracts/models/Abstra
 })
 export class UserAbstractEditFileComponent {
   abstractID: number;
-  abstractData: AbstractDTOModel
+  abstractData: AbstractDTOModel = new AbstractDTOModel();
 
   constructor(
     private abstractService: AbstractsService,

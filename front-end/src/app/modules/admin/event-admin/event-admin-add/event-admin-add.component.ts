@@ -46,14 +46,14 @@ export class EventAdminAddComponent implements OnInit{
     private route: ActivatedRoute
 
   ) {
-    this.abstractID = this.route.snapshot.params['abstractID']
+    // this.abstractID = this.route.snapshot.params['abstractID']
   }
 
   ngOnInit(): void {
     this.getLocalizationLightList();
     this.getEventTypeLightList();
     this.getAbstractTypeLightList();
-    this.getAbstract();
+    // this.getAbstract();
     this.eventFrom = this.formBuilder.group(
       {
         name: ['', {validators:[Validators.required]}],

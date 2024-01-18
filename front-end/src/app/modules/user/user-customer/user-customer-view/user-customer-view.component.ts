@@ -10,7 +10,7 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class UserCustomerViewComponent implements OnInit {
 
-  userInfo: CustomerCardDTOModel
+  userInfo: CustomerCardDTOModel = new CustomerCardDTOModel();
   userID: number;
   constructor(
     private customerService: CustomersService,

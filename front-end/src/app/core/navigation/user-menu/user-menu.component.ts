@@ -11,7 +11,7 @@ import {CustomerAdminDTOModel} from "../../service/customers/models/CustomerAdmi
 })
 export class UserMenuComponent implements OnInit{
 
-  personalInfo: CustomerAdminDTOModel;
+  personalInfo: CustomerAdminDTOModel = new CustomerAdminDTOModel();
 
   ngOnInit(): void {
     this.dialogRef.updateSize('500px','350px')

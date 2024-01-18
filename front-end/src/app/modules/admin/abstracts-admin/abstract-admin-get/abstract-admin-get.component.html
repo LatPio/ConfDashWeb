@@ -1,5 +1,5 @@
 <div class="box">
-  <button mat-raised-button [routerLink]="['/admin/abstracts/update/', abstractData.id ]">
+  <button mat-raised-button [routerLink]="['/admin/abstracts/update/', abstractID ]">
     <mat-icon>edit_square</mat-icon> Edit
   </button>
   <app-abstract-attachment-file-add-button [abstract]="abstractData" (event)="refreshData()"></app-abstract-attachment-file-add-button>
@@ -9,12 +9,12 @@
   <h2 class="col-2">
     Abstract Representation:
   </h2>
-  <div class="col-10 center-box">
-    <app-abstract-card-view [abstract]="abstractData"></app-abstract-card-view>
+  <div *ngIf="abstractData"  class="col-10 center-box">
+    <app-abstract-card-view [abstract]="abstractData" [showButtons]="false" [role]="'admin'"></app-abstract-card-view>
   </div>
 </div>
 
-<div class="row box" >
+<div *ngIf="abstractData" class="row box" >
   <h2 class="col-2">
     Abstract Text Information:
   </h2>
@@ -22,14 +22,18 @@
     <app-abstract-sheet-view [abstract]="abstractData"></app-abstract-sheet-view>
   </div>
 </div>
+
 <div class="row box" >
   <h2 class="col-2">
     Abstract Attached Files:
   </h2>
   <div class="col-10 flex-box " >
-      <div class="box flex-box " *ngFor="let file of abstractData.files">
-        <app-abstract-file-view [access]="'admin'" [figure]="file" (refreshEvent)="getAbstract()"></app-abstract-file-view>
+      <div *ngIf="filesExist">
+        <div class="box flex-box " *ngFor="let file of abstractData.files">
+          <app-abstract-file-view [access]="'admin'" [figure]="file" (refreshEvent)="getAbstract()"></app-abstract-file-view>
+        </div>
       </div>
+
 
   </div>
 </div>
@@ -38,12 +42,12 @@
   <h2 class="col-2">
     Other Information:
   </h2>
-  <div class="col-10 ">
+  <div class="col-10 " *ngIf="abstractData != null">
     <h3> <b>ID of Abstract:</b>   {{abstractData.id}}</h3>
     <h3> <b>AuthID of Abstract Owner :</b> {{abstractData.authId}}</h3>
 
     <h3><b>OwnerId:</b> {{abstractData.ownerId}}</h3>
-    <app-customer-card [access]="'admin'" [customerId]="abstractData.ownerId"></app-customer-card>
+    <app-customer-card [access]="'admin'" [customerData]="customerCard"></app-customer-card>
 
     <h3><b>Accepted:</b>  {{abstractData.accepted}}</h3>
 

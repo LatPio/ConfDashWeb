@@ -9,7 +9,7 @@ import {EventStatisticModel} from "../../../../core/service/event/models/EventSt
 })
 export class EventAdminStatsComponent implements OnInit{
 
-  eventStatistic!: EventStatisticModel;
+  eventStatistic: EventStatisticModel = new EventStatisticModel();
 
   constructor(
     private eventEntityService: EventEntityService
