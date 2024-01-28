@@ -118,12 +118,7 @@
             <version>4.0.1</version>
             <scope>test</scope>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>com.squareup.okhttp3</groupId>-->
-<!--            <artifactId>mockwebserver</artifactId>-->
-<!--            <version>4.0.1</version>-->
-<!--            <scope>test</scope>-->
-<!--        </dependency>-->
+
 
 
     </dependencies>
@@ -135,6 +130,8 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
+                    <skip>false</skip>
+
                     <mainClass>com.flystonedev.event.EventApplication</mainClass>
                     <layout>JAR</layout>
                 </configuration>

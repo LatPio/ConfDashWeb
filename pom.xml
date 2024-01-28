@@ -12,14 +12,14 @@
   <name>confdashweb</name>
   <url>http://www.flystonedev.com</url>
   <modules>
-    <module>customer-service</module>
+    <module>api-gateway</module>
+    <module>discovery-server</module>
     <module>abstracts-service</module>
+    <module>customer-service</module>
     <module>localization-service</module>
     <module>event-service</module>
-    <module>site_management-service</module>
-    <module>discovery-server</module>
-    <module>api-gateway</module>
     <module>basket-service</module>
+    <module>site_management-service</module>
   </modules>
 
   <properties>
@@ -137,9 +137,13 @@
           <groupId>org.springframework.boot</groupId>
           <artifactId>spring-boot-maven-plugin</artifactId>
           <version>3.0.6</version>
+          <configuration>
+            <skip>true</skip>
+          </configuration>
         </plugin>
       </plugins>
     </pluginManagement>
+
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -159,8 +163,6 @@
               <artifactId>mapstruct-processor</artifactId>
               <version>${org.mapstruct.version}</version>
             </path>
-
-            <!-- other annotation processors -->
           </annotationProcessorPaths>
         </configuration>
       </plugin>

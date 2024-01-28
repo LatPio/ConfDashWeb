@@ -4,7 +4,6 @@ import com.flystonedev.customer.SampleData;
 import com.flystonedev.customer.config.KeycloakTestContainers;
 import com.flystonedev.customer.repository.CustomerRepository;
 import io.restassured.response.Response;
-import org.junit.Ignore;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -16,19 +15,18 @@ class CustomerAdminAndUserControllerTest extends KeycloakTestContainers implemen
     @Autowired
     private CustomerRepository customerRepository;
 
-
     @Test
     @Order(1)
     void createNewUser(){
+        customerRepository.deleteAll();
         String requestBody = "{\n" +
                 "  \"firstName\": \"Joanne\",\n" +
                 "  \"lastName\": \"Dark\",\n" +
-                "  \"email\": \"joannedark@email.com\",\n" +
+                "  \"email\": \"joannedark@email1.com\",\n" +
                 "  \"password\": \"pass\" \n}";
 
         Response response = given()
                 .header("Content-type", "application/json")
-                .header("Authorization", getAccessToken("admin@email.com", "password"))
                 .and()
                 .body(requestBody)
                 .when()
@@ -38,7 +36,6 @@ class CustomerAdminAndUserControllerTest extends KeycloakTestContainers implemen
                 .extract().response();
 
         Assertions.assertEquals(200, response.statusCode());
-//        Assertions.assertEquals("+44123456789", response.jsonPath().getString("phoneNumber"));
 
     }
 

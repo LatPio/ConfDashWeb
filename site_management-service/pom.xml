@@ -115,6 +115,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
+                    <skip>false</skip>
                     <mainClass>com.flystonedev.site.SiteApplication</mainClass>
                     <layout>JAR</layout>
                 </configuration>

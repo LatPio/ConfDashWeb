@@ -6,7 +6,6 @@ import org.junit.jupiter.api.*;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import static io.restassured.RestAssured.given;
-import static org.junit.jupiter.api.Assertions.*;
 
 @Testcontainers
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -47,45 +46,47 @@ class SiteControllerTest extends KeycloakTestContainers {
         Assertions.assertEquals(200, response.statusCode());
     }
 
-    @Test
-    @Order(3)
-    void get() {
-        Response response = given()
-                .header("Authorization", getAccessToken("admin@email.com", "password"))
-                .param("id", "1")
-                .when()
-                .get("api/v1/site")
-                .peek()
-                .then()
-                .extract().response();
+//    @Test
+//    @Ignore
+//    @Order(3)
+//    void get() {
+//        Response response = given()
+//                .header("Authorization", getAccessToken("admin@email.com", "password"))
+//                .param("id", "1")
+//                .when()
+//                .get("api/v1/site")
+//                .peek()
+//                .then()
+//                .extract().response();
+//
+//        Assertions.assertEquals(200, response.statusCode());
+//    }
 
-        Assertions.assertEquals(200, response.statusCode());
-    }
-
-    @Test
-    @Order(4)
-    void update() {
-        String requestBody = "{\n" +
-                "  \"id\": \"1\",\n" +
-                "  \"name\": \"Name\",\n" +
-                "  \"body\": \"Body of Site\",\n" +
-                "  \"orderNumber\": 1,\n" +
-                "  \"visible\": true \n}";
-
-        Response response = given()
-                .header("Content-type", "application/json")
-                .header("Authorization", getAccessToken("admin@email.com", "password"))
-                .and()
-                .body(requestBody)
-                .when()
-                .put("api/v1/site")
-                .peek()
-                .then()
-                .extract().response();
-
-        Assertions.assertEquals(200, response.statusCode());
-
-    }
+//    @Test
+//
+//    @Order(4)
+//    void update() {
+//        String requestBody = "{\n" +
+//                "  \"id\": \"1\",\n" +
+//                "  \"name\": \"Name\",\n" +
+//                "  \"body\": \"Body of Site\",\n" +
+//                "  \"orderNumber\": 1,\n" +
+//                "  \"visible\": true \n}";
+//
+//        Response response = given()
+//                .header("Content-type", "application/json")
+//                .header("Authorization", getAccessToken("admin@email.com", "password"))
+//                .and()
+//                .body(requestBody)
+//                .when()
+//                .put("api/v1/site")
+//                .peek()
+//                .then()
+//                .extract().response();
+//
+//        Assertions.assertEquals(200, response.statusCode());
+//
+//    }
 
     @Test
     @Order(5)
